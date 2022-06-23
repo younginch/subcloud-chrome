@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Subcloud",
+  "name": "SubCloud",
   "description": "A chrome extension boilerplate built with React 17, Webpack 5, and Webpack Dev Server 4",
   "options_page": "options.html",
   "background": { "service_worker": "background.bundle.js" },
@@ -13,7 +13,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["http://blank.org/*", "https://blank.org/*"],
+      "matches": ["https://blank.org/*"],
       "js": ["contentScript.bundle.js"],
       "css": ["content.styles.css"],
       "run_at": "document_end"
@@ -28,7 +28,7 @@
         "icon-34.png",
         "logo.svg"
       ],
-      "matches": ["http://blank.org/*", "https://blank.org/*"]
+      "matches": ["https://blank.org/*"]
     }
   ]
 }
