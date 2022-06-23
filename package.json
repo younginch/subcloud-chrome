@@ -8,11 +8,14 @@
     "url": "https://github.com/lxieyang/chrome-extension-boilerplate-react.git"
   },
   "scripts": {
+    "prepare": "husky install",
     "build": "node utils/build.js",
     "start": "node utils/webserver.js",
     "test": "jest",
     "coverage": "jest --coverage",
-    "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'"
+    "prettier": "prettier --write '**/*.{js,jsx,ts,tsx,json,css,scss,md}'",
+    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint ./src --fix --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "@hot-loader/react-dom": "^17.0.2",
@@ -43,20 +46,32 @@
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
     "@types/webpack-env": "^1.17.0",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
     "eslint": "^8.18.0",
-    "eslint-config-react-app": "^7.0.1",
-    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jest": "^26.5.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.30.0",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^8.0.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^28.1.1",
     "jest-chrome": "^0.7.2",
     "jest-environment-jsdom": "^28.1.1",
+    "lint-staged": "^13.0.2",
     "prettier": "^2.7.1",
     "typescript": "^4.7.4",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^4.9.2"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --cache --fix",
+      "prettier --write"
+    ]
   }
 }

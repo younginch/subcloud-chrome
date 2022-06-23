@@ -3,7 +3,7 @@ import logo from '../../assets/runtime/logo.svg';
 import './Newtab.css';
 import './Newtab.scss';
 
-const Newtab = () => {
+function Newtab() {
   return (
     <div className="App">
       <header className="App-header">
@@ -27,6 +27,6 @@ const Newtab = () => {
       </header>
     </div>
   );
-};
+}
 
 export default Newtab;

@@ -1,9 +1,8 @@
 import React from 'react';
 import logo from '../../assets/runtime/logo.svg';
-import Greetings from '../../containers/Greetings/Greetings';
 import './Popup.css';
 
-const Popup = () => {
+function Popup() {
   return (
     <div className="App">
       <header className="App-header">
@@ -22,6 +21,6 @@ const Popup = () => {
       </header>
     </div>
   );
-};
+}
 
 export default Popup;

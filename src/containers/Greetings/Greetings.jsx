@@ -1,19 +1,13 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import icon from '../../assets/icon-128.png';
 
-class GreetingComponent extends Component {
-  state = {
-    name: 'dev',
-  };
+export default function GreetingComponent() {
+  const [name] = useState('dev');
 
-  render() {
-    return (
-      <div>
-        <p>Hello, {this.state.name}!</p>
-        <img src={icon} alt="extension icon" />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <p>Hello, {name}!</p>
+      <img src={icon} alt="extension icon" />
+    </div>
+  );
 }
-
-export default GreetingComponent;

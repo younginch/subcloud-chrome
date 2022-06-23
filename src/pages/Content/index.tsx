@@ -4,7 +4,7 @@ import App from './App';
 
 console.log('Content script works!');
 
-window.onload = function () {
+window.onload = () => {
   const body = document.querySelector('body');
   const container = document.createElement('div');
   container.id = 'react-container';
