@@ -18,31 +18,27 @@ jobs:
           node-version: 16
           # cache: npm
       - name: Install npm dependencies
-        run: npm ci
+        run: npm ci --omit=dev --legacy-peer-deps
       - name: Build
         run: npm run build
   
-  # test:
-  #   name: Test
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Setup Node
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: 16
-  #         cache: npm
-  #     - name: Install npm dependencies
-  #       run: npm ci --legacy-peer-deps    
-  #     - name: Code Climate Coverage Action
-  #       uses: paambaati/codeclimate-action@v3.0.0
-  #       env:
-  #         CC_TEST_REPORTER_ID: 211ff375f223976be2b176db61fa2bc5888bd613213b15dcb5793674921f2d66
-  #       with:
-  #         coverageCommand: npm run coverage
-  #         coverageLocations: |
-  #           ${{github.workspace}}/coverage/lcov.info:lcov
-  #     - uses: codecov/codecov-action@v2
-  #       with:
-  #         token: ${{ secrets.CODECOV_TOKEN }}
-  #         fail_ci_if_error: false
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+      - name: Install npm dependencies
+        run: npm ci --legacy-peer-deps    
+      - name: Code Climate Coverage Action
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: 332c5c743e52dc478805bcf0bd3d3bb36d861eca3790a806a7d3a10888071c97
+        with:
+          coverageCommand: npm run coverage
+          coverageLocations: |
+            ${{github.workspace}}/coverage/lcov.info:lcov
