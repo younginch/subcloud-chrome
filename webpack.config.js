@@ -88,7 +88,21 @@ var options = {
         loader: 'html-loader',
         exclude: /node_modules/,
       },
-      { test: /\.(ts|tsx)$/, loader: 'ts-loader', exclude: /node_modules/ },
+      {
+        test: /\.(ts|tsx)$/,
+        use: {
+          loader: 'swc-loader',
+          options: {
+            jsc: {
+              parser: {
+                syntax: 'typescript',
+                jsx: true,
+              },
+            },
+          },
+        },
+        exclude: /node_modules/,
+      },
       {
         test: /\.(js|jsx)$/,
         use: [
@@ -96,7 +110,15 @@ var options = {
             loader: 'source-map-loader',
           },
           {
-            loader: 'babel-loader',
+            loader: 'swc-loader',
+            options: {
+              parseMap: env.NODE_ENV === 'development',
+              jsc: {
+                parser: {
+                  jsx: true,
+                },
+              },
+            },
           },
         ],
         exclude: /node_modules/,
