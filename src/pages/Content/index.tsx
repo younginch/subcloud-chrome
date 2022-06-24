@@ -1,4 +1,3 @@
-import { ChakraProvider } from '@chakra-ui/react';
 import React from 'react';
 import { render } from 'react-dom';
 import Controllar from './components/Controllar';
@@ -28,10 +27,5 @@ window.onload = () => {
     }
   }, 100);
 
-  render(
-    <ChakraProvider>
-      <Modal />
-    </ChakraProvider>,
-    document.querySelector('#react-container')
-  );
+  render(<Modal />, document.querySelector('#react-container'));
 };
