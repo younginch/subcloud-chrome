@@ -1,9 +1,7 @@
 import React from 'react';
-import logo from '../../assets/runtime/logo.svg';
-import './Newtab.css';
-import './Newtab.scss';
+import './app.css';
 
-export default function Newtab() {
+function App() {
   return (
     <div className="App">
       <header className="App-header">
@@ -13,7 +11,7 @@ export default function Newtab() {
           alt="logo"
         />
         <p>
-          Edit <code>src/pages/Newtab/Newtab.js</code> and save to reload.
+          Edit <code>src/pages/Content/Content.tsx</code> and save to reload.
         </p>
         <a
           className="App-link"
@@ -28,3 +26,5 @@ export default function Newtab() {
     </div>
   );
 }
+
+export default App;

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import Newtab from './Newtab';
+import Newtab from './newtab';
 import './index.css';
 
 const body = document.querySelector('#app-container');

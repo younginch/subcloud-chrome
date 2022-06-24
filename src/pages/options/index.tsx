@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import Options from './Options';
+import Options from './options';
 import './index.css';
 
 render(
