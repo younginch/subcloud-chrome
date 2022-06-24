@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../../assets/runtime/logo.svg';
-import './Popup.css';
+import './popup.css';
 
 function Popup() {
   return (
@@ -8,7 +8,7 @@ function Popup() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/pages/Popup/Popup.jsx</code> and save to reload.
+          Edit <code>src/pages/Popup/Popup.tsx</code> and save to reload.
         </p>
         <a
           className="App-link"

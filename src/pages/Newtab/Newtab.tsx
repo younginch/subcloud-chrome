@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from '../../assets/runtime/logo.svg';
-import './Newtab.css';
-import './Newtab.scss';
+import './newtab.css';
+import './newtab.scss';
 
 export default function Newtab() {
   return (

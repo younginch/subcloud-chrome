@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import icon from '../../assets/icon-128.png';
+import icon from '../assets/icon-128.png';
 
 export default function GreetingComponent() {
   const [name] = useState('dev');
