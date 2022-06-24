@@ -1,5 +1,5 @@
 import React from 'react';
-import './panel.css';
+import './Panel.css';
 
 export default function Panel() {
   return (

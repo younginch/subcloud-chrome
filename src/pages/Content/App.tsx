@@ -1,14 +1,18 @@
 import React from 'react';
-import logo from '../../assets/runtime/logo.svg';
-import './popup.css';
+import './App.css';
+import './App.scss';
 
-function Popup() {
+function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <img
+          src={chrome.runtime.getURL('logo.svg')}
+          className="App-logo"
+          alt="logo"
+        />
         <p>
-          Edit <code>src/pages/Popup/Popup.tsx</code> and save to reload.
+          Edit <code>src/pages/Content/Content.tsx</code> and save to reload.
         </p>
         <a
           className="App-link"
@@ -18,9 +22,10 @@ function Popup() {
         >
           Learn React!
         </a>
+        <h6>The color of this paragraph is defined using SASS.</h6>
       </header>
     </div>
   );
 }
 
-export default Popup;
+export default App;
