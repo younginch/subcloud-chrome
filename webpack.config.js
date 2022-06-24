@@ -5,13 +5,10 @@ var webpack = require('webpack'),
   CopyWebpackPlugin = require('copy-webpack-plugin'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   TerserPlugin = require('terser-webpack-plugin');
+ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 var { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const ASSET_PATH = process.env.ASSET_PATH || '/';
-
-var alias = {
-  'react-dom': '@hot-loader/react-dom',
-};
 
 // load the secrets
 var secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js');
@@ -126,12 +123,12 @@ var options = {
     ],
   },
   resolve: {
-    alias: alias,
     extensions: fileExtensions
       .map((extension) => '.' + extension)
       .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
   },
   plugins: [
+    new ReactRefreshWebpackPlugin(),
     new CleanWebpackPlugin({ verbose: false }),
     new webpack.ProgressPlugin(),
     // expose and write the allowed env vars on the compiled bundle
