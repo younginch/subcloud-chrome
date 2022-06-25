@@ -19,3 +19,7 @@ yt-icon#logo-icon {
 .modal.fade.show {
   background: rgba(0,0,0,.5);
 }
+
+.chakra-popover__popper {
+  z-index: 301 !important;
+}
