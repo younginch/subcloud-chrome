@@ -1,4 +1,4 @@
-import { Box, Image, Badge } from '@chakra-ui/react';
+import { Box, Image, Badge, Button } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 
 export default function App() {
@@ -14,7 +14,13 @@ export default function App() {
     rating: 4,
   };
   return (
-    <Box borderWidth="1px" borderRadius="lg" overflow="hidden" maxW="500px">
+    <Box
+      borderWidth="1px"
+      borderRadius="lg"
+      overflow="hidden"
+      maxW="100%"
+      maxH="100%"
+    >
       <Image src={property.imageUrl} alt={property.imageAlt} />
 
       <Box p="6">
@@ -63,6 +69,7 @@ export default function App() {
           <Box as="span" ml="2" color="gray.600" fontSize="sm">
             {property.reviewCount} reviews
           </Box>
+          <Button colorScheme="blue">Button</Button>
         </Box>
       </Box>
     </Box>

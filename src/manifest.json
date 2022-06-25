@@ -14,8 +14,8 @@
   "content_scripts": [
     {
       "matches": ["*://www.youtube.com/*"],
-      "js": ["contentScript.bundle.js", "lib/bootstrap/bootstrap.js"],
-      "css": ["content.styles.css", "lib/bootstrap/bootstrap.css"],
+      "js": ["contentScript.bundle.js"],
+      "css": ["content.styles.css"],
       "run_at": "document_end"
     }
   ],

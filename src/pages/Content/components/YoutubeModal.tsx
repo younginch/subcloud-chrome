@@ -1,6 +1,6 @@
-import App from '../App';
+import Layout from './layout';
 
-export default function Modal() {
+export default function YoutubeModal() {
   return (
     <div
       className="modal fade"
@@ -12,7 +12,7 @@ export default function Modal() {
     >
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content" style={{ width: 'fit-content' }}>
-          <App />
+          <Layout />
         </div>
       </div>
     </div>
