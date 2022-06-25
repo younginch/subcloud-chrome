@@ -1,7 +1,6 @@
-import React from 'react';
-import './controllar.css';
+import './controller.css';
 
-export default function Coltrollar() {
+export default function Controller() {
   return (
     <div className="mainContainer">
       <div className="d-flex justify-content-end mb-4">

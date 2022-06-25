@@ -8,7 +8,8 @@ const config = {
         jsc: {
           target: 'es2021',
           parser: {
-            jsx: true,
+            syntax: 'typescript',
+            tsx: true,
           },
           transform: {
             react: {
@@ -30,6 +31,7 @@ const config = {
     'src/**/*.{js,jsx,ts,tsx}',
     '!**/node_modules/**',
     '!**/*.d.ts',
+    '!**/runtime/**',
   ],
 };
 
