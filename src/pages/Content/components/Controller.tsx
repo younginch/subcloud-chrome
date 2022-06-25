@@ -1,27 +1,38 @@
 import {
   Button,
-  Modal,
-  ModalContent,
-  ModalOverlay,
-  useDisclosure,
+  ButtonGroup,
+  Popover,
+  PopoverArrow,
+  PopoverBody,
+  PopoverCloseButton,
+  PopoverContent,
+  PopoverFooter,
+  PopoverHeader,
+  PopoverTrigger,
 } from '@chakra-ui/react';
 import './controller.css';
 import Layout from './layout';
 
 export default function Controller() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
-    <>
-      <div className="mainContainer">
-        <Button onClick={onOpen}>Open Modal</Button>
-      </div>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
+    <Popover variant="responsive">
+      <PopoverTrigger>
+        <Button colorScheme="pink">Popover Target</Button>
+      </PopoverTrigger>
+      <PopoverContent>
+        <PopoverHeader fontWeight="semibold">Confirmation</PopoverHeader>
+        <PopoverArrow />
+        <PopoverCloseButton />
+        <PopoverBody>
           <Layout />
-        </ModalContent>
-      </Modal>
-    </>
+        </PopoverBody>
+        <PopoverFooter display="flex" justifyContent="flex-end">
+          <ButtonGroup size="sm">
+            <Button variant="outline">Cancel</Button>
+            <Button colorScheme="red">Apply</Button>
+          </ButtonGroup>
+        </PopoverFooter>
+      </PopoverContent>
+    </Popover>
   );
 }

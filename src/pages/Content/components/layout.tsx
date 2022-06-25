@@ -10,7 +10,6 @@ import {
   TabPanel,
   TabPanels,
   Button,
-  ModalCloseButton,
 } from '@chakra-ui/react';
 import { GrClose } from 'react-icons/gr';
 import App from '../tabs/App';
@@ -20,8 +19,6 @@ export default function Layout() {
     <VStack>
       <HStack>
         <Heading>SubCloud</Heading>
-        <Spacer />
-        <ModalCloseButton />
       </HStack>
       <Tabs>
         <HStack>
@@ -30,7 +27,7 @@ export default function Layout() {
             <Tab>Two</Tab>
             <Tab>Three</Tab>
           </VStack>
-          <Box w="30vw" maxW="30vw" h="30vh" maxH="30vh">
+          <Box>
             <TabPanels>
               <TabPanel>
                 <App />
@@ -45,10 +42,6 @@ export default function Layout() {
           </Box>
         </HStack>
       </Tabs>
-      <HStack>
-        <Spacer />
-        <Button>닫기</Button>
-      </HStack>
     </VStack>
   );
 }
