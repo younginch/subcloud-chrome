@@ -1,7 +1,7 @@
 import logo from '../../assets/runtime/logo.svg';
 import './Popup.css';
 
-function Popup() {
+export default function Popup() {
   return (
     <div className="App">
       <header className="App-header">
@@ -21,5 +21,3 @@ function Popup() {
     </div>
   );
 }
-
-export default Popup;

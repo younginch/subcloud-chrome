@@ -1,6 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { render } from 'react-dom';
-import Controllar from './components/Controllar';
+import Controllar from './components/Controller';
 import Modal from './components/Modal';
 
 window.onload = () => {

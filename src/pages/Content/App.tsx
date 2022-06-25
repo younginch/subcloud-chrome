@@ -1,8 +1,7 @@
-import React from 'react';
 import { Box, Image, Badge } from '@chakra-ui/react';
 import { StarIcon } from '@chakra-ui/icons';
 
-function App() {
+export default function App() {
   const randomize = (index: number) => index * index;
   const property = {
     imageUrl: 'https://bit.ly/2Z4KKcF',
@@ -57,7 +56,6 @@ function App() {
             .fill('')
             .map((_, i) => (
               <StarIcon
-                // eslint-disable-next-line react/no-array-index-key
                 key={randomize(i)}
                 color={i < property.rating ? 'teal.500' : 'gray.300'}
               />
@@ -70,5 +68,3 @@ function App() {
     </Box>
   );
 }
-
-export default App;
