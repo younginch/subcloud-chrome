@@ -7,6 +7,14 @@ const config = {
       {
         jsc: {
           target: 'es2021',
+          parser: {
+            jsx: true,
+          },
+          transform: {
+            react: {
+              runtime: 'automatic',
+            },
+          },
         },
         sourceMaps: true,
       },

@@ -1,6 +1,4 @@
-import React from 'react';
 import { render } from 'react-dom';
-
 import Panel from './Panel';
 import './index.css';
 

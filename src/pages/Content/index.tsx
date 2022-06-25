@@ -1,5 +1,4 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import React from 'react';
 import { render } from 'react-dom';
 import Controllar from './components/Controllar';
 import Modal from './components/Modal';
