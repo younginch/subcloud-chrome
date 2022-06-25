@@ -95,6 +95,9 @@ var options = {
                 syntax: 'typescript',
                 jsx: true,
               },
+              transform: {
+                react: { runtime: 'automatic' },
+              },
             },
           },
         },
@@ -113,6 +116,9 @@ var options = {
               jsc: {
                 parser: {
                   jsx: true,
+                },
+                transform: {
+                  react: { runtime: 'automatic' },
                 },
               },
             },
