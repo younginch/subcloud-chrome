@@ -1,8 +1,9 @@
-import { render } from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import Popup from './Popup';
 import './index.css';
 
-render(<Popup />, window.document.querySelector('#app-container'));
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+createRoot(window.document.querySelector('#app-container')!).render(<Popup />);
 
 if (module.hot) module.hot.accept();

@@ -1,6 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import { render } from 'react-dom';
-import Controllar from './components/Controller';
+import { createRoot } from 'react-dom/client';
+import Controller from './components/Controller';
 import Modal from './components/Modal';
 
 window.onload = () => {
@@ -22,15 +22,18 @@ window.onload = () => {
       commentTitleSubCloud.id = 'subcloud-comment-title';
       commentTitleSubCloud.className = 'bootstrap';
       commentTitle?.append(commentTitleSubCloud);
-      render(<Controllar />, document.querySelector('#subcloud-comment-title'));
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      createRoot(document.querySelector('#subcloud-comment-title')!).render(
+        <Controller />
+      );
       clearInterval(loadCommentModal);
     }
   }, 100);
 
-  render(
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  createRoot(document.querySelector('#react-container')!).render(
     <ChakraProvider resetCSS={false}>
       <Modal />
-    </ChakraProvider>,
-    document.querySelector('#react-container')
+    </ChakraProvider>
   );
 };
