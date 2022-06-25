@@ -1,12 +1,21 @@
-#react-root {
-  width: 100%;
-  height: 100%;
-  position: absolute;
+#subcloud-comment-title {
+  width: fit-content;
+  margin-left: auto;
+  margin-bottom: -10px;
 }
 
-#react-container {
-  z-index: 500000;
-  width: 100%;
-  height: 100%;
-  position: relative;
+#title.ytd-comments-header-renderer {
+  align-items: flex-start !important;
+}
+
+#label.yt-dropdown-menu {
+  margin-top: 3px !important;
+}
+
+yt-icon#logo-icon {
+  box-sizing: content-box !important
+}
+
+.modal.fade.show {
+  background: rgba(0,0,0,.5);
 }
