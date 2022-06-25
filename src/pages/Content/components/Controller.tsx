@@ -15,23 +15,12 @@ import Layout from './layout';
 
 export default function Controller() {
   return (
-    <Popover variant="responsive">
+    <Popover variant="responsive" placement="top-start">
       <PopoverTrigger>
         <Button colorScheme="pink">Popover Target</Button>
       </PopoverTrigger>
-      <PopoverContent>
-        <PopoverHeader fontWeight="semibold">Confirmation</PopoverHeader>
-        <PopoverArrow />
-        <PopoverCloseButton />
-        <PopoverBody>
-          <Layout />
-        </PopoverBody>
-        <PopoverFooter display="flex" justifyContent="flex-end">
-          <ButtonGroup size="sm">
-            <Button variant="outline">Cancel</Button>
-            <Button colorScheme="red">Apply</Button>
-          </ButtonGroup>
-        </PopoverFooter>
+      <PopoverContent w="fit-content" h="fit-content">
+        <Layout />
       </PopoverContent>
     </Popover>
   );

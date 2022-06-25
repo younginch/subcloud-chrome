@@ -34,6 +34,8 @@ window.onload = () => {
               },
             },
           },
+          initialColorMode: 'dark',
+          useSystemColorMode: false,
         },
       });
 

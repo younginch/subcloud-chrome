@@ -1,46 +1,50 @@
 import {
-  Box,
-  Heading,
-  HStack,
-  Spacer,
   Tabs,
-  VStack,
   TabList,
   Tab,
   TabPanel,
   TabPanels,
-  Button,
+  Box,
+  VStack,
+  Spacer,
+  PopoverHeader,
+  HStack,
+  PopoverCloseButton,
+  Text,
+  Heading,
 } from '@chakra-ui/react';
-import { GrClose } from 'react-icons/gr';
-import App from '../tabs/App';
+import Home from '../tabs/Home';
+import ThemeToggleBtn from './themeToggleBtn';
 
 export default function Layout() {
   return (
     <VStack>
-      <HStack>
+      <HStack w="100%">
         <Heading>SubCloud</Heading>
+        <Spacer />
+        <ThemeToggleBtn />
+        <Spacer />
+        <PopoverCloseButton />
       </HStack>
-      <Tabs>
-        <HStack>
-          <VStack>
-            <Tab>One</Tab>
-            <Tab>Two</Tab>
-            <Tab>Three</Tab>
-          </VStack>
-          <Box>
-            <TabPanels>
-              <TabPanel>
-                <App />
-              </TabPanel>
-              <TabPanel>
-                <p>two!</p>
-              </TabPanel>
-              <TabPanel>
-                <p>three!</p>
-              </TabPanel>
-            </TabPanels>
-          </Box>
-        </HStack>
+      <Tabs w="fit-content" h="fit-content">
+        <TabList borderBottom="1px">
+          <Tab>One</Tab>
+          <Tab>Two</Tab>
+          <Tab>Three</Tab>
+        </TabList>
+        <Box w="30vw" maxW="30vw" h="30vw" maxH="30vw">
+          <TabPanels>
+            <TabPanel p={0}>
+              <Home />
+            </TabPanel>
+            <TabPanel p={0}>
+              <p>two!</p>
+            </TabPanel>
+            <TabPanel p={0}>
+              <p>three!</p>
+            </TabPanel>
+          </TabPanels>
+        </Box>
       </Tabs>
     </VStack>
   );
