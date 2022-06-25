@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import icon from '../../assets/icon-128.png';
 
 export default function GreetingComponent() {
