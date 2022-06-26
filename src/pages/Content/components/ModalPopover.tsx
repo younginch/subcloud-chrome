@@ -1,19 +1,13 @@
 import {
   Button,
-  ButtonGroup,
   Popover,
-  PopoverArrow,
-  PopoverBody,
-  PopoverCloseButton,
   PopoverContent,
-  PopoverFooter,
-  PopoverHeader,
   PopoverTrigger,
 } from '@chakra-ui/react';
-import './controller.css';
+import './modalPopover.css';
 import Layout from './layout';
 
-export default function Controller() {
+export default function ModalPopover() {
   return (
     <Popover variant="responsive" placement="top-start">
       <PopoverTrigger>

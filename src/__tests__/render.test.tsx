@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import Controller from '../pages/Content/components/Controller';
+import Controller from '../pages/Content/components/ModalPopover';
 import Newtab from '../pages/Newtab/Newtab';
 import Options from '../pages/Options/Options';
 import Panel from '../pages/Panel/Panel';
