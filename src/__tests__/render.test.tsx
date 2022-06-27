@@ -8,7 +8,6 @@ import * as GetTab from '../pages/Content/utils/getTab';
 import * as Fetch from '../pages/Content/utils/fetch';
 import BottomButton from '../pages/Content/components/BottomButton';
 import CSSResetCustom from '../pages/Content/cssResetCustom';
-import YoutubeModal from '../pages/Content/components/YoutubeModal';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
