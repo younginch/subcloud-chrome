@@ -13,13 +13,21 @@
 }
 
 yt-icon#logo-icon {
-  box-sizing: content-box !important
+  box-sizing: content-box !important;
 }
 
 .modal.fade.show {
-  background: rgba(0,0,0,.5);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .chakra-popover__popper {
   z-index: 301 !important;
+}
+
+.chakra-progress__track {
+  stroke: transparent !important;
+}
+
+.ytp-left-controls {
+  overflow: visible !important;
 }
