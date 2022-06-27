@@ -33,16 +33,18 @@ export default function Home() {
 
   const getVideoInfo = async () => {
     const tab = await getTab();
-    let replaceUrl = tab.url.replace('https://youtu.be/', '');
-    replaceUrl = replaceUrl.replace('https://www.youtube.com/embed/', '');
-    replaceUrl = replaceUrl.replace('https://www.youtube.com/watch?v=', '');
-    const finUrl = replaceUrl.split('&')[0];
-    setTitle(
-      $(
-        'div#container h1.title yt-formatted-string.ytd-video-primary-info-renderer'
-      ).text()
-    );
-    setThumbnail(`http://img.youtube.com/vi/${finUrl}/0.jpg`);
+    if (tab.url) {
+      let replaceUrl = tab.url.replace('https://youtu.be/', '');
+      replaceUrl = replaceUrl.replace('https://www.youtube.com/embed/', '');
+      replaceUrl = replaceUrl.replace('https://www.youtube.com/watch?v=', '');
+      const finUrl = replaceUrl.split('&')[0];
+      setTitle(
+        $(
+          'div#container h1.title yt-formatted-string.ytd-video-primary-info-renderer'
+        ).text()
+      );
+      setThumbnail(`http://img.youtube.com/vi/${finUrl}/0.jpg`);
+    }
   };
 
   const getRequestCount = async () => {
@@ -85,8 +87,8 @@ export default function Home() {
             pt="15px"
             sx={{
               overflow: 'hidden',
-              'text-overflow': 'ellipsis',
-              'white-space': 'nowrap',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
             }}
           >
             {title}

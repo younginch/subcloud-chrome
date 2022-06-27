@@ -17,9 +17,4 @@ async function postFetch(url: string, body: object) {
   return res.data;
 }
 
-async function doFetch(url: string) {
-  const res = await chrome.runtime.sendMessage({ tag: 'fetch', url });
-  return res.data;
-}
-
-export { getFetch, postFetch, doFetch };
+export { getFetch, postFetch };

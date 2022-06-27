@@ -17,11 +17,14 @@ async function requestCount(url: string) {
   const data = await getFetch(
     `request/search?serviceId=${videoData.serviceId}&videoId=${videoData.videoId}`
   );
-  // eslint-disable-next-line no-underscore-dangle
-  return data.reduce(
-    (prev: number, curr: Request) => prev + curr._count.users,
-    0
-  );
+  if (Array.isArray(data)) {
+    return data.reduce(
+      // eslint-disable-next-line no-underscore-dangle
+      (prev: number, curr: Request) => prev + curr._count.users,
+      0
+    );
+  }
+  return 0;
 }
 
 export default requestCount;
