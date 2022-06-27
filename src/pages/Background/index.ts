@@ -1,11 +1,13 @@
-const apiUrl = 'http://localhost:3000'; // 'https://subcloud.app'; //
+import MESSAGETAG from '../../../utils/type';
+
+const apiUrl = 'http://localhost:3000'; // 'https://subcloud.app';
 
 async function getTab() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   return tab;
 }
 
-async function getAPI(url) {
+async function getAPI(url: string) {
   const res = await fetch(`${apiUrl}/api/${url}`, {
     method: 'GET',
     headers: {
@@ -18,20 +20,20 @@ async function getAPI(url) {
   return data;
 }
 
-async function postAPI(url, body) {
+async function postAPI(url: string, body: object) {
   const res = await fetch(`${apiUrl}/api/${url}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     credentials: 'same-origin',
-    body,
+    body: JSON.stringify(body),
   });
   const data = await res.json();
   return data;
 }
 
-async function getFile(sendResponse, fileId) {
+async function getFile(sendResponse: (res: object) => void, fileId: string) {
   const fileObject = await getAPI(`file?id=${fileId}`);
   const rawFile = await fetch(fileObject.url);
   const blobFile = await rawFile.blob();
@@ -45,29 +47,35 @@ async function getFile(sendResponse, fileId) {
   };
 }
 
-async function uploadFile(sendResponse, fileText, fileName, url, lang) {
+async function uploadFile(
+  sendResponse: (res: object) => void,
+  fileText: string,
+  fileName: string,
+  url: string,
+  lang: string
+) {
   const file = new File([fileText], fileName);
   const formData = new FormData();
   formData.append('file', file);
-  const videoData = await postAPI('video', JSON.stringify({ url }));
+  const videoData = await postAPI('video', { url });
   const fileResponse = await fetch(`${apiUrl}/api/file/upload`, {
     method: 'POST',
     body: formData,
   });
   const fileData = await fileResponse.json();
-  const data = await postAPI(
-    'sub',
-    JSON.stringify({
-      fileId: fileData.id,
-      serviceId: videoData.serviceId,
-      videoId: videoData.videoId,
-      lang,
-    })
-  );
+  const data = await postAPI('sub', {
+    fileId: fileData.id,
+    serviceId: videoData.serviceId,
+    videoId: videoData.videoId,
+    lang,
+  });
   sendResponse({ data });
 }
 
-async function sendMessage(sendResponse, func) {
+async function sendMessage(
+  sendResponse: (res: object) => void,
+  func: () => Promise<unknown>
+) {
   const data = await func();
   sendResponse({ data });
 }
@@ -75,25 +83,29 @@ async function sendMessage(sendResponse, func) {
 chrome.cookies.get({ url: apiUrl, name: '__Secure-next-auth.session-token' });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.tag === 'get-tab') {
-    sendMessage(sendResponse, getTab);
-  } else if (message.tag === 'api') {
-    if (message.type === 'get')
+  switch (message.tag) {
+    case MESSAGETAG.TAB:
+      sendMessage(sendResponse, getTab);
+      return true;
+    case MESSAGETAG.GETAPI:
       sendMessage(sendResponse, () => getAPI(message.url));
-    else if (message.type === 'post')
-      sendMessage(sendResponse, () =>
-        postAPI(message.url, JSON.stringify(message.body))
+      return true;
+    case MESSAGETAG.POSTAPI:
+      sendMessage(sendResponse, () => postAPI(message.url, message.body));
+      return true;
+    case MESSAGETAG.GETFILE:
+      getFile(sendResponse, message.fileId);
+      return true;
+    case MESSAGETAG.UPLOADFILE:
+      uploadFile(
+        sendResponse,
+        message.fileText,
+        message.fileName,
+        message.url,
+        message.lang
       );
-  } else if (message.tag === 'getFile') {
-    getFile(sendResponse, message.fileId);
-  } else if (message.tag === 'uploadFile') {
-    uploadFile(
-      sendResponse,
-      message.fileText,
-      message.fileName,
-      message.url,
-      message.lang
-    );
+      return true;
+    default:
+      throw new Error('');
   }
-  return true;
 });
