@@ -1,7 +1,8 @@
+import MESSAGETAG from '../../../../utils/type';
+
 async function getFetch(url: string) {
   const res = await chrome.runtime.sendMessage({
-    tag: 'api',
-    type: 'get',
+    tag: MESSAGETAG.GETAPI,
     url,
   });
   return res.data;
@@ -9,8 +10,7 @@ async function getFetch(url: string) {
 
 async function postFetch(url: string, body: object) {
   const res = await chrome.runtime.sendMessage({
-    tag: 'api',
-    type: 'post',
+    tag: MESSAGETAG.POSTAPI,
     url,
     body,
   });

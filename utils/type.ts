@@ -1,0 +1,9 @@
+enum MESSAGETAG {
+  TAB,
+  GETAPI,
+  POSTAPI,
+  GETFILE,
+  UPLOADFILE,
+}
+
+export default MESSAGETAG;

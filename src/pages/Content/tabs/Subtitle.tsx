@@ -68,7 +68,7 @@ export default function Subtitle() {
   }, []);
 
   return (
-    <Flex direction="column" ml="-15px" mr="-15px" w="80px" h="80px">
+    <Flex direction="column" ml="-15px" mr="-15px" w="100%" h="100%">
       <Flex p="10px 15px 0px 10px" alignItems="center" mb="20px">
         <Text fontSize="xl" color="white">
           자막 찾기
