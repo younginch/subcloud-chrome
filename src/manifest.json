@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
   "name": "SubCloud",
+  "key": "fkmkkggkdibonlkgdnjboagmfgdoagaa",
   "description": "A chrome extension boilerplate built with React 17, Webpack 5, and Webpack Dev Server 4",
   "options_page": "options.html",
   "background": { "service_worker": "background.bundle.js" },
@@ -8,6 +9,11 @@
     "default_popup": "popup.html",
     "default_icon": "icon-34.png"
   },
+  "permissions": ["cookies", "tabs", "storage"],
+  "host_permissions": [
+    "https://subcloud.app/*",
+    "http://localhost:3000/*"
+  ],
   "icons": {
     "128": "icon-128.png"
   },

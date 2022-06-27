@@ -13,14 +13,27 @@ import {
   Text,
   Heading,
 } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import Home from '../tabs/Home';
 import Subtitle from '../tabs/Subtitle';
-import Request from '../tabs/Request';
+import Upload from '../tabs/Upload';
 import ThemeToggleBtn from './themeToggleBtn';
 import Setting from '../tabs/Setting';
 import CustomHeader from './CustomHeader';
+import { getFetch } from '../utils/fetch';
 
 export default function Layout() {
+  const [user, setUser] = useState({ name: 'fuck' });
+
+  async function getUserInfo() {
+    const data = await getFetch('auth/session');
+    setUser(data.user);
+  }
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
   return (
     <VStack>
       <CustomHeader />
@@ -28,7 +41,7 @@ export default function Layout() {
         <TabList borderBottom="1px">
           <Tab>Home</Tab>
           <Tab>Subtitle</Tab>
-          <Tab>Request</Tab>
+          <Tab>Upload</Tab>
           <Tab>Setting</Tab>
         </TabList>
         <Box w="30vw" maxW="30vw" h="30vw" maxH="30vw" overflow="hidden">
@@ -40,7 +53,7 @@ export default function Layout() {
               <Subtitle />
             </TabPanel>
             <TabPanel p={0}>
-              <Request />
+              <Upload />
             </TabPanel>
             <TabPanel p={0}>
               <Setting />

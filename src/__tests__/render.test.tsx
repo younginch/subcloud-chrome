@@ -4,9 +4,21 @@ import Newtab from '../pages/Newtab/Newtab';
 import Options from '../pages/Options/Options';
 import Panel from '../pages/Panel/Panel';
 import Popup from '../pages/Popup/Popup';
+import * as GetTab from '../pages/Content/utils/getTab';
+import * as Fetch from '../pages/Content/utils/fetch';
 
 describe('Pages and Components', () => {
+  beforeAll(() => {
+    jest.spyOn(GetTab, 'default').mockResolvedValue({});
+    jest.spyOn(Fetch, 'getFetch').mockResolvedValue({});
+    jest.spyOn(Fetch, 'postFetch').mockResolvedValue({});
+  });
+
   it('renders controller', async () => {
+    jest.spyOn(GetTab, 'default').mockResolvedValue({});
+    jest.spyOn(Fetch, 'getFetch').mockResolvedValue({});
+    jest.spyOn(Fetch, 'postFetch').mockResolvedValue({});
+
     render(<Controller />);
   });
 
