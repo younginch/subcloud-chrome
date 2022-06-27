@@ -1,4 +1,4 @@
-const apiUrl = 'http://localhost:3000'; // 'https://subcloud.app';
+const apiUrl = 'http://localhost:3000'; // 'https://subcloud.app'; //
 
 async function getTab() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -25,7 +25,7 @@ async function postAPI(url, body) {
       'Content-Type': 'application/json',
     },
     credentials: 'same-origin',
-    body: JSON.stringify(body),
+    body,
   });
   const data = await res.json();
   return data;
@@ -45,6 +45,28 @@ async function getFile(sendResponse, fileId) {
   };
 }
 
+async function uploadFile(sendResponse, fileText, fileName, url, lang) {
+  const file = new File([fileText], fileName);
+  const formData = new FormData();
+  formData.append('file', file);
+  const videoData = await postAPI('video', JSON.stringify({ url }));
+  const fileResponse = await fetch(`${apiUrl}/api/file/upload`, {
+    method: 'POST',
+    body: formData,
+  });
+  const fileData = await fileResponse.json();
+  const data = await postAPI(
+    'sub',
+    JSON.stringify({
+      fileId: fileData.id,
+      serviceId: videoData.serviceId,
+      videoId: videoData.videoId,
+      lang,
+    })
+  );
+  sendResponse({ data });
+}
+
 async function sendMessage(sendResponse, func) {
   const data = await func();
   sendResponse({ data });
@@ -59,9 +81,19 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === 'get')
       sendMessage(sendResponse, () => getAPI(message.url));
     else if (message.type === 'post')
-      sendMessage(sendResponse, () => postAPI(message.url, message.body));
+      sendMessage(sendResponse, () =>
+        postAPI(message.url, JSON.stringify(message.body))
+      );
   } else if (message.tag === 'getFile') {
     getFile(sendResponse, message.fileId);
+  } else if (message.tag === 'uploadFile') {
+    uploadFile(
+      sendResponse,
+      message.fileText,
+      message.fileName,
+      message.url,
+      message.lang
+    );
   }
   return true;
 });
