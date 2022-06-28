@@ -1,6 +1,15 @@
-import { Box, Flex, Switch } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Switch,
+} from '@chakra-ui/react';
 import { useState } from 'react';
 import { MdSubtitles } from 'react-icons/md';
+import Layout from './layout';
 import RequestButton from './RequestButton';
 
 export default function BottomButton() {
@@ -13,9 +22,23 @@ export default function BottomButton() {
         checked={onOff}
         onChange={() => setOnOff(!onOff)}
       />
-      <Box hidden={!onOff} w="25px" h="25px" ml="8px">
-        <MdSubtitles size="25px" />
-      </Box>
+      <Popover variant="responsive" placement="top-start">
+        <PopoverTrigger>
+          <Box
+            as={Button}
+            hidden={!onOff}
+            w="25px"
+            h="25px"
+            ml="8px"
+            p="0px !important"
+          >
+            <MdSubtitles size="25px" />
+          </Box>
+        </PopoverTrigger>
+        <PopoverContent w="fit-content" h="fit-content">
+          <Layout />
+        </PopoverContent>
+      </Popover>
       <RequestButton />
     </Flex>
   );
