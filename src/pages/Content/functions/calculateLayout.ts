@@ -1,14 +1,16 @@
 /*
 창의 크기를 이용해 자막의 크기, 위치를 계산한다.
 */
-export default function calculateLayout(sliderValue: number) {
+export default function calculateLayout(
+  sliderValue: number
+): [number, number] | undefined {
   const outerVideo = document.querySelector(
     '#subcloud-sub-component'
   ) as HTMLElement;
   const outerHeight = outerVideo?.offsetHeight;
 
   const innerVideos = document.querySelectorAll('.html5-main-video') as any;
-  if (innerVideos === null) return undefined;
+  if (!innerVideos) return undefined;
   let innerVideo;
 
   for (let i = 0; i < innerVideos.length; i += 1) {
@@ -17,7 +19,7 @@ export default function calculateLayout(sliderValue: number) {
     }
   }
 
-  if (innerVideo === null) return undefined;
+  if (!innerVideo) return undefined;
 
   const innerWidth = innerVideo.offsetWidth;
   const innerHeight = innerVideo.offsetHeight;

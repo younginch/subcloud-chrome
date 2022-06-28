@@ -10,6 +10,7 @@ import BottomButton from '../pages/Content/components/BottomButton';
 import CSSResetCustom from '../pages/Content/cssResetCustom';
 import SubtitleComponent from '../pages/Content/components/SubtitleComponent';
 import RequestButton from '../pages/Content/components/RequestButton';
+import calculateLayout from '../pages/Content/functions/calculateLayout';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -54,11 +55,12 @@ describe('Pages and Components', () => {
     render(<SubtitleComponent />);
   });
 
-  it('render SubtitleComponent', async () => {
-    render(<SubtitleComponent />);
-  });
-
   it('render RequestButton', async () => {
     render(<RequestButton />);
+  });
+
+  it('test calculateLayout function', () => {
+    const subtitleInfo = calculateLayout(60);
+    expect(subtitleInfo).toBe(undefined);
   });
 });
