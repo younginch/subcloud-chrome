@@ -9,7 +9,9 @@ export default function calculateLayout(
   ) as HTMLElement;
   const outerHeight = outerVideo?.offsetHeight;
 
-  const innerVideos = document.querySelectorAll('.html5-main-video') as any;
+  const innerVideos = document.querySelectorAll(
+    '.html5-main-video'
+  ) as NodeListOf<HTMLVideoElement>;
   if (!innerVideos) return undefined;
   let innerVideo;
 
