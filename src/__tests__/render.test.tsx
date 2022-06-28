@@ -11,7 +11,6 @@ import BottomButton from '../pages/Content/components/BottomButton';
 import CSSResetCustom from '../pages/Content/cssResetCustom';
 import SubtitleComponent from '../pages/Content/components/SubtitleComponent';
 import RequestButton from '../pages/Content/components/RequestButton';
-import calculateLayout from '../pages/Content/functions/calculateLayout';
 import YoutubeModal from '../pages/Content/components/YoutubeModal';
 
 describe('Pages and Components', () => {
@@ -69,14 +68,5 @@ describe('Pages and Components', () => {
         </Popover>
       </ChakraProvider>
     );
-  });
-
-  it('test calculateLayout returns undefined', () => {
-    const subtitleInfo = calculateLayout(60);
-    expect(subtitleInfo).toBe(undefined);
-  });
-
-  it('test Newtab', async () => {
-    render(<Newtab />);
   });
 });
