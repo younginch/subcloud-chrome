@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react';
+import { ChakraProvider, Popover } from '@chakra-ui/react';
 import Controller from '../pages/Content/components/ModalPopover';
 import Newtab from '../pages/Newtab/Newtab';
 import Options from '../pages/Options/Options';
@@ -11,6 +12,7 @@ import CSSResetCustom from '../pages/Content/cssResetCustom';
 import SubtitleComponent from '../pages/Content/components/SubtitleComponent';
 import RequestButton from '../pages/Content/components/RequestButton';
 import calculateLayout from '../pages/Content/functions/calculateLayout';
+import YoutubeModal from '../pages/Content/components/YoutubeModal';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -57,6 +59,16 @@ describe('Pages and Components', () => {
 
   it('render RequestButton', async () => {
     render(<RequestButton />);
+  });
+
+  it('render YoutubeModal', async () => {
+    render(
+      <ChakraProvider>
+        <Popover>
+          <YoutubeModal />
+        </Popover>
+      </ChakraProvider>
+    );
   });
 
   it('test calculateLayout function', () => {
