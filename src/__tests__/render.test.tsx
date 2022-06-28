@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react';
 import { ChakraProvider, Popover } from '@chakra-ui/react';
-import Controller from '../pages/Content/components/ModalPopover';
 import Newtab from '../pages/Newtab/Newtab';
 import Options from '../pages/Options/Options';
 import Panel from '../pages/Panel/Panel';
@@ -11,8 +10,9 @@ import BottomButton from '../pages/Content/components/BottomButton';
 import CSSResetCustom from '../pages/Content/cssResetCustom';
 import SubtitleComponent from '../pages/Content/components/SubtitleComponent';
 import RequestButton from '../pages/Content/components/RequestButton';
-import calculateLayout from '../pages/Content/functions/calculateLayout';
+import calculateLayout from '../pages/Content/helpers/calculateLayout';
 import YoutubeModal from '../pages/Content/components/YoutubeModal';
+import QuickSubtitleRequest from '../pages/Content/components/QuickSubtitleRequest';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -21,12 +21,12 @@ describe('Pages and Components', () => {
     jest.spyOn(Fetch, 'postFetch').mockResolvedValue({});
   });
 
-  it('renders controller', async () => {
+  it('renders QuickSubtitleRequest', async () => {
     jest.spyOn(GetTab, 'default').mockResolvedValue({});
     jest.spyOn(Fetch, 'getFetch').mockResolvedValue({});
     jest.spyOn(Fetch, 'postFetch').mockResolvedValue({});
 
-    render(<Controller />);
+    render(<QuickSubtitleRequest />);
   });
 
   it('renders Newtab', async () => {
