@@ -76,11 +76,7 @@ describe('Pages and Components', () => {
     expect(subtitleInfo).toBe(undefined);
   });
 
-  it('test calculateLayout returns infomation', () => {
-    const subtitleInfo = calculateLayout(60);
-    jest
-      .spyOn(document, 'querySelectorAll')
-      .mockImplementation(() => [{ offsetHeight: 60 }]);
-    expect(subtitleInfo).toBe(undefined);
+  it('test Newtab', async () => {
+    render(<Newtab />);
   });
 });
