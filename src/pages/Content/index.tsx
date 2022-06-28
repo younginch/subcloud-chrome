@@ -2,6 +2,7 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { createRoot } from 'react-dom/client';
 import BottomButton from './components/BottomButton';
 import ModalPopover from './components/ModalPopover';
+import SubtitleComponent from './components/SubtitleComponent';
 import CSSResetCustom from './cssResetCustom';
 
 declare global {
@@ -73,6 +74,19 @@ window.onload = () => {
         </chakra-scope>
       );
       clearInterval(loadVideoBottomButton);
+    }
+  }, 100);
+
+  // load subtitle component
+  const loadSubtitleComponent = setInterval(() => {
+    const subtitleArea = document.querySelector('#movie_player');
+    if (subtitleArea) {
+      const subtitleComponent = document.createElement('div');
+      subtitleComponent.id = 'subcloud-sub-component';
+      subtitleArea.append(subtitleComponent);
+
+      createRoot(subtitleComponent!).render(<SubtitleComponent />);
+      clearInterval(loadSubtitleComponent);
     }
   }, 100);
 };

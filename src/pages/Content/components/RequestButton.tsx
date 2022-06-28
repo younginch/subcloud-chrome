@@ -1,9 +1,8 @@
-import { Box, CircularProgress, keyframes, ScaleFade } from '@chakra-ui/react';
-import { useState } from 'react';
+import { Box, CircularProgress, ScaleFade } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { FiSend } from 'react-icons/fi';
 import { AiFillSetting } from 'react-icons/ai';
 import { HiOutlineUpload } from 'react-icons/hi';
-import { motion } from 'framer-motion';
 import { SubcloudIcon } from '../../../assets/commonComponents/Icons';
 
 export default function RequestButton() {
@@ -13,20 +12,24 @@ export default function RequestButton() {
   const [inPopover, setInPopover] = useState<boolean>(false);
 
   const mouseLeave = () => {
+    console.log('exit!!');
     setOnHover(false);
     setGauge(0);
-    setPopover(false);
   };
 
   const mouseEnter = () => {
+    console.log('hello!!');
     setOnHover(true);
     setTimeout(() => {
       setGauge(100);
     }, 100);
     setTimeout(() => {
       setPopover(true);
-      setInPopover(true);
     }, 750);
+  };
+
+  const enterPopover = () => {
+    setInPopover(true);
   };
 
   const exitPopover = () => {
@@ -35,14 +38,7 @@ export default function RequestButton() {
   };
 
   return (
-    <Box
-      position="relative"
-      w="25px"
-      h="25px"
-      ml="4px"
-      onMouseLeave={mouseLeave}
-      onMouseEnter={mouseEnter}
-    >
+    <Box position="relative" w="25px" h="25px" ml="4px">
       <CircularProgress
         value={gauge}
         size="140%"
@@ -52,57 +48,17 @@ export default function RequestButton() {
         mt="-6px"
         hidden={!onHover}
       />
-      <Box position="absolute" w="20px" h="20px" mt="2px" ml="7px">
-        <FiSend size="20px" />
-      </Box>
       <Box
         position="absolute"
-        w="26px"
-        h="26px"
-        mt="-35px"
-        ml="-25px"
-        zIndex="50"
-        hidden={(!onHover || !popover) && !inPopover}
-        _hover={{
-          color: 'red.400',
-        }}
-      >
-        <ScaleFade initialScale={1} whileHover={{ scale: 1.1 }} in>
-          <HiOutlineUpload size="100%" />
-        </ScaleFade>
-      </Box>
-      <Box
-        position="absolute"
-        w="26px"
-        h="26px"
-        mt="-70px"
+        w="20px"
+        h="20px"
+        mt="2px"
         ml="7px"
-        zIndex="50"
-        hidden={(!onHover || !popover) && !inPopover}
-        _hover={{
-          fill: 'red.400',
-        }}
-        fill="white"
+        onMouseLeave={mouseLeave}
+        onMouseEnter={mouseEnter}
+        zIndex="51"
       >
-        <ScaleFade initialScale={1} whileHover={{ scale: 1.1 }} in>
-          <SubcloudIcon size="100%" fill="inherit" />
-        </ScaleFade>
-      </Box>
-      <Box
-        position="absolute"
-        w="26px"
-        h="26px"
-        mt="-35px"
-        ml="35px"
-        zIndex="50"
-        hidden={(!onHover || !popover) && !inPopover}
-        _hover={{
-          color: 'red.400',
-        }}
-      >
-        <ScaleFade initialScale={1} whileHover={{ scale: 1.1 }} in>
-          <AiFillSetting size="100%" />
-        </ScaleFade>
+        <FiSend size="20px" />
       </Box>
       <Box
         position="absolute"
@@ -113,9 +69,57 @@ export default function RequestButton() {
         ml="-27px"
         zIndex="49"
         bg="rgba(50,50,50,.3)"
-        hidden={!popover}
+        hidden={(!onHover || !popover) && !inPopover}
+        onMouseEnter={enterPopover}
         onMouseLeave={exitPopover}
-      />
+      >
+        <Box
+          position="absolute"
+          w="26px"
+          h="26px"
+          mt="30px"
+          ml="0px"
+          zIndex="50"
+          _hover={{
+            color: 'red.400',
+          }}
+        >
+          <ScaleFade initialScale={1} whileHover={{ scale: 1.1 }} in>
+            <HiOutlineUpload size="100%" />
+          </ScaleFade>
+        </Box>
+        <Box
+          position="absolute"
+          w="26px"
+          h="26px"
+          mt="-10px"
+          ml="32px"
+          zIndex="50"
+          _hover={{
+            fill: 'red.400',
+          }}
+          fill="white"
+        >
+          <ScaleFade initialScale={1} whileHover={{ scale: 1.1 }} in>
+            <SubcloudIcon size="100%" fill="inherit" />
+          </ScaleFade>
+        </Box>
+        <Box
+          position="absolute"
+          w="26px"
+          h="26px"
+          mt="30px"
+          ml="60px"
+          zIndex="50"
+          _hover={{
+            color: 'red.400',
+          }}
+        >
+          <ScaleFade initialScale={1} whileHover={{ scale: 1.1 }} in>
+            <AiFillSetting size="100%" />
+          </ScaleFade>
+        </Box>
+      </Box>
     </Box>
   );
 }

@@ -31,3 +31,18 @@ yt-icon#logo-icon {
 .ytp-left-controls {
   overflow: visible !important;
 }
+
+#subcloud-sub-component {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.subcloud-placer {
+  position: relative;
+  z-index: 40;
+  margin-top: 47%;
+}
+
