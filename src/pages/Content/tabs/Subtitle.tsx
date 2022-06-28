@@ -60,7 +60,7 @@ export default function Subtitle() {
 
   const getSubById = async (subId: string) => {
     const sub = await getFile(subId);
-    console.log(sub);
+    await chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
   };
 
   useEffect(() => {

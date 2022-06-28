@@ -82,6 +82,13 @@ async function sendMessage(
 
 chrome.cookies.get({ url: apiUrl, name: '__Secure-next-auth.session-token' });
 
+chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+  const { url } = changeInfo;
+  if (url && url.includes('https://www.youtube.com')) {
+    chrome.storage.local.remove(['subtitle']);
+  }
+});
+
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.tag) {
     case MESSAGETAG.TAB:
