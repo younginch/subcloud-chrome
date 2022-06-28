@@ -71,7 +71,12 @@ describe('Pages and Components', () => {
     );
   });
 
-  it('test calculateLayout function', () => {
+  it('test calculateLayout returns undefined', () => {
+    const subtitleInfo = calculateLayout(60);
+    expect(subtitleInfo).toBe(undefined);
+  });
+
+  it('test calculateLayout returns infomation', () => {
     const subtitleInfo = calculateLayout(60);
     expect(subtitleInfo).toBe(undefined);
   });
