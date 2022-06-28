@@ -15,10 +15,10 @@ type Props = {
 
 /**
  * Render provided component and return result
- * @param {string} parentQuery
- * @param {string} targetId
- * @param {React.ReactNode} children
- * @param {AttachType} attachType
+ * @param {string} parentQuery Selector query of parent element to insert component
+ * @param {string} targetId Identifier id to render the component
+ * @param {React.ReactNode} children component to render
+ * @param {AttachType} attachType Attachment method
  * @returns {boolean} Returns true if successfully loaded
  */
 export default function componentLoader({
