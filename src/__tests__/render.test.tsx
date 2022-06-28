@@ -78,6 +78,9 @@ describe('Pages and Components', () => {
 
   it('test calculateLayout returns infomation', () => {
     const subtitleInfo = calculateLayout(60);
+    jest
+      .spyOn(document, 'querySelectorAll')
+      .mockImplementation(() => [{ offsetHeight: 60 }]);
     expect(subtitleInfo).toBe(undefined);
   });
 });
