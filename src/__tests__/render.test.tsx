@@ -8,6 +8,8 @@ import * as GetTab from '../pages/Content/utils/getTab';
 import * as Fetch from '../pages/Content/utils/fetch';
 import BottomButton from '../pages/Content/components/BottomButton';
 import CSSResetCustom from '../pages/Content/cssResetCustom';
+import SubtitleComponent from '../pages/Content/components/SubtitleComponent';
+import RequestButton from '../pages/Content/components/RequestButton';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -46,5 +48,17 @@ describe('Pages and Components', () => {
 
   it('render CSSResetCustom', async () => {
     render(<CSSResetCustom />);
+  });
+
+  it('render SubtitleComponent', async () => {
+    render(<SubtitleComponent />);
+  });
+
+  it('render SubtitleComponent', async () => {
+    render(<SubtitleComponent />);
+  });
+
+  it('render RequestButton', async () => {
+    render(<RequestButton />);
   });
 });
