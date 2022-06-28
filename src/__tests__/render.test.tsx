@@ -11,6 +11,7 @@ import BottomButton from '../pages/Content/components/BottomButton';
 import CSSResetCustom from '../pages/Content/cssResetCustom';
 import SubtitleComponent from '../pages/Content/components/SubtitleComponent';
 import RequestButton from '../pages/Content/components/RequestButton';
+import calculateLayout from '../pages/Content/functions/calculateLayout';
 import YoutubeModal from '../pages/Content/components/YoutubeModal';
 
 describe('Pages and Components', () => {
@@ -68,5 +69,29 @@ describe('Pages and Components', () => {
         </Popover>
       </ChakraProvider>
     );
+  });
+
+  it('test calculateLayout returns undefined', () => {
+    const subtitleInfo = calculateLayout(60);
+    expect(subtitleInfo).toBe(undefined);
+  });
+
+  it('test calculateLayout returns infomation', () => {
+    // eslint-disable-next-line arrow-body-style
+    jest.spyOn(document, 'querySelector').mockImplementation(() => {
+      return { offsetHeight: 60 } as HTMLElement;
+    });
+    // eslint-disable-next-line arrow-body-style
+    jest.spyOn(document, 'querySelectorAll').mockImplementation(() => {
+      return [
+        { offsetHeight: 60, offsetWidth: 60, closest: () => null },
+      ] as unknown as NodeListOf<HTMLVideoElement>;
+    });
+    const subtitleInfo = calculateLayout(60);
+    expect(subtitleInfo).toBeDefined();
+    if (subtitleInfo) {
+      expect(subtitleInfo[0]).toBeCloseTo(1.44);
+      expect(subtitleInfo[1]).toBeCloseTo(51.48);
+    }
   });
 });
