@@ -15,7 +15,7 @@ export default function Upload() {
     reader.readAsText(files[0]);
     reader.onload = () => {
       const sub = SRTFile.fromText(String(reader.result));
-      console.log(sub);
+      chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
     };
   };
 
