@@ -18,6 +18,7 @@ import Home from '../pages/Content/tabs/Home';
 import Setting from '../pages/Content/tabs/Setting';
 import Subtitle from '../pages/Content/tabs/Subtitle';
 import Upload from '../pages/Content/tabs/Upload';
+import GreetingComponent from '../containers/Greetings/Greetings';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -68,6 +69,10 @@ describe('Pages and Components', () => {
 
   it('render DropZone', async () => {
     render(<DropZone setFiles={(file: File[]) => null} />);
+  });
+
+  it('render Greetings', async () => {
+    render(<GreetingComponent />);
   });
 
   it('render YoutubeModal', async () => {
