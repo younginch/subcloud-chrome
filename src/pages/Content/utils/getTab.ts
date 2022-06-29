@@ -1,6 +1,7 @@
-import MESSAGETAG from '../../../../utils/type';
+import { MESSAGETAG } from '../../../../utils/type';
+import sendMessage from './sendMessage';
 
 export default async function CurrentTab() {
-  const res = await chrome.runtime.sendMessage({ tag: MESSAGETAG.TAB });
+  const res = await sendMessage({ tag: MESSAGETAG.TAB });
   return res.data;
 }

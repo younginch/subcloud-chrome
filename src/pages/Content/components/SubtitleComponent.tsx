@@ -1,5 +1,5 @@
 import { SRTFile } from '@younginch/subtitle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import calculateLayout from '../helpers/calculateLayout';
 
 export default function SubtitleComponent() {
@@ -14,13 +14,17 @@ export default function SubtitleComponent() {
       setFontSize(res[0]);
       setSubtitleMt(res[1]);
     }
+
     chrome.storage.local.get(['subtitle'], (result) => {
-      if (result.subtitle) {
+      const { lastError } = chrome.runtime;
+      if (!lastError && result.subtitle) {
         setSub(Object.assign(new SRTFile(), JSON.parse(result.subtitle)));
       }
     });
+
     if (!sub) return;
     const cTime = document.querySelector('video')?.currentTime;
+    let isSubtitle = false;
     for (let i = 0; i < sub.array.length; i += 1) {
       if (
         cTime &&
@@ -28,8 +32,10 @@ export default function SubtitleComponent() {
         cTime <= sub.array[i].endTime
       ) {
         setTextArray(sub.array[i].textArray);
+        isSubtitle = true;
       }
     }
+    if (!isSubtitle) setTextArray([]);
     clearInterval(layoutUpdater);
   }, 20);
 

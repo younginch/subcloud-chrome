@@ -1,4 +1,4 @@
-import MESSAGETAG from '../../../utils/type';
+import { MESSAGETAG } from '../../../utils/type';
 
 const apiUrl = 'http://localhost:3000'; // 'https://subcloud.app';
 
@@ -12,6 +12,7 @@ async function getAPI(url: string) {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+      Accept: 'application/json',
     },
     credentials: 'same-origin',
     mode: 'no-cors',
@@ -25,6 +26,7 @@ async function postAPI(url: string, body: object) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      Accept: 'application/json',
     },
     credentials: 'same-origin',
     body: JSON.stringify(body),
@@ -82,10 +84,16 @@ async function sendMessage(
 
 chrome.cookies.get({ url: apiUrl, name: '__Secure-next-auth.session-token' });
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
   const { url } = changeInfo;
-  if (url && url.includes('https://www.youtube.com')) {
-    chrome.storage.local.remove(['subtitle']);
+  if (url && url.includes('https://www.youtube.com/watch?v=')) {
+    await chrome.storage.local.remove(['subtitle']);
+    chrome.tabs.sendMessage(tabId, { tag: MESSAGETAG.INIT }, () => {
+      const { lastError } = chrome.runtime;
+      if (lastError) {
+        chrome.tabs.reload(tabId);
+      }
+    });
   }
 });
 
@@ -115,4 +123,23 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     default:
       throw new Error('');
   }
+});
+
+chrome.runtime.onInstalled.addListener(() => {
+  chrome.windows.getAll(
+    {
+      populate: true,
+    },
+    (windows) => {
+      for (let i = 0; i < windows.length; i += 1) {
+        const currentWindow = windows[i];
+        const t = currentWindow.tabs;
+        if (t)
+          for (let j = 0; j < t.length; j += 1) {
+            const { id } = t[j];
+            if (id) chrome.tabs.reload(id);
+          }
+      }
+    }
+  );
 });

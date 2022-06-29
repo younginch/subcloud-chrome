@@ -22,7 +22,7 @@ export default function BottomButton() {
         checked={onOff}
         onChange={() => setOnOff(!onOff)}
       />
-      <Popover variant="responsive" placement="top-start">
+      <Popover variant="responsive" placement="top-start" isLazy>
         <PopoverTrigger>
           <Box
             as={Button}

@@ -19,7 +19,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://www.youtube.com/*"],
+      "matches": ["*://www.youtube.com/watch?v=*"],
       "js": ["contentScript.bundle.js"],
       "css": ["content.styles.css"],
       "run_at": "document_end"
