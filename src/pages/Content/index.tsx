@@ -1,4 +1,5 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { MESSAGETAG } from '../../../utils/type';
 import BottomButton from './components/BottomButton';
 import QuickSubtitleRequest from './components/QuickSubtitleRequest';
 import SubtitleComponent from './components/SubtitleComponent';
@@ -32,7 +33,7 @@ const theme = extendTheme({
   },
 });
 
-window.onload = () => {
+const load = () => {
   // Load Comment-title panel
   const loadCommentModal = setInterval(() => {
     if (
@@ -85,3 +86,17 @@ window.onload = () => {
       clearInterval(loadSubtitleComponent);
   }, 100);
 };
+
+window.onload = load;
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  switch (message.tag) {
+    case MESSAGETAG.INIT:
+      load();
+      sendResponse({ data: 'load-done' });
+      return true;
+    default:
+      sendResponse({ data: 'load-done' });
+      return true;
+  }
+});

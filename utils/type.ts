@@ -4,6 +4,16 @@ enum MESSAGETAG {
   POSTAPI,
   GETFILE,
   UPLOADFILE,
+  INIT,
 }
 
-export default MESSAGETAG;
+enum Status {
+  Pending,
+  InReview,
+  Approved,
+  Rejected,
+  Reported,
+  Private,
+}
+
+export { MESSAGETAG, Status };
