@@ -14,6 +14,10 @@ import calculateLayout from '../pages/Content/helpers/calculateLayout';
 import YoutubeModal from '../pages/Content/components/YoutubeModal';
 import QuickSubtitleRequest from '../pages/Content/components/QuickSubtitleRequest';
 import DropZone from '../pages/Content/components/DropZone';
+import Home from '../pages/Content/tabs/Home';
+import Setting from '../pages/Content/tabs/Setting';
+import Subtitle from '../pages/Content/tabs/Subtitle';
+import Upload from '../pages/Content/tabs/Upload';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -72,6 +76,38 @@ describe('Pages and Components', () => {
         <Popover>
           <YoutubeModal />
         </Popover>
+      </ChakraProvider>
+    );
+  });
+
+  it('render Home tab', async () => {
+    render(
+      <ChakraProvider>
+        <Home />
+      </ChakraProvider>
+    );
+  });
+
+  it('render Setting tab', async () => {
+    render(
+      <ChakraProvider>
+        <Setting />
+      </ChakraProvider>
+    );
+  });
+
+  it('render Subtitle tab', async () => {
+    render(
+      <ChakraProvider>
+        <Subtitle />
+      </ChakraProvider>
+    );
+  });
+
+  it('render Upload tab', async () => {
+    render(
+      <ChakraProvider>
+        <Upload />
       </ChakraProvider>
     );
   });
