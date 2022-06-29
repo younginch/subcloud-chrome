@@ -32,6 +32,7 @@ const config = {
     '!**/node_modules/**',
     '!**/*.d.ts',
     '!**/runtime/**',
+    '!**/index.{ts,tsx}',
   ],
 };
 
