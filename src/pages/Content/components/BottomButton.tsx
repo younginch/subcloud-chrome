@@ -1,19 +1,19 @@
 import {
   Box,
   Button,
+  Fade,
   Flex,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
   Switch,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { MdSubtitles } from 'react-icons/md';
 import Layout from './layout';
-import RequestButton from './RequestButton';
 
 export default function BottomButton() {
   const [onOff, setOnOff] = useState<boolean>(false);
+  const { isOpen, onToggle } = useDisclosure();
+
   return (
     <Flex flexDir="row" alignItems="center !important" h="100%">
       <Switch
@@ -22,24 +22,20 @@ export default function BottomButton() {
         checked={onOff}
         onChange={() => setOnOff(!onOff)}
       />
-      <Popover variant="responsive" placement="top-start">
-        <PopoverTrigger>
-          <Box
-            as={Button}
-            hidden={!onOff}
-            w="25px"
-            h="25px"
-            ml="8px"
-            p="0px !important"
-          >
-            <MdSubtitles size="25px" />
-          </Box>
-        </PopoverTrigger>
-        <PopoverContent w="fit-content" h="fit-content">
-          <Layout />
-        </PopoverContent>
-      </Popover>
-      <RequestButton />
+      <Box
+        as={Button}
+        onClick={onToggle}
+        hidden={!onOff}
+        w="25px"
+        h="25px"
+        ml="8px"
+        p="0px !important"
+      >
+        <MdSubtitles size="25px" />
+      </Box>
+      <Fade in={isOpen} hidden={!isOpen}>
+        <Layout />
+      </Fade>
     </Flex>
   );
 }

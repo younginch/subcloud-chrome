@@ -6,24 +6,41 @@ import {
   TabPanels,
   Box,
   VStack,
-  Spacer,
-  PopoverHeader,
   HStack,
-  PopoverCloseButton,
-  Text,
   Heading,
+  Spacer,
+  Flex,
+  Text,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import {
+  AiFillHome,
+  AiFillSetting,
+  AiOutlineCloseCircle,
+} from 'react-icons/ai';
+import { MdSubtitles } from 'react-icons/md';
+import { IoMdCloudUpload } from 'react-icons/io';
+import { getFetch } from '../utils/fetch';
+import { WishIcon } from './icons';
 import Home from '../tabs/Home';
 import Subtitle from '../tabs/Subtitle';
 import Upload from '../tabs/Upload';
-import ThemeToggleBtn from './themeToggleBtn';
 import Setting from '../tabs/Setting';
-import CustomHeader from './CustomHeader';
-import { getFetch } from '../utils/fetch';
+
+type TabType = {
+  icon: React.ReactNode;
+  name: string;
+};
 
 export default function Layout() {
   const [user, setUser] = useState({ name: 'fuck' });
+
+  const tabs: Array<TabType> = [
+    { icon: <AiFillHome size={20} />, name: 'Home' },
+    { icon: <MdSubtitles size={20} />, name: 'Subtitle' },
+    { icon: <IoMdCloudUpload size={20} />, name: 'Upload' },
+    { icon: <AiFillSetting size={20} />, name: 'Setting' },
+  ];
 
   async function getUserInfo() {
     const data = await getFetch('auth/session');
@@ -35,31 +52,78 @@ export default function Layout() {
   }, []);
 
   return (
-    <VStack>
-      <CustomHeader />
-      <Tabs w="fit-content" h="fit-content">
-        <TabList borderBottom="1px">
-          <Tab>Home</Tab>
-          <Tab>Subtitle</Tab>
-          <Tab>Upload</Tab>
-          <Tab>Setting</Tab>
-        </TabList>
-        <Box w="30vw" maxW="30vw" h="30vw" maxH="30vw" overflow="hidden">
-          <TabPanels>
-            <TabPanel p={0}>
-              <Home />
-            </TabPanel>
-            <TabPanel p={0}>
-              <Subtitle />
-            </TabPanel>
-            <TabPanel p={0}>
-              <Upload />
-            </TabPanel>
-            <TabPanel p={0}>
-              <Setting />
-            </TabPanel>
-          </TabPanels>
-        </Box>
+    <VStack
+      w="850px"
+      h="600px"
+      position="fixed"
+      bg="#323232"
+      left="calc(50vw - 425px) !important"
+      top="calc(50vh - 300px) !important"
+      zIndex={100}
+    >
+      <HStack
+        w="100%"
+        h="40px"
+        p="7px"
+        bg="#282828"
+        borderBottomWidth="1px"
+        borderColor="gray.500"
+      >
+        <Heading fontSize="3xl" ml="15px !important">
+          SubCloud
+        </Heading>
+        <Spacer />
+        <AiOutlineCloseCircle size={20} />
+      </HStack>
+      <Tabs orientation="vertical" mt="0px !important" h="560px">
+        <HStack>
+          <Flex
+            direction="column"
+            h="100%"
+            justifyContent="space-between"
+            bg="#282828"
+            borderColor="gray.500"
+            borderRightWidth="1px"
+          >
+            <TabList
+              w="150px"
+              maxW="150px"
+              m="0px !important"
+              border="none"
+              overflow="hidden"
+            >
+              {tabs.map((tab: TabType) => (
+                <Tab
+                  _selected={{ color: 'white', bg: 'blue.500' }}
+                  fontSize="14px"
+                  justifyContent="flex-start"
+                >
+                  <HStack spacing="15px" pl="18px">
+                    {tab.icon}
+                    <Text>{tab.name}</Text>
+                  </HStack>
+                </Tab>
+              ))}
+            </TabList>
+            <WishIcon size={150} />
+          </Flex>
+          <Box w="700px" h="100%" m="0px !important" overflow="hidden">
+            <TabPanels>
+              <TabPanel p={0}>
+                <Home />
+              </TabPanel>
+              <TabPanel p={0}>
+                <Subtitle />
+              </TabPanel>
+              <TabPanel p={0}>
+                <Upload />
+              </TabPanel>
+              <TabPanel p={0}>
+                <Setting />
+              </TabPanel>
+            </TabPanels>
+          </Box>
+        </HStack>
       </Tabs>
     </VStack>
   );

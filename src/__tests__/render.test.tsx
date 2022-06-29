@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { ChakraProvider, Popover } from '@chakra-ui/react';
+import { ChakraProvider } from '@chakra-ui/react';
 import Newtab from '../pages/Newtab/Newtab';
 import Options from '../pages/Options/Options';
 import Panel from '../pages/Panel/Panel';
@@ -11,7 +11,6 @@ import CSSResetCustom from '../pages/Content/cssResetCustom';
 import SubtitleComponent from '../pages/Content/components/SubtitleComponent';
 import RequestButton from '../pages/Content/components/RequestButton';
 import calculateLayout from '../pages/Content/helpers/calculateLayout';
-import YoutubeModal from '../pages/Content/components/YoutubeModal';
 import QuickSubtitleRequest from '../pages/Content/components/QuickSubtitleRequest';
 import DropZone from '../pages/Content/components/DropZone';
 import Home from '../pages/Content/tabs/Home';
@@ -73,16 +72,6 @@ describe('Pages and Components', () => {
 
   it('render Greetings', async () => {
     render(<GreetingComponent />);
-  });
-
-  it('render YoutubeModal', async () => {
-    render(
-      <ChakraProvider>
-        <Popover>
-          <YoutubeModal />
-        </Popover>
-      </ChakraProvider>
-    );
   });
 
   it('render Home tab', async () => {
