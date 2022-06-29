@@ -56,7 +56,7 @@ export default function Layout() {
       w="850px"
       h="600px"
       position="fixed"
-      bg="#323232"
+      bg="#1A202C"
       left="calc(50vw - 425px) !important"
       top="calc(50vh - 300px) !important"
       zIndex={100}
@@ -65,7 +65,7 @@ export default function Layout() {
         w="100%"
         h="40px"
         p="7px"
-        bg="#282828"
+        bg="#1C1E21"
         borderBottomWidth="1px"
         borderColor="gray.500"
       >
@@ -81,7 +81,7 @@ export default function Layout() {
             direction="column"
             h="100%"
             justifyContent="space-between"
-            bg="#282828"
+            bg="#1C1E21"
             borderColor="gray.500"
             borderRightWidth="1px"
           >
