@@ -1,13 +1,5 @@
 import { Tbody, Td, Tr } from '@chakra-ui/react';
-
-enum Status {
-  Pending,
-  InReview,
-  Approved,
-  Rejected,
-  Reported,
-  Private,
-}
+import { Status } from '../../../../utils/type';
 
 type Props = {
   lang: string;

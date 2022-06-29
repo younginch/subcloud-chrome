@@ -1,4 +1,5 @@
-import MESSAGETAG from '../../../../../utils/type';
+import { MESSAGETAG } from '../../../../../utils/type';
+import sendMessage from '../sendMessage';
 
 async function uploadFile(
   fileText: string,
@@ -6,7 +7,7 @@ async function uploadFile(
   url: string,
   lang: string
 ) {
-  const data = await chrome.runtime.sendMessage({
+  const data = await sendMessage({
     tag: MESSAGETAG.UPLOADFILE,
     fileText,
     fileName,

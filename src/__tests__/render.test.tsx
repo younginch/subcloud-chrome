@@ -6,6 +6,7 @@ import Panel from '../pages/Panel/Panel';
 import Popup from '../pages/Popup/Popup';
 import * as GetTab from '../pages/Content/utils/getTab';
 import * as Fetch from '../pages/Content/utils/fetch';
+import * as sendMessage from '../pages/Content/utils/sendMessage';
 import BottomButton from '../pages/Content/components/BottomButton';
 import CSSResetCustom from '../pages/Content/cssResetCustom';
 import SubtitleComponent from '../pages/Content/components/SubtitleComponent';
@@ -18,6 +19,11 @@ import Setting from '../pages/Content/tabs/Setting';
 import Subtitle from '../pages/Content/tabs/Subtitle';
 import Upload from '../pages/Content/tabs/Upload';
 import GreetingComponent from '../containers/Greetings/Greetings';
+import * as sub from '../pages/Content/utils/api/sub';
+import request from '../pages/Content/utils/api/request';
+import * as video from '../pages/Content/utils/api/video';
+import uploadFile from '../pages/Content/utils/api/uploadFile';
+import requestCount from '../pages/Content/utils/api/requestCount';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -27,7 +33,6 @@ describe('Pages and Components', () => {
   });
 
   it('renders QuickSubtitleRequest', async () => {
-    jest.spyOn(GetTab, 'default').mockResolvedValue({});
     jest.spyOn(Fetch, 'getFetch').mockResolvedValue({});
     jest.spyOn(Fetch, 'postFetch').mockResolvedValue({});
 
@@ -130,6 +135,79 @@ describe('Pages and Components', () => {
       expect(subtitleInfo[1]).toBeCloseTo(51.48);
     }
   });
+
+  it('test sendMessage returns infomation', async () => {
+    jest
+      .spyOn(chrome.runtime, 'sendMessage')
+      .mockImplementation(async () => ({ data: 1 }));
+    const msg = await sendMessage.default({});
+    expect(msg).toBeDefined();
+    if (msg) {
+      expect(msg.data).toBeCloseTo(1);
+    }
+  });
+
+  it('test sub returns infomation', async () => {
+    jest.spyOn(Fetch, 'getFetch').mockImplementation(async () => '');
+    const msg = await sub.default('1');
+    expect(msg).toBeDefined();
+  });
+
+  it('test request returns infomation', async () => {
+    jest
+      .spyOn(video, 'default')
+      .mockImplementation(async () => ({ serviceId: 1, videoId: 1 }));
+    jest
+      .spyOn(Fetch, 'postFetch')
+      .mockImplementation(async () => ({ data: '' }));
+    const msg = await request('', '', 0);
+    expect(msg).toBeUndefined();
+  });
+
+  it('test uploadFile returns infomation', async () => {
+    jest.spyOn(sendMessage, 'default').mockImplementation(async () => '');
+    const msg = await uploadFile('', '', '', '');
+    expect(msg).toBeDefined();
+  });
+
+  it('test requestCount returns infomation', async () => {
+    jest
+      .spyOn(video, 'default')
+      .mockImplementation(async () => ({ serviceId: 1, videoId: 1 }));
+    jest.spyOn(Fetch, 'getFetch').mockImplementation(async () => '');
+    const msg = await requestCount('');
+    expect(msg).toBeDefined();
+    if (msg) {
+      expect(msg.data).toBeCloseTo(0);
+    }
+  });
+
+  it('test requestCount returns infomation', async () => {
+    jest
+      .spyOn(video, 'default')
+      .mockImplementation(async () => ({ serviceId: 1, videoId: 1 }));
+    jest
+      .spyOn(Fetch, 'getFetch')
+      .mockImplementation(async () => [{ _count: { users: 0 } }]);
+    const msg = await requestCount('');
+    expect(msg).toBeDefined();
+    if (msg) {
+      expect(msg.data).toBeCloseTo(0);
+    }
+  });
+
+  /*
+  it('test sendMessage returns infomation', async () => {
+    jest
+      .spyOn(chrome.runtime, 'sendMessage')
+      .mockImplementation(async () => "");
+    const msg = await CurrentTab();
+    expect(msg).toBeDefined();
+    if (msg) {
+      expect(msg.data).toBeInstanceOf(String);
+    }
+  });
+  */
 
   /*
 
