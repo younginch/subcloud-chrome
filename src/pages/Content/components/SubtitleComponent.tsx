@@ -1,5 +1,5 @@
 import { SRTFile } from '@younginch/subtitle';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import calculateLayout from '../helpers/calculateLayout';
 
 export default function SubtitleComponent() {
