@@ -13,6 +13,7 @@ import RequestButton from '../pages/Content/components/RequestButton';
 import calculateLayout from '../pages/Content/helpers/calculateLayout';
 import YoutubeModal from '../pages/Content/components/YoutubeModal';
 import QuickSubtitleRequest from '../pages/Content/components/QuickSubtitleRequest';
+import DropZone from '../pages/Content/components/DropZone';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -61,6 +62,10 @@ describe('Pages and Components', () => {
     render(<RequestButton />);
   });
 
+  it('render DropZone', async () => {
+    render(<DropZone setFiles={(file: File[]) => null} />);
+  });
+
   it('render YoutubeModal', async () => {
     render(
       <ChakraProvider>
@@ -77,16 +82,17 @@ describe('Pages and Components', () => {
   });
 
   it('test calculateLayout returns infomation', () => {
-    // eslint-disable-next-line arrow-body-style
-    jest.spyOn(document, 'querySelector').mockImplementation(() => {
-      return { offsetHeight: 60 } as HTMLElement;
-    });
-    // eslint-disable-next-line arrow-body-style
-    jest.spyOn(document, 'querySelectorAll').mockImplementation(() => {
-      return [
-        { offsetHeight: 60, offsetWidth: 60, closest: () => null },
-      ] as unknown as NodeListOf<HTMLVideoElement>;
-    });
+    jest
+      .spyOn(document, 'querySelector')
+      .mockImplementation(() => ({ offsetHeight: 60 } as HTMLElement));
+    jest
+      .spyOn(document, 'querySelectorAll')
+      .mockImplementation(
+        () =>
+          [
+            { offsetHeight: 60, offsetWidth: 60, closest: () => null },
+          ] as unknown as NodeListOf<HTMLVideoElement>
+      );
     const subtitleInfo = calculateLayout(60);
     expect(subtitleInfo).toBeDefined();
     if (subtitleInfo) {
@@ -94,4 +100,53 @@ describe('Pages and Components', () => {
       expect(subtitleInfo[1]).toBeCloseTo(51.48);
     }
   });
+
+  /*
+
+  it('test componentLoader append', () => {
+    jest
+      .spyOn(document, 'querySelector')
+      .mockImplementation(
+        () =>
+          ({ append: () => null, remove: () => null } as unknown as HTMLElement)
+      );
+    jest
+      .spyOn(document, 'createElement')
+      .mockImplementation(() => ({ id: 'beforeId' } as any));
+    const appendResult = componentLoader({
+      parentQuery: 'parent',
+      targetId: 'target',
+      children: <Box />,
+      attachType: AttachType.APPEND,
+    });
+    expect(appendResult).toBeTruthy();
+  });
+
+  it('test componentLoader prepend', () => {
+    jest.spyOn(document, 'querySelector').mockImplementation(
+      () =>
+        ({
+          prepend: () => null,
+          remove: () => null,
+        } as unknown as HTMLElement)
+    );
+    jest
+      .spyOn(document, 'createElement')
+      .mockImplementation(() => ({ id: 'beforeId' } as HTMLElement));
+
+
+    jest.mock('react-dom/client', () => ({
+      createRoot: () => ({ render: jest.fn() }),
+    }));
+    
+    const appendResult = componentLoader({
+      parentQuery: 'parent',
+      targetId: 'target',
+      children: <Box />,
+      attachType: AttachType.PREPEND,
+    });
+    expect(appendResult).toBeTruthy();
+  });
+
+  */
 });
