@@ -1,6 +1,6 @@
 import { SRTFile } from '@younginch/subtitle';
 import { useState } from 'react';
-import calculateLayout from '../functions/calculateLayout';
+import calculateLayout from '../helpers/calculateLayout';
 
 export default function SubtitleComponent() {
   const [fontSize, setFontSize] = useState<number>(12);
