@@ -55,3 +55,19 @@ chakra-scope span {
 .default-language .chakra-checkbox__label {
   font-size: 18px;
 }
+
+.upload-stepper span {
+  font-size: 14px;
+}
+
+.upload-stepper span:nth-child(2) {
+  margin-top: 2px;
+}
+
+.upload-stepper > div:nth-child(2){
+  visibility:hidden;
+}
+
+.upload-stepper > div:nth-child(1){
+  width: 140px;
+}

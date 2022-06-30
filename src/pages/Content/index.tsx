@@ -21,16 +21,6 @@ declare global {
 
 const theme = extendTheme({
   components: {
-    Popover: {
-      variants: {
-        responsive: {
-          popper: {
-            maxWidth: 'unset',
-            width: 'unset',
-          },
-        },
-      },
-    },
     Steps,
   },
 });
