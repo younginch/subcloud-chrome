@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { MdSubtitles } from 'react-icons/md';
-import Layout from './layout';
+import Layout from '../layout';
 
 export default function BottomButton() {
   const [onOff, setOnOff] = useState<boolean>(false);

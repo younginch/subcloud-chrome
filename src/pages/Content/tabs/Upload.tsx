@@ -1,119 +1,68 @@
-import { Box, Button, Flex, Spacer, Text } from '@chakra-ui/react';
-import { SRTFile } from '@younginch/subtitle';
+import { Box, Divider, Stack } from '@chakra-ui/react';
 import { useState } from 'react';
-import uploadFile from '../utils/api/uploadFile';
-import DropZone from '../components/DropZone';
-import getTab from '../utils/getTab';
+import { Step, Steps, useSteps } from 'chakra-ui-steps';
+import UploadSubtitle from './upload/UploadSubtitle';
+import CheckSubtitle from './upload/CheckSubtitle';
+import UploadFinish from './upload/UploadFinish';
 
 export default function Upload() {
+  const steps = [
+    { label: 'Step 1', description: '자막 업로드' },
+    { label: 'Step 2', description: '확인 및 전송' },
+    { label: 'Step 3', description: '검수 완료 후 게재' },
+  ];
+
+  const { nextStep, prevStep, reset, activeStep } = useSteps({
+    initialStep: 0,
+  });
+
   const [files, setFiles] = useState<File[]>();
-  const [lang, setLang] = useState('en');
-
-  const preview = async () => {
-    if (!files) return;
-    const reader = new FileReader();
-    reader.readAsText(files[0]);
-    reader.onload = () => {
-      const sub = SRTFile.fromText(String(reader.result));
-      chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
-    };
-  };
-
-  const upload = async () => {
-    if (!files) return;
-    const tab = await getTab();
-    const reader = new FileReader();
-    reader.readAsText(files[0]);
-    reader.onload = () => {
-      uploadFile(String(reader.result), files[0].name, tab.url, lang);
-    };
-  };
 
   return (
-    <Flex direction="column" p={0} ml="-15px" mr="-15px" w="300px" h="320px">
-      {files !== undefined && (
-        <Flex p="10px">
-          <Flex>
-            <Text color="#cccccc" fontSize="md">
-              파일 이름:
-            </Text>
-            <Text color="#cccccc" fontSize="md">
-              {files[0].name.replaceAll('.txt', '').replaceAll('.srt', '')}
-            </Text>
-          </Flex>
-          <Spacer />
-          <Text color="impact.100" fontSize="md" ml="5px">
-            [{files[0].name.substring(files[0].name.length - 3).toUpperCase()}]
-          </Text>
-        </Flex>
-      )}
-      <Box w="298px" h={files === undefined ? '190px' : '170px'}>
-        <DropZone setFiles={setFiles} />
+    <Stack p="10px 20px 10px 20px" alignItems="center">
+      <Box position="relative" p="20px 40px 20px 40px" w="100%">
+        <Steps activeStep={activeStep} labelOrientation="vertical">
+          {steps.map(({ label, description }) => (
+            <Step
+              label={label}
+              key={label}
+              description={description}
+              className="upload-stepper"
+              bg="1A202C"
+              zIndex={2}
+            />
+          ))}
+        </Steps>
+        <Divider
+          w="160px"
+          mt="-63px"
+          ml="99px"
+          position="absolute"
+          borderBottomWidth="2px"
+          borderColor={activeStep >= 1 ? 'green.400' : 'gray.500'}
+        />
+        <Divider
+          w="160px"
+          mt="-63px"
+          ml="320px"
+          position="absolute"
+          borderBottomWidth="2px"
+          borderColor={activeStep >= 2 ? 'green.400' : 'gray.500'}
+        />
       </Box>
-      {files === undefined ? (
-        <Flex direction="column" p="15px 15px 0px 15px">
-          <Text color="white" fontSize="lg">
-            파일을 선택하고, 전송 버튼을 누르면 서버에 업로드됩니다.
-          </Text>
-          <Flex justifyContent="center" mt="20px">
-            <Text color="white" fontSize="md">
-              자세한 내용은
-            </Text>
-            <Text
-              fontSize="md"
-              onClick={() => {
-                chrome.tabs.create({
-                  url: `${process.env.REACT_APP_WEBPAGE_URL}/qna`,
-                });
-              }}
-              as="u"
-              color="#FFB166"
-              ml="7px"
-            >
-              여기
-            </Text>
-            <Text color="white" fontSize="md">
-              를 참고해 주세요.
-            </Text>
-          </Flex>
-        </Flex>
-      ) : (
-        <Flex direction="column">
-          <Flex p="0px 10px 10px 10px" alignItems="center" mt="10px">
-            <Text
-              color="white"
-              w="130px"
-              fontSize="md"
-              sx={{ fontWeight: 'bold' }}
-              align="center"
-            >
-              자막 언어
-            </Text>
-            <Spacer />
-          </Flex>
-          <Flex align="center" m="10px">
-            <Button
-              colorScheme="teal"
-              size="sm"
-              h="45px"
-              w="130px"
-              onClick={preview}
-            >
-              프리뷰
-            </Button>
-            <Spacer />
-            <Button
-              colorScheme="blue"
-              size="sm"
-              h="45px"
-              w="130px"
-              onClick={upload}
-            >
-              업로드
-            </Button>
-          </Flex>
-        </Flex>
-      )}
-    </Flex>
+      {
+        // eslint-disable-next-line no-nested-ternary
+        activeStep === 0 ? (
+          <UploadSubtitle
+            setFiles={setFiles}
+            uploadCallback={() => nextStep()}
+          />
+        ) : activeStep === 1 ? (
+          <CheckSubtitle setFiles={setFiles} sendCallback={() => nextStep()} />
+        ) : (
+          <UploadFinish />
+        )
+      }
+    </Stack>
   );
 }

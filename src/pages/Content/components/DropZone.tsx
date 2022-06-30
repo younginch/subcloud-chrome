@@ -1,42 +1,39 @@
-import { Box, Text, VStack } from '@chakra-ui/react';
+import { Box, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
-
-type Hover = {
-  'background-color': string;
-};
 
 type Style = {
   outline: string;
-  'outline-offset': string;
-  'text-align': string;
+  outlineOffset: string;
+  textAlign: string;
   transition: string;
-  'background-color': string;
+  backgroundColor: string;
   display: string;
-  'align-items': string;
-  'justify-content': string;
-  '&:hover': Hover;
+  alignItems: string;
+  justifyContent: string;
 };
 
 type Props = {
   setFiles: (file: File[]) => void;
+  children?: React.ReactNode;
+  uploadCallback: () => void;
 };
 
-export default function DropZone({ setFiles }: Props) {
+export default function DropZone({
+  setFiles,
+  uploadCallback,
+  children,
+}: Props) {
   const defaultColor = '#364044';
   const dragOverColor = '#999999';
-  const hoverColor = '#14181A';
   const [styleSheet, setStyle] = useState<Style>({
     outline: '2px dashed #aaaaaa',
-    'outline-offset': '-10px',
-    'text-align': 'center',
+    outlineOffset: '-10px',
+    textAlign: 'center',
     transition: 'all .15s ease-in-out',
-    'background-color': defaultColor,
+    backgroundColor: defaultColor,
     display: 'flex',
-    'align-items': 'center',
-    'justify-content': 'center',
-    '&:hover': {
-      'background-color': hoverColor,
-    },
+    alignItems: 'center',
+    justifyContent: 'center',
   });
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -44,16 +41,16 @@ export default function DropZone({ setFiles }: Props) {
     e.preventDefault();
     setStyle({
       ...styleSheet,
-      'background-color': dragOverColor,
-      'outline-offset': '-20px',
+      backgroundColor: dragOverColor,
+      outlineOffset: '-20px',
     });
   };
 
   const handleDragLeave = () => {
     setStyle({
       ...styleSheet,
-      'background-color': defaultColor,
-      'outline-offset': '-10px',
+      backgroundColor: defaultColor,
+      outlineOffset: '-10px',
     });
   };
 
@@ -85,6 +82,7 @@ export default function DropZone({ setFiles }: Props) {
     });
     */
     setFiles(totalFiles);
+    uploadCallback();
   };
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,7 +95,10 @@ export default function DropZone({ setFiles }: Props) {
       }
     });
     */
-    if (e.target.files !== null) setFiles([e.target.files[0]]);
+    if (e.target.files !== null) {
+      setFiles([e.target.files[0]]);
+      uploadCallback();
+    }
   };
 
   return (
@@ -109,6 +110,9 @@ export default function DropZone({ setFiles }: Props) {
       onClick={() => document.getElementById('subtitleFileInput')?.click()}
       w="100%"
       h="100%"
+      _hover={{
+        backgroundColor: '#14181A',
+      }}
     >
       <VStack align="center">
         <input
@@ -117,13 +121,12 @@ export default function DropZone({ setFiles }: Props) {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleUpload(e)}
           hidden
         />
-        <Text color="white" fontSize="md">
-          Drop
-        </Text>
-        <Text color="white" fontSize="md" mt="10px">
-          Click
-        </Text>
+        {children}
       </VStack>
     </Box>
   );
 }
+
+DropZone.defaultProps = {
+  children: undefined,
+};
