@@ -6,8 +6,8 @@ import toast from '../utils/toast';
 export default function SubtitleComponent() {
   const [fontSize, setFontSize] = useState<number>(12);
   const [subtitleMt, setSubtitleMt] = useState<number>(300);
-  const [sub, setSub] = useState<undefined | SRTFile>();
-  const [textArray, setTextArray] = useState<undefined | string[]>();
+  const [sub, setSub] = useState<SRTFile>();
+  const [textArray, setTextArray] = useState<string[]>();
 
   const layoutUpdater = setInterval(() => {
     try {
