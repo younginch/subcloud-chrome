@@ -1,4 +1,4 @@
-import { Box, Divider, Stack, Text } from '@chakra-ui/react';
+import { Box, Divider, Stack } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
 import UploadSubtitle from './upload/UploadSubtitle';
