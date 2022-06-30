@@ -98,6 +98,7 @@ export default function Layout() {
             >
               {tabs.map((tab: TabType) => (
                 <Tab
+                  key={tab.name}
                   _selected={{ color: 'white', bg: 'blue.500' }}
                   fontSize="14px"
                   justifyContent="flex-start"
