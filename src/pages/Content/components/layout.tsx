@@ -98,6 +98,7 @@ export default function Layout() {
             >
               {tabs.map((tab: TabType) => (
                 <Tab
+                  key={tab.name}
                   _selected={{ color: 'white', bg: 'blue.500' }}
                   fontSize="14px"
                   justifyContent="flex-start"
@@ -110,11 +111,25 @@ export default function Layout() {
                 </Tab>
               ))}
             </TabList>
-            <Stack alignItems="center" mb="15px" spacing="15px">
+            <Stack alignItems="center" mb="20px" spacing="20px">
+              <Box w="40px" h="40px" position="relative">
+                <BellIcon w="40px" h="40px" />
+                <Text
+                  bg="red"
+                  fontSize="14px"
+                  borderRadius="6px"
+                  position="absolute"
+                  pl="3px"
+                  pr="3px"
+                  ml="18px"
+                  mt="-40px"
+                >
+                  20
+                </Text>
+              </Box>
               <Avatar w="40px" h="40px">
                 <AvatarBadge boxSize="1.25em" bg="green.500" />
               </Avatar>
-              <BellIcon w="40px" h="40px" />
             </Stack>
           </Flex>
           <Box w="700px" h="100%" m="0px !important" overflow="hidden">

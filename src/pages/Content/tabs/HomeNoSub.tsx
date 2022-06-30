@@ -96,7 +96,7 @@ export default function HomeNoSub() {
 
   return (
     <Stack p="10px 20px 10px 20px">
-      <Text fontWeight="bold" fontSize="20px" mt="10px" mb="10px">
+      <Text fontWeight="bold" fontSize="22px" mt="10px" mb="10px">
         자막이 없습니다. 무료로 요청해 보세요.
       </Text>
       <HStack>
@@ -123,50 +123,43 @@ export default function HomeNoSub() {
           </HStack>
         </Stack>
       </HStack>
-      <HStack justifyContent="space-around">
-        <Stack
-          w="250px"
-          h="200px"
-          bg="#232C39"
-          borderRadius="20px"
-          p="10px"
-          mt="20px"
-        >
-          <Text fontWeight="bold" fontSize="18px">
+      <HStack justifyContent="space-around" mt="30px !important">
+        <Stack w="250px" h="200px" bg="#232C39" borderRadius="20px" p="10px">
+          <Text fontWeight="bold" fontSize="19px">
             요청할 언어 선택
           </Text>
-          <Menu>
-            <MenuButton
-              as={Button}
-              rightIcon={<ChevronDownIcon />}
-              fontSize="15px"
-              w="180px"
-              h="30px"
-              mt="15px !important"
-            >
-              언어 선택
-            </MenuButton>
-            <MenuList maxH="450px" overflow="scroll" w="180px">
-              {codeList.map((code) => (
-                <MenuItem key={code} w="180px" fontSize="13px">
-                  {`${ISO6391.getName(code)} (${ISO6391.getNativeName(code)})`}
-                </MenuItem>
-              ))}
-            </MenuList>
-          </Menu>
-          <Checkbox mt={5} size="lg" defaultChecked scale={2}>
-            기본 요청 언어로 저장
-          </Checkbox>
+          <Center mt="35px !important">
+            <Menu>
+              <MenuButton
+                as={Button}
+                rightIcon={<ChevronDownIcon />}
+                fontSize="15px"
+                w="180px"
+                h="40px"
+                borderRadius="10px"
+                boxShadow="rgba(144,205,244, 0.4) 0px 0px 36px 0px, rgba(144,205,244, 0.4) 0px 0px 0px 1px;"
+              >
+                언어 선택
+              </MenuButton>
+              <MenuList maxH="450px" overflow="scroll" w="180px">
+                {codeList.map((code) => (
+                  <MenuItem key={code} w="180px" fontSize="13px">
+                    {`${ISO6391.getName(code)} (${ISO6391.getNativeName(
+                      code
+                    )})`}
+                  </MenuItem>
+                ))}
+              </MenuList>
+            </Menu>
+          </Center>
+          <Box className="default-language" mt="30px !important">
+            <Checkbox mt={5} defaultChecked>
+              기본 요청 언어로 저장
+            </Checkbox>
+          </Box>
         </Stack>
-        <Stack
-          w="300px"
-          h="200px"
-          bg="#232C39"
-          borderRadius="20px"
-          p="10px"
-          mt="20px !important"
-        >
-          <Text fontWeight="bold" fontSize="18px">
+        <Stack w="300px" h="200px" bg="#232C39" borderRadius="20px" p="10px">
+          <Text fontWeight="bold" fontSize="19px">
             포인트
           </Text>
           <Wrap justify="space-evenly">
@@ -203,12 +196,15 @@ export default function HomeNoSub() {
           colorScheme="blue"
           borderRadius="10px"
           mt="30px !important"
-          w="350px"
-          h="40px"
+          w="400px"
+          h="45px"
           fontSize="20px"
         >
-          요청 올리기
+          {100}P를 사용하여 한국어 자막 요청하기
         </Button>
+      </Center>
+      <Center>
+        <Text fontSize="15px">현재까지 10명이 자막을 요청했어요</Text>
       </Center>
     </Stack>
   );

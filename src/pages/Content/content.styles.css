@@ -34,6 +34,24 @@
   margin-top: 47%;
 }
 
-.chakra-text {
+chakra-scope p {
   line-height: normal;
+}
+
+chakra-scope span {
+  line-height: normal;
+}
+
+.default-language .chakra-checkbox__control {
+  width: 18px;
+  height: 18px;
+}
+
+.default-language svg{
+  width: 10px;
+  height: 10px;
+}
+
+.default-language .chakra-checkbox__label {
+  font-size: 18px;
 }
