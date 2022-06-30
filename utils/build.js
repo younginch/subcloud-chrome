@@ -5,6 +5,9 @@ process.env.ASSET_PATH = '/';
 
 var webpack = require('webpack'),
   config = require('../webpack.config');
+dotenv = require('dotenv');
+
+dotenv.config({ path: path.join(__dirname, '.env.prod') });
 
 delete config.chromeExtensionBoilerplate;
 

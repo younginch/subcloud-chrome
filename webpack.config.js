@@ -1,16 +1,12 @@
 var webpack = require('webpack'),
   path = require('path'),
   fileSystem = require('fs-extra'),
-  env = require('./utils/env'),
   CopyWebpackPlugin = require('copy-webpack-plugin'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   TerserPlugin = require('terser-webpack-plugin');
 var { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const ASSET_PATH = process.env.ASSET_PATH || '/';
-
-// load the secrets
-var secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js');
 
 var fileExtensions = [
   'jpg',
@@ -24,10 +20,6 @@ var fileExtensions = [
   'woff',
   'woff2',
 ];
-
-if (fileSystem.existsSync(secretsPath)) {
-  alias['secrets'] = secretsPath;
-}
 
 var options = {
   mode: process.env.NODE_ENV || 'development',
@@ -111,7 +103,7 @@ var options = {
           {
             loader: 'swc-loader',
             options: {
-              parseMap: env.NODE_ENV === 'development',
+              parseMap: process.env.NODE_ENV === 'development',
               jsc: {
                 parser: {
                   jsx: true,
@@ -229,7 +221,7 @@ var options = {
   },
 };
 
-if (env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
   options.devtool = 'cheap-module-source-map';
 } else {
   options.optimization = {
