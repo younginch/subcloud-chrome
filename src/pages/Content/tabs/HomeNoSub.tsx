@@ -123,15 +123,8 @@ export default function HomeNoSub() {
           </HStack>
         </Stack>
       </HStack>
-      <HStack justifyContent="space-around">
-        <Stack
-          w="250px"
-          h="200px"
-          bg="#232C39"
-          borderRadius="20px"
-          p="10px"
-          mt="20px"
-        >
+      <HStack justifyContent="space-around" mt="30px !important">
+        <Stack w="250px" h="200px" bg="#232C39" borderRadius="20px" p="10px">
           <Text fontWeight="bold" fontSize="19px">
             요청할 언어 선택
           </Text>
@@ -144,7 +137,7 @@ export default function HomeNoSub() {
                 w="180px"
                 h="40px"
                 borderRadius="10px"
-                boxShadow="rgba(144,205,244, 0.4) 0px 10px 36px 0px, rgba(144,205,244, 0.4) 0px 0px 0px 1px;"
+                boxShadow="rgba(144,205,244, 0.4) 0px 0px 36px 0px, rgba(144,205,244, 0.4) 0px 0px 0px 1px;"
               >
                 언어 선택
               </MenuButton>
@@ -165,14 +158,7 @@ export default function HomeNoSub() {
             </Checkbox>
           </Box>
         </Stack>
-        <Stack
-          w="300px"
-          h="200px"
-          bg="#232C39"
-          borderRadius="20px"
-          p="10px"
-          mt="20px !important"
-        >
+        <Stack w="300px" h="200px" bg="#232C39" borderRadius="20px" p="10px">
           <Text fontWeight="bold" fontSize="19px">
             포인트
           </Text>
@@ -218,7 +204,7 @@ export default function HomeNoSub() {
         </Button>
       </Center>
       <Center>
-        <Text>현재까지 10명이 자막을 요청했어요</Text>
+        <Text fontSize="15px">현재까지 10명이 자막을 요청했어요</Text>
       </Center>
     </Stack>
   );
