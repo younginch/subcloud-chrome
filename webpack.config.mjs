@@ -4,7 +4,6 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
-import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 
 const { ProgressPlugin, EnvironmentPlugin, DefinePlugin } = pkg;
 const dirname = resolve();
@@ -130,7 +129,6 @@ const options = {
       .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
   },
   plugins: [
-    new ReactRefreshWebpackPlugin(),
     new CleanWebpackPlugin({ verbose: false }),
     new ProgressPlugin(),
     // expose and write the allowed env vars on the compiled bundle
