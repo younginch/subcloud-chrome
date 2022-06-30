@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
-import { ChakraProvider } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 import Newtab from '../pages/Newtab/Newtab';
 import Options from '../pages/Options/Options';
 import Panel from '../pages/Panel/Panel';
@@ -14,10 +15,8 @@ import RequestButton from '../pages/Content/components/RequestButton';
 import calculateLayout from '../pages/Content/helpers/calculateLayout';
 import QuickSubtitleRequest from '../pages/Content/components/QuickSubtitleRequest';
 import DropZone from '../pages/Content/components/DropZone';
-import Home from '../pages/Content/tabs/Home';
 import Setting from '../pages/Content/tabs/Setting';
 import Subtitle from '../pages/Content/tabs/Subtitle';
-import Upload from '../pages/Content/tabs/Upload';
 import GreetingComponent from '../containers/Greetings/Greetings';
 import * as sub from '../pages/Content/utils/api/sub';
 import request from '../pages/Content/utils/api/request';
@@ -25,6 +24,15 @@ import * as video from '../pages/Content/utils/api/video';
 import uploadFile from '../pages/Content/utils/api/uploadFile';
 import requestCount from '../pages/Content/utils/api/requestCount';
 import HomeNoSub from '../pages/Content/tabs/HomeNoSub';
+import UploadDeprecated from '../pages/Content/tabs/UploadDeprecated';
+import Upload from '../pages/Content/tabs/Upload';
+import {
+  AppreciationIcon,
+  AppreciationSVG,
+} from '../pages/Content/components/icons';
+import CheckSubtitle from '../pages/Content/tabs/upload/CheckSubtitle';
+import UploadSubtitle from '../pages/Content/tabs/upload/UploadSubtitle';
+import UploadFinish from '../pages/Content/tabs/upload/UploadFinish';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -73,19 +81,13 @@ describe('Pages and Components', () => {
   });
 
   it('render DropZone', async () => {
-    render(<DropZone setFiles={(file: File[]) => null} />);
+    render(
+      <DropZone setFiles={(file: File[]) => null} uploadCallback={() => null} />
+    );
   });
 
   it('render Greetings', async () => {
     render(<GreetingComponent />);
-  });
-
-  it('render Home-deprecated tab', async () => {
-    render(
-      <ChakraProvider>
-        <Home />
-      </ChakraProvider>
-    );
   });
 
   it('render HomeNoSub tab', async () => {
@@ -112,10 +114,76 @@ describe('Pages and Components', () => {
     );
   });
 
-  it('render Upload tab', async () => {
+  it('render UploadDeprecated tab', async () => {
     render(
       <ChakraProvider>
+        <UploadDeprecated />
+      </ChakraProvider>
+    );
+  });
+
+  it('render AppereciateIcon', async () => {
+    render(
+      <ChakraProvider>
+        <AppreciationIcon size={15} />
+      </ChakraProvider>
+    );
+  });
+
+  it('render AppereciateSVG', async () => {
+    render(
+      <ChakraProvider>
+        <AppreciationSVG />
+      </ChakraProvider>
+    );
+  });
+
+  it('render Upload tab', async () => {
+    const theme = extendTheme({
+      components: {
+        Steps,
+      },
+    });
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: jest.fn().mockImplementation((query) => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: jest.fn(), // Deprecated
+        removeListener: jest.fn(), // Deprecated
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        dispatchEvent: jest.fn(),
+      })),
+    });
+    render(
+      <ChakraProvider theme={theme}>
         <Upload />
+      </ChakraProvider>
+    );
+  });
+
+  it('render UploadSubtitle', async () => {
+    render(
+      <ChakraProvider>
+        <UploadSubtitle setFiles={() => null} uploadCallback={() => null} />
+      </ChakraProvider>
+    );
+  });
+
+  it('render CheckSubtitle', async () => {
+    render(
+      <ChakraProvider>
+        <CheckSubtitle setFiles={() => null} sendCallback={() => null} />
+      </ChakraProvider>
+    );
+  });
+
+  it('render UploadFinish', async () => {
+    render(
+      <ChakraProvider>
+        <UploadFinish />
       </ChakraProvider>
     );
   });

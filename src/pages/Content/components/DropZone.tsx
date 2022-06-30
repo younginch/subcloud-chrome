@@ -1,9 +1,5 @@
-import { Box, Text, VStack } from '@chakra-ui/react';
+import { Box, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
-
-type Hover = {
-  backgroundColor: string;
-};
 
 type Style = {
   outline: string;
@@ -14,17 +10,21 @@ type Style = {
   display: string;
   alignItems: string;
   justifyContent: string;
-  '&:hover': Hover;
 };
 
 type Props = {
   setFiles: (file: File[]) => void;
+  children?: React.ReactNode;
+  uploadCallback: () => void;
 };
 
-export default function DropZone({ setFiles }: Props) {
+export default function DropZone({
+  setFiles,
+  uploadCallback,
+  children,
+}: Props) {
   const defaultColor = '#364044';
   const dragOverColor = '#999999';
-  const hoverColor = '#14181A';
   const [styleSheet, setStyle] = useState<Style>({
     outline: '2px dashed #aaaaaa',
     outlineOffset: '-10px',
@@ -34,9 +34,6 @@ export default function DropZone({ setFiles }: Props) {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    '&:hover': {
-      backgroundColor: hoverColor,
-    },
   });
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -85,6 +82,7 @@ export default function DropZone({ setFiles }: Props) {
     });
     */
     setFiles(totalFiles);
+    uploadCallback();
   };
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,7 +95,10 @@ export default function DropZone({ setFiles }: Props) {
       }
     });
     */
-    if (e.target.files !== null) setFiles([e.target.files[0]]);
+    if (e.target.files !== null) {
+      setFiles([e.target.files[0]]);
+      uploadCallback();
+    }
   };
 
   return (
@@ -109,6 +110,9 @@ export default function DropZone({ setFiles }: Props) {
       onClick={() => document.getElementById('subtitleFileInput')?.click()}
       w="100%"
       h="100%"
+      _hover={{
+        backgroundColor: '#14181A',
+      }}
     >
       <VStack align="center">
         <input
@@ -117,13 +121,12 @@ export default function DropZone({ setFiles }: Props) {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleUpload(e)}
           hidden
         />
-        <Text color="white" fontSize="md">
-          Drop
-        </Text>
-        <Text color="white" fontSize="md" mt="10px">
-          Click
-        </Text>
+        {children}
       </VStack>
     </Box>
   );
 }
+
+DropZone.defaultProps = {
+  children: undefined,
+};
