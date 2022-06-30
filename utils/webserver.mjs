@@ -1,20 +1,24 @@
+/* eslint-disable import/first */
 // Do this as the first thing so that any code reading it knows the right env.
 process.env.BABEL_ENV = 'development';
 process.env.NODE_ENV = 'development';
 process.env.ASSET_PATH = '/';
+process.env.PORT = 3001;
 
-var WebpackDevServer = require('webpack-dev-server'),
-  webpack = require('webpack'),
-  config = require('../webpack.config'),
-  path = require('path'),
-  dotenv = require('dotenv');
+import WebpackDevServer from 'webpack-dev-server';
+import webpack from 'webpack';
+import { join, resolve } from 'path';
+// eslint-disable-next-line import/extensions
+import config from '../webpack.config.mjs';
 
-dotenv.config({ path: path.join(__dirname, '.env.dev') });
+const { HotModuleReplacementPlugin } = webpack;
 
-var options = config.chromeExtensionBoilerplate || {};
-var excludeEntriesToHotReload = options.notHotReload || [];
+const dirname = resolve();
+const options = config.chromeExtensionBoilerplate || {};
+const excludeEntriesToHotReload = options.notHotReload || [];
 
-for (var entryName in config.entry) {
+// eslint-disable-next-line no-restricted-syntax
+for (const entryName in config.entry) {
   if (excludeEntriesToHotReload.indexOf(entryName) === -1) {
     config.entry[entryName] = [
       'webpack/hot/dev-server',
@@ -23,15 +27,15 @@ for (var entryName in config.entry) {
   }
 }
 
-config.plugins = [new webpack.HotModuleReplacementPlugin()].concat(
+config.plugins = [new HotModuleReplacementPlugin()].concat(
   config.plugins || []
 );
 
 delete config.chromeExtensionBoilerplate;
 
-var compiler = webpack(config);
+const compiler = webpack(config);
 
-var server = new WebpackDevServer(
+const server = new WebpackDevServer(
   {
     https: false,
     hot: false,
@@ -39,7 +43,7 @@ var server = new WebpackDevServer(
     host: 'localhost',
     port: process.env.PORT,
     static: {
-      directory: path.join(__dirname, '../build'),
+      directory: join(dirname, '../build'),
     },
     devMiddleware: {
       publicPath: `http://localhost:${process.env.PORT}/`,
@@ -52,10 +56,6 @@ var server = new WebpackDevServer(
   },
   compiler
 );
-
-if (process.env.NODE_ENV === 'development' && module.hot) {
-  module.hot.accept();
-}
 
 (async () => {
   await server.start();

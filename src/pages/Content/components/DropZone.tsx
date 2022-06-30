@@ -14,7 +14,7 @@ type Style = {
 
 type Props = {
   setFiles: (file: File[]) => void;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   uploadCallback: () => void;
 };
 
@@ -126,3 +126,7 @@ export default function DropZone({
     </Box>
   );
 }
+
+DropZone.defaultProps = {
+  children: undefined,
+};

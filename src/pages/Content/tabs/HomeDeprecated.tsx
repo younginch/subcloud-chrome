@@ -17,7 +17,7 @@ import request from '../utils/api/request';
 import requestCount from '../utils/api/requestCount';
 import getTab from '../utils/getTab';
 
-export default function Home() {
+export default function HomeDeprecated() {
   const [lang, setLang] = useState('en');
   const [title, setTitle] = useState('');
   const [thumbnail, setThumbnail] = useState('http://img.youtube.com/vi/');

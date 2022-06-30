@@ -24,12 +24,11 @@ import {
 import { MdSubtitles } from 'react-icons/md';
 import { IoMdCloudUpload } from 'react-icons/io';
 import { BellIcon } from '@chakra-ui/icons';
-import { getFetch } from '../utils/fetch';
-import Subtitle from '../tabs/Subtitle';
-import UploadDeprecated from '../tabs/UploadDeprecated';
-import Setting from '../tabs/Setting';
-import HomeNoSub from '../tabs/HomeNoSub';
-import Upload from '../tabs/Upload';
+import { getFetch } from './utils/fetch';
+import Subtitle from './tabs/Subtitle';
+import Setting from './tabs/Setting';
+import HomeNoSub from './tabs/HomeNoSub';
+import Upload from './tabs/Upload';
 
 type TabType = {
   icon: React.ReactNode;

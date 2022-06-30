@@ -48,7 +48,7 @@ export default function UploadDeprecated() {
         </Flex>
       )}
       <Box w="298px" h={files === undefined ? '190px' : '170px'}>
-        <DropZone setFiles={setFiles} />
+        <DropZone setFiles={setFiles} uploadCallback={() => null} />
       </Box>
       {files === undefined ? (
         <Flex direction="column" p="15px 15px 0px 15px">

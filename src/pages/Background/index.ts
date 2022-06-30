@@ -1,15 +1,12 @@
 import { MESSAGETAG } from '../../../utils/type';
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const apiUrl = process.env.REACT_APP_API_URL!;
-
 async function getTab() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   return tab;
 }
 
 async function getAPI(url: string) {
-  const res = await fetch(`${apiUrl}/api/${url}`, {
+  const res = await fetch(`${API_URL}/api/${url}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -23,7 +20,7 @@ async function getAPI(url: string) {
 }
 
 async function postAPI(url: string, body: object) {
-  const res = await fetch(`${apiUrl}/api/${url}`, {
+  const res = await fetch(`${API_URL}/api/${url}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -61,7 +58,7 @@ async function uploadFile(
   const formData = new FormData();
   formData.append('file', file);
   const videoData = await postAPI('video', { url });
-  const fileResponse = await fetch(`${apiUrl}/api/file/upload`, {
+  const fileResponse = await fetch(`${API_URL}/api/file/upload`, {
     method: 'POST',
     body: formData,
   });
@@ -83,7 +80,7 @@ async function sendMessage(
   sendResponse({ data });
 }
 
-chrome.cookies.get({ url: apiUrl, name: '__Secure-next-auth.session-token' });
+chrome.cookies.get({ url: API_URL, name: '__Secure-next-auth.session-token' });
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
   const { url } = changeInfo;

@@ -1,14 +1,19 @@
-var webpack = require('webpack'),
-  path = require('path'),
-  fileSystem = require('fs-extra'),
-  CopyWebpackPlugin = require('copy-webpack-plugin'),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
-  TerserPlugin = require('terser-webpack-plugin');
-var { CleanWebpackPlugin } = require('clean-webpack-plugin');
+import pkg from 'webpack';
+import { join, resolve } from 'path';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
+
+const { ProgressPlugin, EnvironmentPlugin, DefinePlugin } = pkg;
+const dirname = resolve();
 
 const ASSET_PATH = process.env.ASSET_PATH || '/';
 
-var fileExtensions = [
+const isDev = process.env.NODE_ENV !== 'production';
+
+const fileExtensions = [
   'jpg',
   'jpeg',
   'png',
@@ -21,23 +26,23 @@ var fileExtensions = [
   'woff2',
 ];
 
-var options = {
+const options = {
   mode: process.env.NODE_ENV || 'development',
   entry: {
-    newtab: path.join(__dirname, 'src', 'pages', 'Newtab', 'index.tsx'),
-    options: path.join(__dirname, 'src', 'pages', 'Options', 'index.tsx'),
-    popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.tsx'),
-    background: path.join(__dirname, 'src', 'pages', 'Background', 'index.ts'),
-    contentScript: path.join(__dirname, 'src', 'pages', 'Content', 'index.tsx'),
-    devtools: path.join(__dirname, 'src', 'pages', 'Devtools', 'index.js'),
-    panel: path.join(__dirname, 'src', 'pages', 'Panel', 'index.tsx'),
+    newtab: join(dirname, 'src', 'pages', 'Newtab', 'index.tsx'),
+    options: join(dirname, 'src', 'pages', 'Options', 'index.tsx'),
+    popup: join(dirname, 'src', 'pages', 'Popup', 'index.tsx'),
+    background: join(dirname, 'src', 'pages', 'Background', 'index.ts'),
+    contentScript: join(dirname, 'src', 'pages', 'Content', 'index.tsx'),
+    devtools: join(dirname, 'src', 'pages', 'Devtools', 'index.js'),
+    panel: join(dirname, 'src', 'pages', 'Panel', 'index.tsx'),
   },
   chromeExtensionBoilerplate: {
     notHotReload: ['background', 'contentScript', 'devtools'],
   },
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'build'),
+    path: resolve(dirname, 'build'),
     clean: true,
     publicPath: ASSET_PATH,
   },
@@ -63,7 +68,7 @@ var options = {
         ],
       },
       {
-        test: new RegExp('.(' + fileExtensions.join('|') + ')$'),
+        test: new RegExp(`.(${fileExtensions.join('|')})$`),
         type: 'asset/resource',
         exclude: /node_modules/,
         // loader: 'file-loader',
@@ -103,7 +108,7 @@ var options = {
           {
             loader: 'swc-loader',
             options: {
-              parseMap: process.env.NODE_ENV === 'development',
+              parseMap: isDev,
               jsc: {
                 parser: {
                   jsx: true,
@@ -121,30 +126,34 @@ var options = {
   },
   resolve: {
     extensions: fileExtensions
-      .map((extension) => '.' + extension)
+      .map((extension) => `.${extension}`)
       .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
   },
   plugins: [
+    new ReactRefreshWebpackPlugin(),
     new CleanWebpackPlugin({ verbose: false }),
-    new webpack.ProgressPlugin(),
+    new ProgressPlugin(),
     // expose and write the allowed env vars on the compiled bundle
-    new webpack.EnvironmentPlugin(['NODE_ENV']),
+    new EnvironmentPlugin(['NODE_ENV']),
+    new DefinePlugin({
+      API_URL: isDev ? '"http://localhost:3000"' : '"https://subcloud.app"',
+      VERSION: JSON.stringify('v0.1'),
+    }),
     new CopyWebpackPlugin({
       patterns: [
         {
           from: 'src/manifest.json',
-          to: path.join(__dirname, 'build'),
+          to: join(dirname, 'build'),
           force: true,
-          transform: function (content, path) {
+          transform: (content, path) =>
             // generates the manifest file using the package.json informations
-            return Buffer.from(
+            Buffer.from(
               JSON.stringify({
                 description: process.env.npm_package_description,
                 version: process.env.npm_package_version,
                 ...JSON.parse(content.toString()),
               })
-            );
-          },
+            ),
         },
       ],
     }),
@@ -152,12 +161,12 @@ var options = {
       patterns: [
         {
           from: 'src/pages/Content/content.styles.css',
-          to: path.join(__dirname, 'build'),
+          to: join(dirname, 'build'),
           force: true,
         },
         {
           from: 'src/pages/Content/runtime',
-          to: path.join(__dirname, 'build'),
+          to: join(dirname, 'build'),
           force: true,
         },
       ],
@@ -166,12 +175,12 @@ var options = {
       patterns: [
         {
           from: 'src/assets/icon-128.png',
-          to: path.join(__dirname, 'build'),
+          to: join(dirname, 'build'),
           force: true,
         },
         {
           from: 'src/assets/icon-34.png',
-          to: path.join(__dirname, 'build'),
+          to: join(dirname, 'build'),
           force: true,
         },
       ],
@@ -180,37 +189,37 @@ var options = {
       patterns: [
         {
           from: 'src/assets/runtime',
-          to: path.join(__dirname, 'build'),
+          to: join(dirname, 'build'),
           force: true,
         },
       ],
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Newtab', 'index.html'),
+      template: join(dirname, 'src', 'pages', 'Newtab', 'index.html'),
       filename: 'newtab.html',
       chunks: ['newtab'],
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Options', 'index.html'),
+      template: join(dirname, 'src', 'pages', 'Options', 'index.html'),
       filename: 'options.html',
       chunks: ['options'],
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Popup', 'index.html'),
+      template: join(dirname, 'src', 'pages', 'Popup', 'index.html'),
       filename: 'popup.html',
       chunks: ['popup'],
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Devtools', 'index.html'),
+      template: join(dirname, 'src', 'pages', 'Devtools', 'index.html'),
       filename: 'devtools.html',
       chunks: ['devtools'],
       cache: false,
     }),
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'pages', 'Panel', 'index.html'),
+      template: join(dirname, 'src', 'pages', 'Panel', 'index.html'),
       filename: 'panel.html',
       chunks: ['panel'],
       cache: false,
@@ -221,7 +230,7 @@ var options = {
   },
 };
 
-if (process.env.NODE_ENV === 'development') {
+if (isDev) {
   options.devtool = 'cheap-module-source-map';
 } else {
   options.optimization = {
@@ -234,4 +243,4 @@ if (process.env.NODE_ENV === 'development') {
   };
 }
 
-module.exports = options;
+export default options;
