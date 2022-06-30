@@ -1,78 +1,47 @@
 import { ViewIcon } from '@chakra-ui/icons';
 import { Box, Button, HStack, Spacer, Text } from '@chakra-ui/react';
-import { Dispatch, SetStateAction } from 'react';
 import { IoMdCloudUpload } from 'react-icons/io';
+import { SRTFile } from '@younginch/subtitle';
+import { useState } from 'react';
+import toast from '../../utils/toast';
+import getTab from '../../utils/getTab';
+import uploadFile from '../../utils/api/uploadFile';
 
 export type Props = {
-  setFiles: Dispatch<SetStateAction<File[] | undefined>>;
+  files: File[] | undefined;
   sendCallback: () => void;
 };
 
-export default function CheckSubtitle({ setFiles, sendCallback }: Props) {
-  const subtitleContent = `1
-  00:00:19,552 --> 00:00:23,165
-  If I was your man, but not.
-  
-  2
-  00:00:23,165 --> 00:00:25,162
-  We would have go to deokso alleypub.
-  
-  3
-  00:00:25,162 --> 00:00:28,482
-  They would welcome me, my fucking friends.
-  
-  4
-  00:00:28,482 --> 00:00:31,182
-  Beside you, the prince who will soon have seoul.
-  
-  5
-  00:00:31,182 --> 00:00:34,282
-  I make money, enough to buy you saim, sejong.
-  
-  6
-  00:00:34,282 --> 00:00:36,437
-  But the one who has you is my best friend.
-  
-  7
-  00:00:36,454 --> 00:00:38,968
-  In a small town that kinda feeling is forbidden
-  
-  8
-  00:00:38,968 --> 00:00:41,997
-  I wanna dance shuffle and get your heart, pshcye's heart
-  
-  9
-  00:00:41,997 --> 00:00:44,587
-  Your heart will never know my real mind.
-  
-  10
-  00:00:44,587 --> 00:00:46,473
-  Until you die naturally.
-  
-  11
-  00:00:46,491 --> 00:00:49,358
-  2AM song, my iPhone's ringtone.
-  
-  12
-  00:00:49,358 --> 00:00:51,882
-  Don't want to offend my friend.
-  
-  13
-  00:00:51,882 --> 00:00:54,453
-  I don't betray my friend, protect my friendship.
-  
-  14
-  00:00:54,453 --> 00:00:56,937
-  Till I die, It is sure. I only have my friends.
-  
-  15
-  00:00:56,950 --> 00:00:59,740
-  Vow, loyal to each other, Me and him are like that.
-  
-  16
-  00:00:59,740 --> 00:01:02,460
-  This makes us different from other fucking guys.`;
-  const textLines = subtitleContent.split('\n');
+export default function CheckSubtitle({ files, sendCallback }: Props) {
+  const [sub, setSub] = useState<SRTFile | undefined>();
+
+  const preview = async () => {
+    try {
+      if (!files) return;
+      const reader = new FileReader();
+      reader.readAsText(files[0]);
+      reader.onload = () => {
+        setSub(SRTFile.fromText(String(reader.result)));
+        chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
+      };
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
+    }
+  };
+
+  const upload = async () => {
+    try {
+      if (!files) return;
+      const tab = await getTab();
+      const reader = new FileReader();
+      reader.readAsText(files[0]);
+      reader.onload = () => {
+        uploadFile(String(reader.result), files[0].name, tab.url, 'en');
+      };
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
+    }
+  };
 
   return (
     <>
@@ -80,7 +49,7 @@ export default function CheckSubtitle({ setFiles, sendCallback }: Props) {
         자막을 검토하고 업로드하세요
       </Text>
       <HStack w="550px">
-        <Text fontSize="13px">파일 미리보기 (총 {textLines.length}줄)</Text>
+        <Text fontSize="13px">파일 미리보기 (총 {sub?.array.length}줄)</Text>
         <Spacer />
         <Button colorScheme="red" fontSize="12px">
           다시 업로드
@@ -96,11 +65,15 @@ export default function CheckSubtitle({ setFiles, sendCallback }: Props) {
         borderColor="gray.500"
         overflow="auto"
       >
-        {textLines.map((text) => (
-          <Text fontSize="14px" key={text}>
-            {text}
-          </Text>
-        ))}
+        {sub
+          ?.toText()
+          .split('\n')
+          .map((line, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <Text fontSize="14px" key={index}>
+              {line}
+            </Text>
+          ))}
       </Box>
       <HStack mt="20px !important" spacing="120px">
         <Button
@@ -108,12 +81,16 @@ export default function CheckSubtitle({ setFiles, sendCallback }: Props) {
           h="45px"
           w="130px"
           colorScheme="blue"
+          onClick={preview}
         >
           <Text fontSize="18px">프리뷰</Text>
         </Button>
         <Button
           leftIcon={<IoMdCloudUpload size="20px" />}
-          onClick={sendCallback}
+          onClick={() => {
+            upload();
+            sendCallback();
+          }}
           h="45px"
           w="130px"
           colorScheme="green"
