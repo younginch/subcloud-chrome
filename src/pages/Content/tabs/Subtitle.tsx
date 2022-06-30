@@ -36,7 +36,7 @@ type SubType = {
 
 export default function Subtitle() {
   const [lang, setLang] = useState('All Lang');
-  const [subs, setSubs] = useState<undefined | SubType[]>();
+  const [subs, setSubs] = useState<SubType[]>();
   const width = ['80px', '50px', '70px', '100px', '100px'];
 
   const getSubs = async () => {
