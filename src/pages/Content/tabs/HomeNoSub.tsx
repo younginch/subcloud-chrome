@@ -25,11 +25,27 @@ import { TbDiamond, TbDiamonds } from 'react-icons/tb';
 import { BiRocket } from 'react-icons/bi';
 import { BsLightningCharge } from 'react-icons/bs';
 import { HiOutlineFire } from 'react-icons/hi';
+import { useEffect, useState } from 'react';
+import getTab from '../utils/getTab';
+import request from '../utils/api/request';
+import requestCount from '../utils/api/requestCount';
+import video from '../utils/api/video';
+import toast from '../utils/toast';
 
 type PointElement = {
   amount: number;
   hoverColor: string;
   icon: React.ReactElement;
+};
+
+type YoutubeVideoInfo = {
+  thumbnailUrl: string;
+  title: string;
+  channel: {
+    title: string;
+    subscriberCount: number;
+    thumbnailUrl: string;
+  };
 };
 
 export default function HomeNoSub() {
@@ -93,6 +109,63 @@ export default function HomeNoSub() {
   }
   `;
   const pointBg = useColorModeValue('gray.100', 'gray.800');
+  const [youtubeVideoInfo, setYoutubeVideoInfo] = useState<
+    YoutubeVideoInfo | undefined
+  >();
+  const [count, setCount] = useState<number | undefined>();
+  const [point, setPoint] = useState(0);
+
+  const sendRequest = async () => {
+    try {
+      const tab = await getTab();
+      await request(tab.url, 'en', point);
+      const cnt = await requestCount(tab.url);
+      setCount(cnt);
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
+    }
+  };
+
+  const getVideoInfo = async () => {
+    try {
+      const tab = await getTab();
+      const videoInfo = await video(tab.url);
+      const { youtubeVideo } = videoInfo;
+      let replaceUrl = tab.url.replace('https://youtu.be/', '');
+      replaceUrl = replaceUrl.replace('https://www.youtube.com/embed/', '');
+      replaceUrl = replaceUrl.replace('https://www.youtube.com/watch?v=', '');
+      const finUrl = replaceUrl.split('&')[0];
+      setYoutubeVideoInfo({
+        thumbnailUrl: `http://img.youtube.com/vi/${finUrl}/0.jpg`,
+        title: youtubeVideo?.title ?? '',
+        channel: {
+          title: youtubeVideo?.channel.title ?? '',
+          subscriberCount: youtubeVideo?.channel.subscriberCount ?? 0,
+          thumbnailUrl: youtubeVideo?.channel.thumbnailUrl ?? '',
+        },
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
+    }
+  };
+
+  const getRequestCount = async () => {
+    try {
+      const tab = await getTab();
+      const cnt = await requestCount(tab.url);
+      setCount(cnt);
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
+    }
+  };
+
+  useEffect(() => {
+    const init = async () => {
+      await getVideoInfo();
+      await getRequestCount();
+    };
+    init();
+  }, []);
 
   return (
     <Stack p="10px 20px 10px 20px">
@@ -100,24 +173,20 @@ export default function HomeNoSub() {
         자막이 없습니다. 무료로 요청해 보세요.
       </Text>
       <HStack>
-        <Image
-          w="200px"
-          h="112px"
-          src="https://i.ytimg.com/vi/i7muqI90138/hq720.jpg?sqp=-oaymwEcCOgCEMoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBC5w6YC_g_y_C63HEmGQKFLdFM3Q/"
-        />
+        <Image w="200px" h="112px" src={youtubeVideoInfo?.thumbnailUrl} />
         <Stack pl="15px" spacing="10px">
           <Text fontWeight="bold" fontSize="20px">
-            창모 (CHANGMO) - 널 지워야해 (Erase You)...
+            {youtubeVideoInfo?.title}
           </Text>
           <HStack>
             <Avatar
               marginEnd="12px"
-              src="https://yt3.ggpht.com/OnmZuPdpbqdTg01LBgTi1TGC7MSqD2Ux6H2uyEuwwgaRYfi1qvbSTP634RUfgK9ScQ7og60C=s48-c-k-c0x00ffffff-no-rj"
+              src={youtubeVideoInfo?.channel.thumbnailUrl}
             />
             <Stack>
-              <Heading size="md">리릭뭉치</Heading>
+              <Heading size="md">{youtubeVideoInfo?.channel.title}</Heading>
               <Heading size="md" fontWeight="normal">
-                구독자 72010명
+                구독자 {youtubeVideoInfo?.channel.subscriberCount}명
               </Heading>
             </Stack>
           </HStack>
@@ -199,12 +268,13 @@ export default function HomeNoSub() {
           w="400px"
           h="45px"
           fontSize="20px"
+          onClick={sendRequest}
         >
-          {100}P를 사용하여 한국어 자막 요청하기
+          {point}P를 사용하여 한국어 자막 요청하기
         </Button>
       </Center>
       <Center>
-        <Text fontSize="15px">현재까지 10명이 자막을 요청했어요</Text>
+        <Text fontSize="15px">현재까지 {count}명이 자막을 요청했어요</Text>
       </Center>
     </Stack>
   );

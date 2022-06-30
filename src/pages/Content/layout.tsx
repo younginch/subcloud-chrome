@@ -26,9 +26,10 @@ import { IoMdCloudUpload } from 'react-icons/io';
 import { BellIcon } from '@chakra-ui/icons';
 import { getFetch } from './utils/fetch';
 import Subtitle from './tabs/Subtitle';
+import Upload from './tabs/Upload';
 import Setting from './tabs/Setting';
 import HomeNoSub from './tabs/HomeNoSub';
-import Upload from './tabs/Upload';
+import toast from './utils/toast';
 
 type TabType = {
   icon: React.ReactNode;
@@ -46,8 +47,12 @@ export default function Layout() {
   ];
 
   async function getUserInfo() {
-    const data = await getFetch('auth/session');
-    setUser(data.user);
+    try {
+      const data = await getFetch('auth/session');
+      setUser(data.user);
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
+    }
   }
 
   useEffect(() => {

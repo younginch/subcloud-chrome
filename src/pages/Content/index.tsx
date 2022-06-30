@@ -87,6 +87,10 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       load();
       sendResponse({ data: 'load-done' });
       return true;
+    case MESSAGETAG.TOAST:
+      console.log(message.msg);
+      sendResponse({ data: 'load-done' });
+      return true;
     default:
       sendResponse({ data: 'load-done' });
       return true;

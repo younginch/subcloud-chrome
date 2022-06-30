@@ -5,6 +5,7 @@ enum MESSAGETAG {
   GETFILE,
   UPLOADFILE,
   INIT,
+  TOAST,
 }
 
 enum Status {

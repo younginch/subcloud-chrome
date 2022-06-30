@@ -21,7 +21,7 @@ export default function TableRow({
   const width = ['80px', '50px', '70px', '100px', '100px'];
   const style = {
     '&:hover': {
-      'background-color': '#444444',
+      backgroundColor: '#444444',
     },
   };
   return (
