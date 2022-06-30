@@ -31,6 +31,9 @@ import {
   AppreciationIcon,
   AppreciationSVG,
 } from '../pages/Content/components/icons';
+import CheckSubtitle from '../pages/Content/tabs/upload/CheckSubtitle';
+import UploadSubtitle from '../pages/Content/tabs/upload/UploadSubtitle';
+import UploadFinish from '../pages/Content/tabs/upload/UploadFinish';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -166,6 +169,30 @@ describe('Pages and Components', () => {
     render(
       <ChakraProvider theme={theme}>
         <Upload />
+      </ChakraProvider>
+    );
+  });
+
+  it('render UploadSubtitle', async () => {
+    render(
+      <ChakraProvider>
+        <UploadSubtitle setFiles={() => null} uploadCallback={() => null} />
+      </ChakraProvider>
+    );
+  });
+
+  it('render CheckSubtitle', async () => {
+    render(
+      <ChakraProvider>
+        <CheckSubtitle setFiles={() => null} sendCallback={() => null} />
+      </ChakraProvider>
+    );
+  });
+
+  it('render UploadFinish', async () => {
+    render(
+      <ChakraProvider>
+        <UploadFinish />
       </ChakraProvider>
     );
   });
