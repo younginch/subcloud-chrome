@@ -11,6 +11,9 @@ import {
   Spacer,
   Flex,
   Text,
+  Avatar,
+  AvatarBadge,
+  Stack,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import {
@@ -20,12 +23,13 @@ import {
 } from 'react-icons/ai';
 import { MdSubtitles } from 'react-icons/md';
 import { IoMdCloudUpload } from 'react-icons/io';
+import { BellIcon } from '@chakra-ui/icons';
 import { getFetch } from '../utils/fetch';
-import { WishIcon } from './icons';
 import Home from '../tabs/Home';
 import Subtitle from '../tabs/Subtitle';
 import Upload from '../tabs/Upload';
 import Setting from '../tabs/Setting';
+import HomeNoSub from '../tabs/HomeNoSub';
 
 type TabType = {
   icon: React.ReactNode;
@@ -97,6 +101,7 @@ export default function Layout() {
                   _selected={{ color: 'white', bg: 'blue.500' }}
                   fontSize="14px"
                   justifyContent="flex-start"
+                  h="40px"
                 >
                   <HStack spacing="15px" pl="18px">
                     {tab.icon}
@@ -105,12 +110,17 @@ export default function Layout() {
                 </Tab>
               ))}
             </TabList>
-            <WishIcon size={150} />
+            <Stack alignItems="center">
+              <Avatar w="40px" h="40px">
+                <AvatarBadge boxSize="1.25em" bg="green.500" />
+              </Avatar>
+              <BellIcon w="40px" h="40px" />
+            </Stack>
           </Flex>
           <Box w="700px" h="100%" m="0px !important" overflow="hidden">
             <TabPanels>
               <TabPanel p={0}>
-                <Home />
+                <HomeNoSub />
               </TabPanel>
               <TabPanel p={0}>
                 <Subtitle />
