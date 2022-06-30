@@ -13,11 +13,11 @@ export default function CheckSubtitle({ setFiles, sendCallback }: Props) {
       <Text fontWeight="bold" fontSize="22px" m="10px">
         자막을 검토하고 업로드하세요
       </Text>
-      <HStack w="600px">
+      <HStack w="550px">
         <Spacer />
         <Button>다시 업로드</Button>
       </HStack>
-      <Box w="600px" h="250px" mt="5px">
+      <Box w="550px" h="250px" mt="5px">
         <Text>자막파일 내용</Text>
       </Box>
       <HStack>
