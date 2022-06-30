@@ -27,6 +27,10 @@ import requestCount from '../pages/Content/utils/api/requestCount';
 import HomeNoSub from '../pages/Content/tabs/HomeNoSub';
 import UploadDeprecated from '../pages/Content/tabs/UploadDeprecated';
 import Upload from '../pages/Content/tabs/Upload';
+import {
+  AppreciationIcon,
+  AppreciationSVG,
+} from '../pages/Content/components/icons';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -120,6 +124,22 @@ describe('Pages and Components', () => {
     render(
       <ChakraProvider>
         <UploadDeprecated />
+      </ChakraProvider>
+    );
+  });
+
+  it('render AppereciateIcon', async () => {
+    render(
+      <ChakraProvider>
+        <AppreciationIcon size={15} />
+      </ChakraProvider>
+    );
+  });
+
+  it('render AppereciateSVG', async () => {
+    render(
+      <ChakraProvider>
+        <AppreciationSVG />
       </ChakraProvider>
     );
   });
