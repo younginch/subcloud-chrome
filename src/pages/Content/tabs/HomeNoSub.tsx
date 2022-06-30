@@ -13,7 +13,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  MenuOptionGroup,
   Stack,
   Text,
   useColorModeValue,
@@ -134,21 +133,26 @@ export default function HomeNoSub() {
           mt="20px"
         >
           <Text fontWeight="bold" fontSize="18px">
-            언어 선택
+            요청할 언어 선택
           </Text>
           <Menu>
-            <MenuOptionGroup>
-              <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                언어 선택
-              </MenuButton>
-              <MenuList>
-                {codeList.map((code) => (
-                  <MenuItem key={code}>{`${ISO6391.getName(
-                    code
-                  )} (${ISO6391.getNativeName(code)})`}</MenuItem>
-                ))}
-              </MenuList>
-            </MenuOptionGroup>
+            <MenuButton
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+              fontSize="15px"
+              w="180px"
+              h="30px"
+              mt="15px !important"
+            >
+              언어 선택
+            </MenuButton>
+            <MenuList maxH="450px" overflow="scroll" w="180px">
+              {codeList.map((code) => (
+                <MenuItem key={code} w="180px" fontSize="13px">
+                  {`${ISO6391.getName(code)} (${ISO6391.getNativeName(code)})`}
+                </MenuItem>
+              ))}
+            </MenuList>
           </Menu>
           <Checkbox mt={5} size="lg" defaultChecked scale={2}>
             기본 요청 언어로 저장

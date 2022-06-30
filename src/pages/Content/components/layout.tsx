@@ -79,7 +79,7 @@ export default function Layout() {
         <Spacer />
         <AiOutlineCloseCircle size={20} />
       </HStack>
-      <Tabs orientation="vertical" mt="0px !important" h="560px">
+      <Tabs orientation="vertical" mt="0px !important" h="560px" isLazy>
         <HStack>
           <Flex
             direction="column"
@@ -110,7 +110,7 @@ export default function Layout() {
                 </Tab>
               ))}
             </TabList>
-            <Stack alignItems="center">
+            <Stack alignItems="center" mb="15px" spacing="15px">
               <Avatar w="40px" h="40px">
                 <AvatarBadge boxSize="1.25em" bg="green.500" />
               </Avatar>

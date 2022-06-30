@@ -24,6 +24,7 @@ import request from '../pages/Content/utils/api/request';
 import * as video from '../pages/Content/utils/api/video';
 import uploadFile from '../pages/Content/utils/api/uploadFile';
 import requestCount from '../pages/Content/utils/api/requestCount';
+import HomeNoSub from '../pages/Content/tabs/HomeNoSub';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -79,10 +80,18 @@ describe('Pages and Components', () => {
     render(<GreetingComponent />);
   });
 
-  it('render Home tab', async () => {
+  it('render Home-deprecated tab', async () => {
     render(
       <ChakraProvider>
         <Home />
+      </ChakraProvider>
+    );
+  });
+
+  it('render HomeNoSub tab', async () => {
+    render(
+      <ChakraProvider>
+        <HomeNoSub />
       </ChakraProvider>
     );
   });
@@ -255,6 +264,5 @@ describe('Pages and Components', () => {
     });
     expect(appendResult).toBeTruthy();
   });
-
   */
 });
