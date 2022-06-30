@@ -1,10 +1,6 @@
 import { Box, Text, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 
-type Hover = {
-  'background-color': string;
-};
-
 type Style = {
   outline: string;
   'outline-offset': string;
@@ -14,17 +10,16 @@ type Style = {
   display: string;
   'align-items': string;
   'justify-content': string;
-  '&:hover': Hover;
 };
 
 type Props = {
   setFiles: (file: File[]) => void;
+  children: React.ReactNode;
 };
 
-export default function DropZone({ setFiles }: Props) {
+export default function DropZone({ setFiles, children }: Props) {
   const defaultColor = '#364044';
   const dragOverColor = '#999999';
-  const hoverColor = '#14181A';
   const [styleSheet, setStyle] = useState<Style>({
     outline: '2px dashed #aaaaaa',
     'outline-offset': '-10px',
@@ -34,9 +29,6 @@ export default function DropZone({ setFiles }: Props) {
     display: 'flex',
     'align-items': 'center',
     'justify-content': 'center',
-    '&:hover': {
-      'background-color': hoverColor,
-    },
   });
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -109,6 +101,9 @@ export default function DropZone({ setFiles }: Props) {
       onClick={() => document.getElementById('subtitleFileInput')?.click()}
       w="100%"
       h="100%"
+      _hover={{
+        backgroundColor: '#14181A',
+      }}
     >
       <VStack align="center">
         <input
@@ -117,12 +112,7 @@ export default function DropZone({ setFiles }: Props) {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleUpload(e)}
           hidden
         />
-        <Text color="white" fontSize="md">
-          Drop
-        </Text>
-        <Text color="white" fontSize="md" mt="10px">
-          Click
-        </Text>
+        {children}
       </VStack>
     </Box>
   );

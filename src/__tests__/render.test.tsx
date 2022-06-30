@@ -17,7 +17,6 @@ import DropZone from '../pages/Content/components/DropZone';
 import Home from '../pages/Content/tabs/Home';
 import Setting from '../pages/Content/tabs/Setting';
 import Subtitle from '../pages/Content/tabs/Subtitle';
-import Upload from '../pages/Content/tabs/Upload';
 import GreetingComponent from '../containers/Greetings/Greetings';
 import * as sub from '../pages/Content/utils/api/sub';
 import request from '../pages/Content/utils/api/request';
@@ -25,6 +24,7 @@ import * as video from '../pages/Content/utils/api/video';
 import uploadFile from '../pages/Content/utils/api/uploadFile';
 import requestCount from '../pages/Content/utils/api/requestCount';
 import HomeNoSub from '../pages/Content/tabs/HomeNoSub';
+import UploadDeprecated from '../pages/Content/tabs/UploadDeprecated';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -112,10 +112,10 @@ describe('Pages and Components', () => {
     );
   });
 
-  it('render Upload tab', async () => {
+  it('render UploadDeprecated tab', async () => {
     render(
       <ChakraProvider>
-        <Upload />
+        <UploadDeprecated />
       </ChakraProvider>
     );
   });
