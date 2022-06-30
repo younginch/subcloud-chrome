@@ -1,4 +1,5 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 import { MESSAGETAG } from '../../../utils/type';
 import BottomButton from './components/BottomButton';
 import QuickSubtitleRequest from './components/QuickSubtitleRequest';
@@ -30,6 +31,7 @@ const theme = extendTheme({
         },
       },
     },
+    Steps,
   },
 });
 

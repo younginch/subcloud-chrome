@@ -1,12 +1,26 @@
 import { Box, Stack, Text } from '@chakra-ui/react';
 import { useState } from 'react';
 import { FaFileUpload } from 'react-icons/fa';
+import { Step, Steps, useSteps } from 'chakra-ui-steps';
 import DropZone from '../components/DropZone';
 
 export default function Upload() {
+  const steps = [{ label: 'Step 1' }, { label: 'Step 2' }, { label: 'Step 3' }];
+
+  const { nextStep, prevStep, reset, activeStep } = useSteps({
+    initialStep: 0,
+  });
   const [files, setFiles] = useState<File[]>();
   return (
     <Stack p="10px 20px 10px 20px" alignItems="center">
+      <Steps activeStep={activeStep} labelOrientation="vertical">
+        {steps.map(({ label }, index) => (
+          <Step label={label} key={label}>
+            <Text>{label}</Text>
+          </Step>
+        ))}
+      </Steps>
+
       <Text fontWeight="bold" fontSize="22px" m="10px">
         응애 자막 업로드 &quot;해줘&quot;
       </Text>
