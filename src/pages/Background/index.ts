@@ -1,6 +1,7 @@
 import { MESSAGETAG } from '../../../utils/type';
 
-const apiUrl = 'http://localhost:3000'; // 'https://subcloud.app';
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+const apiUrl = process.env.REACT_APP_API_URL!;
 
 async function getTab() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
