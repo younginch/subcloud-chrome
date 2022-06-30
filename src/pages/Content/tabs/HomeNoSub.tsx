@@ -131,6 +131,7 @@ export default function HomeNoSub() {
       const tab = await getTab();
       const videoInfo = await video(tab.url);
       const { youtubeVideo } = videoInfo;
+      console.log(youtubeVideo);
       let replaceUrl = tab.url.replace('https://youtu.be/', '');
       replaceUrl = replaceUrl.replace('https://www.youtube.com/embed/', '');
       replaceUrl = replaceUrl.replace('https://www.youtube.com/watch?v=', '');
@@ -175,7 +176,14 @@ export default function HomeNoSub() {
       <HStack>
         <Image w="200px" h="112px" src={youtubeVideoInfo?.thumbnailUrl} />
         <Stack pl="15px" spacing="10px">
-          <Text fontWeight="bold" fontSize="20px">
+          <Text
+            fontWeight="bold"
+            fontSize="20px"
+            maxW="440px"
+            textOverflow="ellipsis"
+            overflow="hidden"
+            whiteSpace="nowrap"
+          >
             {youtubeVideoInfo?.title}
           </Text>
           <HStack>
@@ -270,7 +278,8 @@ export default function HomeNoSub() {
           fontSize="20px"
           onClick={sendRequest}
         >
-          {point}P를 사용하여 한국어 자막 요청하기
+          {point === 0 ? '무료로 ' : `${point}P를 사용하여 `} 한국어 자막
+          요청하기
         </Button>
       </Center>
       <Center>
