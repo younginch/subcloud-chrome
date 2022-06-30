@@ -2,18 +2,18 @@ import { Box, Text, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 
 type Hover = {
-  'background-color': string;
+  backgroundColor: string;
 };
 
 type Style = {
   outline: string;
-  'outline-offset': string;
-  'text-align': string;
+  outlineOffset: string;
+  textAlign: string;
   transition: string;
-  'background-color': string;
+  backgroundColor: string;
   display: string;
-  'align-items': string;
-  'justify-content': string;
+  alignItems: string;
+  justifyContent: string;
   '&:hover': Hover;
 };
 
@@ -27,15 +27,15 @@ export default function DropZone({ setFiles }: Props) {
   const hoverColor = '#14181A';
   const [styleSheet, setStyle] = useState<Style>({
     outline: '2px dashed #aaaaaa',
-    'outline-offset': '-10px',
-    'text-align': 'center',
+    outlineOffset: '-10px',
+    textAlign: 'center',
     transition: 'all .15s ease-in-out',
-    'background-color': defaultColor,
+    backgroundColor: defaultColor,
     display: 'flex',
-    'align-items': 'center',
-    'justify-content': 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     '&:hover': {
-      'background-color': hoverColor,
+      backgroundColor: hoverColor,
     },
   });
 
@@ -44,16 +44,16 @@ export default function DropZone({ setFiles }: Props) {
     e.preventDefault();
     setStyle({
       ...styleSheet,
-      'background-color': dragOverColor,
-      'outline-offset': '-20px',
+      backgroundColor: dragOverColor,
+      outlineOffset: '-20px',
     });
   };
 
   const handleDragLeave = () => {
     setStyle({
       ...styleSheet,
-      'background-color': defaultColor,
-      'outline-offset': '-10px',
+      backgroundColor: defaultColor,
+      outlineOffset: '-10px',
     });
   };
 

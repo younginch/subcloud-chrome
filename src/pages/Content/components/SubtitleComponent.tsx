@@ -1,6 +1,7 @@
 import { SRTFile } from '@younginch/subtitle';
 import { useState } from 'react';
 import calculateLayout from '../helpers/calculateLayout';
+import toast from '../utils/toast';
 
 export default function SubtitleComponent() {
   const [fontSize, setFontSize] = useState<number>(12);
@@ -9,34 +10,38 @@ export default function SubtitleComponent() {
   const [textArray, setTextArray] = useState<undefined | string[]>();
 
   const layoutUpdater = setInterval(() => {
-    const res = calculateLayout(60);
-    if (res) {
-      setFontSize(res[0]);
-      setSubtitleMt(res[1]);
-    }
-
-    chrome.storage.local.get(['subtitle'], (result) => {
-      const { lastError } = chrome.runtime;
-      if (!lastError && result.subtitle) {
-        setSub(Object.assign(new SRTFile(), JSON.parse(result.subtitle)));
+    try {
+      const res = calculateLayout(60);
+      if (res) {
+        setFontSize(res[0]);
+        setSubtitleMt(res[1]);
       }
-    });
 
-    if (!sub) return;
-    const cTime = document.querySelector('video')?.currentTime;
-    let isSubtitle = false;
-    for (let i = 0; i < sub.array.length; i += 1) {
-      if (
-        cTime &&
-        sub.array[i].startTime <= cTime &&
-        cTime <= sub.array[i].endTime
-      ) {
-        setTextArray(sub.array[i].textArray);
-        isSubtitle = true;
+      chrome.storage.local.get(['subtitle'], (result) => {
+        const { lastError } = chrome.runtime;
+        if (!lastError && result.subtitle) {
+          setSub(Object.assign(new SRTFile(), JSON.parse(result.subtitle)));
+        }
+      });
+
+      if (!sub) return;
+      const cTime = document.querySelector('video')?.currentTime;
+      let isSubtitle = false;
+      for (let i = 0; i < sub.array.length; i += 1) {
+        if (
+          cTime &&
+          sub.array[i].startTime <= cTime &&
+          cTime <= sub.array[i].endTime
+        ) {
+          setTextArray(sub.array[i].textArray);
+          isSubtitle = true;
+        }
       }
+      if (!isSubtitle) setTextArray([]);
+      clearInterval(layoutUpdater);
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
     }
-    if (!isSubtitle) setTextArray([]);
-    clearInterval(layoutUpdater);
   }, 20);
 
   return (
@@ -51,6 +56,8 @@ export default function SubtitleComponent() {
                   margin: 'auto',
                   fontSize: `${fontSize}px`,
                 }}
+                // eslint-disable-next-line react/no-array-index-key
+                key={index}
               >
                 {text}
               </div>

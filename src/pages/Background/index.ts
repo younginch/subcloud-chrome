@@ -36,17 +36,22 @@ async function postAPI(url: string, body: object) {
 }
 
 async function getFile(sendResponse: (res: object) => void, fileId: string) {
-  const fileObject = await getAPI(`file?id=${fileId}`);
-  const rawFile = await fetch(fileObject.url);
-  const blobFile = await rawFile.blob();
-  const file = new File([blobFile], fileObject.title, {
-    type: blobFile.type,
-  });
-  const reader = new FileReader();
-  reader.readAsText(file);
-  reader.onload = () => {
-    sendResponse({ data: String(reader.result) });
-  };
+  try {
+    const fileObject = await getAPI(`file?id=${fileId}`);
+    const rawFile = await fetch(fileObject.url);
+    const blobFile = await rawFile.blob();
+    const file = new File([blobFile], fileObject.title, {
+      type: blobFile.type,
+    });
+    const reader = new FileReader();
+    reader.readAsText(file);
+    reader.onload = () => {
+      sendResponse({ data: String(reader.result), type: 'success' });
+    };
+  } catch (error: unknown) {
+    if (error instanceof Error)
+      sendResponse({ error: error.message, type: 'error' });
+  }
 }
 
 async function uploadFile(
@@ -56,30 +61,54 @@ async function uploadFile(
   url: string,
   lang: string
 ) {
-  const file = new File([fileText], fileName);
-  const formData = new FormData();
-  formData.append('file', file);
-  const videoData = await postAPI('video', { url });
-  const fileResponse = await fetch(`${apiUrl}/api/file/upload`, {
-    method: 'POST',
-    body: formData,
-  });
-  const fileData = await fileResponse.json();
-  const data = await postAPI('sub', {
-    fileId: fileData.id,
-    serviceId: videoData.serviceId,
-    videoId: videoData.videoId,
-    lang,
-  });
-  sendResponse({ data });
+  try {
+    const file = new File([fileText], fileName);
+    const formData = new FormData();
+    formData.append('file', file);
+    const videoData = await postAPI('video', { url });
+    const fileResponse = await fetch(`${apiUrl}/api/file/upload`, {
+      method: 'POST',
+      body: formData,
+    });
+    const fileData = await fileResponse.json();
+    const data = await postAPI('sub', {
+      fileId: fileData.id,
+      serviceId: videoData.serviceId,
+      videoId: videoData.videoId,
+      lang,
+    });
+    sendResponse({ data, type: 'success' });
+  } catch (error: unknown) {
+    if (error instanceof Error)
+      sendResponse({ error: error.message, type: 'error' });
+  }
+}
+
+async function sendToast(
+  sendResponse: (res: object) => void,
+  tabId: number,
+  msg: string
+) {
+  try {
+    chrome.tabs.sendMessage(tabId, { tag: MESSAGETAG.TOAST, msg });
+    sendResponse({ data: {}, type: 'success' });
+  } catch (error: unknown) {
+    if (error instanceof Error)
+      sendResponse({ error: error.message, type: 'error' });
+  }
 }
 
 async function sendMessage(
   sendResponse: (res: object) => void,
   func: () => Promise<unknown>
 ) {
-  const data = await func();
-  sendResponse({ data });
+  try {
+    const data = await func();
+    sendResponse({ data, type: 'success' });
+  } catch (error: unknown) {
+    if (error instanceof Error)
+      sendResponse({ error: error.message, type: 'error' });
+  }
 }
 
 chrome.cookies.get({ url: apiUrl, name: '__Secure-next-auth.session-token' });
@@ -120,6 +149,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         message.lang
       );
       return true;
+    case MESSAGETAG.TOAST:
+      sendToast(sendResponse, message.tabId, message.msg);
+      return true;
     default:
       throw new Error('');
   }
@@ -136,8 +168,9 @@ chrome.runtime.onInstalled.addListener(() => {
         const t = currentWindow.tabs;
         if (t)
           for (let j = 0; j < t.length; j += 1) {
-            const { id } = t[j];
-            if (id) chrome.tabs.reload(id);
+            const { id, url } = t[j];
+            if (id && url?.includes('https://www.youtube.com/'))
+              chrome.tabs.reload(id);
           }
       }
     }

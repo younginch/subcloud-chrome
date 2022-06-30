@@ -16,6 +16,7 @@ import video from '../utils/api/video';
 import getTab from '../utils/getTab';
 import getFile from '../utils/api/getFile';
 import TableRow from '../components/TableRow';
+import toast from '../utils/toast';
 
 enum Status {
   Pending = 'Pending',
@@ -40,27 +41,35 @@ export default function Subtitle() {
   const width = ['80px', '50px', '70px', '100px', '100px'];
 
   const getSubs = async () => {
-    const tab = await getTab();
-    const videoData = await video(tab.url);
-    const subArray = [];
-    if (videoData.subs !== undefined) {
-      for (let i = 0; i < videoData.subs.length; i += 1) {
-        const { status } = videoData.subs[i];
-        subArray.push({
-          id: videoData.subs[i].id,
-          username: videoData.subs[i].user.name,
-          subLang: videoData.subs[i].lang,
-          views: videoData.subs[i].views,
-          status,
-        });
+    try {
+      const tab = await getTab();
+      const videoData = await video(tab.url);
+      const subArray = [];
+      if (videoData.subs !== undefined) {
+        for (let i = 0; i < videoData.subs.length; i += 1) {
+          const { status } = videoData.subs[i];
+          subArray.push({
+            id: videoData.subs[i].id,
+            username: videoData.subs[i].user.name,
+            subLang: videoData.subs[i].lang,
+            views: videoData.subs[i].views,
+            status,
+          });
+        }
       }
+      setSubs(subArray);
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
     }
-    setSubs(subArray);
   };
 
   const getSubById = async (subId: string) => {
-    const sub = await getFile(subId);
-    await chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
+    try {
+      const sub = await getFile(subId);
+      await chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
+    }
   };
 
   useEffect(() => {
@@ -125,6 +134,7 @@ export default function Subtitle() {
                     status={sub.status}
                     madeBy={sub.username}
                     onClick={() => getSubById(sub.id)}
+                    key={sub.id}
                   />
                 ))
             : ''}

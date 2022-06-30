@@ -4,29 +4,38 @@ import { useState } from 'react';
 import uploadFile from '../utils/api/uploadFile';
 import DropZone from '../components/DropZone';
 import getTab from '../utils/getTab';
+import toast from '../utils/toast';
 
 export default function Upload() {
   const [files, setFiles] = useState<File[]>();
   const [lang, setLang] = useState('en');
 
   const preview = async () => {
-    if (!files) return;
-    const reader = new FileReader();
-    reader.readAsText(files[0]);
-    reader.onload = () => {
-      const sub = SRTFile.fromText(String(reader.result));
-      chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
-    };
+    try {
+      if (!files) return;
+      const reader = new FileReader();
+      reader.readAsText(files[0]);
+      reader.onload = () => {
+        const sub = SRTFile.fromText(String(reader.result));
+        chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
+      };
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
+    }
   };
 
   const upload = async () => {
-    if (!files) return;
-    const tab = await getTab();
-    const reader = new FileReader();
-    reader.readAsText(files[0]);
-    reader.onload = () => {
-      uploadFile(String(reader.result), files[0].name, tab.url, lang);
-    };
+    try {
+      if (!files) return;
+      const tab = await getTab();
+      const reader = new FileReader();
+      reader.readAsText(files[0]);
+      reader.onload = () => {
+        uploadFile(String(reader.result), files[0].name, tab.url, lang);
+      };
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
+    }
   };
 
   return (
