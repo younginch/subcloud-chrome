@@ -75,7 +75,7 @@ export default function Layout() {
         p="7px"
         bg="#1C1E21"
         borderBottomWidth="1px"
-        borderColor="gray.500"
+        borderColor="gray.600"
       >
         <Heading fontSize="3xl" ml="15px !important">
           SubCloud
@@ -90,7 +90,7 @@ export default function Layout() {
             h="100%"
             justifyContent="space-between"
             bg="#1C1E21"
-            borderColor="gray.500"
+            borderColor="gray.600"
             borderRightWidth="1px"
           >
             <TabList
