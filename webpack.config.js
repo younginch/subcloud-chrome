@@ -1,12 +1,17 @@
 var webpack = require('webpack'),
   path = require('path'),
   fileSystem = require('fs-extra'),
+  env = require('./utils/env'),
   CopyWebpackPlugin = require('copy-webpack-plugin'),
   HtmlWebpackPlugin = require('html-webpack-plugin'),
   TerserPlugin = require('terser-webpack-plugin');
+ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 var { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const ASSET_PATH = process.env.ASSET_PATH || '/';
+
+// load the secrets
+var secretsPath = path.join(__dirname, 'secrets.' + env.NODE_ENV + '.js');
 
 var fileExtensions = [
   'jpg',
@@ -20,6 +25,10 @@ var fileExtensions = [
   'woff',
   'woff2',
 ];
+
+if (fileSystem.existsSync(secretsPath)) {
+  alias['secrets'] = secretsPath;
+}
 
 var options = {
   mode: process.env.NODE_ENV || 'development',
@@ -103,7 +112,7 @@ var options = {
           {
             loader: 'swc-loader',
             options: {
-              parseMap: process.env.NODE_ENV === 'development',
+              parseMap: env.NODE_ENV === 'development',
               jsc: {
                 parser: {
                   jsx: true,
@@ -125,6 +134,7 @@ var options = {
       .concat(['.js', '.jsx', '.ts', '.tsx', '.css']),
   },
   plugins: [
+    new ReactRefreshWebpackPlugin(),
     new CleanWebpackPlugin({ verbose: false }),
     new webpack.ProgressPlugin(),
     // expose and write the allowed env vars on the compiled bundle
@@ -221,7 +231,7 @@ var options = {
   },
 };
 
-if (process.env.NODE_ENV === 'development') {
+if (env.NODE_ENV === 'development') {
   options.devtool = 'cheap-module-source-map';
 } else {
   options.optimization = {
