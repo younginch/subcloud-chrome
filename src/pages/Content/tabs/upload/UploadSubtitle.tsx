@@ -1,4 +1,5 @@
-import { Box, Text } from '@chakra-ui/react';
+import { EditIcon } from '@chakra-ui/icons';
+import { Box, Button, Text } from '@chakra-ui/react';
 import { Dispatch, SetStateAction } from 'react';
 import { FaFileUpload } from 'react-icons/fa';
 import DropZone from '../../components/DropZone';
@@ -14,18 +15,30 @@ export default function UploadSubtitle({ setFiles, uploadCallback }: Props) {
       <Text fontWeight="bold" fontSize="22px" m="10px">
         컴퓨터에서 자막 파일 선택
       </Text>
-      <Text fontSize="15px">SRT파일 포맷만 지원합니다.</Text>
-      <Box w="600px" h="330px" mt="10px !important">
+      <Box w="600px" h="320px" mt="10px !important">
         <DropZone setFiles={setFiles} uploadCallback={uploadCallback}>
           <FaFileUpload size={100} />
           <Text fontWeight="bold" fontSize="18px" mt="20px !important">
-            드래그 앤 드랍 또는
+            드래그 앤 드랍 또는 클릭하여 업로드
           </Text>
-          <Text fontWeight="bold" fontSize="18px" mt="8px !important">
-            클릭하여 업로드
+          <Text fontSize="15px" mt="4px !important">
+            SRT파일 포맷만 지원합니다.
           </Text>
         </DropZone>
       </Box>
+      <Button
+        leftIcon={<EditIcon w="14px" h="14px" />}
+        colorScheme="teal"
+        variant="solid"
+        w="150px"
+        h="35px"
+        mt="10px !important"
+        onClick={() => {
+          window.location.href = 'https://subcloud.app/';
+        }}
+      >
+        <Text fontSize="14px">Edit on SubCloud</Text>
+      </Button>
     </>
   );
 }
