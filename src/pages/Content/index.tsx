@@ -7,18 +7,6 @@ import SubtitleComponent from './components/SubtitleComponent';
 import CSSResetCustom from './cssResetCustom';
 import componentLoader, { AttachType } from './helpers/componentLoader';
 
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    interface IntrinsicElements {
-      'chakra-scope': React.DetailedHTMLProps<
-        React.HTMLAttributes<HTMLElement>,
-        HTMLElement
-      >;
-    }
-  }
-}
-
 const theme = extendTheme({
   components: {
     Steps,

@@ -7,6 +7,7 @@ process.env.PORT = 3001;
 
 import WebpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import { join, resolve } from 'path';
 // eslint-disable-next-line import/extensions
 import config from '../webpack.config.mjs';
@@ -27,9 +28,10 @@ for (const entryName in config.entry) {
   }
 }
 
-config.plugins = [new HotModuleReplacementPlugin()].concat(
-  config.plugins || []
-);
+config.plugins = [
+  new HotModuleReplacementPlugin(),
+  new ReactRefreshWebpackPlugin(),
+].concat(config.plugins || []);
 
 delete config.chromeExtensionBoilerplate;
 
@@ -39,7 +41,9 @@ const server = new WebpackDevServer(
   {
     https: false,
     hot: false,
-    client: false,
+    client: {
+      logging: 'none',
+    },
     host: 'localhost',
     port: process.env.PORT,
     static: {
