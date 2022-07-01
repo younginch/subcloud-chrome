@@ -17,6 +17,7 @@ export default function Upload() {
   });
 
   const [files, setFiles] = useState<File[]>();
+  const [lang, setLang] = useState('en');
 
   return (
     <Stack p="10px 20px 10px 20px" alignItems="center">
@@ -58,7 +59,7 @@ export default function Upload() {
             uploadCallback={() => nextStep()}
           />
         ) : activeStep === 1 ? (
-          <CheckSubtitle setFiles={setFiles} sendCallback={() => nextStep()} />
+          <CheckSubtitle files={files} sendCallback={() => nextStep()} />
         ) : (
           <UploadFinish />
         )
