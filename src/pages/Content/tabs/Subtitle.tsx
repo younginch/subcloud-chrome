@@ -64,29 +64,28 @@ export default function Subtitle() {
       <Text fontWeight="bold" fontSize="22px" mt="10px" mb="10px">
         전 세계 유저들이 제작한 자막을 사용해 보세요
       </Text>
-      <HStack>
-        <Menu>
-          <MenuButton
-            as={Button}
-            rightIcon={<ChevronDownIcon />}
-            fontSize="13px"
-            w="140px"
-            h="30px"
-            borderRadius="10px"
-          >
-            언어 선택
-          </MenuButton>
-          <MenuList maxH="450px" overflow="scroll" w="140px">
-            {codeList.map((code) => (
-              <MenuItem key={code} w="140px" fontSize="11px">
-                {`${ISO6391.getName(code)} (${ISO6391.getNativeName(code)})`}
-              </MenuItem>
-            ))}
-          </MenuList>
-        </Menu>
-      </HStack>
-      <TableContainer>
-        <Table variant="simple">
+      <Menu>
+        <MenuButton
+          as={Button}
+          rightIcon={<ChevronDownIcon />}
+          fontSize="13px"
+          w="140px"
+          h="30px"
+          borderRadius="10px"
+          mt="14px"
+        >
+          언어 선택
+        </MenuButton>
+        <MenuList maxH="450px" overflow="scroll" w="140px">
+          {codeList.map((code) => (
+            <MenuItem key={code} w="140px" fontSize="11px">
+              {`${ISO6391.getName(code)} (${ISO6391.getNativeName(code)})`}
+            </MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
+      <TableContainer mt="7px">
+        <Table variant="striped">
           <TableCaption fontSize="12px">Powered by SubCloud</TableCaption>
           <Thead>
             <Tr>
@@ -96,11 +95,16 @@ export default function Subtitle() {
                 사용 횟수
               </Th>
               <Th fontSize="16px">제작자</Th>
+              <Th fontSize="16px">제작일</Th>
             </Tr>
           </Thead>
-          <Tbody>
+          <Tbody h="50px">
             {subs.map((sub: SubtitleType) => (
-              <Tr>
+              <Tr
+                _hover={{
+                  textColor: 'blue.400',
+                }}
+              >
                 <Td fontSize="16px">{sub.lang}</Td>
                 <Td fontSize="16px">
                   <HStack>

@@ -214,7 +214,7 @@ export default function HomeNoSub() {
                 w="180px"
                 h="40px"
                 borderRadius="10px"
-                boxShadow="rgba(144,205,244, 0.4) 0px 0px 36px 0px, rgba(144,205,244, 0.4) 0px 0px 0px 1px;"
+                boxShadow="rgba(144,205,244, 0.4) 0px 0px 20px 0px, rgba(144,205,244, 0.4) 0px 0px 0px 1px;"
               >
                 언어 선택
               </MenuButton>
