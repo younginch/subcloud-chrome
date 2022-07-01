@@ -24,7 +24,6 @@ import * as video from '../pages/Content/utils/api/video';
 import uploadFile from '../pages/Content/utils/api/uploadFile';
 import requestCount from '../pages/Content/utils/api/requestCount';
 import HomeNoSub from '../pages/Content/tabs/HomeNoSub';
-import UploadDeprecated from '../pages/Content/tabs/UploadDeprecated';
 import Upload from '../pages/Content/tabs/Upload';
 import {
   AppreciationIcon,
@@ -81,9 +80,7 @@ describe('Pages and Components', () => {
   });
 
   it('render DropZone', async () => {
-    render(
-      <DropZone setFiles={(file: File[]) => null} uploadCallback={() => null} />
-    );
+    render(<DropZone setFiles={() => null} uploadCallback={() => null} />);
   });
 
   it('render Greetings', async () => {
@@ -110,14 +107,6 @@ describe('Pages and Components', () => {
     render(
       <ChakraProvider>
         <Subtitle />
-      </ChakraProvider>
-    );
-  });
-
-  it('render UploadDeprecated tab', async () => {
-    render(
-      <ChakraProvider>
-        <UploadDeprecated />
       </ChakraProvider>
     );
   });
@@ -175,7 +164,7 @@ describe('Pages and Components', () => {
   it('render CheckSubtitle', async () => {
     render(
       <ChakraProvider>
-        <CheckSubtitle setFiles={() => null} sendCallback={() => null} />
+        <CheckSubtitle files={[]} sendCallback={() => null} />
       </ChakraProvider>
     );
   });
