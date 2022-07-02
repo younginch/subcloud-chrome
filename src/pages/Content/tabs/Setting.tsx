@@ -10,7 +10,9 @@ import {
   Box,
   Switch,
 } from '@chakra-ui/react';
+import { RGBColor } from 'react-color';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
+import ColorPicker from '../components/ColorPicker';
 import SettingRow from '../components/SettingRow';
 
 export default function Setting() {
@@ -49,6 +51,13 @@ export default function Setting() {
       <SettingRow name="자막 배경 색 사용:">
         <Switch colorScheme="teal" size="lg" />
         <AiOutlineInfoCircle size="20px" fill="#aaa" />
+
+        <ColorPicker
+          label="색상 선택"
+          color={{ r: 255, g: 255, b: 255, a: 1 }}
+          changeFunction={(c: RGBColor) => null}
+          activate
+        />
       </SettingRow>
       <SettingRow name="자막 테두리 사용:">
         <Switch colorScheme="teal" size="lg" />
