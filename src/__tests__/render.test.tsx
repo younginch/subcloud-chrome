@@ -5,7 +5,7 @@ import Newtab from '../pages/Newtab/Newtab';
 import Options from '../pages/Options/Options';
 import Panel from '../pages/Panel/Panel';
 import Popup from '../pages/Popup/Popup';
-import CurrentTab, * as GetTab from '../pages/Content/utils/getTab';
+import * as GetTab from '../pages/Content/utils/getTab';
 import * as Fetch from '../pages/Content/utils/fetch';
 import * as sendMessage from '../pages/Content/utils/sendMessage';
 import BottomButton from '../pages/Content/components/BottomButton';
@@ -35,17 +35,20 @@ import RatingComponent from '../pages/Content/components/RateComponent';
 import Subtitle from '../pages/Content/tabs/Subtitle';
 import TableRow from '../pages/Content/components/TableRow';
 import { Status } from '../../utils/type';
+import * as GetSubs from '../pages/Content/utils/api/getsubs';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
     jest.spyOn(GetTab, 'default').mockResolvedValue({});
     jest.spyOn(Fetch, 'getFetch').mockResolvedValue({});
     jest.spyOn(Fetch, 'postFetch').mockResolvedValue({});
+    jest.spyOn(GetSubs, 'default').mockResolvedValue([]);
   });
 
   it('renders QuickSubtitleRequest', async () => {
     jest.spyOn(Fetch, 'getFetch').mockResolvedValue({});
     jest.spyOn(Fetch, 'postFetch').mockResolvedValue({});
+    jest.spyOn(GetSubs, 'default').mockResolvedValue([]);
 
     render(<QuickSubtitleRequest />);
   });
