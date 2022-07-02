@@ -21,11 +21,9 @@ import {
 import ISO6391, { LanguageCode } from 'iso-639-1';
 import { useEffect, useState } from 'react';
 import RateComponent from '../components/RateComponent';
-import video from '../utils/api/video';
-import getTab from '../utils/getTab';
 import getFile from '../utils/api/getFile';
 import toast from '../utils/toast';
-import { Status } from '../../../../utils/type';
+import getSubs from '../utils/api/getsubs';
 
 type SubtitleType = {
   id: string;
@@ -39,32 +37,9 @@ type SubtitleType = {
 export default function Subtitle() {
   const [subs, setSubs] = useState<SubtitleType[]>([]);
 
-  const getSubs = async () => {
+  const getSubtitles = async () => {
     try {
-      const tab = await getTab();
-      const videoData = await video(tab.url);
-      const subArray = [];
-      if (videoData.subs !== undefined) {
-        for (let i = 0; i < videoData.subs.length; i += 1) {
-          const sub = videoData.subs[i];
-          if (sub.status === Status.Approved) {
-            subArray.push({
-              id: sub.id,
-              lang: sub.lang,
-              rating:
-                sub.ratings.length === 0
-                  ? 0
-                  : sub.ratings.reduce(
-                      (prev: number, curr: any) => prev + curr.score,
-                      0
-                    ) / sub.ratings.length,
-              views: sub.views,
-              userName: sub.user.name,
-              uploadDate: sub.updatedAt,
-            });
-          }
-        }
-      }
+      const subArray = await getSubs();
       setSubs(subArray);
     } catch (error: unknown) {
       if (error instanceof Error) toast(error.message);
@@ -81,7 +56,7 @@ export default function Subtitle() {
   };
 
   useEffect(() => {
-    getSubs();
+    getSubtitles();
   }, []);
 
   const codeList: LanguageCode[] = [

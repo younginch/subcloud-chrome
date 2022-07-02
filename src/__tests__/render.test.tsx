@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme, Table } from '@chakra-ui/react';
 import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 import Newtab from '../pages/Newtab/Newtab';
 import Options from '../pages/Options/Options';
 import Panel from '../pages/Panel/Panel';
 import Popup from '../pages/Popup/Popup';
-import * as GetTab from '../pages/Content/utils/getTab';
+import CurrentTab, * as GetTab from '../pages/Content/utils/getTab';
 import * as Fetch from '../pages/Content/utils/fetch';
 import * as sendMessage from '../pages/Content/utils/sendMessage';
 import BottomButton from '../pages/Content/components/BottomButton';
@@ -33,6 +33,8 @@ import UploadSubtitle from '../pages/Content/tabs/upload/UploadSubtitle';
 import UploadFinish from '../pages/Content/tabs/upload/UploadFinish';
 import RatingComponent from '../pages/Content/components/RateComponent';
 import Subtitle from '../pages/Content/tabs/Subtitle';
+import TableRow from '../pages/Content/components/TableRow';
+import { Status } from '../../utils/type';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -83,6 +85,23 @@ describe('Pages and Components', () => {
   it('render DropZone', async () => {
     render(
       <DropZone setFiles={(file: File[]) => null} uploadCallback={() => null} />
+    );
+  });
+
+  it('render TableRow', async () => {
+    render(
+      <ChakraProvider>
+        <Table>
+          <TableRow
+            lang="en"
+            rating={0}
+            viewCount={0}
+            status={Status.Pending}
+            madeBy="MyeongJin Shin"
+            onClick={() => null}
+          />
+        </Table>
+      </ChakraProvider>
     );
   });
 
@@ -268,19 +287,6 @@ describe('Pages and Components', () => {
       expect(msg.data).toBeCloseTo(0);
     }
   });
-
-  /*
-  it('test sendMessage returns infomation', async () => {
-    jest
-      .spyOn(chrome.runtime, 'sendMessage')
-      .mockImplementation(async () => "");
-    const msg = await CurrentTab();
-    expect(msg).toBeDefined();
-    if (msg) {
-      expect(msg.data).toBeInstanceOf(String);
-    }
-  });
-  */
 
   /*
 
