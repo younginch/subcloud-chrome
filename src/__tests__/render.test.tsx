@@ -35,6 +35,7 @@ import RatingComponent from '../pages/Content/components/RateComponent';
 import Subtitle from '../pages/Content/tabs/Subtitle';
 import TableRow from '../pages/Content/components/TableRow';
 import { Status } from '../../utils/type';
+import getSubs from '../pages/Content/utils/api/getSubs';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -286,6 +287,17 @@ describe('Pages and Components', () => {
     if (msg) {
       expect(msg.data).toBeCloseTo(0);
     }
+  });
+
+  it('test getSubs returns infomation', async () => {
+    jest.spyOn(GetTab, 'default').mockImplementation(async () => '');
+    jest
+      .spyOn(video, 'default')
+      .mockImplementation(async () => ({
+        subs: [{ status: 'Approved', ratings: [], user: { name: 'shin' } }],
+      }));
+    const msg = await getSubs();
+    expect(msg).toBeDefined();
   });
 
   /*
