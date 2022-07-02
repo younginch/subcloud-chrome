@@ -42,7 +42,7 @@ export default function BottomButton() {
           position="absolute"
           pl="4px"
           pr="4px"
-          ml="18px"
+          ml="13px"
           mt="-20px"
         >
           20

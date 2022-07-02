@@ -84,7 +84,7 @@ export default function Subtitle() {
           ))}
         </MenuList>
       </Menu>
-      <TableContainer mt="7px">
+      <TableContainer mt="7px" maxH="440px" overflowY="scroll">
         <Table variant="striped">
           <TableCaption fontSize="12px">Powered by SubCloud</TableCaption>
           <Thead>
