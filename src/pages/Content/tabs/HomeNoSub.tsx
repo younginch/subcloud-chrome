@@ -1,4 +1,3 @@
-import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   Avatar,
   Box,
@@ -9,17 +8,12 @@ import {
   HStack,
   Image,
   keyframes,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
   Stack,
   Text,
   useColorModeValue,
   Wrap,
   WrapItem,
 } from '@chakra-ui/react';
-import ISO6391, { LanguageCode } from 'iso-639-1';
 import { CgShapeTriangle } from 'react-icons/cg';
 import { TbDiamond, TbDiamonds } from 'react-icons/tb';
 import { BiRocket } from 'react-icons/bi';
@@ -31,6 +25,7 @@ import request from '../utils/api/request';
 import requestCount from '../utils/api/requestCount';
 import video from '../utils/api/video';
 import toast from '../utils/toast';
+import SelectLang from '../components/selectLang';
 
 type PointElement = {
   amount: number;
@@ -49,19 +44,6 @@ type YoutubeVideoInfo = {
 };
 
 export default function HomeNoSub() {
-  const codeList: LanguageCode[] = [
-    'en',
-    'fr',
-    'de',
-    'it',
-    'es',
-    'pt',
-    'ru',
-    'ja',
-    'zh',
-    'ko',
-  ];
-
   const points: Array<PointElement> = [
     {
       amount: 10,
@@ -206,28 +188,12 @@ export default function HomeNoSub() {
             요청할 언어 선택
           </Text>
           <Center mt="35px !important">
-            <Menu>
-              <MenuButton
-                as={Button}
-                rightIcon={<ChevronDownIcon />}
-                fontSize="15px"
-                w="180px"
-                h="40px"
-                borderRadius="10px"
-                boxShadow="rgba(144,205,244, 0.4) 0px 0px 20px 0px, rgba(144,205,244, 0.4) 0px 0px 0px 1px;"
-              >
-                언어 선택
-              </MenuButton>
-              <MenuList maxH="450px" overflow="scroll" w="180px">
-                {codeList.map((code) => (
-                  <MenuItem key={code} w="180px" fontSize="13px">
-                    {`${ISO6391.getName(code)} (${ISO6391.getNativeName(
-                      code
-                    )})`}
-                  </MenuItem>
-                ))}
-              </MenuList>
-            </Menu>
+            <SelectLang
+              width="180px"
+              height="40px"
+              mainFont="15px"
+              subFont="13px"
+            />
           </Center>
           <Box className="default-language" mt="30px !important">
             <Checkbox mt={5} defaultChecked>

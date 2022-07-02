@@ -1,4 +1,3 @@
-import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
   Stack,
   Text,
@@ -11,16 +10,11 @@ import {
   TableCaption,
   TableContainer,
   HStack,
-  MenuButton,
-  Menu,
-  MenuList,
-  MenuItem,
-  Button,
 } from '@chakra-ui/react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { faker } from '@faker-js/faker';
-import ISO6391, { LanguageCode } from 'iso-639-1';
 import RateComponent from '../components/RateComponent';
+import SelectLang from '../components/selectLang';
 
 type SubtitleType = {
   lang: string;
@@ -46,44 +40,12 @@ export default function Subtitle() {
     subs.push(createRandomSubtitle());
   });
 
-  const codeList: LanguageCode[] = [
-    'en',
-    'fr',
-    'de',
-    'it',
-    'es',
-    'pt',
-    'ru',
-    'ja',
-    'zh',
-    'ko',
-  ];
-
   return (
     <Stack p="10px 20px 10px 20px">
       <Text fontWeight="bold" fontSize="22px" mt="10px" mb="10px">
         전 세계 유저들이 제작한 자막을 사용해 보세요
       </Text>
-      <Menu>
-        <MenuButton
-          as={Button}
-          rightIcon={<ChevronDownIcon />}
-          fontSize="13px"
-          w="140px"
-          h="30px"
-          borderRadius="10px"
-          mt="14px"
-        >
-          언어 선택
-        </MenuButton>
-        <MenuList maxH="450px" overflow="scroll" w="140px">
-          {codeList.map((code) => (
-            <MenuItem key={code} w="140px" fontSize="11px">
-              {`${ISO6391.getName(code)} (${ISO6391.getNativeName(code)})`}
-            </MenuItem>
-          ))}
-        </MenuList>
-      </Menu>
+      <SelectLang width="140px" height="30px" mainFont="13px" subFont="11px" />
       <TableContainer mt="7px" maxH="440px" overflowY="scroll">
         <Table variant="striped">
           <TableCaption fontSize="12px">Powered by SubCloud</TableCaption>

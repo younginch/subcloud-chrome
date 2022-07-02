@@ -33,7 +33,7 @@
   z-index: 40;
   margin-top: 47%;
 }
-sdfa
+
 chakra-scope p {
   line-height: normal;
 }
@@ -47,11 +47,6 @@ chakra-scope a {
 }
 
 chakra-scope input {
-  line-height: normal;
-}
-
-chakra-scope rc-editable-input-6 {
-  background-color : "#1C1E21";
   line-height: normal;
 }
 
