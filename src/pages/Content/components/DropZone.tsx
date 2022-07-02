@@ -113,6 +113,7 @@ export default function DropZone({
       _hover={{
         backgroundColor: '#14181A',
       }}
+      cursor="pointer"
     >
       <VStack align="center">
         <input

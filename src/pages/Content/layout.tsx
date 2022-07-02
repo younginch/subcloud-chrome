@@ -116,7 +116,7 @@ export default function Layout() {
               ))}
             </TabList>
             <Stack alignItems="center" mb="20px" spacing="20px">
-              <Box w="40px" h="40px" position="relative">
+              <Box w="40px" h="40px" position="relative" cursor="pointer">
                 <BellIcon w="40px" h="40px" />
                 <Text
                   bg="red"
@@ -131,7 +131,7 @@ export default function Layout() {
                   20
                 </Text>
               </Box>
-              <Avatar w="40px" h="40px">
+              <Avatar w="40px" h="40px" cursor="pointer">
                 <AvatarBadge boxSize="1.25em" bg="green.500" />
               </Avatar>
             </Stack>
