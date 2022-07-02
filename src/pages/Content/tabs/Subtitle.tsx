@@ -104,6 +104,8 @@ export default function Subtitle() {
                 _hover={{
                   textColor: 'blue.400',
                 }}
+                key={sub.userName + sub.uploadDate}
+                cursor="pointer"
               >
                 <Td fontSize="16px">{sub.lang}</Td>
                 <Td fontSize="16px">

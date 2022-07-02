@@ -13,11 +13,11 @@ export default function RatingComponent({ rating, size }: Props) {
       {mapper.map((key: number) =>
         // eslint-disable-next-line no-nested-ternary
         rating - key >= 0.75 ? (
-          <FaStar fill="#FFD966" />
+          <FaStar fill="#FFD966" key={key} />
         ) : rating - key >= 0.25 ? (
-          <FaStarHalf fill="#FFD966" />
+          <FaStarHalf fill="#FFD966" key={key} />
         ) : (
-          <Box w={size} h={size} />
+          <Box w={size} h={size} key={key} />
         )
       )}
     </HStack>

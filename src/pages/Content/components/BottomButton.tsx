@@ -5,10 +5,12 @@ import {
   Flex,
   Switch,
   useDisclosure,
+  Text,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { MdSubtitles } from 'react-icons/md';
 import Layout from '../layout';
+import { SubcloudIcon } from './icons';
 
 export default function BottomButton() {
   const [onOff, setOnOff] = useState<boolean>(false);
@@ -23,15 +25,28 @@ export default function BottomButton() {
         onChange={() => setOnOff(!onOff)}
       />
       <Box
-        as={Button}
         onClick={onToggle}
         hidden={!onOff}
         w="25px"
         h="25px"
         ml="8px"
         p="0px !important"
+        position="relative"
+        cursor="pointer"
       >
-        <MdSubtitles size="25px" />
+        <SubcloudIcon size="30px" fill="white" marginTop="-12px" />
+        <Text
+          bg="red"
+          fontSize="12px"
+          borderRadius="6px"
+          position="absolute"
+          pl="4px"
+          pr="4px"
+          ml="18px"
+          mt="-20px"
+        >
+          20
+        </Text>
       </Box>
       <Fade in={isOpen} hidden={!isOpen}>
         <Layout />
