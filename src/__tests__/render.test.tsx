@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme, Table } from '@chakra-ui/react';
 import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 import Newtab from '../pages/Newtab/Newtab';
 import Options from '../pages/Options/Options';
@@ -16,7 +16,6 @@ import calculateLayout from '../pages/Content/helpers/calculateLayout';
 import QuickSubtitleRequest from '../pages/Content/components/QuickSubtitleRequest';
 import DropZone from '../pages/Content/components/DropZone';
 import Setting from '../pages/Content/tabs/Setting';
-import SubtitleDeprecated from '../pages/Content/tabs/SubtitleDeprecated';
 import GreetingComponent from '../containers/Greetings/Greetings';
 import * as sub from '../pages/Content/utils/api/sub';
 import request from '../pages/Content/utils/api/request';
@@ -33,9 +32,12 @@ import CheckSubtitle from '../pages/Content/tabs/upload/CheckSubtitle';
 import UploadSubtitle from '../pages/Content/tabs/upload/UploadSubtitle';
 import UploadFinish from '../pages/Content/tabs/upload/UploadFinish';
 import RatingComponent from '../pages/Content/components/RateComponent';
-import Subtitle from '../pages/Content/tabs/Subtitle';
 import SelectLang from '../pages/Content/components/selectLang';
 import ColorPicker from '../pages/Content/components/ColorPicker';
+import TableRow from '../pages/Content/components/TableRow';
+import { Status } from '../../utils/type';
+import getSubs from '../pages/Content/utils/api/getSubs';
+import Subtitle from '../pages/Content/tabs/Subtitle';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -89,6 +91,23 @@ describe('Pages and Components', () => {
     );
   });
 
+  it('render TableRow', async () => {
+    render(
+      <ChakraProvider>
+        <Table>
+          <TableRow
+            lang="en"
+            rating={0}
+            viewCount={0}
+            status={Status.Pending}
+            madeBy="MyeongJin Shin"
+            onClick={() => null}
+          />
+        </Table>
+      </ChakraProvider>
+    );
+  });
+
   it('render Greetings', async () => {
     render(<GreetingComponent />);
   });
@@ -105,14 +124,6 @@ describe('Pages and Components', () => {
     render(
       <ChakraProvider>
         <Setting />
-      </ChakraProvider>
-    );
-  });
-
-  it('render SubtitleDeprecated tab', async () => {
-    render(
-      <ChakraProvider>
-        <SubtitleDeprecated />
       </ChakraProvider>
     );
   });
@@ -301,18 +312,14 @@ describe('Pages and Components', () => {
     }
   });
 
-  /*
-  it('test sendMessage returns infomation', async () => {
-    jest
-      .spyOn(chrome.runtime, 'sendMessage')
-      .mockImplementation(async () => "");
-    const msg = await CurrentTab();
+  it('test getSubs returns infomation', async () => {
+    jest.spyOn(GetTab, 'default').mockImplementation(async () => '');
+    jest.spyOn(video, 'default').mockImplementation(async () => ({
+      subs: [{ status: 'Approved', ratings: [], user: { name: 'shin' } }],
+    }));
+    const msg = await getSubs();
     expect(msg).toBeDefined();
-    if (msg) {
-      expect(msg.data).toBeInstanceOf(String);
-    }
   });
-  */
 
   /*
 

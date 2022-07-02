@@ -11,12 +11,15 @@ import {
   TableContainer,
   HStack,
 } from '@chakra-ui/react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { faker } from '@faker-js/faker';
-import RateComponent from '../components/RateComponent';
+import { useEffect, useState } from 'react';
 import SelectLang from '../components/selectLang';
+import RateComponent from '../components/RateComponent';
+import getFile from '../utils/api/getFile';
+import toast from '../utils/toast';
+import getSubs from '../utils/api/getSubs';
 
 type SubtitleType = {
+  id: string;
   lang: string;
   rating: number;
   views: number;
@@ -24,21 +27,30 @@ type SubtitleType = {
   uploadDate: Date;
 };
 
-function createRandomSubtitle() {
-  return {
-    lang: faker.random.locale(),
-    rating: Math.round(Math.random() * 50) / 10,
-    views: Math.round(Math.random() * 1000),
-    userName: faker.name.firstName(),
-    uploadDate: faker.date.past(),
-  };
-}
-
 export default function Subtitle() {
-  const subs: SubtitleType[] = [];
-  Array.from({ length: 10 }).forEach(() => {
-    subs.push(createRandomSubtitle());
-  });
+  const [subs, setSubs] = useState<SubtitleType[]>([]);
+
+  const getSubtitles = async () => {
+    try {
+      const subArray = await getSubs();
+      setSubs(subArray);
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
+    }
+  };
+
+  const getSubById = async (subId: string) => {
+    try {
+      const sub = await getFile(subId);
+      await chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
+    }
+  };
+
+  useEffect(() => {
+    getSubtitles();
+  }, []);
 
   return (
     <Stack p="10px 20px 10px 20px">
@@ -66,8 +78,9 @@ export default function Subtitle() {
                 _hover={{
                   textColor: 'blue.400',
                 }}
-                key={sub.userName + sub.uploadDate}
+                key={sub.id}
                 cursor="pointer"
+                onClick={() => getSubById(sub.id)}
               >
                 <Td fontSize="16px">{sub.lang}</Td>
                 <Td fontSize="16px">
@@ -80,7 +93,7 @@ export default function Subtitle() {
                   {sub.views}
                 </Td>
                 <Td fontSize="16px">{sub.userName}</Td>
-                <Td fontSize="16px">{sub.uploadDate.toLocaleDateString()}</Td>
+                <Td fontSize="16px">{sub.uploadDate.toString()}</Td>
               </Tr>
             ))}
           </Tbody>

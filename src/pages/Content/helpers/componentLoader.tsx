@@ -26,7 +26,7 @@ export default function componentLoader({
   targetId,
   children,
   attachType = AttachType.APPEND,
-}: Props) {
+}: Props): boolean {
   const parentElement = document.querySelector(parentQuery);
   let targetElement = document.querySelector(`#${targetId}`);
 
