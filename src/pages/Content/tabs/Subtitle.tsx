@@ -23,7 +23,7 @@ import { useEffect, useState } from 'react';
 import RateComponent from '../components/RateComponent';
 import getFile from '../utils/api/getFile';
 import toast from '../utils/toast';
-import getSubs from '../utils/api/getsubs';
+import getSubs from '../utils/api/getSubs';
 
 type SubtitleType = {
   id: string;
