@@ -131,7 +131,6 @@ export default function HomeNoSub() {
       const tab = await getTab();
       const videoInfo = await video(tab.url);
       const { youtubeVideo } = videoInfo;
-      console.log(youtubeVideo);
       let replaceUrl = tab.url.replace('https://youtu.be/', '');
       replaceUrl = replaceUrl.replace('https://www.youtube.com/embed/', '');
       replaceUrl = replaceUrl.replace('https://www.youtube.com/watch?v=', '');

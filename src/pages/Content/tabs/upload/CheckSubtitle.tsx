@@ -2,7 +2,7 @@ import { ViewIcon } from '@chakra-ui/icons';
 import { Box, Button, HStack, Spacer, Text } from '@chakra-ui/react';
 import { IoMdCloudUpload } from 'react-icons/io';
 import { SRTFile } from '@younginch/subtitle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from '../../utils/toast';
 import getTab from '../../utils/getTab';
 import uploadFile from '../../utils/api/uploadFile';
@@ -17,13 +17,7 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
 
   const preview = async () => {
     try {
-      if (!files) return;
-      const reader = new FileReader();
-      reader.readAsText(files[0]);
-      reader.onload = () => {
-        setSub(SRTFile.fromText(String(reader.result)));
-        chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
-      };
+      if (sub) chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
     } catch (error: unknown) {
       if (error instanceof Error) toast(error.message);
     }
@@ -42,6 +36,19 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
       if (error instanceof Error) toast(error.message);
     }
   };
+
+  useEffect(() => {
+    try {
+      if (!files) return;
+      const reader = new FileReader();
+      reader.readAsText(files[0]);
+      reader.onload = () => {
+        setSub(SRTFile.fromText(String(reader.result)));
+      };
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
+    }
+  }, [files]);
 
   return (
     <>

@@ -9,12 +9,12 @@ enum MESSAGETAG {
 }
 
 enum Status {
-  Pending,
-  InReview,
-  Approved,
-  Rejected,
-  Reported,
-  Private,
+  Pending = 'Pending',
+  InReview = 'InReview',
+  Approved = 'Approved',
+  Rejected = 'Rejected',
+  Reported = 'Reported',
+  Private = 'Private',
 }
 
 export { MESSAGETAG, Status };
