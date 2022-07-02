@@ -16,7 +16,7 @@ import calculateLayout from '../pages/Content/helpers/calculateLayout';
 import QuickSubtitleRequest from '../pages/Content/components/QuickSubtitleRequest';
 import DropZone from '../pages/Content/components/DropZone';
 import Setting from '../pages/Content/tabs/Setting';
-import Subtitle from '../pages/Content/tabs/Subtitle';
+import SubtitleDeprecated from '../pages/Content/tabs/SubtitleDeprecated';
 import GreetingComponent from '../containers/Greetings/Greetings';
 import * as sub from '../pages/Content/utils/api/sub';
 import request from '../pages/Content/utils/api/request';
@@ -32,6 +32,8 @@ import {
 import CheckSubtitle from '../pages/Content/tabs/upload/CheckSubtitle';
 import UploadSubtitle from '../pages/Content/tabs/upload/UploadSubtitle';
 import UploadFinish from '../pages/Content/tabs/upload/UploadFinish';
+import RatingComponent from '../pages/Content/components/RateComponent';
+import Subtitle from '../pages/Content/tabs/Subtitle';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -80,7 +82,9 @@ describe('Pages and Components', () => {
   });
 
   it('render DropZone', async () => {
-    render(<DropZone setFiles={() => null} uploadCallback={() => null} />);
+    render(
+      <DropZone setFiles={(file: File[]) => null} uploadCallback={() => null} />
+    );
   });
 
   it('render Greetings', async () => {
@@ -103,12 +107,24 @@ describe('Pages and Components', () => {
     );
   });
 
+  it('render SubtitleDeprecated tab', async () => {
+    render(
+      <ChakraProvider>
+        <SubtitleDeprecated />
+      </ChakraProvider>
+    );
+  });
+
   it('render Subtitle tab', async () => {
     render(
       <ChakraProvider>
         <Subtitle />
       </ChakraProvider>
     );
+  });
+
+  it('render RateComponent', async () => {
+    render(<RatingComponent size="15px" rating={4.3} />);
   });
 
   it('render AppereciateIcon', async () => {

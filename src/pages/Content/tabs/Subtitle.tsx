@@ -1,145 +1,129 @@
+import { ChevronDownIcon } from '@chakra-ui/icons';
 import {
-  Box,
-  Flex,
-  Table,
-  Th,
-  Tr,
-  Spacer,
+  Stack,
   Text,
+  Table,
   Thead,
-  CircularProgress,
-  Image,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+  HStack,
+  MenuButton,
+  Menu,
+  MenuList,
+  MenuItem,
   Button,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import video from '../utils/api/video';
-import getTab from '../utils/getTab';
-import getFile from '../utils/api/getFile';
-import TableRow from '../components/TableRow';
-import toast from '../utils/toast';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { faker } from '@faker-js/faker';
+import ISO6391, { LanguageCode } from 'iso-639-1';
+import RateComponent from '../components/RateComponent';
 
-enum Status {
-  Pending = 'Pending',
-  InReview = 'InReview',
-  Approved = 'Approved',
-  Rejected = 'Rejected',
-  Reported = 'Reported',
-  Private = 'Private',
-}
-
-type SubType = {
-  id: string;
-  username: string;
-  subLang: string;
+type SubtitleType = {
+  lang: string;
+  rating: number;
   views: number;
-  status: Status;
+  userName: string;
+  uploadDate: Date;
 };
 
+function createRandomSubtitle() {
+  return {
+    lang: faker.random.locale(),
+    rating: Math.round(Math.random() * 50) / 10,
+    views: Math.round(Math.random() * 1000),
+    userName: faker.name.firstName(),
+    uploadDate: faker.date.past(),
+  };
+}
+
 export default function Subtitle() {
-  const [lang, setLang] = useState('All Lang');
-  const [subs, setSubs] = useState<SubType[]>();
-  const width = ['80px', '50px', '70px', '100px', '100px'];
+  const subs: SubtitleType[] = [];
+  Array.from({ length: 10 }).forEach(() => {
+    subs.push(createRandomSubtitle());
+  });
 
-  const getSubs = async () => {
-    try {
-      const tab = await getTab();
-      const videoData = await video(tab.url);
-      const subArray = [];
-      if (videoData.subs !== undefined) {
-        for (let i = 0; i < videoData.subs.length; i += 1) {
-          const { status } = videoData.subs[i];
-          subArray.push({
-            id: videoData.subs[i].id,
-            username: videoData.subs[i].user.name,
-            subLang: videoData.subs[i].lang,
-            views: videoData.subs[i].views,
-            status,
-          });
-        }
-      }
-      setSubs(subArray);
-    } catch (error: unknown) {
-      if (error instanceof Error) toast(error.message);
-    }
-  };
-
-  const getSubById = async (subId: string) => {
-    try {
-      const sub = await getFile(subId);
-      await chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
-    } catch (error: unknown) {
-      if (error instanceof Error) toast(error.message);
-    }
-  };
-
-  useEffect(() => {
-    getSubs();
-  }, []);
+  const codeList: LanguageCode[] = [
+    'en',
+    'fr',
+    'de',
+    'it',
+    'es',
+    'pt',
+    'ru',
+    'ja',
+    'zh',
+    'ko',
+  ];
 
   return (
-    <Flex direction="column" ml="-15px" mr="-15px" w="100%" h="100%">
-      <Flex p="10px 15px 0px 10px" alignItems="center" mb="20px">
-        <Text fontSize="xl" color="white">
-          자막 찾기
-        </Text>
-        <Spacer />
-      </Flex>
-      <Box
-        overflowY="scroll"
-        maxHeight="200px"
-        overflowX="scroll"
-        sx={{
-          '&::-webkit-scrollbar': {
-            width: '6px',
-            height: '6px',
-            borderRadius: '3px',
-            backgroundColor: `rgba(200, 200, 200, 0.3)`,
-          },
-          '&::-webkit-scrollbar-thumb': {
-            width: '6px',
-            height: '6px',
-            borderRadius: '3px',
-            backgroundColor: `rgba(200, 200, 200, 0.6)`,
-          },
-        }}
-      >
-        <Table size="sm" className="table-tiny">
-          <Thead bgColor="black">
+    <Stack p="10px 20px 10px 20px">
+      <Text fontWeight="bold" fontSize="22px" mt="10px" mb="10px">
+        전 세계 유저들이 제작한 자막을 사용해 보세요
+      </Text>
+      <Menu>
+        <MenuButton
+          as={Button}
+          rightIcon={<ChevronDownIcon />}
+          fontSize="13px"
+          w="140px"
+          h="30px"
+          borderRadius="10px"
+          mt="14px"
+        >
+          언어 선택
+        </MenuButton>
+        <MenuList maxH="450px" overflow="scroll" w="140px">
+          {codeList.map((code) => (
+            <MenuItem key={code} w="140px" fontSize="11px">
+              {`${ISO6391.getName(code)} (${ISO6391.getNativeName(code)})`}
+            </MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
+      <TableContainer mt="7px" maxH="440px" overflowY="scroll">
+        <Table variant="striped">
+          <TableCaption fontSize="12px">Powered by SubCloud</TableCaption>
+          <Thead>
             <Tr>
-              <Th minW={width[0]} color="white" fontSize="15px">
-                언어
+              <Th fontSize="16px">언어</Th>
+              <Th fontSize="16px">평점</Th>
+              <Th fontSize="16px" isNumeric>
+                사용 횟수
               </Th>
-              <Th minW={width[1]} color="white" fontSize="15px">
-                평점
-              </Th>
-              <Th minW={width[2]} color="white" fontSize="15px">
-                조회수
-              </Th>
-              <Th minW={width[3]} color="white" fontSize="15px">
-                상태
-              </Th>
-              <Th minW={width[4]} color="white" fontSize="15px">
-                제작자
-              </Th>
+              <Th fontSize="16px">제작자</Th>
+              <Th fontSize="16px">제작일</Th>
             </Tr>
           </Thead>
-          {subs !== undefined
-            ? subs
-                .filter((sub) => sub.subLang === lang || lang === 'All Lang')
-                .map((sub) => (
-                  <TableRow
-                    lang={sub.subLang}
-                    rating={4.3}
-                    viewCount={sub.views}
-                    status={sub.status}
-                    madeBy={sub.username}
-                    onClick={() => getSubById(sub.id)}
-                    key={sub.id}
-                  />
-                ))
-            : ''}
+          <Tbody h="50px">
+            {subs.map((sub: SubtitleType) => (
+              <Tr
+                _hover={{
+                  textColor: 'blue.400',
+                }}
+                key={sub.userName + sub.uploadDate}
+                cursor="pointer"
+              >
+                <Td fontSize="16px">{sub.lang}</Td>
+                <Td fontSize="16px">
+                  <HStack>
+                    <Text w="30px">{sub.rating}</Text>
+                    <RateComponent rating={sub.rating} size="15px" />
+                  </HStack>
+                </Td>
+                <Td fontSize="16px" isNumeric>
+                  {sub.views}
+                </Td>
+                <Td fontSize="16px">{sub.userName}</Td>
+                <Td fontSize="16px">{sub.uploadDate.toLocaleDateString()}</Td>
+              </Tr>
+            ))}
+          </Tbody>
         </Table>
-      </Box>
-    </Flex>
+      </TableContainer>
+    </Stack>
   );
 }

@@ -50,6 +50,7 @@
     "webpack-dev-server": "^4.9.3"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.3.0",
     "@swc/jest": "^0.2.21",
     "@types/chrome": "^0.0.190",
     "@types/jest": "^28.1.3",
