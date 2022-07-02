@@ -16,7 +16,6 @@ import calculateLayout from '../pages/Content/helpers/calculateLayout';
 import QuickSubtitleRequest from '../pages/Content/components/QuickSubtitleRequest';
 import DropZone from '../pages/Content/components/DropZone';
 import Setting from '../pages/Content/tabs/Setting';
-import SubtitleDeprecated from '../pages/Content/tabs/SubtitleDeprecated';
 import GreetingComponent from '../containers/Greetings/Greetings';
 import * as sub from '../pages/Content/utils/api/sub';
 import request from '../pages/Content/utils/api/request';
@@ -103,14 +102,6 @@ describe('Pages and Components', () => {
     render(
       <ChakraProvider>
         <Setting />
-      </ChakraProvider>
-    );
-  });
-
-  it('render SubtitleDeprecated tab', async () => {
-    render(
-      <ChakraProvider>
-        <SubtitleDeprecated />
       </ChakraProvider>
     );
   });
