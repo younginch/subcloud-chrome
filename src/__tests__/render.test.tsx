@@ -32,10 +32,12 @@ import CheckSubtitle from '../pages/Content/tabs/upload/CheckSubtitle';
 import UploadSubtitle from '../pages/Content/tabs/upload/UploadSubtitle';
 import UploadFinish from '../pages/Content/tabs/upload/UploadFinish';
 import RatingComponent from '../pages/Content/components/RateComponent';
-import Subtitle from '../pages/Content/tabs/Subtitle';
+import SelectLang from '../pages/Content/components/selectLang';
+import ColorPicker from '../pages/Content/components/ColorPicker';
 import TableRow from '../pages/Content/components/TableRow';
 import { Status } from '../../utils/type';
 import getSubs from '../pages/Content/utils/api/getSubs';
+import Subtitle from '../pages/Content/tabs/Subtitle';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -150,6 +152,27 @@ describe('Pages and Components', () => {
     render(
       <ChakraProvider>
         <AppreciationSVG />
+      </ChakraProvider>
+    );
+  });
+
+  it('render SelectLang', async () => {
+    render(
+      <ChakraProvider>
+        <SelectLang height="130px" width="30px" />
+      </ChakraProvider>
+    );
+  });
+
+  it('render ColorPicker', async () => {
+    render(
+      <ChakraProvider>
+        <ColorPicker
+          color={{ r: 0, g: 0, b: 0 }}
+          label="debug"
+          changeFunction={() => null}
+          activate
+        />
       </ChakraProvider>
     );
   });
@@ -291,11 +314,9 @@ describe('Pages and Components', () => {
 
   it('test getSubs returns infomation', async () => {
     jest.spyOn(GetTab, 'default').mockImplementation(async () => '');
-    jest
-      .spyOn(video, 'default')
-      .mockImplementation(async () => ({
-        subs: [{ status: 'Approved', ratings: [], user: { name: 'shin' } }],
-      }));
+    jest.spyOn(video, 'default').mockImplementation(async () => ({
+      subs: [{ status: 'Approved', ratings: [], user: { name: 'shin' } }],
+    }));
     const msg = await getSubs();
     expect(msg).toBeDefined();
   });

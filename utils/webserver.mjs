@@ -41,9 +41,7 @@ const server = new WebpackDevServer(
   {
     https: false,
     hot: false,
-    client: {
-      logging: 'none',
-    },
+    client: false,
     host: 'localhost',
     port: process.env.PORT,
     static: {

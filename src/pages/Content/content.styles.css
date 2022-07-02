@@ -46,6 +46,10 @@ chakra-scope a {
   line-height: normal;
 }
 
+chakra-scope input {
+  line-height: normal;
+}
+
 .default-language .chakra-checkbox__control {
   width: 18px;
   height: 18px;
