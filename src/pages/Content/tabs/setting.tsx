@@ -16,7 +16,7 @@ import { User } from '../../../../utils/type';
 import ColorPicker from '../components/colorPicker';
 import SelectLang from '../components/selectLang';
 import SettingRow from '../components/settingRow';
-import toast from '../utils/toast';
+import toast, { ToastType } from '../utils/toast';
 
 type Props = {
   user: User | undefined;
@@ -46,28 +46,32 @@ export default function Setting({ user }: Props) {
   });
 
   useEffect(() => {
-    chrome.storage.local.get(
-      [
-        'isBorder',
-        'isBackGround',
-        'sliderValue',
-        'fontColor',
-        'fontBorderColor',
-        'fontBgColor',
-      ],
-      (result) => {
-        if (result.isBorder !== undefined) setIsBorder(result.isBorder);
-        if (result.isBackGround !== undefined)
-          setIsBackGround(result.isBackGround);
-        if (result.sliderValue !== undefined)
-          setSliderValue(result.sliderValue);
-        if (result.fontColor !== undefined) setFontColor(result.fontColor);
-        if (result.fontBorderColor !== undefined)
-          setFontBorderColor(result.fontBorderColor);
-        if (result.fontBgColor !== undefined)
-          setFontBgColor(result.fontBgColor);
-      }
-    );
+    try {
+      chrome.storage.local.get(
+        [
+          'isBorder',
+          'isBackGround',
+          'sliderValue',
+          'fontColor',
+          'fontBorderColor',
+          'fontBgColor',
+        ],
+        (result) => {
+          if (result.isBorder !== undefined) setIsBorder(result.isBorder);
+          if (result.isBackGround !== undefined)
+            setIsBackGround(result.isBackGround);
+          if (result.sliderValue !== undefined)
+            setSliderValue(result.sliderValue);
+          if (result.fontColor !== undefined) setFontColor(result.fontColor);
+          if (result.fontBorderColor !== undefined)
+            setFontBorderColor(result.fontBorderColor);
+          if (result.fontBgColor !== undefined)
+            setFontBgColor(result.fontBgColor);
+        }
+      );
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+    }
   }, []);
 
   useEffect(() => {
@@ -81,7 +85,7 @@ export default function Setting({ user }: Props) {
         fontBgColor,
       });
     } catch (error: unknown) {
-      if (error instanceof Error) toast(error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   }, [
     isBorder,

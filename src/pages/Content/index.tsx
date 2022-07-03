@@ -28,7 +28,6 @@ function toast(type: ToastType, msg: string) {
   const toastBody = document.getElementById('liveToast');
 
   if (!toastText || !toastHeader || !toastBody) return;
-
   toastText.innerHTML = msg;
 
   switch (type) {
@@ -129,7 +128,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       sendResponse({ data: 'load-done' });
       return true;
     case MESSAGETAG.TOAST:
-      toast(ToastType.ERROR, message.msg);
+      toast(message.toastType, message.msg);
       sendResponse({ data: 'load-done' });
       return true;
     default:

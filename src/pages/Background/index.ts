@@ -1,4 +1,5 @@
 import { MESSAGETAG } from '../../../utils/type';
+import { ToastType } from '../Content/utils/toast';
 
 async function getTab() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
@@ -85,10 +86,11 @@ async function uploadFile(
 async function sendToast(
   sendResponse: (res: object) => void,
   tabId: number,
+  toastType: ToastType,
   msg: string
 ) {
   try {
-    chrome.tabs.sendMessage(tabId, { tag: MESSAGETAG.TOAST, msg });
+    chrome.tabs.sendMessage(tabId, { tag: MESSAGETAG.TOAST, toastType, msg });
     sendResponse({ data: {}, type: 'success' });
   } catch (error: unknown) {
     if (error instanceof Error)
@@ -148,7 +150,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       );
       return true;
     case MESSAGETAG.TOAST:
-      sendToast(sendResponse, message.tabId, message.msg);
+      sendToast(sendResponse, message.tabId, message.toastType, message.msg);
       return true;
     default:
       throw new Error('');

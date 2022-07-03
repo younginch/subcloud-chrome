@@ -29,7 +29,7 @@ import Subtitle from './tabs/subtitle';
 import Upload from './tabs/upload';
 import Setting from './tabs/setting';
 import HomeNoSub from './tabs/homeNoSub';
-import toast from './utils/toast';
+import toast, { ToastType } from './utils/toast';
 import { User } from '../../../utils/type';
 
 type TabType = {
@@ -57,7 +57,7 @@ export default function Layout() {
         point: data.user.point,
       });
     } catch (error: unknown) {
-      if (error instanceof Error) toast(error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   }
 
