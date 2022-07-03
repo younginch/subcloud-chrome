@@ -7,7 +7,7 @@ import { CustomCard } from './customCard';
 type Props = {
   name: string;
   children?: React.ReactNode;
-  tooltip?: string;
+  tooltip?: string | React.ReactNode;
 };
 export default function SettingRow({ name, children, tooltip }: Props) {
   return (
@@ -17,7 +17,7 @@ export default function SettingRow({ name, children, tooltip }: Props) {
       </Text>
       {children}
       {tooltip && (
-        <Tooltip label={tooltip}>
+        <Tooltip label={tooltip} bg="gray.300" fontSize="12px">
           <CustomCard>
             <AiOutlineInfoCircle size="20px" fill="#aaa" />
           </CustomCard>

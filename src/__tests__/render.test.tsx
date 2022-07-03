@@ -8,38 +8,38 @@ import Popup from '../pages/Popup/Popup';
 import * as GetTab from '../pages/Content/utils/getTab';
 import * as Fetch from '../pages/Content/utils/fetch';
 import * as sendMessage from '../pages/Content/utils/sendMessage';
-import BottomButton from '../pages/Content/components/BottomButton';
+import BottomButton from '../pages/Content/components/bottomButton';
 import CSSResetCustom from '../pages/Content/cssResetCustom';
-import SubtitleComponent from '../pages/Content/components/SubtitleComponent';
-import RequestButton from '../pages/Content/components/RequestButton';
+import SubtitleComponent from '../pages/Content/components/subtitleComponent';
+import RequestButton from '../pages/Content/components/requestButton';
 import calculateLayout from '../pages/Content/helpers/calculateLayout';
-import QuickSubtitleRequest from '../pages/Content/components/QuickSubtitleRequest';
-import DropZone from '../pages/Content/components/DropZone';
-import Setting from '../pages/Content/tabs/Setting';
+import QuickSubtitleRequest from '../pages/Content/components/quickSubtitleRequest';
+import DropZone from '../pages/Content/components/dropZone';
+import Setting from '../pages/Content/tabs/setting';
 import GreetingComponent from '../containers/Greetings/Greetings';
 import * as sub from '../pages/Content/utils/api/sub';
 import request from '../pages/Content/utils/api/request';
 import * as video from '../pages/Content/utils/api/video';
 import uploadFile from '../pages/Content/utils/api/uploadFile';
 import requestCount from '../pages/Content/utils/api/requestCount';
-import HomeNoSub from '../pages/Content/tabs/HomeNoSub';
-import Upload from '../pages/Content/tabs/Upload';
+import HomeNoSub from '../pages/Content/tabs/homeNoSub';
+import Upload from '../pages/Content/tabs/upload';
 import {
   AppreciationIcon,
   AppreciationSVG,
 } from '../pages/Content/components/icons';
-import CheckSubtitle from '../pages/Content/tabs/upload/CheckSubtitle';
-import UploadSubtitle from '../pages/Content/tabs/upload/UploadSubtitle';
-import UploadFinish from '../pages/Content/tabs/upload/UploadFinish';
-import RatingComponent from '../pages/Content/components/RateComponent';
+import CheckSubtitle from '../pages/Content/tabs/upload/checkSubtitle';
+import UploadSubtitle from '../pages/Content/tabs/upload/uploadSubtitle';
+import UploadFinish from '../pages/Content/tabs/upload/uploadFinish';
+import RatingComponent from '../pages/Content/components/rateComponent';
 import SelectLang from '../pages/Content/components/selectLang';
-import ColorPicker from '../pages/Content/components/ColorPicker';
-import TableRow from '../pages/Content/components/TableRow';
+import ColorPicker from '../pages/Content/components/colorPicker';
+import TableRow from '../pages/Content/components/tableRow';
 import { Status } from '../../utils/type';
 import getSubs from '../pages/Content/utils/api/getSubs';
-import Subtitle from '../pages/Content/tabs/Subtitle';
+import Subtitle from '../pages/Content/tabs/subtitle';
 import ToastComponent from '../pages/Content/components/toastComponent';
-import SettingRow from '../pages/Content/components/SettingRow';
+import SettingRow from '../pages/Content/components/settingRow';
 import { CustomCard } from '../pages/Content/components/customCard';
 
 describe('Pages and Components', () => {

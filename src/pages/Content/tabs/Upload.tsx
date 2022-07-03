@@ -1,9 +1,9 @@
 import { Box, Divider, Stack } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
-import UploadSubtitle from './upload/UploadSubtitle';
-import CheckSubtitle from './upload/CheckSubtitle';
-import UploadFinish from './upload/UploadFinish';
+import UploadSubtitle from './upload/uploadSubtitle';
+import CheckSubtitle from './upload/checkSubtitle';
+import UploadFinish from './upload/uploadFinish';
 
 export default function Upload() {
   const steps = [

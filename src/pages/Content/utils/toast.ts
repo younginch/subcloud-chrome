@@ -6,6 +6,7 @@ export const enum ToastType {
   SUCCESS,
   WARNING,
   ERROR,
+  INFO,
 }
 
 export default async function Toast(msg: string) {

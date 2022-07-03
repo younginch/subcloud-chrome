@@ -1,13 +1,13 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 import { MESSAGETAG } from '../../../utils/type';
-import BottomButton from './components/BottomButton';
-import QuickSubtitleRequest from './components/QuickSubtitleRequest';
-import SubtitleComponent from './components/SubtitleComponent';
+import BottomButton from './components/bottomButton';
+import QuickSubtitleRequest from './components/quickSubtitleRequest';
+import SubtitleComponent from './components/subtitleComponent';
 import ToastComponent from './components/toastComponent';
 import CSSResetCustom from './cssResetCustom';
 import componentLoader, { AttachType } from './helpers/componentLoader';
-import Toast, { ToastType } from './utils/toast';
+import { ToastType } from './utils/toast';
 
 declare let bootstrap: any;
 
@@ -26,13 +26,8 @@ function toast(type: ToastType, msg: string) {
   const toastText = document.getElementById('toast-message');
   const toastHeader = document.getElementById('0-toast-header');
   const toastBody = document.getElementById('liveToast');
-  const toastElement = document.getElementById('liveToast');
 
-  console.log(type, msg);
-
-  if (!toastText || !toastHeader || !toastBody || !toastElement) return;
-
-  console.log('still alive');
+  if (!toastText || !toastHeader || !toastBody) return;
 
   toastText.innerHTML = msg;
 
@@ -45,13 +40,17 @@ function toast(type: ToastType, msg: string) {
       toastHeader.style.backgroundColor = '#de6b1f';
       toastBody.style.backgroundColor = '#f87925';
       break;
+    case ToastType.INFO:
+      toastHeader.style.backgroundColor = '#8FAADC';
+      toastBody.style.backgroundColor = '#90CDF4';
+      break;
     default:
       toastHeader.style.backgroundColor = '#E53E3E';
       toastBody.style.backgroundColor = '#EA6868';
   }
 
-  const toastController = new bootstrap.Toast(toastElement);
-  toastController.show();
+  const toastElement = new bootstrap.Toast(toastBody);
+  toastElement.show();
 }
 
 const load = () => {

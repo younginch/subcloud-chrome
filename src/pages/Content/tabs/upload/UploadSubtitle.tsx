@@ -2,7 +2,7 @@ import { EditIcon } from '@chakra-ui/icons';
 import { Box, Button, Text } from '@chakra-ui/react';
 import { Dispatch, SetStateAction } from 'react';
 import { FaFileUpload } from 'react-icons/fa';
-import DropZone from '../../components/DropZone';
+import DropZone from '../../components/dropZone';
 
 export type Props = {
   setFiles: Dispatch<SetStateAction<File[] | undefined>>;
