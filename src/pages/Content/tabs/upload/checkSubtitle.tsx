@@ -1,19 +1,42 @@
 import { ViewIcon } from '@chakra-ui/icons';
-import { Box, Button, HStack, Spacer, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormErrorMessage,
+  HStack,
+  Spacer,
+  Stack,
+  Text,
+} from '@chakra-ui/react';
 import { IoMdCloudUpload } from 'react-icons/io';
 import { SRTFile } from '@younginch/subtitle';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { joiResolver } from '@hookform/resolvers/joi';
 import toast from '../../utils/toast';
 import getTab from '../../utils/getTab';
 import uploadFile from '../../utils/api/uploadFile';
+import SelectLang from '../../components/selectLang';
+import { VideoCreateSchema } from '../../../../commons/schema';
 
-export type Props = {
+type Props = {
   files: File[] | undefined;
   sendCallback: () => void;
 };
 
+type FormData = {
+  lang: string;
+};
+
 export default function CheckSubtitle({ files, sendCallback }: Props) {
   const [sub, setSub] = useState<SRTFile | undefined>();
+  const {
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<FormData>({ resolver: joiResolver(VideoCreateSchema) });
+  console.log(errors);
 
   const preview = async () => {
     try {
@@ -37,6 +60,12 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
     }
   };
 
+  function onSubmit(values: FormData) {
+    console.log('hello!');
+    upload();
+    sendCallback();
+  }
+
   useEffect(() => {
     try {
       if (!files) return;
@@ -51,12 +80,14 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
   }, [files]);
 
   return (
-    <>
-      <Text fontWeight="bold" fontSize="22px" m="10px">
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Text fontWeight="bold" fontSize="22px" mt="10px" textAlign="center">
         자막을 검토하고 업로드하세요
       </Text>
       <HStack w="550px" mt="15px !important">
-        <Text fontSize="13px">파일 미리보기 (총 {sub?.array.length}줄)</Text>
+        <Text fontSize="13px">
+          파일 미리보기 (자막 수 {sub?.array.length}개)
+        </Text>
         <Spacer />
         <Button colorScheme="red" fontSize="12px">
           다시 업로드
@@ -64,7 +95,7 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
       </HStack>
       <Box
         w="550px"
-        h="250px"
+        h="230px"
         mt="5px"
         bg="#232C39"
         borderRadius="5px"
@@ -82,29 +113,47 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
             </Text>
           ))}
       </Box>
-      <HStack mt="20px !important" spacing="120px">
-        <Button
-          leftIcon={<ViewIcon w="20px" h="20px" />}
-          h="45px"
-          w="130px"
-          colorScheme="blue"
-          onClick={preview}
-        >
-          <Text fontSize="18px">프리뷰</Text>
-        </Button>
-        <Button
-          leftIcon={<IoMdCloudUpload size="20px" />}
-          onClick={() => {
-            upload();
-            sendCallback();
-          }}
-          h="45px"
-          w="130px"
-          colorScheme="green"
-        >
-          <Text fontSize="18px">전송</Text>
-        </Button>
-      </HStack>
-    </>
+      <FormControl isInvalid={errors.lang !== undefined} as="fieldset">
+        <HStack mt="30px !important" alignItems="flex-start">
+          <Stack>
+            <SelectLang
+              width="180px"
+              height="40px"
+              mainFont="15px"
+              subFont="13px"
+              marginTop="4px"
+              clickEvent={(code: string) => setValue('lang', code)}
+            />
+            <FormErrorMessage
+              justifyContent="center"
+              fontSize="14px"
+              color="red.300"
+            >
+              {errors.lang && errors.lang.message}
+            </FormErrorMessage>
+          </Stack>
+          <Button
+            leftIcon={<ViewIcon w="20px" h="20px" />}
+            h="45px"
+            w="130px"
+            colorScheme="blue"
+            onClick={preview}
+            ml="80px !important"
+          >
+            <Text fontSize="18px">프리뷰</Text>
+          </Button>
+          <Button
+            leftIcon={<IoMdCloudUpload size="20px" />}
+            h="45px"
+            w="130px"
+            colorScheme="green"
+            ml="30px !important"
+            type="submit"
+          >
+            <Text fontSize="18px">전송</Text>
+          </Button>
+        </HStack>
+      </FormControl>
+    </form>
   );
 }

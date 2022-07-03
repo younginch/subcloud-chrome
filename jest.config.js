@@ -34,6 +34,7 @@ const config = {
     '!**/runtime/**',
     '!**/index.{ts,tsx}',
   ],
+  resolver: '<rootDir>/.jest/resolver.js',
 };
 
 module.exports = config;

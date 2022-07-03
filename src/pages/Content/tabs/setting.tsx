@@ -192,6 +192,7 @@ export default function Setting({ user }: Props) {
           mainFont="13px"
           subFont="11px"
           marginLeft="20px !important"
+          clickEvent={() => null}
         />
       </SettingRow>
 
@@ -205,6 +206,7 @@ export default function Setting({ user }: Props) {
           mainFont="13px"
           subFont="11px"
           marginLeft="20px !important"
+          clickEvent={() => null}
         />
       </SettingRow>
 
