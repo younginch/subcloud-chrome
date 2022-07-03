@@ -8,6 +8,7 @@ type Props = {
   mainFont?: string;
   subFont?: string;
   marginLeft?: string;
+  marginTop?: string | number;
 };
 
 export default function SelectLang({
@@ -15,6 +16,7 @@ export default function SelectLang({
   height,
   mainFont,
   marginLeft,
+  marginTop,
   subFont,
 }: Props) {
   const codeList: LanguageCode[] = [
@@ -39,7 +41,7 @@ export default function SelectLang({
         w={width}
         h={height}
         borderRadius="10px"
-        mt="14px"
+        mt={marginTop}
         ml={marginLeft}
       >
         언어 선택
@@ -59,4 +61,5 @@ SelectLang.defaultProps = {
   mainFont: '13px',
   subFont: '11px',
   marginLeft: '0px',
+  marginTop: '14px',
 };

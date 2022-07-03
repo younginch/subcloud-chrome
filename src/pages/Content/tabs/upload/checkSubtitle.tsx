@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import toast from '../../utils/toast';
 import getTab from '../../utils/getTab';
 import uploadFile from '../../utils/api/uploadFile';
+import SelectLang from '../../components/selectLang';
 
 export type Props = {
   files: File[] | undefined;
@@ -82,13 +83,21 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
             </Text>
           ))}
       </Box>
-      <HStack mt="20px !important" spacing="120px">
+      <HStack mt="20px !important">
+        <SelectLang
+          width="180px"
+          height="40px"
+          mainFont="15px"
+          subFont="13px"
+          marginTop="4px"
+        />
         <Button
           leftIcon={<ViewIcon w="20px" h="20px" />}
           h="45px"
           w="130px"
           colorScheme="blue"
           onClick={preview}
+          ml="80px !important"
         >
           <Text fontSize="18px">프리뷰</Text>
         </Button>
@@ -101,6 +110,7 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
           h="45px"
           w="130px"
           colorScheme="green"
+          ml="30px !important"
         >
           <Text fontSize="18px">전송</Text>
         </Button>
