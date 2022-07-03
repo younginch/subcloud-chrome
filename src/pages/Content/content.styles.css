@@ -83,3 +83,11 @@ chakra-scope input {
 .select-lang-list::-webkit-scrollbar {
   width: 4px !important;
 }
+
+#subcloud-bottom-button div {
+  line-height: normal !important;
+}
+
+#subcloud-bottom-button svg {
+  line-height: normal !important;
+}

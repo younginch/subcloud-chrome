@@ -155,7 +155,7 @@ export default function HomeNoSub() {
         자막이 없습니다. 무료로 요청해 보세요.
       </Text>
       <HStack>
-        <Image w="200px" h="112px" src={youtubeVideoInfo?.thumbnailUrl} />
+        <Image w="200px" h="132px" src={youtubeVideoInfo?.thumbnailUrl} />
         <Stack pl="15px" spacing="10px">
           <Text
             fontWeight="bold"
@@ -192,6 +192,7 @@ export default function HomeNoSub() {
               height="40px"
               mainFont="15px"
               subFont="13px"
+              clickEvent={() => null}
             />
           </Center>
           <Box className="default-language" mt="30px !important">
