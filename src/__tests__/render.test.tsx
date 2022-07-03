@@ -128,9 +128,15 @@ describe('Pages and Components', () => {
   });
 
   it('render Setting tab', async () => {
+    const user = {
+      name: '',
+      email: '',
+      image: '',
+      point: 0,
+    };
     render(
       <ChakraProvider>
-        <Setting />
+        <Setting user={user} />
       </ChakraProvider>
     );
   });

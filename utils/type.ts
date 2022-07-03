@@ -17,4 +17,11 @@ enum Status {
   Private = 'Private',
 }
 
-export { MESSAGETAG, Status };
+type User = {
+  name: string;
+  email: string;
+  image: string;
+  point: number;
+};
+
+export { MESSAGETAG, Status, User };

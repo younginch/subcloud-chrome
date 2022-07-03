@@ -30,6 +30,7 @@ import Upload from './tabs/upload';
 import Setting from './tabs/setting';
 import HomeNoSub from './tabs/homeNoSub';
 import toast from './utils/toast';
+import { User } from '../../../utils/type';
 
 type TabType = {
   icon: React.ReactNode;
@@ -37,7 +38,7 @@ type TabType = {
 };
 
 export default function Layout() {
-  const [user, setUser] = useState({ name: 'fuck' });
+  const [user, setUser] = useState<User | undefined>();
 
   const tabs: Array<TabType> = [
     { icon: <AiFillHome size={20} />, name: 'Home' },
@@ -49,7 +50,12 @@ export default function Layout() {
   async function getUserInfo() {
     try {
       const data = await getFetch('auth/session');
-      setUser(data.user);
+      setUser({
+        name: data.user.name,
+        email: data.user.email,
+        image: data.user.image,
+        point: data.user.point,
+      });
     } catch (error: unknown) {
       if (error instanceof Error) toast(error.message);
     }
@@ -131,7 +137,7 @@ export default function Layout() {
                   20
                 </Text>
               </Box>
-              <Avatar w="40px" h="40px" cursor="pointer">
+              <Avatar w="40px" h="40px" cursor="pointer" src={user?.image}>
                 <AvatarBadge boxSize="1.25em" bg="green.500" />
               </Avatar>
             </Stack>
@@ -148,7 +154,7 @@ export default function Layout() {
                 <Upload />
               </TabPanel>
               <TabPanel p={0}>
-                <Setting />
+                <Setting user={user} />
               </TabPanel>
             </TabPanels>
           </Box>

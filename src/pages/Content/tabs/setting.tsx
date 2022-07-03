@@ -10,15 +10,22 @@ import {
   Box,
   Switch,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { RGBColor } from 'react-color';
+import { User } from '../../../../utils/type';
 import ColorPicker from '../components/colorPicker';
 import SelectLang from '../components/selectLang';
 import SettingRow from '../components/settingRow';
+import toast from '../utils/toast';
 
-export default function Setting() {
-  const [isBorder, setIsBorder] = useState(false);
-  const [isBackGround, setIsBackGround] = useState(true);
+type Props = {
+  user: User | undefined;
+};
+
+export default function Setting({ user }: Props) {
+  const [isBorder, setIsBorder] = useState<boolean>(false);
+  const [isBackGround, setIsBackGround] = useState<boolean>(true);
+  const [sliderValue, setSliderValue] = useState<number>(60);
   const [fontColor, setFontColor] = useState<RGBColor>({
     r: 255,
     g: 255,
@@ -38,6 +45,53 @@ export default function Setting() {
     a: 0.5,
   });
 
+  useEffect(() => {
+    chrome.storage.local.get(
+      [
+        'isBorder',
+        'isBackGround',
+        'sliderValue',
+        'fontColor',
+        'fontBorderColor',
+        'fontBgColor',
+      ],
+      (result) => {
+        if (result.isBorder !== undefined) setIsBorder(result.isBorder);
+        if (result.isBackGround !== undefined)
+          setIsBackGround(result.isBackGround);
+        if (result.sliderValue !== undefined)
+          setSliderValue(result.sliderValue);
+        if (result.fontColor !== undefined) setFontColor(result.fontColor);
+        if (result.fontBorderColor !== undefined)
+          setFontBorderColor(result.fontBorderColor);
+        if (result.fontBgColor !== undefined)
+          setFontBgColor(result.fontBgColor);
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    try {
+      chrome.storage.local.set({
+        isBorder,
+        isBackGround,
+        sliderValue,
+        fontColor,
+        fontBorderColor,
+        fontBgColor,
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(error.message);
+    }
+  }, [
+    isBorder,
+    isBackGround,
+    sliderValue,
+    fontColor,
+    fontBorderColor,
+    fontBgColor,
+  ]);
+
   return (
     <Stack
       p="10px 20px 10px 20px"
@@ -46,11 +100,11 @@ export default function Setting() {
       overflowY="scroll"
     >
       <SettingRow name="로그인 상태:">
-        <Text fontSize="18px">minkyu.lee65@gmail.com</Text>
+        <Text fontSize="18px">{user?.name ?? 'unknown'}</Text>
         <Button>로그아웃</Button>
       </SettingRow>
       <SettingRow name="포인트:">
-        <Text fontSize="18px">0</Text>
+        <Text fontSize="18px">{user?.point ?? 0}</Text>
         <Button>충전하기</Button>
       </SettingRow>
 
@@ -59,11 +113,11 @@ export default function Setting() {
       <SettingRow name="자막 크기:">
         <Slider
           aria-label="slider-ex-4"
-          value={60}
+          value={sliderValue}
           min={10}
           max={100}
           step={1}
-          onChange={(v: number) => null}
+          onChange={(v: number) => setSliderValue(v)}
           w="260px"
         >
           <SliderTrack bg="red.100">
@@ -73,14 +127,14 @@ export default function Setting() {
             <Box color="tomato" />
           </SliderThumb>
         </Slider>
-        <Text fontSize="18px">0</Text>
+        <Text fontSize="18px">{sliderValue}</Text>
       </SettingRow>
 
       <SettingRow name="자막 색상:" tooltip="자막 글자의 색상">
         <ColorPicker
           label="색상 선택"
-          color={fontBgColor}
-          changeFunction={(c: RGBColor) => setFontBgColor(c)}
+          color={fontColor}
+          changeFunction={(c: RGBColor) => setFontColor(c)}
           marginLeft="176.7px"
           activate
         />
@@ -94,8 +148,8 @@ export default function Setting() {
         />
         <ColorPicker
           label="색상 선택"
-          color={fontColor}
-          changeFunction={(c: RGBColor) => setFontColor(c)}
+          color={fontBgColor}
+          changeFunction={(c: RGBColor) => setFontBgColor(c)}
           activate={isBackGround}
         />
       </SettingRow>

@@ -1,11 +1,21 @@
 import { Box, Fade, Flex, Switch, useDisclosure, Text } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Layout from '../layout';
 import { SubcloudIcon } from './icons';
 
 export default function BottomButton() {
   const [onOff, setOnOff] = useState<boolean>(false);
   const { isOpen, onToggle } = useDisclosure();
+
+  useEffect(() => {
+    chrome.storage.local.set({ onOff });
+  }, [onOff]);
+
+  useEffect(() => {
+    chrome.storage.local.get(['onOff'], (result) => {
+      if (result.onOff !== undefined) setOnOff(result.onOff);
+    });
+  }, []);
 
   return (
     <Flex flexDir="row" alignItems="center !important" h="100%">
