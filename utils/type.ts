@@ -21,7 +21,7 @@ type User = {
   name: string;
   email: string;
   image: string;
-  point: string;
+  point: number;
 };
 
 export { MESSAGETAG, Status, User };
