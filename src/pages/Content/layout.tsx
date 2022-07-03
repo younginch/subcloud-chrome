@@ -82,6 +82,9 @@ export default function Layout() {
         bg="#1C1E21"
         borderBottomWidth="1px"
         borderColor="gray.600"
+        onClick={() => {
+          window.location.href = 'https://subcloud.app';
+        }}
       >
         <Heading fontSize="3xl" ml="15px !important">
           SubCloud
@@ -137,7 +140,15 @@ export default function Layout() {
                   20
                 </Text>
               </Box>
-              <Avatar w="40px" h="40px" cursor="pointer" src={user?.image}>
+              <Avatar
+                w="40px"
+                h="40px"
+                cursor="pointer"
+                src={user?.image}
+                onClick={() => {
+                  window.location.href = 'https://subcloud.app/user/my';
+                }}
+              >
                 <AvatarBadge boxSize="1.25em" bg="green.500" />
               </Avatar>
             </Stack>

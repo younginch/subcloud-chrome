@@ -101,11 +101,23 @@ export default function Setting({ user }: Props) {
     >
       <SettingRow name="로그인 상태:">
         <Text fontSize="18px">{user?.name ?? 'unknown'}</Text>
-        <Button>로그아웃</Button>
+        <Button
+          onClick={() => {
+            window.location.href = 'https://subcloud.app/api/auth/signout';
+          }}
+        >
+          로그아웃
+        </Button>
       </SettingRow>
       <SettingRow name="포인트:">
         <Text fontSize="18px">{user?.point ?? 0}</Text>
-        <Button>충전하기</Button>
+        <Button
+          onClick={() => {
+            window.location.href = 'https://subcloud.app/buy';
+          }}
+        >
+          충전하기
+        </Button>
       </SettingRow>
 
       <Divider m="10px !important" w="640px" />

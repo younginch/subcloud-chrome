@@ -36,7 +36,6 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
     setValue,
     formState: { errors },
   } = useForm<FormData>({ resolver: joiResolver(VideoCreateSchema) });
-  console.log(errors);
 
   const preview = async () => {
     try {
@@ -61,7 +60,6 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
   };
 
   function onSubmit(values: FormData) {
-    console.log('hello!');
     upload();
     sendCallback();
   }
