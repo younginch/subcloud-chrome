@@ -57,7 +57,13 @@ export default function Subtitle() {
       <Text fontWeight="bold" fontSize="22px" mt="10px" mb="10px">
         전 세계 유저들이 제작한 자막을 사용해 보세요
       </Text>
-      <SelectLang width="140px" height="30px" mainFont="13px" subFont="11px" />
+      <SelectLang
+        width="140px"
+        height="30px"
+        mainFont="13px"
+        subFont="11px"
+        clickEvent={() => null}
+      />
       <TableContainer mt="7px" maxH="440px" overflowY="scroll">
         <Table variant="striped">
           <TableCaption fontSize="12px">Powered by SubCloud</TableCaption>
