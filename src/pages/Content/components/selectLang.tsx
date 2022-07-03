@@ -9,6 +9,7 @@ type Props = {
   subFont?: string;
   marginLeft?: string;
   marginTop?: string | number;
+  clickEvent: (code: string) => void;
 };
 
 export default function SelectLang({
@@ -18,6 +19,7 @@ export default function SelectLang({
   marginLeft,
   marginTop,
   subFont,
+  clickEvent,
 }: Props) {
   const codeList: LanguageCode[] = [
     'en',
@@ -46,9 +48,22 @@ export default function SelectLang({
       >
         언어 선택
       </MenuButton>
-      <MenuList maxH="450px" overflow="scroll" w={width}>
+      <MenuList
+        maxH="300px"
+        overflow="scroll"
+        w={width}
+        border="none"
+        overflowX="hidden"
+        className="select-lang-list"
+      >
         {codeList.map((code) => (
-          <MenuItem key={code} w={width} fontSize={subFont}>
+          <MenuItem
+            key={code}
+            fontSize={subFont}
+            h={height}
+            w={width}
+            onClick={() => clickEvent(code)}
+          >
             {`${ISO6391.getName(code)} (${ISO6391.getNativeName(code)})`}
           </MenuItem>
         ))}

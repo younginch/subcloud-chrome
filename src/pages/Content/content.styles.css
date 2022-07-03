@@ -79,3 +79,7 @@ chakra-scope input {
 .upload-stepper > div:nth-child(1){
   width: 140px;
 }
+
+.select-lang-list::-webkit-scrollbar {
+  width: 4px !important;
+}

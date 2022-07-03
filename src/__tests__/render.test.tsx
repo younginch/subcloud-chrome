@@ -184,7 +184,7 @@ describe('Pages and Components', () => {
   it('render SelectLang', async () => {
     render(
       <ChakraProvider>
-        <SelectLang height="130px" width="30px" />
+        <SelectLang height="130px" width="30px" clickEvent={() => null} />
       </ChakraProvider>
     );
   });
