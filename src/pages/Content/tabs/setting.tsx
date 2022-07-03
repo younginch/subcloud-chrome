@@ -12,9 +12,9 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { RGBColor } from 'react-color';
-import ColorPicker from '../components/ColorPicker';
+import ColorPicker from '../components/colorPicker';
 import SelectLang from '../components/selectLang';
-import SettingRow from '../components/SettingRow';
+import SettingRow from '../components/settingRow';
 
 export default function Setting() {
   const [isBorder, setIsBorder] = useState(false);
@@ -115,7 +115,13 @@ export default function Setting() {
       </SettingRow>
       <SettingRow
         name="자막 양식을 우선시:"
-        tooltip="사용자 지정 스타일과 자막파일의 스타일 중\n무엇을 우선할지 결정합니다"
+        tooltip={
+          <>
+            <span>사용자 지정 스타일과 자막파일의 스타일 중</span>
+            <br />
+            <span>무엇을 우선할지 결정합니다</span>
+          </>
+        }
       >
         <Switch colorScheme="teal" size="lg" />
       </SettingRow>
@@ -152,19 +158,41 @@ export default function Setting() {
 
       <SettingRow
         name="자막 발견시 5초간 알림 띄우기:"
-        tooltip="'친숙한 언어'로 설정한 자막이 있다면\n알림을 보여줍니다"
+        tooltip={
+          <>
+            <span>
+              <b>&apos;친숙한 언어&apos;</b>로 설정한 자막이 있다면
+            </span>
+            <br />
+            <span>영상 시작 시 알림을 보여줍니다</span>
+          </>
+        }
       >
         <Switch colorScheme="teal" size="lg" />
       </SettingRow>
       <SettingRow
         name="자막 발견시 자동으로 사용하기:"
-        tooltip="'친숙한 언어'로 설정한 자막이 있다면\n자동으로 선택합니다"
+        tooltip={
+          <>
+            <span>
+              <b>&apos;친숙한 언어&apos;</b>로 설정한 자막이 있다면
+            </span>
+            <br />
+            <span>자동으로 선택합니다</span>
+          </>
+        }
       >
         <Switch colorScheme="teal" size="lg" />
       </SettingRow>
       <SettingRow
         name="댓글창 자막 요청 버튼 사용:"
-        tooltip="댓글창의 오른쪽 위의 요청 버튼을 통해 자막을 요청할 수 있습니다"
+        tooltip={
+          <>
+            <span>댓글창의 오른쪽 위의 요청 버튼을 통해</span>
+            <br />
+            <span>자막을 요청할 수 있습니다</span>
+          </>
+        }
       >
         <Switch colorScheme="teal" size="lg" />
       </SettingRow>

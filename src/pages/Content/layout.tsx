@@ -25,10 +25,10 @@ import { MdSubtitles } from 'react-icons/md';
 import { IoMdCloudUpload } from 'react-icons/io';
 import { BellIcon } from '@chakra-ui/icons';
 import { getFetch } from './utils/fetch';
-import Subtitle from './tabs/Subtitle';
-import Upload from './tabs/Upload';
-import Setting from './tabs/Setting';
-import HomeNoSub from './tabs/HomeNoSub';
+import Subtitle from './tabs/subtitle';
+import Upload from './tabs/upload';
+import Setting from './tabs/setting';
+import HomeNoSub from './tabs/homeNoSub';
 import toast from './utils/toast';
 
 type TabType = {

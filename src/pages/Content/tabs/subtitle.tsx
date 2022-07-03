@@ -13,7 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import SelectLang from '../components/selectLang';
-import RateComponent from '../components/RateComponent';
+import RateComponent from '../components/rateComponent';
 import getFile from '../utils/api/getFile';
 import toast from '../utils/toast';
 import getSubs from '../utils/api/getSubs';
