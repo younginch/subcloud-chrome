@@ -9,6 +9,7 @@ export const enum AttachType {
 type Props = {
   parentQuery: string;
   targetId: string;
+  className?: string;
   children: React.ReactNode;
   attachType?: AttachType;
 };
@@ -24,6 +25,7 @@ type Props = {
 export default function componentLoader({
   parentQuery,
   targetId,
+  className,
   children,
   attachType = AttachType.APPEND,
 }: Props): boolean {
@@ -37,6 +39,7 @@ export default function componentLoader({
   if (parentElement) {
     targetElement = document.createElement('div');
     targetElement.id = targetId;
+    if (className) targetElement.className = className;
 
     switch (attachType) {
       case AttachType.APPEND:

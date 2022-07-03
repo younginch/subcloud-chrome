@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { ChakraProvider, extendTheme, Table } from '@chakra-ui/react';
+import { Box, ChakraProvider, extendTheme, Table } from '@chakra-ui/react';
 import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 import Newtab from '../pages/Newtab/Newtab';
 import Options from '../pages/Options/Options';
@@ -38,6 +38,9 @@ import TableRow from '../pages/Content/components/TableRow';
 import { Status } from '../../utils/type';
 import getSubs from '../pages/Content/utils/api/getSubs';
 import Subtitle from '../pages/Content/tabs/Subtitle';
+import ToastComponent from '../pages/Content/components/toastComponent';
+import SettingRow from '../pages/Content/components/SettingRow';
+import { CustomCard } from '../pages/Content/components/customCard';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -67,6 +70,10 @@ describe('Pages and Components', () => {
 
   it('renders Popup', async () => {
     render(<Popup />);
+  });
+
+  it('render ToastComponent', async () => {
+    render(<ToastComponent />);
   });
 
   it('render BottomButton', async () => {
@@ -124,6 +131,24 @@ describe('Pages and Components', () => {
     render(
       <ChakraProvider>
         <Setting />
+      </ChakraProvider>
+    );
+  });
+
+  it('render SettingRow', async () => {
+    render(
+      <ChakraProvider>
+        <SettingRow name="test" />
+      </ChakraProvider>
+    );
+  });
+
+  it('render CustomCard', async () => {
+    render(
+      <ChakraProvider>
+        <CustomCard>
+          <Box />
+        </CustomCard>
       </ChakraProvider>
     );
   });

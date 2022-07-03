@@ -1,12 +1,14 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { HStack, Text, Tooltip } from '@chakra-ui/react';
+import React from 'react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
+import { CustomCard } from './customCard';
 
 type Props = {
   name: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   tooltip?: string;
 };
-
 export default function SettingRow({ name, children, tooltip }: Props) {
   return (
     <HStack mt="10px !important" mb="10px !important">
@@ -16,7 +18,9 @@ export default function SettingRow({ name, children, tooltip }: Props) {
       {children}
       {tooltip && (
         <Tooltip label={tooltip}>
-          <AiOutlineInfoCircle size="20px" fill="#aaa" />
+          <CustomCard>
+            <AiOutlineInfoCircle size="20px" fill="#aaa" />
+          </CustomCard>
         </Tooltip>
       )}
     </HStack>
@@ -25,4 +29,5 @@ export default function SettingRow({ name, children, tooltip }: Props) {
 
 SettingRow.defaultProps = {
   tooltip: undefined,
+  children: undefined,
 };

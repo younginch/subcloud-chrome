@@ -1,5 +1,5 @@
 import { Box, CircularProgress, ScaleFade } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { FiSend } from 'react-icons/fi';
 import { AiFillSetting } from 'react-icons/ai';
 import { HiOutlineUpload } from 'react-icons/hi';
@@ -12,13 +12,11 @@ export default function RequestButton() {
   const [inPopover, setInPopover] = useState<boolean>(false);
 
   const mouseLeave = () => {
-    console.log('exit!!');
     setOnHover(false);
     setGauge(0);
   };
 
   const mouseEnter = () => {
-    console.log('hello!!');
     setOnHover(true);
     setTimeout(() => {
       setGauge(100);

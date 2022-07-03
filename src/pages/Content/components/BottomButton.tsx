@@ -1,14 +1,5 @@
-import {
-  Box,
-  Button,
-  Fade,
-  Flex,
-  Switch,
-  useDisclosure,
-  Text,
-} from '@chakra-ui/react';
+import { Box, Fade, Flex, Switch, useDisclosure, Text } from '@chakra-ui/react';
 import { useState } from 'react';
-import { MdSubtitles } from 'react-icons/md';
 import Layout from '../layout';
 import { SubcloudIcon } from './icons';
 
@@ -33,6 +24,7 @@ export default function BottomButton() {
         p="0px !important"
         position="relative"
         cursor="pointer"
+        title="subcloud"
       >
         <SubcloudIcon size="30px" fill="white" marginTop="-12px" />
         <Text
