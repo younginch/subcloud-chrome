@@ -1,19 +1,10 @@
-import {
-  Box,
-  Fade,
-  Flex,
-  Switch,
-  useDisclosure,
-  Text,
-  Tooltip,
-} from '@chakra-ui/react';
+import { Box, Flex, Switch, Text, Tooltip } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import Layout from '../layout';
+import { toggleMainModal } from '../helpers/modalControl';
 import { SubcloudIcon } from './icons';
 
 export default function BottomButton() {
   const [onOff, setOnOff] = useState<boolean>(false);
-  const { isOpen, onToggle } = useDisclosure();
   const [notifyCount, setNotifyCount] = useState<number>(0);
   const [hasSub, setHasSub] = useState<boolean>(true);
   const [preferLang, setPreferLang] = useState<string>('한국어');
@@ -51,7 +42,7 @@ export default function BottomButton() {
           </>
         }
         placement="top"
-        bg="rgba(0,0,0,.5)"
+        bg="rgba(0,0,0,0.5)"
         color="white"
         fontSize="14px"
         openDelay={100}
@@ -59,7 +50,6 @@ export default function BottomButton() {
         ml="6px"
       >
         <Box
-          onClick={onToggle}
           hidden={!onOff}
           w="30px"
           h="30px"
@@ -68,6 +58,7 @@ export default function BottomButton() {
           position="relative"
           cursor="pointer"
           title="subcloud"
+          onClick={() => toggleMainModal()}
         >
           <SubcloudIcon size="30px" fill="white" />
           {(hasSub || notifyCount) && (
@@ -86,9 +77,6 @@ export default function BottomButton() {
           )}
         </Box>
       </Tooltip>
-      <Fade in={isOpen} hidden={!isOpen}>
-        <Layout />
-      </Fade>
     </Flex>
   );
 }

@@ -5,9 +5,10 @@ import BottomButton from './components/bottomButton';
 import QuickSubtitleRequest from './components/quickSubtitleRequest';
 import SubtitleComponent from './components/subtitleComponent';
 import ToastComponent from './components/toastComponent';
-import CSSResetCustom from './cssResetCustom';
+import CSSResetCustom from './components/cssResetCustom';
 import componentLoader, { AttachType } from './helpers/componentLoader';
 import { ToastType } from './utils/toast';
+import MainModal from './components/mainModal';
 
 declare let bootstrap: any;
 
@@ -105,6 +106,26 @@ const load = () => {
       })
     )
       clearInterval(loadVideoBottomButton);
+  }, 100);
+
+  // load Video Bottom Button
+  const loadMainModal = setInterval(() => {
+    if (
+      componentLoader({
+        parentQuery: 'body',
+        targetId: 'subcloud-main-modal-placer',
+        children: (
+          <chakra-scope>
+            <ChakraProvider theme={theme} resetCSS={false}>
+              <CSSResetCustom />
+              <MainModal />
+            </ChakraProvider>
+          </chakra-scope>
+        ),
+        attachType: AttachType.PREPEND,
+      })
+    )
+      clearInterval(loadMainModal);
   }, 100);
 
   // load subtitle component
