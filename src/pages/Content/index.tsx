@@ -16,6 +16,14 @@ const theme = extendTheme({
   components: {
     Steps,
   },
+  colors: {
+    bgColor: {
+      200: '#26303E',
+      300: '#232C39',
+      500: '#1A202C',
+      800: '#1C1E21',
+    },
+  },
 });
 
 /**

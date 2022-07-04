@@ -32,6 +32,7 @@ import HomeNoSub from '../tabs/homeNoSub';
 import toast, { ToastType } from '../utils/toast';
 import { User } from '../../../../utils/type';
 import { closeMainModal } from '../helpers/modalControl';
+import Notify from '../tabs/notify';
 
 type TabType = {
   icon: React.ReactNode;
@@ -87,7 +88,7 @@ export default function Layout() {
     <VStack
       w="850px"
       h="600px"
-      bg="#1A202C"
+      bg="bgColor.500"
       borderRadius="10px"
       overflow="hidden"
       boxShadow="dark-lg"
@@ -96,7 +97,7 @@ export default function Layout() {
         w="100%"
         h="40px"
         p="7px"
-        bg="#1C1E21"
+        bg="bgColor.800"
         borderBottomWidth="1px"
         borderColor="gray.600"
       >
@@ -130,7 +131,7 @@ export default function Layout() {
             direction="column"
             h="100%"
             justifyContent="space-between"
-            bg="#1C1E21"
+            bg="bgColor.800"
             borderColor="gray.600"
             borderRightWidth="1px"
           >
@@ -157,8 +158,15 @@ export default function Layout() {
               ))}
             </TabList>
             <Stack alignItems="center" mb="20px" spacing="20px">
-              <Box w="40px" h="40px" position="relative" cursor="pointer">
-                <BellIcon w="40px" h="40px" />
+              <Box
+                w="40px"
+                h="40px"
+                position="relative"
+                cursor="pointer"
+                onClick={() => setTabIndex(4)}
+                color={tabIndex === 4 ? 'blue.500' : 'white'}
+              >
+                <BellIcon w="40px" h="40px" color="inherit" />
                 <Text
                   bg="red"
                   fontSize="14px"
@@ -168,6 +176,7 @@ export default function Layout() {
                   pr="3px"
                   ml="18px"
                   mt="-40px"
+                  color="white"
                 >
                   20
                 </Text>
@@ -198,6 +207,9 @@ export default function Layout() {
               </TabPanel>
               <TabPanel p={0}>
                 <Setting user={user} />
+              </TabPanel>
+              <TabPanel p={0}>
+                <Notify />
               </TabPanel>
             </TabPanels>
           </Box>
