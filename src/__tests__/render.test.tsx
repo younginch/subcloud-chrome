@@ -45,6 +45,8 @@ import {
   closeMainModal,
   toggleMainModal,
 } from '../pages/Content/helpers/modalControl';
+import Layout from '../pages/Content/components/layout';
+import MainModal from '../pages/Content/components/mainModal';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -84,6 +86,22 @@ describe('Pages and Components', () => {
     render(
       <ChakraProvider>
         <BottomButton />
+      </ChakraProvider>
+    );
+  });
+
+  it('render Layout', async () => {
+    render(
+      <ChakraProvider>
+        <Layout />
+      </ChakraProvider>
+    );
+  });
+
+  it('render MainModal', async () => {
+    render(
+      <ChakraProvider>
+        <MainModal />
       </ChakraProvider>
     );
   });
