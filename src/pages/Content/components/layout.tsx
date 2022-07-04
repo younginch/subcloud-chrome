@@ -82,11 +82,14 @@ export default function Layout() {
         bg="#1C1E21"
         borderBottomWidth="1px"
         borderColor="gray.600"
-        onClick={() => {
-          window.location.href = 'https://subcloud.app';
-        }}
       >
-        <Heading fontSize="3xl" ml="15px !important">
+        <Heading
+          fontSize="3xl"
+          ml="15px !important"
+          onClick={() => {
+            window.location.href = 'https://subcloud.app';
+          }}
+        >
           SubCloud
         </Heading>
         <Spacer />
