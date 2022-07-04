@@ -1,5 +1,5 @@
 import { SRTFile } from '@younginch/subtitle';
-import { Text } from '@chakra-ui/react';
+import { Text, useInterval } from '@chakra-ui/react';
 import { useState } from 'react';
 import { RGBColor } from 'react-color';
 import calculateLayout from '../helpers/calculateLayout';
@@ -45,7 +45,7 @@ export default function SubtitleComponent() {
     'fontBgColor',
   ];
 
-  const layoutUpdater = setInterval(() => {
+  useInterval(() => {
     try {
       const res = calculateLayout(60);
       if (res) {
@@ -88,11 +88,10 @@ export default function SubtitleComponent() {
         }
       }
       if (!isSubtitle) setTextArray([]);
-      clearInterval(layoutUpdater);
     } catch (error: unknown) {
       if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
-  }, 20);
+  }, 10);
 
   return (
     <div className="subcloud-placer" style={{ marginTop: `${subtitleMt}px` }}>

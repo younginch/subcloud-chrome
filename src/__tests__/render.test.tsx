@@ -9,7 +9,7 @@ import * as GetTab from '../pages/Content/utils/getTab';
 import * as Fetch from '../pages/Content/utils/fetch';
 import * as sendMessage from '../pages/Content/utils/sendMessage';
 import BottomButton from '../pages/Content/components/bottomButton';
-import CSSResetCustom from '../pages/Content/cssResetCustom';
+import CSSResetCustom from '../pages/Content/components/cssResetCustom';
 import SubtitleComponent from '../pages/Content/components/subtitleComponent';
 import RequestButton from '../pages/Content/components/requestButton';
 import calculateLayout from '../pages/Content/helpers/calculateLayout';
@@ -41,6 +41,12 @@ import Subtitle from '../pages/Content/tabs/subtitle';
 import ToastComponent from '../pages/Content/components/toastComponent';
 import SettingRow from '../pages/Content/components/settingRow';
 import { CustomCard } from '../pages/Content/components/customCard';
+import {
+  closeMainModal,
+  toggleMainModal,
+} from '../pages/Content/helpers/modalControl';
+import Layout from '../pages/Content/components/layout';
+import MainModal from '../pages/Content/components/mainModal';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -77,7 +83,27 @@ describe('Pages and Components', () => {
   });
 
   it('render BottomButton', async () => {
-    render(<BottomButton />);
+    render(
+      <ChakraProvider>
+        <BottomButton />
+      </ChakraProvider>
+    );
+  });
+
+  it('render Layout', async () => {
+    render(
+      <ChakraProvider>
+        <Layout />
+      </ChakraProvider>
+    );
+  });
+
+  it('render MainModal', async () => {
+    render(
+      <ChakraProvider>
+        <MainModal />
+      </ChakraProvider>
+    );
   });
 
   it('render CSSResetCustom', async () => {
@@ -256,6 +282,50 @@ describe('Pages and Components', () => {
         <UploadFinish />
       </ChakraProvider>
     );
+  });
+
+  it('test closeMainModal success', () => {
+    jest
+      .spyOn(document, 'getElementById')
+      .mockImplementation(
+        () => ({ classList: { remove: jest.fn() } } as unknown as HTMLElement)
+      );
+    const removeResult = closeMainModal();
+    expect(removeResult).toBeTruthy();
+  });
+
+  it('test closeMainModal fail', () => {
+    jest.spyOn(document, 'getElementById').mockImplementation(() => null);
+    const removeResult = closeMainModal();
+    expect(removeResult).toBeFalsy();
+  });
+
+  it('test toggleMainModal close', () => {
+    jest.spyOn(document, 'getElementById').mockImplementation(
+      () =>
+        ({
+          classList: { contains: () => true, remove: jest.fn() },
+        } as unknown as HTMLElement)
+    );
+    const removeResult = toggleMainModal();
+    expect(removeResult).toBeTruthy();
+  });
+
+  it('test toggleMainModal open', () => {
+    jest.spyOn(document, 'getElementById').mockImplementation(
+      () =>
+        ({
+          classList: { contains: () => false, add: jest.fn() },
+        } as unknown as HTMLElement)
+    );
+    const removeResult = toggleMainModal();
+    expect(removeResult).toBeTruthy();
+  });
+
+  it('test toggleMainModal fail', () => {
+    jest.spyOn(document, 'getElementById').mockImplementation(() => null);
+    const toggleResult = toggleMainModal();
+    expect(toggleResult).toBeFalsy();
   });
 
   it('test calculateLayout returns undefined', () => {

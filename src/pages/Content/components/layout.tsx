@@ -24,13 +24,14 @@ import {
 import { MdSubtitles } from 'react-icons/md';
 import { IoMdCloudUpload } from 'react-icons/io';
 import { BellIcon } from '@chakra-ui/icons';
-import { getFetch } from './utils/fetch';
-import Subtitle from './tabs/subtitle';
-import Upload from './tabs/upload';
-import Setting from './tabs/setting';
-import HomeNoSub from './tabs/homeNoSub';
-import toast, { ToastType } from './utils/toast';
-import { User } from '../../../utils/type';
+import { getFetch } from '../utils/fetch';
+import Subtitle from '../tabs/subtitle';
+import Upload from '../tabs/upload';
+import Setting from '../tabs/setting';
+import HomeNoSub from '../tabs/homeNoSub';
+import toast, { ToastType } from '../utils/toast';
+import { User } from '../../../../utils/type';
+import { closeMainModal } from '../helpers/modalControl';
 
 type TabType = {
   icon: React.ReactNode;
@@ -69,11 +70,10 @@ export default function Layout() {
     <VStack
       w="850px"
       h="600px"
-      position="fixed"
       bg="#1A202C"
-      left="calc(50vw - 425px) !important"
-      top="calc(50vh - 300px) !important"
-      zIndex={100}
+      borderRadius="10px"
+      overflow="hidden"
+      boxShadow="dark-lg"
     >
       <HStack
         w="100%"
@@ -90,7 +90,11 @@ export default function Layout() {
           SubCloud
         </Heading>
         <Spacer />
-        <AiOutlineCloseCircle size={20} />
+        <AiOutlineCloseCircle
+          size={20}
+          onClick={() => closeMainModal()}
+          cursor="pointer"
+        />
       </HStack>
       <Tabs orientation="vertical" mt="0px !important" h="560px" isLazy>
         <HStack>
