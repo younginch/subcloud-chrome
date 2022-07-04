@@ -29,7 +29,7 @@ import Subtitle from './tabs/subtitle';
 import Upload from './tabs/upload';
 import Setting from './tabs/setting';
 import HomeNoSub from './tabs/homeNoSub';
-import toast from './utils/toast';
+import toast, { ToastType } from './utils/toast';
 import { User } from '../../../utils/type';
 
 type TabType = {
@@ -57,7 +57,7 @@ export default function Layout() {
         point: data.user.point,
       });
     } catch (error: unknown) {
-      if (error instanceof Error) toast(error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   }
 
@@ -82,6 +82,9 @@ export default function Layout() {
         bg="#1C1E21"
         borderBottomWidth="1px"
         borderColor="gray.600"
+        onClick={() => {
+          window.location.href = 'https://subcloud.app';
+        }}
       >
         <Heading fontSize="3xl" ml="15px !important">
           SubCloud
@@ -137,7 +140,15 @@ export default function Layout() {
                   20
                 </Text>
               </Box>
-              <Avatar w="40px" h="40px" cursor="pointer" src={user?.image}>
+              <Avatar
+                w="40px"
+                h="40px"
+                cursor="pointer"
+                src={user?.image}
+                onClick={() => {
+                  window.location.href = 'https://subcloud.app/user/my';
+                }}
+              >
                 <AvatarBadge boxSize="1.25em" bg="green.500" />
               </Avatar>
             </Stack>

@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react';
 import SelectLang from '../components/selectLang';
 import RateComponent from '../components/rateComponent';
 import getFile from '../utils/api/getFile';
-import toast from '../utils/toast';
+import toast, { ToastType } from '../utils/toast';
 import getSubs from '../utils/api/getSubs';
 
 type SubtitleType = {
@@ -35,7 +35,7 @@ export default function Subtitle() {
       const subArray = await getSubs();
       setSubs(subArray);
     } catch (error: unknown) {
-      if (error instanceof Error) toast(error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   };
 
@@ -43,8 +43,9 @@ export default function Subtitle() {
     try {
       const sub = await getFile(subId);
       await chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
+      await toast(ToastType.SUCCESS, 'subtitle selected');
     } catch (error: unknown) {
-      if (error instanceof Error) toast(error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   };
 

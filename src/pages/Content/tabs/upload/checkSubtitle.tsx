@@ -14,7 +14,7 @@ import { SRTFile } from '@younginch/subtitle';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
-import toast from '../../utils/toast';
+import toast, { ToastType } from '../../utils/toast';
 import getTab from '../../utils/getTab';
 import uploadFile from '../../utils/api/uploadFile';
 import SelectLang from '../../components/selectLang';
@@ -36,13 +36,13 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
     setValue,
     formState: { errors },
   } = useForm<FormData>({ resolver: joiResolver(VideoCreateSchema) });
-  console.log(errors);
 
   const preview = async () => {
     try {
       if (sub) chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
+      await toast(ToastType.SUCCESS, 'preview started');
     } catch (error: unknown) {
-      if (error instanceof Error) toast(error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   };
 
@@ -55,13 +55,13 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
       reader.onload = () => {
         uploadFile(String(reader.result), files[0].name, tab.url, 'en');
       };
+      await toast(ToastType.SUCCESS, 'subtitle uploaded');
     } catch (error: unknown) {
-      if (error instanceof Error) toast(error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   };
 
   function onSubmit(values: FormData) {
-    console.log('hello!');
     upload();
     sendCallback();
   }
@@ -75,7 +75,7 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
         setSub(SRTFile.fromText(String(reader.result)));
       };
     } catch (error: unknown) {
-      if (error instanceof Error) toast(error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   }, [files]);
 
