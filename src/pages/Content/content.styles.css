@@ -99,7 +99,8 @@ chakra-scope input {
   -webkit-transition: opacity 0.3s;
   opacity: 0;
   visibility: hidden;
-  
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 #subcloud-main-modal.modal-visible {
