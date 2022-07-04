@@ -88,7 +88,7 @@ export default function Layout() {
     <VStack
       w="850px"
       h="600px"
-      bg="#1A202C"
+      bg="bgColor.500"
       borderRadius="10px"
       overflow="hidden"
       boxShadow="dark-lg"
@@ -97,7 +97,7 @@ export default function Layout() {
         w="100%"
         h="40px"
         p="7px"
-        bg="#1C1E21"
+        bg="bgColor.800"
         borderBottomWidth="1px"
         borderColor="gray.600"
       >
@@ -131,7 +131,7 @@ export default function Layout() {
             direction="column"
             h="100%"
             justifyContent="space-between"
-            bg="#1C1E21"
+            bg="bgColor.800"
             borderColor="gray.600"
             borderRightWidth="1px"
           >
