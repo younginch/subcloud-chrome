@@ -40,6 +40,8 @@ type TabType = {
 
 export default function Layout() {
   const [user, setUser] = useState<User | undefined>();
+  const [tabIndex, setTabIndex] = useState<number>(0);
+  const [isSub, setIsSub] = useState<number>(0);
 
   const tabs: Array<TabType> = [
     { icon: <AiFillHome size={20} />, name: 'Home' },
@@ -62,9 +64,24 @@ export default function Layout() {
     }
   }
 
+  async function getSubInfo() {
+    // TODO: Gets whether subtitles exist
+    const hasSubtitle = Math.floor(Math.random() * 2);
+
+    setIsSub(hasSubtitle);
+    if (hasSubtitle) {
+      setTabIndex(1);
+    }
+  }
+
   useEffect(() => {
     getUserInfo();
+    getSubInfo();
   }, []);
+
+  const handleTabsChange = (index: number) => {
+    setTabIndex(index);
+  };
 
   return (
     <VStack
@@ -82,11 +99,15 @@ export default function Layout() {
         bg="#1C1E21"
         borderBottomWidth="1px"
         borderColor="gray.600"
-        onClick={() => {
-          window.location.href = 'https://subcloud.app';
-        }}
       >
-        <Heading fontSize="3xl" ml="15px !important">
+        <Heading
+          fontSize="3xl"
+          ml="15px !important"
+          onClick={() => {
+            window.location.href = 'https://subcloud.app';
+          }}
+          cursor="pointer"
+        >
           SubCloud
         </Heading>
         <Spacer />
@@ -96,7 +117,14 @@ export default function Layout() {
           cursor="pointer"
         />
       </HStack>
-      <Tabs orientation="vertical" mt="0px !important" h="560px" isLazy>
+      <Tabs
+        index={tabIndex}
+        onChange={handleTabsChange}
+        orientation="vertical"
+        mt="0px !important"
+        h="560px"
+        isLazy
+      >
         <HStack>
           <Flex
             direction="column"
