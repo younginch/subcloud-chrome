@@ -24,7 +24,7 @@ import getTab from '../utils/getTab';
 import request from '../utils/api/request';
 import requestCount from '../utils/api/requestCount';
 import video from '../utils/api/video';
-import toast from '../utils/toast';
+import toast, { ToastType } from '../utils/toast';
 import SelectLang from '../components/selectLang';
 
 type PointElement = {
@@ -103,8 +103,9 @@ export default function HomeNoSub() {
       await request(tab.url, 'en', point);
       const cnt = await requestCount(tab.url);
       setCount(cnt);
+      await toast(ToastType.SUCCESS, 'request sent');
     } catch (error: unknown) {
-      if (error instanceof Error) toast(error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   };
 
@@ -127,7 +128,7 @@ export default function HomeNoSub() {
         },
       });
     } catch (error: unknown) {
-      if (error instanceof Error) toast(error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   };
 
@@ -137,7 +138,7 @@ export default function HomeNoSub() {
       const cnt = await requestCount(tab.url);
       setCount(cnt);
     } catch (error: unknown) {
-      if (error instanceof Error) toast(error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   };
 

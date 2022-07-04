@@ -9,10 +9,15 @@ export const enum ToastType {
   INFO,
 }
 
-export default async function Toast(msg: string) {
+export default async function Toast(type: ToastType, msg: string) {
   try {
     const tab = await getTab();
-    await sendMessage({ tag: MESSAGETAG.TOAST, msg, tabId: tab.id });
+    await sendMessage({
+      tag: MESSAGETAG.TOAST,
+      toastType: type,
+      msg,
+      tabId: tab.id,
+    });
   } catch (error: unknown) {
     if (error instanceof Error) console.log(error.message);
   }

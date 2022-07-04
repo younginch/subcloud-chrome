@@ -3,7 +3,7 @@ import { Text, useInterval } from '@chakra-ui/react';
 import { useState } from 'react';
 import { RGBColor } from 'react-color';
 import calculateLayout from '../helpers/calculateLayout';
-import toast from '../utils/toast';
+import toast, { ToastType } from '../utils/toast';
 
 export default function SubtitleComponent() {
   const [fontSize, setFontSize] = useState<number>(12);
@@ -89,7 +89,7 @@ export default function SubtitleComponent() {
       }
       if (!isSubtitle) setTextArray([]);
     } catch (error: unknown) {
-      if (error instanceof Error) toast(error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   }, 10);
 
