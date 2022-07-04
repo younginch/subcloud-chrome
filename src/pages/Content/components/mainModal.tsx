@@ -4,7 +4,6 @@ import Layout from './layout';
 
 export default function MainModal() {
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
     const target: HTMLElement = event.target as HTMLElement;
     if (target.id === 'subcloud-main-modal') {
       closeMainModal();
