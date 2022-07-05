@@ -25,13 +25,14 @@ import { MdSubtitles } from 'react-icons/md';
 import { IoMdCloudUpload } from 'react-icons/io';
 import { BellIcon } from '@chakra-ui/icons';
 import { getFetch } from '../utils/fetch';
-import Subtitle from '../tabs/subtitle';
+import Subtitle, { SubtitleType } from '../tabs/subtitle';
 import Upload from '../tabs/upload';
 import Setting from '../tabs/setting';
 import HomeNoSub from '../tabs/homeNoSub';
 import toast, { ToastType } from '../utils/toast';
 import { User } from '../../../../utils/type';
 import { closeMainModal } from '../helpers/modalControl';
+import getSubs from '../utils/api/getSubs';
 
 type TabType = {
   icon: React.ReactNode;
@@ -41,7 +42,7 @@ type TabType = {
 export default function Layout() {
   const [user, setUser] = useState<User | undefined>();
   const [tabIndex, setTabIndex] = useState<number>(0);
-  const [isSub, setIsSub] = useState<number>(0);
+  const [subs, setSubs] = useState<SubtitleType[]>([]);
 
   const tabs: Array<TabType> = [
     { icon: <AiFillHome size={20} />, name: 'Home' },
@@ -65,12 +66,12 @@ export default function Layout() {
   }
 
   async function getSubInfo() {
-    // TODO: Gets whether subtitles exist
-    const hasSubtitle = Math.floor(Math.random() * 2);
-
-    setIsSub(hasSubtitle);
-    if (hasSubtitle) {
-      setTabIndex(1);
+    try {
+      const data = await getSubs();
+      setSubs(data);
+      if (data.length !== 0) setTabIndex(1);
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   }
 
@@ -191,7 +192,7 @@ export default function Layout() {
                 <HomeNoSub />
               </TabPanel>
               <TabPanel p={0}>
-                <Subtitle />
+                <Subtitle subs={subs} />
               </TabPanel>
               <TabPanel p={0}>
                 <Upload />

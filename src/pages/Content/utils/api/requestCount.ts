@@ -15,7 +15,7 @@ type Request = {
 async function requestCount(url: string) {
   const videoData = await video(url);
   const data = await getFetch(
-    `request/search?serviceId=${videoData.serviceId}&videoId=${videoData.videoId}`
+    `public/search/request?serviceId=${videoData.serviceId}&videoId=${videoData.videoId}`
   );
   if (Array.isArray(data)) {
     return data.reduce(

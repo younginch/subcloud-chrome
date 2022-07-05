@@ -11,14 +11,13 @@ import {
   TableContainer,
   HStack,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
 import SelectLang from '../components/selectLang';
 import RateComponent from '../components/rateComponent';
 import getFile from '../utils/api/getFile';
 import toast, { ToastType } from '../utils/toast';
-import getSubs from '../utils/api/getSubs';
+import subView from '../utils/api/subView';
 
-type SubtitleType = {
+export type SubtitleType = {
   id: string;
   lang: string;
   rating: number;
@@ -27,31 +26,21 @@ type SubtitleType = {
   uploadDate: Date;
 };
 
-export default function Subtitle() {
-  const [subs, setSubs] = useState<SubtitleType[]>([]);
+type Props = {
+  subs: SubtitleType[];
+};
 
-  const getSubtitles = async () => {
-    try {
-      const subArray = await getSubs();
-      setSubs(subArray);
-    } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
-    }
-  };
-
+export default function Subtitle({ subs }: Props) {
   const getSubById = async (subId: string) => {
     try {
       const sub = await getFile(subId);
       await chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
+      await subView(subId);
       await toast(ToastType.SUCCESS, 'subtitle selected');
     } catch (error: unknown) {
       if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   };
-
-  useEffect(() => {
-    getSubtitles();
-  }, []);
 
   return (
     <Stack p="10px 20px 10px 20px">
