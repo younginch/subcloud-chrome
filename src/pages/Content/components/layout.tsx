@@ -34,6 +34,7 @@ import { User } from '../../../../utils/type';
 import { closeMainModal } from '../helpers/modalControl';
 import getSubs from '../utils/api/getSubs';
 import Notify from '../tabs/notify';
+import HomeLoginFirst from '../tabs/homeLoginFirst';
 
 type TabType = {
   icon: React.ReactNode;
@@ -198,7 +199,7 @@ export default function Layout() {
           <Box w="700px" h="100%" m="0px !important" overflow="hidden">
             <TabPanels>
               <TabPanel p={0}>
-                <HomeNoSub />
+                {false ? <HomeNoSub /> : <HomeLoginFirst />}
               </TabPanel>
               <TabPanel p={0}>
                 <Subtitle subs={subs} />

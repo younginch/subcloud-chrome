@@ -2,7 +2,7 @@ export default function ToastComponent() {
   return (
     <div
       className="position-fixed bottom-0 start-50 translate-middle-x p-3"
-      style={{ zIndex: 11, justifyContent: 'center' }}
+      style={{ zIndex: 3001, justifyContent: 'center' }}
     >
       <div
         id="liveToast"
