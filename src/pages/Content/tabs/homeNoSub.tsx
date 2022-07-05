@@ -8,6 +8,8 @@ import {
   HStack,
   Image,
   keyframes,
+  Skeleton,
+  SkeletonCircle,
   Stack,
   Text,
   useColorModeValue,
@@ -94,6 +96,7 @@ export default function HomeNoSub() {
   const [youtubeVideoInfo, setYoutubeVideoInfo] = useState<
     YoutubeVideoInfo | undefined
   >();
+  const [isLoaded, setIsLoaded] = useState(false);
   const [count, setCount] = useState<number | undefined>();
   const [point, setPoint] = useState(0);
 
@@ -127,10 +130,13 @@ export default function HomeNoSub() {
           thumbnailUrl: youtubeVideo?.channel.thumbnailUrl ?? '',
         },
       });
+      setIsLoaded(true);
     } catch (error: unknown) {
       if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   };
+
+  console.log(youtubeVideoInfo);
 
   const getRequestCount = async () => {
     try {
@@ -152,32 +158,50 @@ export default function HomeNoSub() {
 
   return (
     <Stack p="10px 20px 10px 20px">
-      <Text fontWeight="bold" fontSize="22px" mt="10px" mb="10px">
-        자막이 없습니다. 무료로 요청해 보세요.
-      </Text>
+      <Skeleton isLoaded={isLoaded} h="30px" mt="10px" mb="10px" w="620px">
+        <Text fontWeight="bold" fontSize="22px" mt="10px" mb="10px">
+          자막이 없습니다. 무료로 요청해 보세요.
+        </Text>
+      </Skeleton>
       <HStack>
-        <Image w="200px" h="147px" src={youtubeVideoInfo?.thumbnailUrl} />
+        <Skeleton isLoaded={isLoaded}>
+          <Image w="200px" h="147px" src={youtubeVideoInfo?.thumbnailUrl} />
+        </Skeleton>
         <Stack pl="15px" spacing="10px">
-          <Text
-            fontWeight="bold"
-            fontSize="20px"
-            maxW="440px"
-            textOverflow="ellipsis"
-            overflow="hidden"
-            whiteSpace="nowrap"
-          >
-            {youtubeVideoInfo?.title}
-          </Text>
+          <Skeleton isLoaded={isLoaded}>
+            <Text
+              fontWeight="bold"
+              fontSize="20px"
+              maxW="440px"
+              textOverflow="ellipsis"
+              overflow="hidden"
+              whiteSpace="nowrap"
+              w="400px"
+              h="27px"
+            >
+              {youtubeVideoInfo?.title}
+            </Text>
+          </Skeleton>
           <HStack>
-            <Avatar
-              marginEnd="12px"
-              src={youtubeVideoInfo?.channel.thumbnailUrl}
-            />
+            <SkeletonCircle isLoaded={isLoaded} size="45px">
+              <Avatar
+                marginEnd="12px"
+                src={youtubeVideoInfo?.channel.thumbnailUrl}
+                w="35px"
+                h="35px"
+              />
+            </SkeletonCircle>
             <Stack>
-              <Heading size="md">{youtubeVideoInfo?.channel.title}</Heading>
-              <Heading size="md" fontWeight="normal">
-                구독자 {youtubeVideoInfo?.channel.subscriberCount}명
-              </Heading>
+              <Skeleton isLoaded={isLoaded}>
+                <Heading fontSize="15px" h="18px" w="250px">
+                  {youtubeVideoInfo?.channel.title}
+                </Heading>
+              </Skeleton>
+              <Skeleton isLoaded={isLoaded}>
+                <Heading fontSize="15px" h="18px" w="250px" fontWeight="normal">
+                  구독자 {youtubeVideoInfo?.channel.subscriberCount}명
+                </Heading>
+              </Skeleton>
             </Stack>
           </HStack>
         </Stack>
