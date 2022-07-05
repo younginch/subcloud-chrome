@@ -11,7 +11,6 @@ async function getAPI(url: string) {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
     },
     credentials: 'same-origin',
     mode: 'no-cors',
@@ -25,7 +24,6 @@ async function postAPI(url: string, body: object) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
     },
     credentials: 'same-origin',
     body: JSON.stringify(body),
@@ -64,13 +62,13 @@ async function uploadFile(
     const file = new File([fileText], fileName);
     const formData = new FormData();
     formData.append('file', file);
-    const videoData = await postAPI('video', { url });
+    const videoData = await postAPI('user/video', { url });
     const fileResponse = await fetch(`${API_URL}/api/user/file/upload`, {
       method: 'POST',
       body: formData,
     });
     const fileData = await fileResponse.json();
-    const data = await postAPI('sub', {
+    const data = await postAPI('user/sub', {
       fileId: fileData.id,
       serviceId: videoData.serviceId,
       videoId: videoData.videoId,
@@ -78,8 +76,9 @@ async function uploadFile(
     });
     sendResponse({ data, type: 'success' });
   } catch (error: unknown) {
-    if (error instanceof Error)
+    if (error instanceof Error) {
       sendResponse({ error: error.message, type: 'error' });
+    }
   }
 }
 
