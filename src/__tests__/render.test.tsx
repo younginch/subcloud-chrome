@@ -50,6 +50,7 @@ import MainModal from '../pages/Content/components/mainModal';
 import Notify from '../pages/Content/tabs/notify';
 import NotifyCard from '../pages/Content/components/notifyCard';
 import { NotifyType } from '../pages/Content/utils/notify';
+import HomeLoginFirst from '../pages/Content/tabs/homeLoginFirst';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -152,6 +153,14 @@ describe('Pages and Components', () => {
     render(
       <ChakraProvider>
         <HomeNoSub />
+      </ChakraProvider>
+    );
+  });
+
+  it('render HomeLoginFirst tab', async () => {
+    render(
+      <ChakraProvider>
+        <HomeLoginFirst />
       </ChakraProvider>
     );
   });
