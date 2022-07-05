@@ -1,7 +1,7 @@
 import { postFetch } from '../fetch';
 
 async function video(url: string) {
-  const data = postFetch('video', { url });
+  const data = postFetch('user/video', { url });
   return data;
 }
 

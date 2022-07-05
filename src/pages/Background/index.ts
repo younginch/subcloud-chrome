@@ -36,7 +36,7 @@ async function postAPI(url: string, body: object) {
 
 async function getFile(sendResponse: (res: object) => void, fileId: string) {
   try {
-    const fileObject = await getAPI(`file?id=${fileId}`);
+    const fileObject = await getAPI(`user/file?id=${fileId}`);
     const rawFile = await fetch(fileObject.url);
     const blobFile = await rawFile.blob();
     const file = new File([blobFile], fileObject.title, {
@@ -65,7 +65,7 @@ async function uploadFile(
     const formData = new FormData();
     formData.append('file', file);
     const videoData = await postAPI('video', { url });
-    const fileResponse = await fetch(`${API_URL}/api/file/upload`, {
+    const fileResponse = await fetch(`${API_URL}/api/user/file/upload`, {
       method: 'POST',
       body: formData,
     });

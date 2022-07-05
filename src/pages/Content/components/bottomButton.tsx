@@ -10,14 +10,14 @@ export default function BottomButton() {
   const [preferLang, setPreferLang] = useState<string>('한국어');
 
   useEffect(() => {
-    chrome.storage.local.set({ onOff });
-  }, [onOff]);
-
-  useEffect(() => {
     chrome.storage.local.get(['onOff'], (result) => {
       if (result.onOff !== undefined) setOnOff(result.onOff);
     });
   }, []);
+
+  useEffect(() => {
+    chrome.storage.local.set({ onOff });
+  }, [onOff]);
 
   return (
     <Flex flexDir="row" alignItems="center !important" h="100%">
