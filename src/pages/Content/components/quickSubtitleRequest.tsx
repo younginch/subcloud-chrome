@@ -17,11 +17,11 @@ import { useEffect, useState } from 'react';
 import SelectLang from './selectLang';
 
 export default function QuickSubtitleRequest() {
-  const [preferLang, setPreferLang] = useState<string>();
+  const [defaultRequestLang, setDefaultRequestLang] = useState<string>();
 
   useEffect(() => {
     // TODO: set Preferlang from api
-    if (Math.random() < 0.1) setPreferLang('Kr');
+    if (Math.random() < 0.1) setDefaultRequestLang('Kr');
   }, []);
 
   return preferLang ? (
