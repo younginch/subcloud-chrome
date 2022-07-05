@@ -47,6 +47,9 @@ import {
 } from '../pages/Content/helpers/modalControl';
 import Layout from '../pages/Content/components/layout';
 import MainModal from '../pages/Content/components/mainModal';
+import Notify from '../pages/Content/tabs/notify';
+import NotifyCard from '../pages/Content/components/notifyCard';
+import { NotifyType } from '../pages/Content/utils/notify';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -280,6 +283,29 @@ describe('Pages and Components', () => {
     render(
       <ChakraProvider>
         <UploadFinish />
+      </ChakraProvider>
+    );
+  });
+
+  it('render Notify', async () => {
+    render(
+      <ChakraProvider>
+        <Notify />
+      </ChakraProvider>
+    );
+  });
+
+  it('render NotifyCard', async () => {
+    render(
+      <ChakraProvider>
+        <NotifyCard
+          notifyType={NotifyType.ANNOUNCE}
+          title="hello"
+          time="world"
+          content="content"
+          href="google.com"
+          onRemove={jest.fn()}
+        />
       </ChakraProvider>
     );
   });
