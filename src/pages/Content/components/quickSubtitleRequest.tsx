@@ -24,7 +24,7 @@ export default function QuickSubtitleRequest() {
     if (Math.random() < 0.1) setDefaultRequestLang('Kr');
   }, []);
 
-  return preferLang ? (
+  return defaultRequestLang ? (
     <Button colorScheme="pink">Request Subtitle</Button>
   ) : (
     <Popover placement="bottom">
