@@ -8,7 +8,7 @@ export default function UploadFinish() {
         자막이 업로드되었습니다.
       </Text>
       <HStack fontWeight="bold" fontSize="18px" m="10px !important">
-        <Link href="https://subcloud.app" mt="">
+        <Link href={API_URL} mt="">
           여기서
         </Link>
         <Text>검토 진행상황을 확인하실 수 있습니다.</Text>
