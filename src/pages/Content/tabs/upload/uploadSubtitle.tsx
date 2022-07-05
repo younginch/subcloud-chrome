@@ -34,7 +34,7 @@ export default function UploadSubtitle({ setFiles, uploadCallback }: Props) {
         h="35px"
         mt="10px !important"
         onClick={() => {
-          window.location.href = 'https://subcloud.app/editor';
+          window.location.href = `${API_URL}/editor`;
         }}
       >
         <Text fontSize="14px">Edit on SubCloud</Text>

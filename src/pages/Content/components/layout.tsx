@@ -57,13 +57,15 @@ export default function Layout() {
   async function getUserInfo() {
     try {
       const data = await getFetch('auth/session');
-      setUser({
-        name: data.user.name,
-        email: data.user.email,
-        image: data.user.image,
-        point: data.user.point,
-      });
-      // setIsLogin(true);
+      if (data && data.user) {
+        setUser({
+          name: data.user.name,
+          email: data.user.email,
+          image: data.user.image,
+          point: data.user.point,
+        });
+        setIsLogin(true);
+      }
     } catch (error: unknown) {
       if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
@@ -112,7 +114,7 @@ export default function Layout() {
           fontSize="3xl"
           ml="15px !important"
           onClick={() => {
-            window.location.href = 'https://subcloud.app';
+            window.location.href = `${API_URL}`;
           }}
           cursor="pointer"
         >
@@ -200,7 +202,7 @@ export default function Layout() {
                 cursor="pointer"
                 src={user?.image}
                 onClick={() => {
-                  window.location.href = 'https://subcloud.app/user/my';
+                  window.location.href = `${API_URL}/user/my`;
                 }}
               >
                 <AvatarBadge boxSize="1.25em" bg="green.500" />

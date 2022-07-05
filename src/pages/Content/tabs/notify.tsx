@@ -20,7 +20,7 @@ export default function Notify() {
         title: '공지사항',
         time: '5 minutes ago',
         content: '자막 선공개 기능 출시! 클릭하여 자세히 보기',
-        href: 'https://subcloud.app/',
+        href: `${API_URL}`,
       },
       {
         notifyType: NotifyType.NEW_SUBTITLE,
@@ -28,14 +28,14 @@ export default function Notify() {
         time: '5 minutes ago',
         content:
           '7시간 전 요청했던 [널 지워야해] 영상에 자막이 올라왔어요. 클릭해서 바로보기.',
-        href: 'https://subcloud.app/',
+        href: `${API_URL}`,
       },
       {
         notifyType: NotifyType.REVIEW,
         title: '리뷰 알림',
         time: '5 minutes ago',
         content: '[창모 널 지워야해]자막에 새로운 리뷰가 올라왔어요',
-        href: 'https://subcloud.app/',
+        href: `${API_URL}`,
       },
     ]);
     setReadNotifications([
@@ -44,21 +44,21 @@ export default function Notify() {
         title: '공지사항',
         time: '6 hours ago',
         content: '자막 선공개 기능 출시! 클릭하여 자세히 보기',
-        href: 'https://subcloud.app/',
+        href: `${API_URL}`,
       },
       {
         notifyType: NotifyType.NEW_SUBTITLE,
         title: '자막 업로드 알림',
         time: '17 hours ago',
         content: '7시간 전 요청했던 [널 지워야해] 영상에 자막이 올라왔어요. ',
-        href: 'https://subcloud.app/',
+        href: `${API_URL}`,
       },
       {
         notifyType: NotifyType.REVIEW,
         title: '리뷰 알림',
         time: '2 days ago',
         content: '[창모 널 지워야해]자막에 새로운 리뷰가 올라왔어요',
-        href: 'https://subcloud.app/',
+        href: `${API_URL}`,
       },
     ]);
   }, []);
