@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import { BellIcon } from '@chakra-ui/icons';
 import { Divider, HStack, Spacer, Stack, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
@@ -100,6 +101,7 @@ export default function Notify() {
       <Stack w="100%" spacing="20px" alignItems="center" mt="30px !important">
         {unreadNotifications.map((notify, index) => (
           <NotifyCard
+            key={index}
             notifyType={notify.notifyType}
             title={notify.title}
             time={notify.time}

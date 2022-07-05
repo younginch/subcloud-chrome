@@ -64,6 +64,20 @@ chakra-scope input {
   font-size: 18px;
 }
 
+.default-language-small .chakra-checkbox__control {
+  width: 14px;
+  height: 14px;
+}
+
+.default-language-small svg{
+  width: 8px;
+  height: 8px;
+}
+
+.default-language-small .chakra-checkbox__label {
+  font-size: 15px;
+}
+
 .upload-stepper span {
   font-size: 14px;
 }
@@ -92,7 +106,9 @@ chakra-scope input {
   line-height: normal !important;
 }
 
-
+#subcloud-bottom-button .react-switch-handle {
+  background: transparent !important;
+}
 
 #subcloud-main-modal{
   transition: opacity 0.3s;
