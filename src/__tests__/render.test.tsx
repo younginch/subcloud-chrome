@@ -189,9 +189,21 @@ describe('Pages and Components', () => {
   });
 
   it('render Subtitle tab', async () => {
+    const date = new Date();
     render(
       <ChakraProvider>
-        <Subtitle />
+        <Subtitle
+          subs={[
+            {
+              id: '',
+              lang: '',
+              rating: 0,
+              views: 0,
+              userName: '',
+              uploadDate: date,
+            },
+          ]}
+        />
       </ChakraProvider>
     );
   });
