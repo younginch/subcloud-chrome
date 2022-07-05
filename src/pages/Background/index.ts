@@ -32,6 +32,32 @@ async function postAPI(url: string, body: object) {
   return data;
 }
 
+async function deleteAPI(url: string, body: object) {
+  const res = await fetch(`${API_URL}/api/${url}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'same-origin',
+    body: JSON.stringify(body),
+  });
+  const data = await res.json();
+  return data;
+}
+
+async function patchAPI(url: string, body: object) {
+  const res = await fetch(`${API_URL}/api/${url}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'same-origin',
+    body: JSON.stringify(body),
+  });
+  const data = await res.json();
+  return data;
+}
+
 async function getFile(sendResponse: (res: object) => void, fileId: string) {
   try {
     const fileObject = await getAPI(`user/file?id=${fileId}`);
@@ -135,6 +161,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       return true;
     case MESSAGETAG.POSTAPI:
       sendMessage(sendResponse, () => postAPI(message.url, message.body));
+      return true;
+    case MESSAGETAG.DELETEAPI:
+      sendMessage(sendResponse, () => deleteAPI(message.url, message.body));
+      return true;
+    case MESSAGETAG.PATCHAPI:
+      sendMessage(sendResponse, () => patchAPI(message.url, message.body));
       return true;
     case MESSAGETAG.GETFILE:
       getFile(sendResponse, message.fileId);

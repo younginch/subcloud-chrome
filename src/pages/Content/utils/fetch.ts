@@ -18,4 +18,22 @@ async function postFetch(url: string, body: object) {
   return res.data;
 }
 
-export { getFetch, postFetch };
+async function deleteFetch(url: string, body: object) {
+  const res = await sendMessage({
+    tag: MESSAGETAG.DELETEAPI,
+    url,
+    body,
+  });
+  return res.data;
+}
+
+async function patchFetch(url: string, body: object) {
+  const res = await sendMessage({
+    tag: MESSAGETAG.PATCHAPI,
+    url,
+    body,
+  });
+  return res.data;
+}
+
+export { getFetch, postFetch, deleteFetch, patchFetch };

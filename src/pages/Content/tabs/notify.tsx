@@ -3,6 +3,7 @@ import { BellIcon } from '@chakra-ui/icons';
 import { Divider, HStack, Spacer, Stack, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import NotifyCard from '../components/notifyCard';
+import { getNotices, changeNotices, deleteNotices } from '../utils/api/notice';
 import { NotificationType, NotifyType } from '../utils/notify';
 
 export default function Notify() {
@@ -14,6 +15,37 @@ export default function Notify() {
   >([]);
 
   useEffect(() => {
+    const init = async () => {
+      const notices = await getNotices();
+      const read = [];
+      const unread = [];
+      for (let i = 0; i < notices.length; i += 1) {
+        const notification = notices[i];
+        if (notification.checked) {
+          read.push({
+            id: notification.id,
+            notifyType: NotifyType.ANNOUNCE,
+            title: '공지사항',
+            time: notification.createdAt,
+            content: notification.notice.message,
+            href: `${API_URL}`,
+          });
+        } else {
+          unread.push({
+            id: notification.id,
+            notifyType: notification.type,
+            title: '공지사항',
+            time: notification.createdAt,
+            content: notification.notice.message,
+            href: `${API_URL}`,
+          });
+        }
+      }
+      setReadNotifications(read);
+      setUnreadNotifications(unread);
+    };
+    init();
+    /*
     setUnreadNotifications([
       {
         notifyType: NotifyType.ANNOUNCE,
@@ -61,6 +93,7 @@ export default function Notify() {
         href: `${API_URL}`,
       },
     ]);
+    */
   }, []);
 
   const readItem = (index: number) => {
@@ -72,6 +105,7 @@ export default function Notify() {
       ...unreadNotifications.slice(0, index),
       ...unreadNotifications.slice(index + 1, unreadNotifications.length),
     ]);
+    changeNotices(unreadNotifications[index].id);
   };
 
   const removeItem = (index: number) => {
@@ -79,6 +113,7 @@ export default function Notify() {
       ...readNotifications.slice(0, index),
       ...readNotifications.slice(index + 1, readNotifications.length),
     ]);
+    deleteNotices(readNotifications[index].id);
   };
 
   return (
