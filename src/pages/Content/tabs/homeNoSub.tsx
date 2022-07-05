@@ -159,7 +159,7 @@ export default function HomeNoSub() {
   return (
     <Stack p="10px 20px 10px 20px">
       <Skeleton isLoaded={isLoaded} h="30px" mt="10px" mb="10px" w="620px">
-        <Text fontWeight="bold" fontSize="22px" mt="10px" mb="10px">
+        <Text fontWeight="bold" fontSize="22px">
           자막이 없습니다. 무료로 요청해 보세요.
         </Text>
       </Skeleton>
