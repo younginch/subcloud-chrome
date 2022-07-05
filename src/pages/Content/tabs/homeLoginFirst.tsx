@@ -19,13 +19,13 @@ export default function HomeLoginFirst() {
         h="40px"
         mt="40px !important"
         onClick={() => {
-          window.location.href = `https://subcloud.app/auth/signin?callbackUrl=${window.location.href}`;
+          window.location.href = `${API_URL}/auth/signin?callbackUrl=${window.location.href}`;
         }}
       >
         <Text fontSize="18px">로그인하러 가기</Text>
       </Button>
       <Link
-        href="https://subcloud.app/"
+        href={API_URL}
         color="gray.400"
         fontSize="15px"
         mt="10px !important"

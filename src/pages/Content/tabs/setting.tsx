@@ -107,7 +107,7 @@ export default function Setting({ user }: Props) {
         <Text fontSize="18px">{user?.name ?? 'unknown'}</Text>
         <Button
           onClick={() => {
-            window.location.href = 'https://subcloud.app/api/auth/signout';
+            window.location.href = `${API_URL}/api/auth/signout`;
           }}
         >
           로그아웃
@@ -117,7 +117,7 @@ export default function Setting({ user }: Props) {
         <Text fontSize="18px">{user?.point ?? 0}</Text>
         <Button
           onClick={() => {
-            window.location.href = 'https://subcloud.app/buy';
+            window.location.href = `${API_URL}/buy`;
           }}
         >
           충전하기
