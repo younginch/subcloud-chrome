@@ -53,7 +53,11 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
       const reader = new FileReader();
       reader.readAsText(files[0]);
       reader.onload = () => {
-        uploadFile(String(reader.result), files[0].name, tab.url, 'en');
+        try {
+          uploadFile(String(reader.result), files[0].name, tab.url, 'en');
+        } catch (error: unknown) {
+          if (error instanceof Error) toast(ToastType.ERROR, error.message);
+        }
       };
       await toast(ToastType.SUCCESS, 'subtitle uploaded');
     } catch (error: unknown) {

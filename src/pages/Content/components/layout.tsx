@@ -78,8 +78,11 @@ export default function Layout() {
   }
 
   useEffect(() => {
-    getUserInfo();
-    getSubInfo();
+    const init = async () => {
+      await getUserInfo();
+      await getSubInfo();
+    };
+    init();
   }, []);
 
   const handleTabsChange = (index: number) => {
