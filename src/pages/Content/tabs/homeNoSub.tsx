@@ -136,8 +136,6 @@ export default function HomeNoSub() {
     }
   };
 
-  console.log(youtubeVideoInfo);
-
   const getRequestCount = async () => {
     try {
       const tab = await getTab();
