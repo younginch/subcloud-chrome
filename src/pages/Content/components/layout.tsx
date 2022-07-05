@@ -45,6 +45,7 @@ export default function Layout() {
   const [user, setUser] = useState<User | undefined>();
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [subs, setSubs] = useState<SubtitleType[]>([]);
+  const [isLogin, setIsLogin] = useState<boolean>(false);
 
   const tabs: Array<TabType> = [
     { icon: <AiFillHome size={20} />, name: 'Home' },
@@ -62,6 +63,7 @@ export default function Layout() {
         image: data.user.image,
         point: data.user.point,
       });
+      // setIsLogin(true);
     } catch (error: unknown) {
       if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
@@ -147,13 +149,14 @@ export default function Layout() {
               border="none"
               overflow="hidden"
             >
-              {tabs.map((tab: TabType) => (
+              {tabs.map((tab: TabType, index) => (
                 <Tab
                   key={tab.name}
                   _selected={{ color: 'white', bg: 'blue.500' }}
                   fontSize="14px"
                   justifyContent="flex-start"
                   h="40px"
+                  isDisabled={index > 0 && !isLogin}
                 >
                   <HStack spacing="15px" pl="18px">
                     {tab.icon}
@@ -162,7 +165,12 @@ export default function Layout() {
                 </Tab>
               ))}
             </TabList>
-            <Stack alignItems="center" mb="20px" spacing="20px">
+            <Stack
+              alignItems="center"
+              mb="20px"
+              spacing="20px"
+              hidden={!isLogin}
+            >
               <Box
                 w="40px"
                 h="40px"
@@ -202,7 +210,7 @@ export default function Layout() {
           <Box w="700px" h="100%" m="0px !important" overflow="hidden">
             <TabPanels>
               <TabPanel p={0}>
-                {false ? <HomeNoSub /> : <HomeLoginFirst />}
+                {isLogin ? <HomeNoSub /> : <HomeLoginFirst />}
               </TabPanel>
               <TabPanel p={0}>
                 <Subtitle subs={subs} />
