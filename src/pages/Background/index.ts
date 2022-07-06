@@ -179,11 +179,11 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.runtime.onInstalled.addListener((e) => {
   if (e.reason === chrome.runtime.OnInstalledReason.INSTALL) {
     chrome.tabs.create({
-      url: 'https://subcloud.app/onboarding',
+      url: `${API_URL}/auth/signin`,
     });
   }
 });
 
 if (chrome.runtime.setUninstallURL) {
-  chrome.runtime.setUninstallURL('https://subcloud.app/uninstall');
+  chrome.runtime.setUninstallURL(`${API_URL}/uninstall`);
 }
