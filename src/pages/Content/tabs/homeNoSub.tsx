@@ -27,7 +27,6 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import getTab from '../utils/getTab';
 import request from '../utils/api/request';
 import requestCount from '../utils/api/requestCount';
-import video from '../utils/api/video';
 import toast, { ToastType } from '../utils/toast';
 import SelectLang from '../components/selectLang';
 import { Video, YoutubeVideoInfo } from '../../../../utils/type';

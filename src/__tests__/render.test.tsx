@@ -153,7 +153,14 @@ describe('Pages and Components', () => {
   it('render HomeNoSub tab', async () => {
     render(
       <ChakraProvider>
-        <HomeNoSub />
+        <HomeNoSub
+          videoData={{
+            url: '',
+            serviceId: '',
+            videoId: '',
+            youtubeVideoId: '',
+          }}
+        />
       </ChakraProvider>
     );
   });
@@ -425,7 +432,7 @@ describe('Pages and Components', () => {
     jest
       .spyOn(Fetch, 'postFetch')
       .mockImplementation(async () => ({ data: '' }));
-    const msg = await request('', '', 0);
+    const msg = await request('', '', 'en', 0);
     expect(msg).toBeUndefined();
   });
 
@@ -440,7 +447,7 @@ describe('Pages and Components', () => {
       .spyOn(video, 'default')
       .mockImplementation(async () => ({ serviceId: 1, videoId: 1 }));
     jest.spyOn(Fetch, 'getFetch').mockImplementation(async () => '');
-    const msg = await requestCount('');
+    const msg = await requestCount('', '');
     expect(msg).toBeDefined();
     if (msg) {
       expect(msg.data).toBeCloseTo(0);
@@ -454,7 +461,7 @@ describe('Pages and Components', () => {
     jest
       .spyOn(Fetch, 'getFetch')
       .mockImplementation(async () => [{ _count: { users: 0 } }]);
-    const msg = await requestCount('');
+    const msg = await requestCount('', '');
     expect(msg).toBeDefined();
     if (msg) {
       expect(msg.data).toBeCloseTo(0);
@@ -466,7 +473,7 @@ describe('Pages and Components', () => {
     jest.spyOn(video, 'default').mockImplementation(async () => ({
       subs: [{ status: 'Approved', ratings: [], user: { name: 'shin' } }],
     }));
-    const msg = await getSubs();
+    const msg = await getSubs('', '');
     expect(msg).toBeDefined();
   });
 

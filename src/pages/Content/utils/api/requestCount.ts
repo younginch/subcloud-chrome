@@ -1,5 +1,4 @@
 import { getFetch } from '../fetch';
-import video from './video';
 
 type Request = {
   id: string;

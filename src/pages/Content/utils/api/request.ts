@@ -1,5 +1,4 @@
 import { postFetch } from '../fetch';
-import video from './video';
 
 async function request(
   serviceId: string,
