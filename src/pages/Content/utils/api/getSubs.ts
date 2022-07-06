@@ -1,14 +1,14 @@
 import { Status } from '../../../../../utils/type';
-import getTab from '../getTab';
-import video from './video';
+import { getFetch } from '../fetch';
 
-async function getSubs() {
-  const tab = await getTab();
-  const videoData = await video(tab.url);
+async function getSubs(videoId: string, serviceId: string) {
+  const subs = await getFetch(
+    `public/search/sub?videoId=${videoId}&serviceId=${serviceId}`
+  );
   const subArray = [];
-  if (videoData.subs !== undefined) {
-    for (let i = 0; i < videoData.subs.length; i += 1) {
-      const sub = videoData.subs[i];
+  if (subs !== undefined) {
+    for (let i = 0; i < subs.length; i += 1) {
+      const sub = subs[i];
       if (sub.status === Status.Approved) {
         subArray.push({
           id: sub.id,

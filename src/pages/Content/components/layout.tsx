@@ -30,11 +30,13 @@ import Upload from '../tabs/upload';
 import Setting from '../tabs/setting';
 import HomeNoSub from '../tabs/homeNoSub';
 import toast, { ToastType } from '../utils/toast';
-import { User } from '../../../../utils/type';
+import { User, Video } from '../../../../utils/type';
 import { closeMainModal } from '../helpers/modalControl';
 import getSubs from '../utils/api/getSubs';
 import Notify from '../tabs/notify';
 import HomeLoginFirst from '../tabs/homeLoginFirst';
+import video from '../utils/api/video';
+import getTab from '../utils/getTab';
 
 type TabType = {
   icon: React.ReactNode;
@@ -44,6 +46,7 @@ type TabType = {
 export default function Layout() {
   const [user, setUser] = useState<User | undefined>();
   const [tabIndex, setTabIndex] = useState<number>(0);
+  const [videoData, setVideoData] = useState<Video | undefined>();
   const [subs, setSubs] = useState<SubtitleType[]>([]);
   const [isLogin, setIsLogin] = useState<boolean>(false);
 
@@ -71,23 +74,36 @@ export default function Layout() {
     }
   }
 
-  async function getSubInfo() {
-    try {
-      const data = await getSubs();
-      setSubs(data);
-      if (data.length !== 0) setTabIndex(1);
-    } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
-    }
-  }
-
   useEffect(() => {
+    async function getVideoInfo() {
+      try {
+        const tab = await getTab();
+        const data = await video(tab.url);
+        setVideoData(data);
+      } catch (error: unknown) {
+        if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      }
+    }
+
+    async function getSubInfo() {
+      try {
+        if (videoData?.videoId && videoData?.serviceId) {
+          const data = await getSubs(videoData?.videoId, videoData?.serviceId);
+          setSubs(data);
+          if (data.length !== 0) setTabIndex(1);
+        }
+      } catch (error: unknown) {
+        if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      }
+    }
+
     const init = async () => {
       await getUserInfo();
+      await getVideoInfo();
       await getSubInfo();
     };
     init();
-  }, []);
+  }, [videoData?.serviceId, videoData?.videoId]);
 
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
@@ -212,7 +228,11 @@ export default function Layout() {
           <Box w="700px" h="100%" m="0px !important" overflow="hidden">
             <TabPanels>
               <TabPanel p={0}>
-                {isLogin ? <HomeNoSub /> : <HomeLoginFirst />}
+                {videoData && isLogin ? (
+                  <HomeNoSub videoData={videoData} />
+                ) : (
+                  <HomeLoginFirst />
+                )}
               </TabPanel>
               <TabPanel p={0}>
                 <Subtitle subs={subs} />
