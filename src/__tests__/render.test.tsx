@@ -470,14 +470,30 @@ describe('Pages and Components', () => {
     expect(msg).toBeDefined();
   });
 
+  it('test changeFetch returns infomation', async () => {
+    jest
+      .spyOn(sendMessage, 'default')
+      .mockImplementation(async () => ({ data: 1 }));
+    const msg = await Fetch.patchFetch('', {});
+    expect(msg).toBeDefined();
+  });
+
   it('test changeNotices returns infomation', async () => {
-    jest.spyOn(Fetch, 'patchFetch').mockImplementation(async () => '');
+    jest.spyOn(Fetch, 'patchFetch').mockImplementation(async () => '1');
     const msg = await changeNotices('');
     expect(msg).toBeDefined();
   });
 
+  it('test deleteFetch returns infomation', async () => {
+    jest
+      .spyOn(sendMessage, 'default')
+      .mockImplementation(async () => ({ data: 1 }));
+    const msg = await Fetch.deleteFetch('', {});
+    expect(msg).toBeDefined();
+  });
+
   it('test deleteNotices returns infomation', async () => {
-    jest.spyOn(Fetch, 'deleteFetch').mockImplementation(async () => '');
+    jest.spyOn(Fetch, 'deleteFetch').mockImplementation(async () => '1');
     const msg = await deleteNotices('');
     expect(msg).toBeDefined();
   });
@@ -495,12 +511,11 @@ describe('Pages and Components', () => {
     expect(msg).toBeDefined();
   });
 
-  it('test subVidew returns infomation', async () => {
-    jest.spyOn(Fetch, 'postFetch').mockImplementation(async () => '');
+  it('test subView returns infomation', async () => {
+    // jest.spyOn(Fetch, 'postFetch').mockImplementation(async () => '');
     const msg = await subView('');
     expect(msg).toBeDefined();
   });
-
   /*
 
   it('test componentLoader append', () => {
