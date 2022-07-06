@@ -8,6 +8,8 @@ import {
   HStack,
   Image,
   keyframes,
+  NumberInput,
+  NumberInputField,
   Skeleton,
   SkeletonCircle,
   Stack,
@@ -21,7 +23,7 @@ import { TbDiamond, TbDiamonds } from 'react-icons/tb';
 import { BiRocket } from 'react-icons/bi';
 import { BsLightningCharge } from 'react-icons/bs';
 import { HiOutlineFire } from 'react-icons/hi';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import getTab from '../utils/getTab';
 import request from '../utils/api/request';
 import requestCount from '../utils/api/requestCount';
@@ -98,7 +100,7 @@ export default function HomeNoSub() {
   >();
   const [isLoaded, setIsLoaded] = useState(false);
   const [count, setCount] = useState<number | undefined>();
-  const [point, setPoint] = useState(0);
+  const [point, setPoint] = useState<number>(0);
 
   const sendRequest = async () => {
     try {
@@ -158,7 +160,7 @@ export default function HomeNoSub() {
     <Stack p="10px 20px 10px 20px">
       <Skeleton isLoaded={isLoaded} h="30px" mt="10px" mb="10px" w="620px">
         <Text fontWeight="bold" fontSize="22px">
-          자막이 없습니다. 무료로 요청해 보세요.
+          영상에 자막이 없습니다. 무료로 요청해 보세요.
         </Text>
       </Skeleton>
       <HStack>
@@ -170,12 +172,12 @@ export default function HomeNoSub() {
             <Text
               fontWeight="bold"
               fontSize="20px"
-              maxW="440px"
               textOverflow="ellipsis"
               overflow="hidden"
               whiteSpace="nowrap"
-              w="400px"
+              w="420px"
               h="27px"
+              color="gray.100"
             >
               {youtubeVideoInfo?.title}
             </Text>
@@ -185,18 +187,24 @@ export default function HomeNoSub() {
               <Avatar
                 marginEnd="12px"
                 src={youtubeVideoInfo?.channel.thumbnailUrl}
-                w="35px"
-                h="35px"
+                w="45px"
+                h="45px"
               />
             </SkeletonCircle>
             <Stack>
               <Skeleton isLoaded={isLoaded}>
-                <Heading fontSize="15px" h="18px" w="250px">
+                <Heading fontSize="15px" h="18px" w="250px" color="gray.300">
                   {youtubeVideoInfo?.channel.title}
                 </Heading>
               </Skeleton>
               <Skeleton isLoaded={isLoaded}>
-                <Heading fontSize="15px" h="18px" w="250px" fontWeight="normal">
+                <Heading
+                  fontSize="15px"
+                  h="18px"
+                  w="250px"
+                  fontWeight="normal"
+                  color="gray.300"
+                >
                   구독자 {youtubeVideoInfo?.channel.subscriberCount}명
                 </Heading>
               </Skeleton>
@@ -204,12 +212,22 @@ export default function HomeNoSub() {
           </HStack>
         </Stack>
       </HStack>
-      <HStack justifyContent="space-around" mt="25px !important">
-        <Stack w="250px" h="200px" bg="#232C39" borderRadius="20px" p="10px">
+      <HStack
+        justifyContent="space-around"
+        mt="10px !important"
+        alignItems="center"
+      >
+        <Stack
+          w="250px"
+          h="180px"
+          bg="bgColor.300"
+          borderRadius="20px"
+          p="10px 10px 10px 20px"
+        >
           <Text fontWeight="bold" fontSize="19px">
             요청할 언어 선택
           </Text>
-          <Center mt="35px !important">
+          <Center mt="20px !important">
             <SelectLang
               width="180px"
               height="40px"
@@ -218,17 +236,47 @@ export default function HomeNoSub() {
               clickEvent={() => null}
             />
           </Center>
-          <Box className="default-language" mt="30px !important">
+          <Box className="default-language" mt="20px !important">
             <Checkbox mt={5} defaultChecked>
               기본 요청 언어로 저장
             </Checkbox>
           </Box>
         </Stack>
-        <Stack w="300px" h="200px" bg="#232C39" borderRadius="20px" p="10px">
-          <Text fontWeight="bold" fontSize="19px">
-            포인트
-          </Text>
-          <Wrap justify="space-evenly">
+        <Stack
+          w="300px"
+          h="210px"
+          bg="bgColor.300"
+          borderRadius="20px"
+          p="10px 20px 10px 20px"
+          alignItems="center"
+          justifyContent="space-around"
+        >
+          <HStack justifyContent="space-between" w="250px">
+            <Text fontWeight="bold" fontSize="19px">
+              포인트
+            </Text>
+            <NumberInput
+              defaultValue={0}
+              min={0}
+              max={20}
+              keepWithinRange={false}
+              clampValueOnBlur={false}
+              w="120px"
+            >
+              <NumberInputField
+                border="none !important"
+                bg="bgColor.800 !important"
+                fontSize="15px"
+                textAlign="end"
+                pr="15px"
+                value={point}
+                onChange={(value: ChangeEvent<HTMLInputElement>) =>
+                  setPoint(Number(value.target.value))
+                }
+              />
+            </NumberInput>
+          </HStack>
+          <Wrap justify="space-evenly" w="280px">
             {points.map((element) => (
               <WrapItem key={element.amount} zIndex={10}>
                 <Box
@@ -261,13 +309,15 @@ export default function HomeNoSub() {
         <Button
           colorScheme="blue"
           borderRadius="10px"
-          mt="30px !important"
-          w="400px"
+          mt="25px !important"
+          width="fit-content"
+          pl="10px"
+          pr="10px"
           h="45px"
           fontSize="20px"
           onClick={sendRequest}
         >
-          {point === 0 ? '무료로 ' : `${point}P를 사용하여 `} 한국어 자막
+          {point === 0 ? '무료로 ' : `${point}포인트를 사용하여 `} 한국어 자막
           요청하기
         </Button>
       </Center>

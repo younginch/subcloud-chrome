@@ -101,7 +101,7 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
         w="550px"
         h="230px"
         mt="5px"
-        bg="#232C39"
+        bg="bgColor.300"
         borderRadius="5px"
         borderWidth="1px"
         borderColor="gray.500"
