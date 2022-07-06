@@ -51,18 +51,19 @@ import Notify from '../pages/Content/tabs/notify';
 import NotifyCard from '../pages/Content/components/notifyCard';
 import { NotifyType } from '../pages/Content/utils/notify';
 import HomeLoginFirst from '../pages/Content/tabs/homeLoginFirst';
+import {
+  changeNotices,
+  deleteNotices,
+} from '../pages/Content/utils/api/notice';
+import * as getFile from '../pages/Content/utils/api/getFile';
+import subView from '../pages/Content/utils/api/subView';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
-    jest.spyOn(GetTab, 'default').mockResolvedValue({});
-    jest.spyOn(Fetch, 'getFetch').mockResolvedValue({});
-    jest.spyOn(Fetch, 'postFetch').mockResolvedValue({});
+    jest.spyOn(sendMessage, 'default').mockResolvedValue({ data: 1 });
   });
 
   it('renders QuickSubtitleRequest', async () => {
-    jest.spyOn(Fetch, 'getFetch').mockResolvedValue({});
-    jest.spyOn(Fetch, 'postFetch').mockResolvedValue({});
-
     render(<QuickSubtitleRequest />);
   });
 
@@ -469,6 +470,52 @@ describe('Pages and Components', () => {
     expect(msg).toBeDefined();
   });
 
+  it('test changeFetch returns infomation', async () => {
+    jest
+      .spyOn(sendMessage, 'default')
+      .mockImplementation(async () => ({ data: 1 }));
+    const msg = await Fetch.patchFetch('', {});
+    expect(msg).toBeDefined();
+  });
+
+  it('test changeNotices returns infomation', async () => {
+    jest.spyOn(Fetch, 'patchFetch').mockImplementation(async () => '1');
+    const msg = await changeNotices('');
+    expect(msg).toBeDefined();
+  });
+
+  it('test deleteFetch returns infomation', async () => {
+    jest
+      .spyOn(sendMessage, 'default')
+      .mockImplementation(async () => ({ data: 1 }));
+    const msg = await Fetch.deleteFetch('', {});
+    expect(msg).toBeDefined();
+  });
+
+  it('test deleteNotices returns infomation', async () => {
+    jest.spyOn(Fetch, 'deleteFetch').mockImplementation(async () => '1');
+    const msg = await deleteNotices('');
+    expect(msg).toBeDefined();
+  });
+
+  it('test getFile returns infomation', async () => {
+    jest.spyOn(sub, 'default').mockImplementation(async () => ({ fileId: '' }));
+    jest.spyOn(sendMessage, 'default').mockImplementation(async () => ({
+      data: `
+      1
+      00:00:20,454 --> 00:00:23,130 
+      If I were your man, which I'm clearly not now
+      `,
+    }));
+    const msg = await getFile.default('');
+    expect(msg).toBeDefined();
+  });
+
+  it('test subView returns infomation', async () => {
+    // jest.spyOn(Fetch, 'postFetch').mockImplementation(async () => '');
+    const msg = await subView('');
+    expect(msg).toBeDefined();
+  });
   /*
 
   it('test componentLoader append', () => {
