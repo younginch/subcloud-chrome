@@ -126,7 +126,7 @@ export default function Notify() {
       <HStack w="100%" pl="30px" pr="33px">
         <BellIcon w="30px" h="30px" color="red.200" />
         <Text fontWeight="bold" fontSize="23px">
-          읽지 않은 알림들
+          읽지 않은 알림들 ({unreadNotifications.length})
         </Text>
         <Spacer />
         <Text fontSize="16px" textAlign="center" color="gray.300">
@@ -157,7 +157,7 @@ export default function Notify() {
       <HStack w="100%" pl="30px" pr="33px">
         <BellIcon w="30px" h="30px" />
         <Text fontWeight="bold" fontSize="23px">
-          읽은 알림들
+          읽은 알림들({readNotifications.length})
         </Text>
       </HStack>
       <Stack w="100%" spacing="20px" alignItems="center" mt="30px !important">
