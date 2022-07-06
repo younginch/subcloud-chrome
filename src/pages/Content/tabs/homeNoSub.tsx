@@ -302,7 +302,7 @@ export default function HomeNoSub({ videoData }: Props) {
           </Wrap>
         </Stack>
       </HStack>
-      <Center>
+      <Stack alignItems="center">
         <Button
           colorScheme="blue"
           borderRadius="10px"
@@ -321,10 +321,10 @@ export default function HomeNoSub({ videoData }: Props) {
               } ${ISO6391.getNativeName(lang)} 자막 요청하기`
             : '요청 언어를 골라주세요'}
         </Button>
-      </Center>
-      <Center>
-        <Text fontSize="15px">현재까지 {count}명이 자막을 요청했어요</Text>
-      </Center>
+        {count && (
+          <Text fontSize="15px">{count}명이 자막을 기다리고 있어요</Text>
+        )}
+      </Stack>
     </Stack>
   );
 }

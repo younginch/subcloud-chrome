@@ -59,7 +59,11 @@ export default function Upload() {
             uploadCallback={() => nextStep()}
           />
         ) : activeStep === 1 ? (
-          <CheckSubtitle files={files} sendCallback={() => nextStep()} />
+          <CheckSubtitle
+            files={files}
+            setFiles={setFiles}
+            sendCallback={() => nextStep()}
+          />
         ) : (
           <UploadFinish />
         )

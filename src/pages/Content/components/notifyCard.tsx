@@ -3,10 +3,11 @@ import { AiOutlineBug, AiOutlineYoutube } from 'react-icons/ai';
 import { HiOutlineSpeakerphone } from 'react-icons/hi';
 import { MdOutlineRateReview } from 'react-icons/md';
 import { CloseIcon } from '@chakra-ui/icons';
-import { motion } from 'framer-motion';
+import { motion, useAnimation } from 'framer-motion';
 import { NotifyType } from '../utils/notify';
 
 type Props = {
+  id: string;
   notifyType: NotifyType;
   title: string;
   time: string;
@@ -16,6 +17,7 @@ type Props = {
 };
 
 export default function NotifyCard({
+  id,
   notifyType,
   title,
   time,
@@ -26,6 +28,7 @@ export default function NotifyCard({
   let labelColor;
   let timeColor;
   let notifyIcon;
+  const controls = useAnimation();
 
   switch (notifyType) {
     case NotifyType.ANNOUNCE:
@@ -49,12 +52,34 @@ export default function NotifyCard({
       notifyIcon = <AiOutlineBug size="30px" stroke="#bbbbbb" />;
   }
 
+  const handleRemove = () => {
+    controls.start((event: string) => {
+      if (event === id) {
+        return {
+          scale: 1.025,
+          x: -50,
+          opacity: 0,
+          transition: { duration: 0.2 },
+        };
+      }
+      return {
+        opcaity: 1,
+        x: 0,
+        scale: 1,
+      };
+    });
+    setTimeout(() => onRemove(), 400);
+  };
+
   return (
     <motion.div
       whileHover={{
         scale: 1.025,
         transition: { duration: 0.1 },
       }}
+      animate={controls}
+      className={`motiondiv${title}`}
+      custom={id}
     >
       <HStack
         w="600px"
@@ -114,7 +139,7 @@ export default function NotifyCard({
               _hover={{ bg: labelColor }}
               borderRadius="50%"
               opacity={0.3}
-              onClick={onRemove}
+              onClick={handleRemove}
               cursor="pointer"
             />
           </Flex>

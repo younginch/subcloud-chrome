@@ -47,7 +47,7 @@ export default function Subtitle({ subs }: Props) {
   return (
     <Stack p="10px 20px 10px 20px">
       <Text fontWeight="bold" fontSize="22px" mt="10px" mb="10px">
-        전 세계 유저들이 제작한 자막을 사용해 보세요
+        {subs.length}개의 자막이 검색되었습니다
       </Text>
       <SelectLang
         width="140px"
