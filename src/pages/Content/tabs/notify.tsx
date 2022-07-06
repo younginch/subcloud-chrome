@@ -136,7 +136,8 @@ export default function Notify() {
       <Stack w="100%" spacing="20px" alignItems="center" mt="30px !important">
         {unreadNotifications.map((notify, index) => (
           <NotifyCard
-            key={index}
+            key={notify.id}
+            id={notify.id}
             notifyType={notify.notifyType}
             title={notify.title}
             time={notify.time}
@@ -162,6 +163,8 @@ export default function Notify() {
       <Stack w="100%" spacing="20px" alignItems="center" mt="30px !important">
         {readNotifications.map((notify, index) => (
           <NotifyCard
+            key={notify.id}
+            id={notify.id}
             notifyType={notify.notifyType}
             title={notify.title}
             time={notify.time}

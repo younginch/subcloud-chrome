@@ -305,7 +305,7 @@ export default function HomeNoSub() {
           </Wrap>
         </Stack>
       </HStack>
-      <Center>
+      <Stack alignItems="center">
         <Button
           colorScheme="blue"
           borderRadius="10px"
@@ -320,10 +320,10 @@ export default function HomeNoSub() {
           {point === 0 ? '무료로 ' : `${point}포인트를 사용하여 `} 한국어 자막
           요청하기
         </Button>
-      </Center>
-      <Center>
-        <Text fontSize="15px">현재까지 {count}명이 자막을 요청했어요</Text>
-      </Center>
+        {count && (
+          <Text fontSize="15px">{count}명이 자막을 기다리고 있어요</Text>
+        )}
+      </Stack>
     </Stack>
   );
 }
