@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { IoMdCloudUpload } from 'react-icons/io';
 import { SRTFile } from '@younginch/subtitle';
-import { useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import toast, { ToastType } from '../../utils/toast';
@@ -22,6 +22,7 @@ import { VideoCreateSchema } from '../../../../commons/schema';
 
 type Props = {
   files: File[] | undefined;
+  setFiles: Dispatch<SetStateAction<File[] | undefined>>;
   sendCallback: () => void;
 };
 
@@ -29,7 +30,11 @@ type FormData = {
   lang: string;
 };
 
-export default function CheckSubtitle({ files, sendCallback }: Props) {
+export default function CheckSubtitle({
+  files,
+  setFiles,
+  sendCallback,
+}: Props) {
   const [sub, setSub] = useState<SRTFile | undefined>();
   const {
     handleSubmit,
@@ -65,7 +70,14 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
     }
   };
 
+  const handleReUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files !== null) {
+      setFiles([e.target.files[0]]);
+    }
+  };
+
   function onSubmit(values: FormData) {
+    // TODO: Upload using values.lang
     upload();
     sendCallback();
   }
@@ -93,9 +105,21 @@ export default function CheckSubtitle({ files, sendCallback }: Props) {
           파일 미리보기 (자막 수 {sub?.array.length}개)
         </Text>
         <Spacer />
-        <Button colorScheme="red" fontSize="12px">
+        <Button
+          colorScheme="red"
+          fontSize="12px"
+          onClick={() => document.getElementById('subtitleFileInput')?.click()}
+        >
           다시 업로드
         </Button>
+        <input
+          type="file"
+          id="subtitleFileInput"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            handleReUpload(e)
+          }
+          hidden
+        />
       </HStack>
       <Box
         w="550px"

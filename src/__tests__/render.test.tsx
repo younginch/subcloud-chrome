@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import { Box, ChakraProvider, extendTheme, Table } from '@chakra-ui/react';
 import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
+import React from 'react';
 import Newtab from '../pages/Newtab/Newtab';
 import Options from '../pages/Options/Options';
 import Panel from '../pages/Panel/Panel';
@@ -88,6 +89,12 @@ describe('Pages and Components', () => {
   });
 
   it('render BottomButton', async () => {
+    jest.spyOn(React, 'useEffect').mockImplementationOnce((f) => f());
+    jest.spyOn(chrome.storage.local, 'get').mockImplementationOnce((key, cb) =>
+      cb({
+        onOff: true,
+      })
+    );
     render(
       <ChakraProvider>
         <BottomButton />
@@ -180,6 +187,17 @@ describe('Pages and Components', () => {
       image: '',
       point: 0,
     };
+    jest.spyOn(React, 'useEffect').mockImplementationOnce((f) => f());
+    jest.spyOn(chrome.storage.local, 'get').mockImplementationOnce((key, cb) =>
+      cb({
+        isBorder: undefined,
+        isBackGround: undefined,
+        sliderValue: undefined,
+        fontColor: undefined,
+        fontBorderColor: undefined,
+        fontBgColor: undefined,
+      })
+    );
     render(
       <ChakraProvider>
         <Setting user={user} />
@@ -303,7 +321,11 @@ describe('Pages and Components', () => {
   it('render CheckSubtitle', async () => {
     render(
       <ChakraProvider>
-        <CheckSubtitle files={[]} sendCallback={() => null} />
+        <CheckSubtitle
+          files={[]}
+          setFiles={() => null}
+          sendCallback={() => null}
+        />
       </ChakraProvider>
     );
   });
@@ -324,7 +346,7 @@ describe('Pages and Components', () => {
     );
   });
 
-  it('render NotifyCard', async () => {
+  it('render NotifyCard ANNOUNCE', async () => {
     render(
       <ChakraProvider>
         <NotifyCard
@@ -334,6 +356,55 @@ describe('Pages and Components', () => {
           content="content"
           href="google.com"
           onRemove={jest.fn()}
+          id="hello"
+        />
+      </ChakraProvider>
+    );
+  });
+
+  it('render NotifyCard NEW_SUBTITLE', async () => {
+    render(
+      <ChakraProvider>
+        <NotifyCard
+          notifyType={NotifyType.NEW_SUBTITLE}
+          title="hello"
+          time="world"
+          content="content"
+          href="google.com"
+          onRemove={jest.fn()}
+          id="hello"
+        />
+      </ChakraProvider>
+    );
+  });
+
+  it('render NotifyCard REVIEW', async () => {
+    render(
+      <ChakraProvider>
+        <NotifyCard
+          notifyType={NotifyType.REVIEW}
+          title="hello"
+          time="world"
+          content="content"
+          href="google.com"
+          onRemove={jest.fn()}
+          id="hello"
+        />
+      </ChakraProvider>
+    );
+  });
+
+  it('render NotifyCard DEFAULT', async () => {
+    render(
+      <ChakraProvider>
+        <NotifyCard
+          notifyType={'bug' as NotifyType}
+          title="hello"
+          time="world"
+          content="content"
+          href="google.com"
+          onRemove={jest.fn()}
+          id="hello"
         />
       </ChakraProvider>
     );
