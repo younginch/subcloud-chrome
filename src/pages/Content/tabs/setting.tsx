@@ -44,6 +44,8 @@ export default function Setting({ user }: Props) {
     b: 0,
     a: 0.5,
   });
+  const [requestLang, setRequestLang] = useState<string | undefined>();
+  const [familiarLang, setFamiliarLang] = useState<string | undefined>();
 
   useEffect(() => {
     try {
@@ -208,7 +210,8 @@ export default function Setting({ user }: Props) {
           mainFont="13px"
           subFont="11px"
           marginLeft="20px !important"
-          clickEvent={() => null}
+          lang={requestLang}
+          clickEvent={setRequestLang}
         />
       </SettingRow>
 
@@ -222,7 +225,8 @@ export default function Setting({ user }: Props) {
           mainFont="13px"
           subFont="11px"
           marginLeft="20px !important"
-          clickEvent={() => null}
+          lang={familiarLang}
+          clickEvent={setFamiliarLang}
         />
       </SettingRow>
 

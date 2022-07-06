@@ -248,7 +248,12 @@ describe('Pages and Components', () => {
   it('render SelectLang', async () => {
     render(
       <ChakraProvider>
-        <SelectLang height="130px" width="30px" clickEvent={() => null} />
+        <SelectLang
+          height="130px"
+          width="30px"
+          lang="en"
+          clickEvent={() => null}
+        />
       </ChakraProvider>
     );
   });
