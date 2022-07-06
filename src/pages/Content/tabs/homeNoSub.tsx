@@ -30,6 +30,7 @@ import requestCount from '../utils/api/requestCount';
 import video from '../utils/api/video';
 import toast, { ToastType } from '../utils/toast';
 import SelectLang from '../components/selectLang';
+import { Video, YoutubeVideoInfo } from '../../../../utils/type';
 
 type PointElement = {
   amount: number;
@@ -37,17 +38,11 @@ type PointElement = {
   icon: React.ReactElement;
 };
 
-type YoutubeVideoInfo = {
-  thumbnailUrl: string;
-  title: string;
-  channel: {
-    title: string;
-    subscriberCount: number;
-    thumbnailUrl: string;
-  };
+type Props = {
+  videoData: Video;
 };
 
-export default function HomeNoSub() {
+export default function HomeNoSub({ videoData }: Props) {
   const points: Array<PointElement> = [
     {
       amount: 10,
@@ -95,18 +90,17 @@ export default function HomeNoSub() {
   }
   `;
   const pointBg = useColorModeValue('gray.100', 'gray.800');
-  const [youtubeVideoInfo, setYoutubeVideoInfo] = useState<
-    YoutubeVideoInfo | undefined
-  >();
   const [isLoaded, setIsLoaded] = useState(false);
   const [count, setCount] = useState<number | undefined>();
   const [point, setPoint] = useState<number>(0);
+  const [youtubeVideoInfo, setYoutubeVideoInfo] = useState<
+    YoutubeVideoInfo | undefined
+  >();
 
   const sendRequest = async () => {
     try {
-      const tab = await getTab();
-      await request(tab.url, 'en', point);
-      const cnt = await requestCount(tab.url);
+      await request(videoData.serviceId, videoData.videoId, 'en', point);
+      const cnt = await requestCount(videoData.serviceId, videoData.videoId);
       setCount(cnt);
       await toast(ToastType.SUCCESS, 'request sent');
     } catch (error: unknown) {
@@ -114,47 +108,45 @@ export default function HomeNoSub() {
     }
   };
 
-  const getVideoInfo = async () => {
-    try {
-      const tab = await getTab();
-      const videoInfo = await video(tab.url);
-      const { youtubeVideo } = videoInfo;
-      let replaceUrl = tab.url.replace('https://youtu.be/', '');
-      replaceUrl = replaceUrl.replace('https://www.youtube.com/embed/', '');
-      replaceUrl = replaceUrl.replace('https://www.youtube.com/watch?v=', '');
-      const finUrl = replaceUrl.split('&')[0];
-      setYoutubeVideoInfo({
-        thumbnailUrl: `http://img.youtube.com/vi/${finUrl}/0.jpg`,
-        title: youtubeVideo?.title ?? '',
-        channel: {
-          title: youtubeVideo?.channel.title ?? '',
-          subscriberCount: youtubeVideo?.channel.subscriberCount ?? 0,
-          thumbnailUrl: youtubeVideo?.channel.thumbnailUrl ?? '',
-        },
-      });
-      setIsLoaded(true);
-    } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
-    }
-  };
-
-  const getRequestCount = async () => {
-    try {
-      const tab = await getTab();
-      const cnt = await requestCount(tab.url);
-      setCount(cnt);
-    } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
-    }
-  };
-
   useEffect(() => {
+    const getRequestCount = async () => {
+      try {
+        const cnt = await requestCount(videoData.serviceId, videoData.videoId);
+        setCount(cnt);
+      } catch (error: unknown) {
+        if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      }
+    };
+
+    const getVideoInfo = async () => {
+      try {
+        const tab = await getTab();
+        const { youtubeVideo } = videoData;
+        let replaceUrl = tab.url.replace('https://youtu.be/', '');
+        replaceUrl = replaceUrl.replace('https://www.youtube.com/embed/', '');
+        replaceUrl = replaceUrl.replace('https://www.youtube.com/watch?v=', '');
+        const finUrl = replaceUrl.split('&')[0];
+        setYoutubeVideoInfo({
+          thumbnailUrl: `http://img.youtube.com/vi/${finUrl}/0.jpg`,
+          title: youtubeVideo?.title ?? '',
+          channel: {
+            title: youtubeVideo?.channel.title ?? '',
+            subscriberCount: youtubeVideo?.channel.subscriberCount ?? 0,
+            thumbnailUrl: youtubeVideo?.channel.thumbnailUrl ?? '',
+          },
+        });
+        setIsLoaded(true);
+      } catch (error: unknown) {
+        if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      }
+    };
+
     const init = async () => {
       await getVideoInfo();
       await getRequestCount();
     };
     init();
-  }, []);
+  }, [videoData]);
 
   return (
     <Stack p="10px 20px 10px 20px">

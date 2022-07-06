@@ -1,11 +1,15 @@
 import { postFetch } from '../fetch';
 import video from './video';
 
-async function request(url: string, lang: string, point: number) {
-  const videoData = await video(url);
+async function request(
+  serviceId: string,
+  videoId: string,
+  lang: string,
+  point: number
+) {
   const requestData = await postFetch('user/request', {
-    serviceId: videoData.serviceId,
-    videoId: videoData.videoId,
+    serviceId,
+    videoId,
     lang,
     point,
   });

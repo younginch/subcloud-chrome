@@ -26,4 +26,22 @@ type User = {
   point: number;
 };
 
-export { MESSAGETAG, Status, User };
+type YoutubeVideoInfo = {
+  thumbnailUrl: string;
+  title: string;
+  channel: {
+    title: string;
+    subscriberCount: number;
+    thumbnailUrl: string;
+  };
+};
+
+type Video = {
+  url: string;
+  serviceId: string;
+  videoId: string;
+  youtubeVideoId: string | null;
+  youtubeVideo?: YoutubeVideoInfo;
+};
+
+export { MESSAGETAG, Status, User, YoutubeVideoInfo, Video };

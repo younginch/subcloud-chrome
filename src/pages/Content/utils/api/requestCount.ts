@@ -12,10 +12,9 @@ type Request = {
   };
 };
 
-async function requestCount(url: string) {
-  const videoData = await video(url);
+async function requestCount(serviceId: string, videoId: string) {
   const data = await getFetch(
-    `public/search/request?serviceId=${videoData.serviceId}&videoId=${videoData.videoId}`
+    `public/search/request?serviceId=${serviceId}&videoId=${videoId}`
   );
   if (Array.isArray(data)) {
     return data.reduce(
