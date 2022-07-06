@@ -89,6 +89,12 @@ describe('Pages and Components', () => {
   });
 
   it('render BottomButton', async () => {
+    jest.spyOn(React, 'useEffect').mockImplementationOnce((f) => f());
+    jest.spyOn(chrome.storage.local, 'get').mockImplementationOnce((key, cb) =>
+      cb({
+        onOff: true,
+      })
+    );
     render(
       <ChakraProvider>
         <BottomButton />
@@ -182,7 +188,7 @@ describe('Pages and Components', () => {
       point: 0,
     };
     jest.spyOn(React, 'useEffect').mockImplementationOnce((f) => f());
-    jest.spyOn(chrome.storage.local, 'get').mockImplementation((key, cb) =>
+    jest.spyOn(chrome.storage.local, 'get').mockImplementationOnce((key, cb) =>
       cb({
         isBorder: undefined,
         isBackGround: undefined,
@@ -340,11 +346,59 @@ describe('Pages and Components', () => {
     );
   });
 
-  it('render NotifyCard', async () => {
+  it('render NotifyCard ANNOUNCE', async () => {
     render(
       <ChakraProvider>
         <NotifyCard
           notifyType={NotifyType.ANNOUNCE}
+          title="hello"
+          time="world"
+          content="content"
+          href="google.com"
+          onRemove={jest.fn()}
+          id="hello"
+        />
+      </ChakraProvider>
+    );
+  });
+
+  it('render NotifyCard NEW_SUBTITLE', async () => {
+    render(
+      <ChakraProvider>
+        <NotifyCard
+          notifyType={NotifyType.NEW_SUBTITLE}
+          title="hello"
+          time="world"
+          content="content"
+          href="google.com"
+          onRemove={jest.fn()}
+          id="hello"
+        />
+      </ChakraProvider>
+    );
+  });
+
+  it('render NotifyCard REVIEW', async () => {
+    render(
+      <ChakraProvider>
+        <NotifyCard
+          notifyType={NotifyType.REVIEW}
+          title="hello"
+          time="world"
+          content="content"
+          href="google.com"
+          onRemove={jest.fn()}
+          id="hello"
+        />
+      </ChakraProvider>
+    );
+  });
+
+  it('render NotifyCard DEFAULT', async () => {
+    render(
+      <ChakraProvider>
+        <NotifyCard
+          notifyType={'bug' as NotifyType}
           title="hello"
           time="world"
           content="content"

@@ -2,7 +2,6 @@ import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import Switch from 'react-switch';
 import { toggleMainModal } from '../helpers/modalControl';
-import { CustomCard } from './customCard';
 import { SubcloudIcon } from './icons';
 
 export default function BottomButton() {
