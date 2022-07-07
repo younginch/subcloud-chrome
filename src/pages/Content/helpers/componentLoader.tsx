@@ -12,7 +12,6 @@ type Props = {
   className?: string;
   children: React.ReactNode;
   attachType?: AttachType;
-  replace?: boolean;
 };
 
 /**
@@ -29,20 +28,29 @@ export default function componentLoader({
   className,
   children,
   attachType = AttachType.APPEND,
-  replace = true,
 }: Props): boolean {
   const parentElement = document.querySelector(parentQuery);
-  let targetElement = document.querySelector(`#${targetId}`);
+  let targetElement = document.getElementById(targetId);
 
   if (targetElement) {
-    if (replace) targetElement.remove();
-    else return false;
+    const { classList } = targetElement;
+    for (let i = 0; i < classList.length; i += 1) {
+      if (classList[i].includes('SubCloud_')) {
+        const t = Number(classList[i].replace('SubCloud_', ''));
+        if (Date.now() - t >= 2000) targetElement.remove();
+        else return true;
+      }
+    }
   }
 
   if (parentElement) {
     targetElement = document.createElement('div');
     targetElement.id = targetId;
-    if (className) targetElement.className = className;
+
+    if (className) {
+      targetElement.classList.add(className);
+    }
+    targetElement.classList.add(`SubCloud_${Date.now()}`);
 
     switch (attachType) {
       case AttachType.APPEND:
