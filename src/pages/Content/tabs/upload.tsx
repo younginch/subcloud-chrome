@@ -1,6 +1,7 @@
 import { Box, Divider, Stack } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
+import { SRTFile } from '@younginch/subtitle';
 import UploadSubtitle from './upload/uploadSubtitle';
 import CheckSubtitle from './upload/checkSubtitle';
 import UploadFinish from './upload/uploadFinish';
@@ -17,7 +18,6 @@ export default function Upload() {
   });
 
   const [files, setFiles] = useState<File[]>();
-  const [lang, setLang] = useState('en');
 
   return (
     <Stack p="10px 20px 10px 20px" alignItems="center">
