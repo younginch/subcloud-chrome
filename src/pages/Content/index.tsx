@@ -13,6 +13,8 @@ import MainModal from './components/mainModal';
 declare let bootstrap: any;
 
 const theme = extendTheme({
+  initialColorMode: 'dark',
+  useSystemColorMode: false,
   components: {
     Steps,
   },
