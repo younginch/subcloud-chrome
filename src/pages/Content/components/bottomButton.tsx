@@ -2,15 +2,22 @@ import { Box, Flex, Text, Tooltip } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import Switch from 'react-switch';
 import { toggleMainModal } from '../helpers/modalControl';
+import { getNotices } from '../utils/api/notice';
 import { SubcloudIcon } from './icons';
 
 export default function BottomButton() {
   const [onOff, setOnOff] = useState<boolean>(false);
   const [notifyCount, setNotifyCount] = useState<number>(0);
-  const [hasSub, setHasSub] = useState<boolean>(true);
+  const [hasSub, setHasSub] = useState<boolean>(false);
   const [preferLang, setPreferLang] = useState<string>('한국어');
 
+  const getNoticeCount = async () => {
+    const notices = await getNotices();
+    setNotifyCount(notices.filter((notice: any) => !notice.checked).length);
+  };
+
   useEffect(() => {
+    getNoticeCount();
     chrome.storage.local.get(['onOff'], (result) => {
       if (result.onOff !== undefined) setOnOff(result.onOff);
     });
@@ -82,7 +89,7 @@ export default function BottomButton() {
           onClick={() => toggleMainModal()}
         >
           <SubcloudIcon size="30px" fill="white" />
-          {(hasSub || notifyCount) && (
+          {(hasSub || notifyCount > 0) && (
             <Text
               bg="red"
               fontSize="12px"

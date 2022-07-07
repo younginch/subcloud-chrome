@@ -5,6 +5,7 @@ import { MdOutlineRateReview } from 'react-icons/md';
 import { CloseIcon } from '@chakra-ui/icons';
 import { motion, useAnimation } from 'framer-motion';
 import { NotifyType } from '../utils/notify';
+import createTab from '../utils/createTab';
 
 type Props = {
   id: string;
@@ -12,7 +13,7 @@ type Props = {
   title: string;
   time: string;
   content: string;
-  href: string;
+  href: string | undefined;
   onRemove: () => void;
 };
 
@@ -52,7 +53,7 @@ export default function NotifyCard({
       notifyIcon = <AiOutlineBug size="30px" stroke="#bbbbbb" />;
   }
 
-  const handleRemove = () => {
+  const handleRemove = (link?: string) => {
     controls.start((event: string) => {
       if (event === id) {
         return {
@@ -68,7 +69,10 @@ export default function NotifyCard({
         scale: 1,
       };
     });
-    setTimeout(() => onRemove(), 400);
+    setTimeout(() => {
+      onRemove();
+      if (link) createTab(link);
+    }, 400);
   };
 
   return (
@@ -111,7 +115,7 @@ export default function NotifyCard({
             h="100% !important"
             justifyContent="center"
             onClick={() => {
-              window.location.href = href;
+              handleRemove(href);
             }}
             cursor="pointer"
           >
@@ -139,7 +143,7 @@ export default function NotifyCard({
               _hover={{ bg: labelColor }}
               borderRadius="50%"
               opacity={0.3}
-              onClick={handleRemove}
+              onClick={() => handleRemove()}
               cursor="pointer"
             />
           </Flex>

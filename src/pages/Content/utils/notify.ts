@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/prefer-default-export
 export const enum NotifyType {
-  NEW_SUBTITLE = 'New_subtitle',
+  NEW_SUBTITLE = 'Upload',
   REVIEW = 'Review',
   ANNOUNCE = 'Announce',
 }
@@ -11,5 +11,5 @@ export type NotificationType = {
   title: string;
   time: string;
   content: string;
-  href: string;
+  href?: string;
 };

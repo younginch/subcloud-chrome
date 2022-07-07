@@ -6,7 +6,6 @@ import Newtab from '../pages/Newtab/Newtab';
 import Options from '../pages/Options/Options';
 import Panel from '../pages/Panel/Panel';
 import Popup from '../pages/Popup/Popup';
-import * as GetTab from '../pages/Content/utils/getTab';
 import * as Fetch from '../pages/Content/utils/fetch';
 import * as sendMessage from '../pages/Content/utils/sendMessage';
 import BottomButton from '../pages/Content/components/bottomButton';
@@ -52,14 +51,12 @@ import Notify from '../pages/Content/tabs/notify';
 import NotifyCard from '../pages/Content/components/notifyCard';
 import { NotifyType } from '../pages/Content/utils/notify';
 import HomeLoginFirst from '../pages/Content/tabs/homeLoginFirst';
-import {
-  changeNotices,
-  deleteNotices,
-} from '../pages/Content/utils/api/notice';
+import * as notice from '../pages/Content/utils/api/notice';
 import * as getFile from '../pages/Content/utils/api/getFile';
 import subView from '../pages/Content/utils/api/subView';
 import LoginFirst from '../pages/Popup/components/loginFirst';
 import ReviewComponent from '../pages/Content/components/reviewComponent';
+import createTab from '../pages/Content/utils/createTab';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -87,6 +84,7 @@ describe('Pages and Components', () => {
   });
 
   it('render BottomButton', async () => {
+    jest.spyOn(notice, 'getNotices').mockImplementationOnce(async () => []);
     jest.spyOn(React, 'useEffect').mockImplementationOnce((f) => f());
     jest.spyOn(chrome.storage.local, 'get').mockImplementationOnce((key, cb) =>
       cb({
@@ -101,6 +99,19 @@ describe('Pages and Components', () => {
   });
 
   it('render Layout', async () => {
+    jest.spyOn(notice, 'getNotices').mockImplementationOnce(async () => [
+      {
+        notice: {
+          type: NotifyType.ANNOUNCE,
+          message: '',
+          url: '',
+          createdAt: Date(),
+        },
+        id: '',
+        checked: true,
+      },
+    ]);
+    jest.spyOn(React, 'useEffect').mockImplementationOnce((f) => f());
     render(
       <ChakraProvider>
         <Layout />
@@ -353,7 +364,30 @@ describe('Pages and Components', () => {
   it('render Notify', async () => {
     render(
       <ChakraProvider>
-        <Notify />
+        <Notify
+          readNotifications={[
+            {
+              id: '',
+              notifyType: NotifyType.ANNOUNCE,
+              title: '',
+              time: '',
+              content: '',
+              href: '',
+            },
+          ]}
+          unreadNotifications={[
+            {
+              id: '',
+              notifyType: NotifyType.ANNOUNCE,
+              title: '',
+              time: '',
+              content: '',
+              href: '',
+            },
+          ]}
+          setReadNotifications={() => null}
+          setUnreadNotifications={() => null}
+        />
       </ChakraProvider>
     );
   });
@@ -520,6 +554,11 @@ describe('Pages and Components', () => {
     }
   });
 
+  it('test createTab returns infomation', async () => {
+    const msg = await createTab('');
+    expect(msg).toBeDefined();
+  });
+
   it('test getSubs returns infomation', async () => {
     const date = new Date();
     jest.spyOn(Fetch, 'getFetch').mockImplementation(async () => [
@@ -596,7 +635,7 @@ describe('Pages and Components', () => {
 
   it('test changeNotices returns infomation', async () => {
     jest.spyOn(Fetch, 'patchFetch').mockImplementation(async () => '1');
-    const msg = await changeNotices('');
+    const msg = await notice.changeNotices('');
     expect(msg).toBeDefined();
   });
 
@@ -610,7 +649,7 @@ describe('Pages and Components', () => {
 
   it('test deleteNotices returns infomation', async () => {
     jest.spyOn(Fetch, 'deleteFetch').mockImplementation(async () => '1');
-    const msg = await deleteNotices('');
+    const msg = await notice.deleteNotices('');
     expect(msg).toBeDefined();
   });
 

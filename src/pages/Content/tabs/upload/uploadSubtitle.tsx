@@ -3,6 +3,7 @@ import { Box, Button, Text } from '@chakra-ui/react';
 import { Dispatch, SetStateAction } from 'react';
 import { FaFileUpload } from 'react-icons/fa';
 import DropZone from '../../components/dropZone';
+import createTab from '../../utils/createTab';
 
 export type Props = {
   setFiles: Dispatch<SetStateAction<File[] | undefined>>;
@@ -34,7 +35,7 @@ export default function UploadSubtitle({ setFiles, uploadCallback }: Props) {
         h="35px"
         mt="10px !important"
         onClick={() => {
-          window.location.href = `${API_URL}/editor`;
+          createTab(`${API_URL}/editor`);
         }}
       >
         <Text fontSize="14px">Edit on SubCloud</Text>
