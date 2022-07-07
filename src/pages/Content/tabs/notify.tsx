@@ -1,112 +1,24 @@
 /* eslint-disable react/no-array-index-key */
 import { BellIcon } from '@chakra-ui/icons';
 import { Divider, HStack, Spacer, Stack, Text } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import { Dispatch, SetStateAction } from 'react';
 import NotifyCard from '../components/notifyCard';
-import { getNotices, changeNotices, deleteNotices } from '../utils/api/notice';
-import { NotificationType, NotifyType } from '../utils/notify';
+import { changeNotices, deleteNotices } from '../utils/api/notice';
+import { NotificationType } from '../utils/notify';
 
-export default function Notify() {
-  const [unreadNotifications, setUnreadNotifications] = useState<
-    NotificationType[]
-  >([]);
-  const [readNotifications, setReadNotifications] = useState<
-    NotificationType[]
-  >([]);
+type Props = {
+  readNotifications: NotificationType[];
+  unreadNotifications: NotificationType[];
+  setReadNotifications: Dispatch<SetStateAction<NotificationType[]>>;
+  setUnreadNotifications: Dispatch<SetStateAction<NotificationType[]>>;
+};
 
-  useEffect(() => {
-    const init = async () => {
-      dayjs.extend(relativeTime);
-      const notices = await getNotices();
-      const read = [];
-      const unread = [];
-      for (let i = 0; i < notices.length; i += 1) {
-        const notification = notices[i];
-        let title = '';
-        switch (notification.notice.type) {
-          case NotifyType.ANNOUNCE:
-            title = '공지사항';
-            break;
-          case NotifyType.NEW_SUBTITLE:
-            title = '자막 업로드 알림';
-            break;
-          case NotifyType.REVIEW:
-            title = '리뷰 알림';
-            break;
-          default:
-            title = '';
-        }
-        const e = {
-          id: notification.id,
-          notifyType: notification.notice.type,
-          title,
-          time: dayjs(notification.notice.createdAt).fromNow(),
-          content: notification.notice.message,
-          href: notification.notice.url,
-        };
-        if (notification.checked) {
-          read.push(e);
-        } else {
-          unread.push(e);
-        }
-      }
-      setReadNotifications(read);
-      setUnreadNotifications(unread);
-    };
-    init();
-    /*
-    setUnreadNotifications([
-      {
-        notifyType: NotifyType.ANNOUNCE,
-        title: '공지사항',
-        time: '5 minutes ago',
-        content: '자막 선공개 기능 출시! 클릭하여 자세히 보기',
-        href: `${API_URL}`,
-      },
-      {
-        notifyType: NotifyType.NEW_SUBTITLE,
-        title: '자막 업로드 알림',
-        time: '5 minutes ago',
-        content:
-          '7시간 전 요청했던 [널 지워야해] 영상에 자막이 올라왔어요. 클릭해서 바로보기.',
-        href: `${API_URL}`,
-      },
-      {
-        notifyType: NotifyType.REVIEW,
-        title: '리뷰 알림',
-        time: '5 minutes ago',
-        content: '[창모 널 지워야해]자막에 새로운 리뷰가 올라왔어요',
-        href: `${API_URL}`,
-      },
-    ]);
-    setReadNotifications([
-      {
-        notifyType: NotifyType.ANNOUNCE,
-        title: '공지사항',
-        time: '6 hours ago',
-        content: '자막 선공개 기능 출시! 클릭하여 자세히 보기',
-        href: `${API_URL}`,
-      },
-      {
-        notifyType: NotifyType.NEW_SUBTITLE,
-        title: '자막 업로드 알림',
-        time: '17 hours ago',
-        content: '7시간 전 요청했던 [널 지워야해] 영상에 자막이 올라왔어요. ',
-        href: `${API_URL}`,
-      },
-      {
-        notifyType: NotifyType.REVIEW,
-        title: '리뷰 알림',
-        time: '2 days ago',
-        content: '[창모 널 지워야해]자막에 새로운 리뷰가 올라왔어요',
-        href: `${API_URL}`,
-      },
-    ]);
-    */
-  }, []);
-
+export default function Notify({
+  readNotifications,
+  unreadNotifications,
+  setReadNotifications,
+  setUnreadNotifications,
+}: Props) {
   const readItem = (index: number) => {
     setReadNotifications((bef: NotificationType[]) => [
       ...bef,
