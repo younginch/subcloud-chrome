@@ -266,7 +266,12 @@ describe('Pages and Components', () => {
   it('render SelectLang', async () => {
     render(
       <ChakraProvider>
-        <SelectLang height="130px" width="30px" clickEvent={() => null} />
+        <SelectLang
+          height="130px"
+          width="30px"
+          lang="en"
+          clickEvent={() => null}
+        />
       </ChakraProvider>
     );
   });
@@ -490,6 +495,25 @@ describe('Pages and Components', () => {
     }
   });
 
+  it('test getSubs returns infomation', async () => {
+    const date = new Date();
+    jest
+      .spyOn(Fetch, 'getFetch')
+      .mockImplementation(async () => [
+        {
+          status: 'Approved',
+          id: '',
+          lang: '',
+          ratings: [],
+          views: 0,
+          user: { name: '' },
+          updateAt: date,
+        },
+      ]);
+    const msg = await getSubs('', '');
+    expect(msg).toBeDefined();
+  });
+
   it('test sub returns infomation', async () => {
     jest.spyOn(Fetch, 'getFetch').mockImplementation(async () => '');
     const msg = await sub.default('1');
@@ -537,15 +561,6 @@ describe('Pages and Components', () => {
     if (msg) {
       expect(msg.data).toBeCloseTo(0);
     }
-  });
-
-  it('test getSubs returns infomation', async () => {
-    jest.spyOn(GetTab, 'default').mockImplementation(async () => '');
-    jest.spyOn(video, 'default').mockImplementation(async () => ({
-      subs: [{ status: 'Approved', ratings: [], user: { name: 'shin' } }],
-    }));
-    const msg = await getSubs('', '');
-    expect(msg).toBeDefined();
   });
 
   it('test changeFetch returns infomation', async () => {

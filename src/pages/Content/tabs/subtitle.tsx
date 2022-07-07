@@ -11,6 +11,7 @@ import {
   TableContainer,
   HStack,
 } from '@chakra-ui/react';
+import { useState } from 'react';
 import SelectLang from '../components/selectLang';
 import RateComponent from '../components/rateComponent';
 import getFile from '../utils/api/getFile';
@@ -32,6 +33,7 @@ type Props = {
 };
 
 export default function Subtitle({ subs }: Props) {
+  const [lang, setLang] = useState<string | undefined>();
   const getSubById = async (subId: string) => {
     try {
       const sub = await getFile(subId);
@@ -54,7 +56,8 @@ export default function Subtitle({ subs }: Props) {
         height="30px"
         mainFont="13px"
         subFont="11px"
-        clickEvent={() => null}
+        lang={lang}
+        clickEvent={setLang}
       />
       <TableContainer mt="7px" maxH="440px" overflowY="scroll">
         <Table variant="striped">
@@ -71,29 +74,31 @@ export default function Subtitle({ subs }: Props) {
             </Tr>
           </Thead>
           <Tbody h="50px">
-            {subs.map((sub: SubtitleType) => (
-              <Tr
-                _hover={{
-                  textColor: 'blue.400',
-                }}
-                key={sub.id}
-                cursor="pointer"
-                onClick={() => getSubById(sub.id)}
-              >
-                <Td fontSize="16px">{sub.lang}</Td>
-                <Td fontSize="16px">
-                  <HStack>
-                    <Text w="30px">{sub.rating}</Text>
-                    <RateComponent rating={sub.rating} size="15px" />
-                  </HStack>
-                </Td>
-                <Td fontSize="16px" isNumeric>
-                  {sub.views}
-                </Td>
-                <Td fontSize="16px">{sub.userName}</Td>
-                <Td fontSize="16px">{sub.uploadDate.toString()}</Td>
-              </Tr>
-            ))}
+            {subs
+              .filter((sub: SubtitleType) => !lang || lang === sub.lang)
+              .map((sub: SubtitleType) => (
+                <Tr
+                  _hover={{
+                    textColor: 'blue.400',
+                  }}
+                  key={sub.id}
+                  cursor="pointer"
+                  onClick={() => getSubById(sub.id)}
+                >
+                  <Td fontSize="16px">{sub.lang}</Td>
+                  <Td fontSize="16px">
+                    <HStack>
+                      <Text w="30px">{sub.rating}</Text>
+                      <RateComponent rating={sub.rating} size="15px" />
+                    </HStack>
+                  </Td>
+                  <Td fontSize="16px" isNumeric>
+                    {sub.views}
+                  </Td>
+                  <Td fontSize="16px">{sub.userName}</Td>
+                  <Td fontSize="16px">{sub.uploadDate.toString()}</Td>
+                </Tr>
+              ))}
           </Tbody>
         </Table>
       </TableContainer>
