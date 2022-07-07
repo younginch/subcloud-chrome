@@ -5,6 +5,7 @@ import { MdOutlineRateReview } from 'react-icons/md';
 import { CloseIcon } from '@chakra-ui/icons';
 import { motion, useAnimation } from 'framer-motion';
 import { NotifyType } from '../utils/notify';
+import createTab from '../utils/createTab';
 
 type Props = {
   id: string;
@@ -70,7 +71,7 @@ export default function NotifyCard({
     });
     setTimeout(() => {
       onRemove();
-      if (link) window.location.href = link;
+      if (link) createTab(link);
     }, 400);
   };
 

@@ -16,6 +16,7 @@ import { User } from '../../../../utils/type';
 import ColorPicker from '../components/colorPicker';
 import SelectLang from '../components/selectLang';
 import SettingRow from '../components/settingRow';
+import createTab from '../utils/createTab';
 import toast, { ToastType } from '../utils/toast';
 
 type Props = {
@@ -119,7 +120,7 @@ export default function Setting({ user }: Props) {
         <Text fontSize="18px">{user?.point ?? 0}</Text>
         <Button
           onClick={() => {
-            window.location.href = `${API_URL}/buy`;
+            createTab(`${API_URL}/buy`);
           }}
         >
           충전하기

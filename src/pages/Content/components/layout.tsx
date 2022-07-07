@@ -41,6 +41,7 @@ import video from '../utils/api/video';
 import getTab from '../utils/getTab';
 import { getNotices } from '../utils/api/notice';
 import { NotificationType, NotifyType } from '../utils/notify';
+import createTab from '../utils/createTab';
 
 type TabType = {
   icon: React.ReactNode;
@@ -180,7 +181,7 @@ export default function Layout() {
           fontSize="3xl"
           ml="15px !important"
           onClick={() => {
-            window.location.href = `${API_URL}`;
+            createTab(`${API_URL}`);
           }}
           cursor="pointer"
         >
@@ -270,7 +271,7 @@ export default function Layout() {
                 cursor="pointer"
                 src={user?.image}
                 onClick={() => {
-                  window.location.href = `${API_URL}/user/my`;
+                  createTab(`${API_URL}/user/my`);
                 }}
               >
                 <AvatarBadge boxSize="1.25em" bg="green.500" />
