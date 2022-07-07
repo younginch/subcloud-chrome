@@ -59,6 +59,7 @@ import {
 import * as getFile from '../pages/Content/utils/api/getFile';
 import subView from '../pages/Content/utils/api/subView';
 import LoginFirst from '../pages/Popup/components/loginFirst';
+import ReviewComponent from '../pages/Content/components/reviewComponent';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -117,6 +118,15 @@ describe('Pages and Components', () => {
 
   it('render CSSResetCustom', async () => {
     render(<CSSResetCustom />);
+  });
+
+  it('render ReviewComponent', async () => {
+    jest
+      .spyOn(document, 'getElementById')
+      .mockImplementation(
+        () => ({ remove: jest.fn() } as unknown as HTMLElement)
+      );
+    render(<ReviewComponent />);
   });
 
   it('render SubtitleComponent', async () => {
@@ -414,7 +424,6 @@ describe('Pages and Components', () => {
 
   it('render Popup', async () => {
     jest.spyOn(chrome.tabs, 'create').mockImplementation(jest.fn());
-
     render(
       <ChakraProvider>
         <Popup />
