@@ -64,6 +64,7 @@ export default function QuickSubtitleRequest() {
                   subFont="11px"
                   clickEvent={() => null}
                   marginTop="10px !important"
+                  lang={undefined}
                 />
                 <Text fontSize="14px" color="gray.300">
                   기본 요청 언어를 선택하면 앞으로 클릭 한번으로 요청할 수
