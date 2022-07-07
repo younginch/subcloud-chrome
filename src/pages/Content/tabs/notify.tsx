@@ -2,6 +2,8 @@
 import { BellIcon } from '@chakra-ui/icons';
 import { Divider, HStack, Spacer, Stack, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import NotifyCard from '../components/notifyCard';
 import { getNotices, changeNotices, deleteNotices } from '../utils/api/notice';
 import { NotificationType, NotifyType } from '../utils/notify';
@@ -16,29 +18,38 @@ export default function Notify() {
 
   useEffect(() => {
     const init = async () => {
+      dayjs.extend(relativeTime);
       const notices = await getNotices();
       const read = [];
       const unread = [];
       for (let i = 0; i < notices.length; i += 1) {
         const notification = notices[i];
+        let title = '';
+        switch (notification.notice.type) {
+          case NotifyType.ANNOUNCE:
+            title = '공지사항';
+            break;
+          case NotifyType.NEW_SUBTITLE:
+            title = '자막 업로드 알림';
+            break;
+          case NotifyType.REVIEW:
+            title = '리뷰 알림';
+            break;
+          default:
+            title = '';
+        }
+        const e = {
+          id: notification.id,
+          notifyType: notification.notice.type,
+          title,
+          time: dayjs(notification.notice.createdAt).fromNow(),
+          content: notification.notice.message,
+          href: notification.notice.url,
+        };
         if (notification.checked) {
-          read.push({
-            id: notification.id,
-            notifyType: NotifyType.ANNOUNCE,
-            title: '공지사항',
-            time: notification.createdAt,
-            content: notification.notice.message,
-            href: `${API_URL}`,
-          });
+          read.push(e);
         } else {
-          unread.push({
-            id: notification.id,
-            notifyType: notification.type,
-            title: '공지사항',
-            time: notification.createdAt,
-            content: notification.notice.message,
-            href: `${API_URL}`,
-          });
+          unread.push(e);
         }
       }
       setReadNotifications(read);
