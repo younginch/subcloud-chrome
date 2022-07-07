@@ -58,10 +58,10 @@ export default function ReviewComponent() {
     ).value;
     console.log('rating = ', rating, 'message = ', message);
     // TODO: send review with above informations
+    document.getElementById('subcloud-review-placer')?.remove();
   };
 
   useEffect(() => {
-    console.log('fuckyou', clockRef);
     clockRef.current.start();
   }, [clockRef]);
 

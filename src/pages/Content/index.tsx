@@ -150,7 +150,6 @@ const load = () => {
             <ReviewComponent />
           </>
         ),
-        replace: false,
       })
     )
       clearInterval(loadSubtitleComponent);
