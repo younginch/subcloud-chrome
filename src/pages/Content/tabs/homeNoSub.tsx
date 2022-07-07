@@ -18,6 +18,7 @@ import {
   Wrap,
   WrapItem,
 } from '@chakra-ui/react';
+import ISO6391 from 'iso-639-1';
 import { CgShapeTriangle } from 'react-icons/cg';
 import { TbDiamond, TbDiamonds } from 'react-icons/tb';
 import { BiRocket } from 'react-icons/bi';
@@ -95,10 +96,12 @@ export default function HomeNoSub({ videoData }: Props) {
   const [youtubeVideoInfo, setYoutubeVideoInfo] = useState<
     YoutubeVideoInfo | undefined
   >();
+  const [lang, setLang] = useState<string | undefined>();
 
   const sendRequest = async () => {
     try {
-      await request(videoData.serviceId, videoData.videoId, 'en', point);
+      if (!lang) throw new Error('language not selected');
+      await request(videoData.serviceId, videoData.videoId, lang, point);
       const cnt = await requestCount(videoData.serviceId, videoData.videoId);
       setCount(cnt);
       await toast(ToastType.SUCCESS, 'request sent');
@@ -224,7 +227,8 @@ export default function HomeNoSub({ videoData }: Props) {
               height="40px"
               mainFont="15px"
               subFont="13px"
-              clickEvent={() => null}
+              lang={lang}
+              clickEvent={setLang}
             />
           </Center>
           <Box className="default-language" mt="20px !important">
@@ -249,9 +253,10 @@ export default function HomeNoSub({ videoData }: Props) {
             <NumberInput
               defaultValue={0}
               min={0}
-              max={20}
+              max={20000}
               keepWithinRange={false}
               clampValueOnBlur={false}
+              value={point}
               w="120px"
             >
               <NumberInputField
@@ -283,6 +288,7 @@ export default function HomeNoSub({ videoData }: Props) {
                     animation: `1s ${pointHoverAnimation}`,
                     borderRadius: '50%',
                   }}
+                  onClick={() => setPoint(element.amount)}
                 >
                   <Box w="35%" h="35%">
                     {element.icon}
@@ -307,9 +313,13 @@ export default function HomeNoSub({ videoData }: Props) {
           h="45px"
           fontSize="20px"
           onClick={sendRequest}
+          disabled={lang === undefined}
         >
-          {point === 0 ? '무료로 ' : `${point}포인트를 사용하여 `} 한국어 자막
-          요청하기
+          {lang
+            ? `${
+                point === 0 ? '무료로 ' : `${point}포인트를 사용하여`
+              } ${ISO6391.getNativeName(lang)} 자막 요청하기`
+            : '요청 언어를 골라주세요'}
         </Button>
         {count && (
           <Text fontSize="15px">{count}명이 자막을 기다리고 있어요</Text>
