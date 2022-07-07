@@ -36,9 +36,10 @@ export default function CheckSubtitle({
   sendCallback,
 }: Props) {
   const [sub, setSub] = useState<SRTFile | undefined>();
-  const [lang, setLang] = useState<string | undefined>();
   const {
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
   } = useForm<FormData>({ resolver: joiResolver(VideoCreateSchema) });
 
@@ -51,7 +52,7 @@ export default function CheckSubtitle({
     }
   };
 
-  const upload = async () => {
+  const upload = async (lang: string) => {
     try {
       if (!files) return;
       const tab = await getTab();
@@ -78,8 +79,7 @@ export default function CheckSubtitle({
   };
 
   function onSubmit(values: FormData) {
-    // TODO: Upload using values.lang
-    upload();
+    upload(values.lang);
     sendCallback();
   }
 
@@ -157,8 +157,8 @@ export default function CheckSubtitle({
               mainFont="15px"
               subFont="13px"
               marginTop="4px"
-              lang={lang}
-              clickEvent={setLang}
+              lang={watch().lang}
+              clickEvent={(code: string) => setValue('lang', code)}
             />
             <FormErrorMessage
               justifyContent="center"
@@ -185,9 +185,9 @@ export default function CheckSubtitle({
             colorScheme="green"
             ml="30px !important"
             type="submit"
-            disabled={lang === undefined}
+            disabled={watch().lang === undefined}
           >
-            <Text fontSize="18px">{lang ? '전송' : '언어 선택'}</Text>
+            <Text fontSize="18px">{watch().lang ? '전송' : '언어 선택'}</Text>
           </Button>
         </HStack>
       </FormControl>
