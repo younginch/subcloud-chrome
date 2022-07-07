@@ -4,7 +4,7 @@ import { LoginFirstIcon } from '../components/icons';
 
 export default function HomeLoginFirst() {
   return (
-    <Stack p="10px 20px 10px 20px" alignItems="center">
+    <Stack p="10px 20px 10px 20px" alignItems="center" color="white">
       <LoginFirstIcon size={300} />
       <Text fontWeight="bold" fontSize="22px" mt="-20px !important">
         SubCloud에 로그인해 주세요

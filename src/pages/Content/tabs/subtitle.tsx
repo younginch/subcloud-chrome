@@ -16,6 +16,7 @@ import RateComponent from '../components/rateComponent';
 import getFile from '../utils/api/getFile';
 import toast, { ToastType } from '../utils/toast';
 import subView from '../utils/api/subView';
+import { closeMainModal } from '../helpers/modalControl';
 
 export type SubtitleType = {
   id: string;
@@ -37,6 +38,7 @@ export default function Subtitle({ subs }: Props) {
       await chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
       await subView(subId);
       await toast(ToastType.SUCCESS, 'subtitle selected');
+      closeMainModal();
     } catch (error: unknown) {
       if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
