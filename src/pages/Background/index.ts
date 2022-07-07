@@ -6,6 +6,10 @@ async function getTab() {
   return tab;
 }
 
+async function createTab(url: string) {
+  chrome.tabs.create({ url });
+}
+
 async function getAPI(url: string) {
   const res = await fetch(`${API_URL}/api/${url}`, {
     method: 'GET',
@@ -155,6 +159,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.tag) {
     case MESSAGETAG.TAB:
       sendMessage(sendResponse, getTab);
+      return true;
+    case MESSAGETAG.CREATETAB:
+      sendMessage(sendResponse, () => createTab(message.url));
       return true;
     case MESSAGETAG.GETAPI:
       sendMessage(sendResponse, () => getAPI(message.url));
