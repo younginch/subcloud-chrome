@@ -89,7 +89,13 @@ export default function CheckSubtitle({
       const reader = new FileReader();
       reader.readAsText(files[0]);
       reader.onload = () => {
-        setSub(SRTFile.fromText(String(reader.result)));
+        try {
+          const data = SRTFile.fromText(String(reader.result));
+          setSub(data);
+        } catch (error: unknown) {
+          if (error instanceof Error)
+            toast(ToastType.ERROR, 'File format not supported');
+        }
       };
     } catch (error: unknown) {
       if (error instanceof Error) toast(ToastType.ERROR, error.message);
