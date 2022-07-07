@@ -12,6 +12,7 @@ type Props = {
   className?: string;
   children: React.ReactNode;
   attachType?: AttachType;
+  replace?: boolean;
 };
 
 /**
@@ -28,12 +29,14 @@ export default function componentLoader({
   className,
   children,
   attachType = AttachType.APPEND,
+  replace = true,
 }: Props): boolean {
   const parentElement = document.querySelector(parentQuery);
   let targetElement = document.querySelector(`#${targetId}`);
 
   if (targetElement) {
-    targetElement.remove();
+    if (replace) targetElement.remove();
+    else return false;
   }
 
   if (parentElement) {

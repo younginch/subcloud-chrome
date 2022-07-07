@@ -9,6 +9,7 @@ import CSSResetCustom from './components/cssResetCustom';
 import componentLoader, { AttachType } from './helpers/componentLoader';
 import { ToastType } from './utils/toast';
 import MainModal from './components/mainModal';
+import ReviewComponent from './components/reviewComponent';
 
 declare let bootstrap: any;
 
@@ -143,7 +144,13 @@ const load = () => {
       componentLoader({
         parentQuery: '#movie_player',
         targetId: 'subcloud-sub-component',
-        children: <SubtitleComponent />,
+        children: (
+          <>
+            <SubtitleComponent />
+            <ReviewComponent />
+          </>
+        ),
+        replace: false,
       })
     )
       clearInterval(loadSubtitleComponent);
