@@ -58,6 +58,7 @@ import {
 } from '../pages/Content/utils/api/notice';
 import * as getFile from '../pages/Content/utils/api/getFile';
 import subView from '../pages/Content/utils/api/subView';
+import LoginFirst from '../pages/Popup/components/loginFirst';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -78,10 +79,6 @@ describe('Pages and Components', () => {
 
   it('renders Panel', async () => {
     render(<Panel />);
-  });
-
-  it('renders Popup', async () => {
-    render(<Popup />);
   });
 
   it('render ToastComponent', async () => {
@@ -415,6 +412,25 @@ describe('Pages and Components', () => {
     );
   });
 
+  it('render Popup', async () => {
+    jest.spyOn(chrome.tabs, 'create').mockImplementation(jest.fn());
+
+    render(
+      <ChakraProvider>
+        <Popup />
+      </ChakraProvider>
+    );
+  });
+
+  it('render LoginFirst', async () => {
+    jest.spyOn(chrome.tabs, 'create').mockImplementation(jest.fn());
+    render(
+      <ChakraProvider>
+        <LoginFirst />
+      </ChakraProvider>
+    );
+  });
+
   it('test closeMainModal success', () => {
     jest
       .spyOn(document, 'getElementById')
@@ -497,19 +513,17 @@ describe('Pages and Components', () => {
 
   it('test getSubs returns infomation', async () => {
     const date = new Date();
-    jest
-      .spyOn(Fetch, 'getFetch')
-      .mockImplementation(async () => [
-        {
-          status: 'Approved',
-          id: '',
-          lang: '',
-          ratings: [],
-          views: 0,
-          user: { name: '' },
-          updateAt: date,
-        },
-      ]);
+    jest.spyOn(Fetch, 'getFetch').mockImplementation(async () => [
+      {
+        status: 'Approved',
+        id: '',
+        lang: '',
+        ratings: [],
+        views: 0,
+        user: { name: '' },
+        updateAt: date,
+      },
+    ]);
     const msg = await getSubs('', '');
     expect(msg).toBeDefined();
   });
