@@ -255,7 +255,7 @@ export default function Setting({ user }: Props) {
               <b>&apos;친숙한 언어&apos;</b>로 설정한 자막이 있다면
             </span>
             <br />
-            <span>자동으로 선택합니다</span>
+            <span>영상 시청 시 자동으로 선택합니다</span>
           </>
         }
       >
