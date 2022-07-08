@@ -1,3 +1,7 @@
+#subcloud-main-modal-placer, [data-theme]{
+  --chakra-zIndices-tooltip: 3000 !important;
+}
+
 #subcloud-comment-title {
   width: fit-content;
   margin-left: auto;

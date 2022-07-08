@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import { HStack, Text, Tooltip } from '@chakra-ui/react';
+import { Box, HStack, Text, Tooltip } from '@chakra-ui/react';
 import React from 'react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { CustomCard } from './customCard';
@@ -18,9 +18,9 @@ export default function SettingRow({ name, children, tooltip }: Props) {
       {children}
       {tooltip && (
         <Tooltip label={tooltip} bg="gray.300" fontSize="12px">
-          <CustomCard>
+          <Box>
             <AiOutlineInfoCircle size="20px" fill="#aaa" />
-          </CustomCard>
+          </Box>
         </Tooltip>
       )}
     </HStack>
