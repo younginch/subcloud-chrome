@@ -18,8 +18,7 @@ export default function MainModal() {
       h="100vh"
       paddingLeft="calc(50vw - 425px) !important"
       paddingTop="calc(50vh - 300px) !important"
-      bg="rgba(0,0,0,.2)"
-      blur="3px"
+      bg="rgba(0,0,0,.4)"
       zIndex={3000}
       onClick={handleClick}
     >
