@@ -95,7 +95,7 @@ const load = () => {
       })
     )
       clearInterval(loadCommentModal);
-  }, 100);
+  }, 2000);
 
   // load Video Bottom Button
   const loadVideoBottomButton = setInterval(() => {

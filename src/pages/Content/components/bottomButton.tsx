@@ -35,7 +35,6 @@ export default function BottomButton() {
         bg="rgba(0,0,0,0.5)"
         color="white"
         fontSize="14px"
-        openDelay={100}
         mb="18px"
         ml="6px"
       >
@@ -73,7 +72,6 @@ export default function BottomButton() {
         bg="rgba(0,0,0,0.5)"
         color="white"
         fontSize="14px"
-        openDelay={100}
         mb="18px"
         ml="6px"
       >
