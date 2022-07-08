@@ -21,6 +21,8 @@ import {
   AiFillSetting,
   AiOutlineCloseCircle,
 } from 'react-icons/ai';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { MdSubtitles } from 'react-icons/md';
 import { IoMdCloudUpload } from 'react-icons/io';
 import { BellIcon } from '@chakra-ui/icons';
@@ -37,6 +39,9 @@ import Notify from '../tabs/notify';
 import HomeLoginFirst from '../tabs/homeLoginFirst';
 import video from '../utils/api/video';
 import getTab from '../utils/getTab';
+import { getNotices } from '../utils/api/notice';
+import { NotificationType, NotifyType } from '../utils/notify';
+import createTab from '../utils/createTab';
 
 type TabType = {
   icon: React.ReactNode;
@@ -49,6 +54,12 @@ export default function Layout() {
   const [videoData, setVideoData] = useState<Video | undefined>();
   const [subs, setSubs] = useState<SubtitleType[]>([]);
   const [isLogin, setIsLogin] = useState<boolean>(false);
+  const [unreadNotifications, setUnreadNotifications] = useState<
+    NotificationType[]
+  >([]);
+  const [readNotifications, setReadNotifications] = useState<
+    NotificationType[]
+  >([]);
 
   const tabs: Array<TabType> = [
     { icon: <AiFillHome size={20} />, name: 'Home' },
@@ -97,10 +108,50 @@ export default function Layout() {
       }
     }
 
+    async function getNoticeInfo() {
+      dayjs.extend(relativeTime);
+      const notices = await getNotices();
+      const read = [];
+      const unread = [];
+      for (let i = 0; i < notices.length; i += 1) {
+        const notification = notices[i];
+        let title = '';
+        switch (notification.notice.type) {
+          case NotifyType.ANNOUNCE:
+            title = '공지사항';
+            break;
+          case NotifyType.NEW_SUBTITLE:
+            title = '자막 업로드 알림';
+            break;
+          case NotifyType.REVIEW:
+            title = '리뷰 알림';
+            break;
+          default:
+            title = '';
+        }
+        const e = {
+          id: notification.id,
+          notifyType: notification.notice.type,
+          title,
+          time: dayjs(notification.notice.createdAt).fromNow(),
+          content: notification.notice.message,
+          href: notification.notice.url,
+        };
+        if (notification.checked) {
+          read.push(e);
+        } else {
+          unread.push(e);
+        }
+      }
+      setReadNotifications(read);
+      setUnreadNotifications(unread);
+    }
+
     const init = async () => {
       await getUserInfo();
       await getVideoInfo();
       await getSubInfo();
+      await getNoticeInfo();
     };
     init();
   }, [videoData?.serviceId, videoData?.videoId]);
@@ -130,7 +181,7 @@ export default function Layout() {
           fontSize="3xl"
           ml="15px !important"
           onClick={() => {
-            window.location.href = `${API_URL}`;
+            createTab(`${API_URL}`);
           }}
           cursor="pointer"
         >
@@ -198,19 +249,21 @@ export default function Layout() {
                 color={tabIndex === 4 ? 'blue.500' : 'white'}
               >
                 <BellIcon w="40px" h="40px" color="inherit" />
-                <Text
-                  bg="red"
-                  fontSize="14px"
-                  borderRadius="6px"
-                  position="absolute"
-                  pl="3px"
-                  pr="3px"
-                  ml="18px"
-                  mt="-40px"
-                  color="white"
-                >
-                  20
-                </Text>
+                {unreadNotifications.length > 0 && (
+                  <Text
+                    bg="red"
+                    fontSize="14px"
+                    borderRadius="6px"
+                    position="absolute"
+                    pl="3px"
+                    pr="3px"
+                    ml="18px"
+                    mt="-40px"
+                    color="white"
+                  >
+                    {unreadNotifications.length}
+                  </Text>
+                )}
               </Box>
               <Avatar
                 w="40px"
@@ -218,7 +271,7 @@ export default function Layout() {
                 cursor="pointer"
                 src={user?.image}
                 onClick={() => {
-                  window.location.href = `${API_URL}/user/my`;
+                  createTab(`${API_URL}/user/my`);
                 }}
               >
                 <AvatarBadge boxSize="1.25em" bg="green.500" />
@@ -244,7 +297,12 @@ export default function Layout() {
                 <Setting user={user} />
               </TabPanel>
               <TabPanel p={0}>
-                <Notify />
+                <Notify
+                  readNotifications={readNotifications}
+                  unreadNotifications={unreadNotifications}
+                  setReadNotifications={setReadNotifications}
+                  setUnreadNotifications={setUnreadNotifications}
+                />
               </TabPanel>
             </TabPanels>
           </Box>
