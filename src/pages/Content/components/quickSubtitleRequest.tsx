@@ -15,6 +15,7 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import getLang from '../utils/api/getLang';
 import request from '../utils/api/request';
 import video from '../utils/api/video';
 import getTab from '../utils/getTab';
@@ -22,7 +23,7 @@ import toast, { ToastType } from '../utils/toast';
 import SelectLang from './selectLang';
 
 export default function QuickSubtitleRequest() {
-  const [defaultRequestLang, setDefaultRequestLang] = useState<string>();
+  const [requestLang, setRequestLang] = useState<string>();
   const [lang, setLang] = useState<string | undefined>();
 
   const sendRequest = async () => {
@@ -38,14 +39,26 @@ export default function QuickSubtitleRequest() {
   };
 
   useEffect(() => {
-    // TODO: set Preferlang from api
-    // if (Math.random() < 0.1) setDefaultRequestLang('Kr');
+    const getLangs = async () => {
+      const { requestLangs } = await getLang();
+      if (requestLangs.length > 0) {
+        setRequestLang(requestLangs[0]);
+        setLang(requestLangs[0]);
+      }
+    };
+    getLangs();
   }, []);
 
   return (
     <Stack>
-      {defaultRequestLang ? (
-        <Button colorScheme="blue" variant="outline" fontSize="14px" h="30px">
+      {requestLang ? (
+        <Button
+          colorScheme="blue"
+          variant="outline"
+          fontSize="14px"
+          h="30px"
+          onClick={sendRequest}
+        >
           Request Subtitle
         </Button>
       ) : (

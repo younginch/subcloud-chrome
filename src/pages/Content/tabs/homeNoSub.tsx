@@ -31,6 +31,8 @@ import requestCount from '../utils/api/requestCount';
 import toast, { ToastType } from '../utils/toast';
 import SelectLang from '../components/selectLang';
 import { Video, YoutubeVideoInfo } from '../../../../utils/type';
+import getLang from '../utils/api/getLang';
+import changeRequestLang from '../utils/api/changeRequestLang';
 
 type PointElement = {
   amount: number;
@@ -97,6 +99,7 @@ export default function HomeNoSub({ videoData }: Props) {
     YoutubeVideoInfo | undefined
   >();
   const [lang, setLang] = useState<string | undefined>();
+  const [check, setCheck] = useState(false);
 
   const sendRequest = async () => {
     try {
@@ -143,12 +146,23 @@ export default function HomeNoSub({ videoData }: Props) {
       }
     };
 
+    const getLangs = async () => {
+      const { requestLangs } = await getLang();
+      if (requestLangs.length > 0) setLang(requestLangs[0]);
+    };
+
     const init = async () => {
       await getVideoInfo();
       await getRequestCount();
+      await getLangs();
     };
     init();
   }, [videoData]);
+
+  const changeLang = async () => {
+    if (lang && !check) await changeRequestLang(lang);
+    setCheck(!check);
+  };
 
   return (
     <Stack p="10px 20px 10px 20px">
@@ -232,7 +246,7 @@ export default function HomeNoSub({ videoData }: Props) {
             />
           </Center>
           <Box className="default-language" mt="20px !important">
-            <Checkbox mt={5} defaultChecked>
+            <Checkbox mt={5} defaultChecked={check} onChange={changeLang}>
               기본 요청 언어로 저장
             </Checkbox>
           </Box>
