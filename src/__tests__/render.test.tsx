@@ -137,7 +137,7 @@ describe('Pages and Components', () => {
       .mockImplementation(
         () => ({ remove: jest.fn() } as unknown as HTMLElement)
       );
-    render(<ReviewComponent duration={6000} />);
+    render(<ReviewComponent duration={6000} subId="" />);
   });
 
   it('render SubtitleComponent', async () => {
@@ -200,6 +200,7 @@ describe('Pages and Components', () => {
 
   it('render Setting tab', async () => {
     const user = {
+      id: '',
       name: 'c',
       email: 'c@df.com',
       image: 'casdf',
