@@ -18,6 +18,8 @@ import getFile from '../utils/api/getFile';
 import toast, { ToastType } from '../utils/toast';
 import subView from '../utils/api/subView';
 import { closeMainModal } from '../helpers/modalControl';
+import { MESSAGETAG } from '../../../../utils/type';
+import getTab from '../utils/getTab';
 
 export type SubtitleType = {
   id: string;
@@ -36,9 +38,20 @@ export default function Subtitle({ subs }: Props) {
   const [lang, setLang] = useState<string | undefined>();
   const getSubById = async (subId: string) => {
     try {
+      const tab = await getTab();
+      const currentTime = document.querySelector('video')?.currentTime;
+      const duration = document.querySelector('video')?.duration;
       const sub = await getFile(subId);
       await chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
       await subView(subId);
+      if (duration && currentTime) {
+        await chrome.runtime.sendMessage({
+          tag: MESSAGETAG.REVIEW,
+          tabId: tab.id,
+          subId,
+          time: (duration - currentTime) * 0.7,
+        });
+      }
       await toast(ToastType.SUCCESS, 'subtitle selected');
       closeMainModal();
     } catch (error: unknown) {

@@ -9,6 +9,7 @@ enum MESSAGETAG {
   UPLOADFILE,
   INIT,
   TOAST,
+  REVIEW,
 }
 
 enum Status {

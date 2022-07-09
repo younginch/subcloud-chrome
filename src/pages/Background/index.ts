@@ -120,11 +120,16 @@ async function sendToast(
 ) {
   try {
     chrome.tabs.sendMessage(tabId, { tag: MESSAGETAG.TOAST, toastType, msg });
-    sendResponse({ data: {}, type: 'success' });
   } catch (error: unknown) {
     if (error instanceof Error)
       sendResponse({ error: error.message, type: 'error' });
   }
+}
+
+async function sendReview(tabId: number, subId: string, time: number) {
+  setTimeout(() => {
+    chrome.tabs.sendMessage(tabId, { tag: MESSAGETAG.REVIEW, subId });
+  }, time * 1000);
 }
 
 async function sendMessage(
@@ -189,6 +194,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       return true;
     case MESSAGETAG.TOAST:
       sendToast(sendResponse, message.tabId, message.toastType, message.msg);
+      return true;
+    case MESSAGETAG.REVIEW:
+      sendMessage(sendResponse, () =>
+        sendReview(message.tabId, message.subId, message.time)
+      );
       return true;
     default:
       throw new Error('');
