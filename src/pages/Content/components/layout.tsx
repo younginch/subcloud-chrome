@@ -168,6 +168,7 @@ export default function Layout() {
       borderRadius="10px"
       overflow="hidden"
       boxShadow="dark-lg"
+      color="white"
     >
       <HStack
         w="100%"

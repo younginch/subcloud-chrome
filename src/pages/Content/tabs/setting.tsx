@@ -149,7 +149,7 @@ export default function Setting({ user }: Props) {
         <Text fontSize="18px">{sliderValue}</Text>
       </SettingRow>
 
-      <SettingRow name="자막 색상:" tooltip="자막 글자의 색상">
+      <SettingRow name="자막 색상:">
         <ColorPicker
           label="색상 선택"
           color={fontColor}
@@ -158,7 +158,7 @@ export default function Setting({ user }: Props) {
           activate
         />
       </SettingRow>
-      <SettingRow name="자막 배경 색 사용:" tooltip="자막의 배경 색상">
+      <SettingRow name="자막 배경 색 사용:">
         <Switch
           colorScheme="teal"
           size="lg"
@@ -172,7 +172,7 @@ export default function Setting({ user }: Props) {
           activate={isBackGround}
         />
       </SettingRow>
-      <SettingRow name="자막 테두리 사용:" tooltip="자막의 테두리 색상">
+      <SettingRow name="자막 테두리 사용:" tooltip="자막의 글자 테두리 색상">
         <Switch
           colorScheme="teal"
           size="lg"
