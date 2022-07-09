@@ -73,6 +73,7 @@ export default function Layout() {
       const data = await getFetch('auth/session');
       if (data && data.user) {
         setUser({
+          id: data.user.id,
           name: data.user.name,
           email: data.user.email,
           image: data.user.image,
@@ -109,42 +110,46 @@ export default function Layout() {
     }
 
     async function getNoticeInfo() {
-      dayjs.extend(relativeTime);
-      const notices = await getNotices();
-      const read = [];
-      const unread = [];
-      for (let i = 0; i < notices.length; i += 1) {
-        const notification = notices[i];
-        let title = '';
-        switch (notification.notice.type) {
-          case NotifyType.ANNOUNCE:
-            title = '공지사항';
-            break;
-          case NotifyType.NEW_SUBTITLE:
-            title = '자막 업로드 알림';
-            break;
-          case NotifyType.REVIEW:
-            title = '리뷰 알림';
-            break;
-          default:
-            title = '';
+      try {
+        dayjs.extend(relativeTime);
+        const notices = await getNotices();
+        const read = [];
+        const unread = [];
+        for (let i = 0; i < notices.length; i += 1) {
+          const notification = notices[i];
+          let title = '';
+          switch (notification.notice.type) {
+            case NotifyType.ANNOUNCE:
+              title = '공지사항';
+              break;
+            case NotifyType.NEW_SUBTITLE:
+              title = '자막 업로드 알림';
+              break;
+            case NotifyType.REVIEW:
+              title = '리뷰 알림';
+              break;
+            default:
+              title = '';
+          }
+          const e = {
+            id: notification.id,
+            notifyType: notification.notice.type,
+            title,
+            time: dayjs(notification.notice.createdAt).fromNow(),
+            content: notification.notice.message,
+            href: notification.notice.url,
+          };
+          if (notification.checked) {
+            read.push(e);
+          } else {
+            unread.push(e);
+          }
         }
-        const e = {
-          id: notification.id,
-          notifyType: notification.notice.type,
-          title,
-          time: dayjs(notification.notice.createdAt).fromNow(),
-          content: notification.notice.message,
-          href: notification.notice.url,
-        };
-        if (notification.checked) {
-          read.push(e);
-        } else {
-          unread.push(e);
-        }
+        setReadNotifications(read);
+        setUnreadNotifications(unread);
+      } catch (error: unknown) {
+        if (error instanceof Error) toast(ToastType.ERROR, error.message);
       }
-      setReadNotifications(read);
-      setUnreadNotifications(unread);
     }
 
     const init = async () => {

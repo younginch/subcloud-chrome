@@ -18,7 +18,14 @@ export default function LoginFirst() {
       <Text fontSize="17px" mt="35 !important">
         로그인하고 전 세계 유저들이 올린 자막을 무료로 만나보세요.
       </Text>
-      <Button colorScheme="blue">로그인하러 가기</Button>
+      <Button
+        colorScheme="blue"
+        onClick={() =>
+          chrome.tabs.create({ url: `${API_URL}/api/auth/signin` })
+        }
+      >
+        로그인하러 가기
+      </Button>
       <Text
         as={Link}
         fontSize="14px"
