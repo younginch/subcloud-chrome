@@ -10,7 +10,11 @@ import Rating from 'react-rating';
 import Countdown, { CountdownRenderProps } from 'react-countdown';
 import { useEffect, useRef, useState } from 'react';
 
-export default function ReviewComponent() {
+type Props = {
+  duration: number;
+};
+
+export default function ReviewComponent({ duration }: Props) {
   const clockRef = useRef<any>();
   const [rating, setRating] = useState<number>(3);
 
@@ -44,7 +48,6 @@ export default function ReviewComponent() {
     'ArrowRight',
     'ArrowLeft',
   ];
-  const timeOut = 6000;
 
   const handleStart = () => clockRef.current.start();
   const handlePause = () => clockRef.current.pause();
@@ -74,7 +77,7 @@ export default function ReviewComponent() {
         style={{
           marginLeft: '-10px',
           marginRight: '-10px',
-          width: `${(total * 280) / timeOut}px`,
+          width: `${(total * 280) / duration}px`,
           backgroundColor: '#ff6666',
           height: '3px',
         }}
@@ -196,7 +199,7 @@ export default function ReviewComponent() {
           <AiFillCaretDown size="18px" style={{ marginTop: '-4px' }} />
         </div>
         <Countdown
-          date={Date.now() + timeOut}
+          date={Date.now() + duration}
           intervalDelay={0}
           precision={2}
           renderer={renderer}

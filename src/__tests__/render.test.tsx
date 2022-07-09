@@ -137,7 +137,7 @@ describe('Pages and Components', () => {
       .mockImplementation(
         () => ({ remove: jest.fn() } as unknown as HTMLElement)
       );
-    render(<ReviewComponent />);
+    render(<ReviewComponent duration={6000} />);
   });
 
   it('render SubtitleComponent', async () => {
