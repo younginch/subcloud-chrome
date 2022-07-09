@@ -15,20 +15,50 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import getLang from '../utils/api/getLang';
+import request from '../utils/api/request';
+import video from '../utils/api/video';
+import getTab from '../utils/getTab';
+import toast, { ToastType } from '../utils/toast';
 import SelectLang from './selectLang';
 
 export default function QuickSubtitleRequest() {
-  const [defaultRequestLang, setDefaultRequestLang] = useState<string>();
+  const [requestLang, setRequestLang] = useState<string>();
+  const [lang, setLang] = useState<string | undefined>();
+
+  const sendRequest = async () => {
+    try {
+      if (!lang) throw new Error('language not selected');
+      const tab = await getTab();
+      const videoData = await video(tab.url);
+      await request(videoData.serviceId, videoData.videoId, lang, 0);
+      await toast(ToastType.SUCCESS, 'request sent');
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+    }
+  };
 
   useEffect(() => {
-    // TODO: set Preferlang from api
-    if (Math.random() < 0.1) setDefaultRequestLang('Kr');
+    const getLangs = async () => {
+      const { requestLangs } = await getLang();
+      if (requestLangs && requestLangs.length > 0) {
+        setRequestLang(requestLangs[0]);
+        setLang(requestLangs[0]);
+      }
+    };
+    getLangs();
   }, []);
 
   return (
     <Stack>
-      {defaultRequestLang ? (
-        <Button colorScheme="blue" variant="outline" fontSize="14px" h="30px">
+      {requestLang ? (
+        <Button
+          colorScheme="blue"
+          variant="outline"
+          fontSize="14px"
+          h="30px"
+          onClick={sendRequest}
+        >
           Request Subtitle
         </Button>
       ) : (
@@ -63,9 +93,9 @@ export default function QuickSubtitleRequest() {
                   height="30px"
                   mainFont="13px"
                   subFont="11px"
-                  clickEvent={() => null}
+                  clickEvent={setLang}
                   marginTop="10px !important"
-                  lang={undefined}
+                  lang={lang}
                 />
                 <Text fontSize="14px" color="gray.300">
                   기본 요청 언어를 선택하면 앞으로 클릭 한번으로 요청할 수
@@ -84,7 +114,13 @@ export default function QuickSubtitleRequest() {
               <Box className="default-language-small">
                 <Checkbox defaultChecked>기본 요청 언어로 저장</Checkbox>
               </Box>
-              <Button colorScheme="blue" fontSize="15px" w="100px" h="30px">
+              <Button
+                colorScheme="blue"
+                fontSize="15px"
+                w="100px"
+                h="30px"
+                onClick={sendRequest}
+              >
                 요청 전송
               </Button>
             </PopoverFooter>

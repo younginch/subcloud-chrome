@@ -64,6 +64,20 @@ function toast(type: ToastType, msg: string) {
   toastElement.show();
 }
 
+const loadReview = (subId: string) => {
+  console.log(subId);
+  const loadReviewComponent = setInterval(() => {
+    if (
+      componentLoader({
+        parentQuery: '#movie_player',
+        targetId: 'subcloud-review-component',
+        children: <ReviewComponent duration={6000} subId={subId} />,
+      })
+    )
+      clearInterval(loadReviewComponent);
+  }, 100);
+};
+
 const load = () => {
   // Load Comment-title panel
   const loadToast = setInterval(() => {
@@ -173,7 +187,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       return true;
     case MESSAGETAG.TOAST:
       toast(message.toastType, message.msg);
-      sendResponse({ data: 'load-done' });
+      sendResponse({ data: 'toast' });
+      return true;
+    case MESSAGETAG.REVIEW:
+      loadReview(message.subId);
+      sendResponse({ data: 'review' });
       return true;
     default:
       sendResponse({ data: 'load-done' });

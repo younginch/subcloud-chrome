@@ -9,6 +9,7 @@ enum MESSAGETAG {
   UPLOADFILE,
   INIT,
   TOAST,
+  REVIEW,
 }
 
 enum Status {
@@ -21,6 +22,7 @@ enum Status {
 }
 
 type User = {
+  id: string;
   name: string;
   email: string;
   image: string;

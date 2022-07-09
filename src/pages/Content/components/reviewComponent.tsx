@@ -9,12 +9,14 @@ import {
 import Rating from 'react-rating';
 import Countdown, { CountdownRenderProps } from 'react-countdown';
 import { useEffect, useRef, useState } from 'react';
+import sendRating from '../utils/api/sendRating';
 
 type Props = {
   duration: number;
+  subId: string;
 };
 
-export default function ReviewComponent({ duration }: Props) {
+export default function ReviewComponent({ duration, subId }: Props) {
   const clockRef = useRef<any>();
   const [rating, setRating] = useState<number>(3);
 
@@ -55,12 +57,11 @@ export default function ReviewComponent({ duration }: Props) {
     setRating(value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const message = (
       document.getElementById('floatingTextarea') as HTMLTextAreaElement
     ).value;
-    console.log('rating = ', rating, 'message = ', message);
-    // TODO: send review with above informations
+    await sendRating(subId, rating, message);
     document.getElementById('subcloud-review-placer')?.remove();
   };
 
