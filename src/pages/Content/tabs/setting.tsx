@@ -16,6 +16,9 @@ import { User } from '../../../../utils/type';
 import ColorPicker from '../components/colorPicker';
 import SelectLang from '../components/selectLang';
 import SettingRow from '../components/settingRow';
+import changeBaseLang from '../utils/api/changeBaseLang';
+import changeRequestLang from '../utils/api/changeRequestLang';
+import getLang from '../utils/api/getLang';
 import createTab from '../utils/createTab';
 import toast, { ToastType } from '../utils/toast';
 
@@ -46,7 +49,13 @@ export default function Setting({ user }: Props) {
     a: 0.5,
   });
   const [requestLang, setRequestLang] = useState<string | undefined>();
-  const [familiarLang, setFamiliarLang] = useState<string | undefined>();
+  const [baseLang, setBaseLang] = useState<string | undefined>();
+
+  const getLangs = async () => {
+    const { requestLangs, baseLangs } = await getLang();
+    if (requestLangs.length > 0) setRequestLang(requestLangs[0]);
+    if (baseLangs.length > 0) setBaseLang(baseLangs[0]);
+  };
 
   useEffect(() => {
     try {
@@ -72,6 +81,7 @@ export default function Setting({ user }: Props) {
             setFontBgColor(result.fontBgColor);
         }
       );
+      getLangs();
     } catch (error: unknown) {
       if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
@@ -98,6 +108,22 @@ export default function Setting({ user }: Props) {
     fontBorderColor,
     fontBgColor,
   ]);
+
+  useEffect(() => {
+    try {
+      if (requestLang) changeRequestLang(requestLang);
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+    }
+  }, [requestLang]);
+
+  useEffect(() => {
+    try {
+      if (baseLang) changeBaseLang(baseLang);
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+    }
+  }, [baseLang]);
 
   return (
     <Stack
@@ -226,8 +252,8 @@ export default function Setting({ user }: Props) {
           mainFont="13px"
           subFont="11px"
           marginLeft="20px !important"
-          lang={familiarLang}
-          clickEvent={setFamiliarLang}
+          lang={baseLang}
+          clickEvent={setBaseLang}
         />
       </SettingRow>
 
