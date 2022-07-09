@@ -65,7 +65,6 @@ function toast(type: ToastType, msg: string) {
 }
 
 const loadReview = (subId: string) => {
-  console.log(subId);
   const loadReviewComponent = setInterval(() => {
     if (
       componentLoader({
@@ -162,18 +161,6 @@ const load = () => {
       })
     )
       clearInterval(loadSubtitleComponent);
-  }, 100);
-
-  // load review component
-  const loadReviewComponent = setInterval(() => {
-    if (
-      componentLoader({
-        parentQuery: '#movie_player',
-        targetId: 'subcloud-review-component',
-        children: <ReviewComponent duration={6000} />,
-      })
-    )
-      clearInterval(loadReviewComponent);
   }, 100);
 };
 
