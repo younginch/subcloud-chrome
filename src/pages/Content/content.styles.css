@@ -26,7 +26,7 @@
 }
 
 #subcloud-sub-component {
-  position: relative;
+  position: absolute;
   width: 100%;
   height: 100%;
   display: flex;
@@ -37,6 +37,12 @@
   position: relative;
   z-index: 40;
   margin-top: 47%;
+}
+
+#subcloud-review-component {
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 
 #subcloud-review-placer {
