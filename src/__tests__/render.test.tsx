@@ -200,12 +200,11 @@ describe('Pages and Components', () => {
 
   it('render Setting tab', async () => {
     const user = {
-      name: '',
-      email: '',
-      image: '',
+      name: 'c',
+      email: 'c@df.com',
+      image: 'casdf',
       point: 0,
     };
-    jest.spyOn(React, 'useEffect').mockImplementationOnce((f) => f());
     jest.spyOn(chrome.storage.local, 'get').mockImplementationOnce((key, cb) =>
       cb({
         isBorder: undefined,
@@ -216,6 +215,7 @@ describe('Pages and Components', () => {
         fontBgColor: undefined,
       })
     );
+    jest.spyOn(chrome.storage.local, 'get').mockImplementationOnce(jest.fn());
     render(
       <ChakraProvider>
         <Setting user={user} />
