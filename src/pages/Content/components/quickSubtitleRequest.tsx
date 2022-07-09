@@ -12,6 +12,7 @@ import {
   Box,
   Checkbox,
   Stack,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import SelectLang from './selectLang';
@@ -92,7 +93,7 @@ export default function QuickSubtitleRequest() {
       )}
       <Text
         fontSize="12px"
-        color="gray.500"
+        color={useColorModeValue('gray.700', 'gray.400')}
         mt="0px !important"
         textAlign="center"
       >
