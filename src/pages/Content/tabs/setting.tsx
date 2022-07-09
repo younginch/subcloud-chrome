@@ -53,8 +53,9 @@ export default function Setting({ user }: Props) {
 
   const getLangs = async () => {
     const { requestLangs, baseLangs } = await getLang();
-    if (requestLangs.length > 0) setRequestLang(requestLangs[0]);
-    if (baseLangs.length > 0) setBaseLang(baseLangs[0]);
+    if (requestLangs && requestLangs.length > 0)
+      setRequestLang(requestLangs[0]);
+    if (baseLangs && baseLangs.length > 0) setBaseLang(baseLangs[0]);
   };
 
   useEffect(() => {

@@ -148,7 +148,7 @@ export default function HomeNoSub({ videoData }: Props) {
 
     const getLangs = async () => {
       const { requestLangs } = await getLang();
-      if (requestLangs.length > 0) setLang(requestLangs[0]);
+      if (requestLangs && requestLangs.length > 0) setLang(requestLangs[0]);
     };
 
     const init = async () => {
