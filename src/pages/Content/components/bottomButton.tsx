@@ -3,13 +3,14 @@ import { useEffect, useState } from 'react';
 import Switch from 'react-switch';
 import { toggleMainModal } from '../helpers/modalControl';
 import { getNotices } from '../utils/api/notice';
+import toast, { ToastType } from '../utils/toast';
 import { SubcloudIcon } from './icons';
 
 export default function BottomButton() {
   const [onOff, setOnOff] = useState<boolean>(false);
   const [notifyCount, setNotifyCount] = useState<number>(0);
   const [hasSub, setHasSub] = useState<boolean>(false);
-  const [preferLang, setPreferLang] = useState<string>('한국어');
+  const [baseLang, setBaseLang] = useState<string>('한국어');
 
   const getNoticeCount = async () => {
     const notices = await getNotices();
@@ -17,10 +18,17 @@ export default function BottomButton() {
   };
 
   useEffect(() => {
-    getNoticeCount();
-    chrome.storage.local.get(['onOff'], (result) => {
-      if (result.onOff !== undefined) setOnOff(result.onOff);
-    });
+    const init = async () => {
+      try {
+        await getNoticeCount();
+        chrome.storage.local.get(['onOff'], (result) => {
+          if (result.onOff !== undefined) setOnOff(result.onOff);
+        });
+      } catch (error: unknown) {
+        if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      }
+    };
+    init();
   }, []);
 
   useEffect(() => {
@@ -63,7 +71,7 @@ export default function BottomButton() {
             {hasSub && (
               <>
                 <br />
-                <span>영상에 {preferLang} 자막이 있습니다</span>
+                <span>영상에 {baseLang} 자막이 있습니다</span>
               </>
             )}
           </>
