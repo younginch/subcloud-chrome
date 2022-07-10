@@ -27,16 +27,18 @@ export type SubtitleType = {
   rating: number;
   views: number;
   userName: string;
+  userId: string;
   uploadDate: Date;
 };
 
 type Props = {
   subs: SubtitleType[];
+  userId: string | undefined;
 };
 
-export default function Subtitle({ subs }: Props) {
+export default function Subtitle({ subs, userId }: Props) {
   const [lang, setLang] = useState<string | undefined>();
-  const getSubById = async (subId: string) => {
+  const getSubById = async (subId: string, subUserId: string) => {
     try {
       const tab = await getTab();
       const currentTime = document.querySelector('video')?.currentTime;
@@ -44,7 +46,7 @@ export default function Subtitle({ subs }: Props) {
       const sub = await getFile(subId);
       await chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
       await subView(subId);
-      if (duration && currentTime) {
+      if (duration && currentTime && userId !== subUserId) {
         await chrome.runtime.sendMessage({
           tag: MESSAGETAG.REVIEW,
           tabId: tab.id,
@@ -96,7 +98,7 @@ export default function Subtitle({ subs }: Props) {
                   }}
                   key={sub.id}
                   cursor="pointer"
-                  onClick={() => getSubById(sub.id)}
+                  onClick={() => getSubById(sub.id, sub.userId)}
                 >
                   <Td fontSize="16px">{sub.lang}</Td>
                   <Td fontSize="16px">

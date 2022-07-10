@@ -294,7 +294,7 @@ export default function Layout() {
                 )}
               </TabPanel>
               <TabPanel p={0}>
-                <Subtitle subs={subs} />
+                <Subtitle subs={subs} userId={user?.id} />
               </TabPanel>
               <TabPanel p={0}>
                 <Upload />

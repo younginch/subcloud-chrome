@@ -22,6 +22,7 @@ async function getSubs(videoId: string, serviceId: string) {
                 ) / sub.ratings.length,
           views: sub.views,
           userName: sub.user.name,
+          userId: sub.user.id,
           uploadDate: sub.updatedAt,
         });
       }
