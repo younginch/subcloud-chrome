@@ -98,7 +98,10 @@ export default function Subtitle({ subs, userId }: Props) {
                   }}
                   key={sub.id}
                   cursor="pointer"
-                  onClick={() => getSubById(sub.id, sub.userId)}
+                  onClick={() => {
+                    getSubById(sub.id, sub.userId);
+                    closeMainModal();
+                  }}
                 >
                   <Td fontSize="16px">{sub.lang}</Td>
                   <Td fontSize="16px">

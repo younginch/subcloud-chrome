@@ -255,8 +255,10 @@ describe('Pages and Components', () => {
               views: 0,
               userName: '',
               uploadDate: date,
+              userId: 'mingyu',
             },
           ]}
+          userId="lee"
         />
       </ChakraProvider>
     );
@@ -513,10 +515,10 @@ describe('Pages and Components', () => {
     expect(removeResult).toBeTruthy();
   });
 
-  it('test toggleMainModal fail', () => {
+  it('test toggleMainModal fail but return true', () => {
     jest.spyOn(document, 'getElementById').mockImplementation(() => null);
     const toggleResult = toggleMainModal();
-    expect(toggleResult).toBeFalsy();
+    expect(toggleResult).toBeTruthy();
   });
 
   it('test calculateLayout returns undefined', () => {

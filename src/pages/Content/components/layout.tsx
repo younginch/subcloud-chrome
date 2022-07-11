@@ -263,7 +263,7 @@ export default function Layout() {
                     position="absolute"
                     pl="3px"
                     pr="3px"
-                    ml="18px"
+                    ml="20px"
                     mt="-40px"
                     color="white"
                   >
