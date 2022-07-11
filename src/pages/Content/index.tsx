@@ -33,8 +33,9 @@ const theme = extendTheme({
  * msg를 담고있는 toast생성
  * @param {ToastType} type 토스트 타입
  * @param {String} msg 메세지 내용
+ * @param {String} delay 토스트가 띄워져 있는 시간
  */
-function toast(type: ToastType, msg: string) {
+function toast(type: ToastType, msg: string, delay = 5000) {
   const toastText = document.getElementById('toast-message');
   const toastHeader = document.getElementById('0-toast-header');
   const toastBody = document.getElementById('liveToast');
@@ -59,8 +60,10 @@ function toast(type: ToastType, msg: string) {
       toastHeader.style.backgroundColor = '#E53E3E';
       toastBody.style.backgroundColor = '#EA6868';
   }
-
-  const toastElement = new bootstrap.Toast(toastBody);
+  const options = {
+    delay,
+  };
+  const toastElement = new bootstrap.Toast(toastBody, options);
   toastElement.show();
 }
 
