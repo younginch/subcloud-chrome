@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { Box, ChakraProvider, extendTheme, Table } from '@chakra-ui/react';
 import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 import React from 'react';
@@ -61,6 +61,13 @@ import createTab from '../pages/Content/utils/createTab';
 describe('Pages and Components', () => {
   beforeAll(() => {
     jest.spyOn(sendMessage, 'default').mockResolvedValue({ data: 1 });
+    global.chrome = {
+      ...global.chrome,
+      i18n: {
+        ...global.chrome.i18n,
+        getMessage: jest.fn(),
+      },
+    };
   });
 
   it('renders QuickSubtitleRequest', async () => {
@@ -141,6 +148,18 @@ describe('Pages and Components', () => {
   });
 
   it('render SubtitleComponent', async () => {
+    jest.spyOn(chrome.storage.local, 'get').mockImplementationOnce((key, cb) =>
+      cb({
+        subtitle: [],
+        isBorder: undefined,
+        isBackGround: undefined,
+        sliderValue: undefined,
+        fontColor: undefined,
+        fontBorderColor: undefined,
+        fontBgColor: undefined,
+      })
+    );
+
     render(<SubtitleComponent />);
   });
 
@@ -345,6 +364,11 @@ describe('Pages and Components', () => {
   });
 
   it('render CheckSubtitle', async () => {
+    jest
+      .spyOn(document, 'getElementById')
+      .mockImplementation(
+        () => ({ click: jest.fn() } as unknown as HTMLElement)
+      );
     render(
       <ChakraProvider>
         <CheckSubtitle

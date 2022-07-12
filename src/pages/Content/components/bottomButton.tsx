@@ -15,7 +15,6 @@ import toast, { ToastType } from '../utils/toast';
 import CSSResetCustom from './cssResetCustom';
 import { SubcloudIcon } from './icons';
 import MainModal from './mainModal';
-import replaceNeeded from '../helpers/replaceNeeded';
 import getTab from '../utils/getTab';
 
 const theme = extendTheme({
