@@ -41,7 +41,7 @@ type PointElement = {
 };
 
 type Props = {
-  videoData: Video;
+  videoData?: Video;
 };
 
 export default function HomeNoSub({ videoData }: Props) {
@@ -104,6 +104,7 @@ export default function HomeNoSub({ videoData }: Props) {
   const sendRequest = async () => {
     try {
       if (!lang) throw new Error('language not selected');
+      if (!videoData) throw new Error('video not loaded');
       await request(videoData.serviceId, videoData.videoId, lang, point);
       const cnt = await requestCount(videoData.serviceId, videoData.videoId);
       setCount(cnt);
@@ -116,8 +117,13 @@ export default function HomeNoSub({ videoData }: Props) {
   useEffect(() => {
     const getRequestCount = async () => {
       try {
-        const cnt = await requestCount(videoData.serviceId, videoData.videoId);
-        setCount(cnt);
+        if (videoData) {
+          const cnt = await requestCount(
+            videoData.serviceId,
+            videoData.videoId
+          );
+          setCount(cnt);
+        }
       } catch (error: unknown) {
         if (error instanceof Error) toast(ToastType.ERROR, error.message);
       }
@@ -126,21 +132,26 @@ export default function HomeNoSub({ videoData }: Props) {
     const getVideoInfo = async () => {
       try {
         const tab = await getTab();
-        const { youtubeVideo } = videoData;
-        let replaceUrl = tab.url.replace('https://youtu.be/', '');
-        replaceUrl = replaceUrl.replace('https://www.youtube.com/embed/', '');
-        replaceUrl = replaceUrl.replace('https://www.youtube.com/watch?v=', '');
-        const finUrl = replaceUrl.split('&')[0];
-        setYoutubeVideoInfo({
-          thumbnailUrl: `http://img.youtube.com/vi/${finUrl}/0.jpg`,
-          title: youtubeVideo?.title ?? '',
-          channel: {
-            title: youtubeVideo?.channel.title ?? '',
-            subscriberCount: youtubeVideo?.channel.subscriberCount ?? 0,
-            thumbnailUrl: youtubeVideo?.channel.thumbnailUrl ?? '',
-          },
-        });
-        setIsLoaded(true);
+        if (videoData) {
+          const { youtubeVideo } = videoData;
+          let replaceUrl = tab.url.replace('https://youtu.be/', '');
+          replaceUrl = replaceUrl.replace('https://www.youtube.com/embed/', '');
+          replaceUrl = replaceUrl.replace(
+            'https://www.youtube.com/watch?v=',
+            ''
+          );
+          const finUrl = replaceUrl.split('&')[0];
+          setYoutubeVideoInfo({
+            thumbnailUrl: `http://img.youtube.com/vi/${finUrl}/0.jpg`,
+            title: youtubeVideo?.title ?? '',
+            channel: {
+              title: youtubeVideo?.channel.title ?? '',
+              subscriberCount: youtubeVideo?.channel.subscriberCount ?? 0,
+              thumbnailUrl: youtubeVideo?.channel.thumbnailUrl ?? '',
+            },
+          });
+          setIsLoaded(true);
+        }
       } catch (error: unknown) {
         if (error instanceof Error) toast(ToastType.ERROR, error.message);
       }
@@ -342,3 +353,7 @@ export default function HomeNoSub({ videoData }: Props) {
     </Stack>
   );
 }
+
+HomeNoSub.defaultProps = {
+  videoData: undefined,
+};

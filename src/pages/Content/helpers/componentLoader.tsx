@@ -37,6 +37,7 @@ export default function componentLoader({
     for (let i = 0; i < classList.length; i += 1) {
       if (classList[i].includes('SubCloud_')) {
         const t = Number(classList[i].replace('SubCloud_', ''));
+        console.log('이양반아 ', targetId, 'dt = ', Date.now() - t);
         if (Date.now() - t >= 2000) targetElement.remove();
         else return true;
       }

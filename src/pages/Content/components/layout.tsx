@@ -287,7 +287,7 @@ export default function Layout() {
           <Box w="700px" h="100%" m="0px !important" overflow="hidden">
             <TabPanels>
               <TabPanel p={0}>
-                {videoData && isLogin ? (
+                {isLogin ? (
                   <HomeNoSub videoData={videoData} />
                 ) : (
                   <HomeLoginFirst />
