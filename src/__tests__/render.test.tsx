@@ -511,14 +511,14 @@ describe('Pages and Components', () => {
           classList: { contains: () => false, add: jest.fn() },
         } as unknown as HTMLElement)
     );
-    const removeResult = toggleMainModal();
-    expect(removeResult).toBeTruthy();
+    const addResult = toggleMainModal();
+    expect(addResult).toBeTruthy();
   });
 
   it('test toggleMainModal fail but return true', () => {
     jest.spyOn(document, 'getElementById').mockImplementation(() => null);
     const toggleResult = toggleMainModal();
-    expect(toggleResult).toBeTruthy();
+    expect(toggleResult).toBeFalsy();
   });
 
   it('test calculateLayout returns undefined', () => {

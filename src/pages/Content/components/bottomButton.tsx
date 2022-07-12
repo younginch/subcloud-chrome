@@ -16,6 +16,7 @@ import CSSResetCustom from './cssResetCustom';
 import { SubcloudIcon } from './icons';
 import MainModal from './mainModal';
 import replaceNeeded from '../helpers/replaceNeeded';
+import getTab from '../utils/getTab';
 
 const theme = extendTheme({
   initialColorMode: 'dark',
@@ -33,18 +34,23 @@ const theme = extendTheme({
   },
 });
 
-const onClickBtn = () => {
+const onClickBtn = async () => {
   const mainModal = document.getElementById('subcloud-main-modal');
+  const tab = await getTab();
 
   if (mainModal) {
-    if (replaceNeeded('subcloud-main-modal')) {
+    const { load } = await chrome.storage.local.get(['load']);
+    if (!load || load.url !== tab.url) {
       mainModal.remove();
     } else if (mainModal.classList.contains('modal-visible')) {
       mainModal.classList.remove('modal-visible');
+      return;
     } else {
       mainModal.classList.add('modal-visible');
+      return;
     }
   }
+
   const loadMainModal = setInterval(() => {
     if (
       componentLoader({
@@ -61,6 +67,11 @@ const onClickBtn = () => {
         attachType: AttachType.PREPEND,
       })
     ) {
+      chrome.storage.local.set({
+        load: {
+          url: tab.url,
+        },
+      });
       clearInterval(loadMainModal);
     }
   }, 100);
