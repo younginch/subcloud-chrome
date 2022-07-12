@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "SubCloud",
+  "name": "__MSG_appName__",
   "key": "fkmkkggkdibonlkgdnjboagmfgdoagaa",
-  "description": "A chrome extension boilerplate built with React 17, Webpack 5, and Webpack Dev Server 4",
+  "description": "__MSG_appDesc__",
+  "default_locale": "en",
   "options_page": "options.html",
   "background": { "service_worker": "background.bundle.js" },
   "action": {

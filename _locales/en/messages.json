@@ -1,0 +1,13 @@
+{
+    "appName": {
+        "message": "SubCloud",
+        "description": "The description of the extension, displayed in the web store."
+    },
+    "appDesc": {
+        "message": "Request or Make Subtitles for Youtube",
+        "description": "The description of the extension, displayed in the web store."
+    },
+    "QuickSubtitleRequest_requestMsg" : {
+        "message": "Request Subtitle"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "appName": {
+        "message": "SubCloud"
+    },
+    "appDesc": {
+        "message": "유튜브 영상들에 대해 자막을 요청하거나 제작하세요"
+    },
+    "QuickSubtitleRequest_requestMsg" : {
+        "message": "자막 요청"
+    }
+}
