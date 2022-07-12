@@ -580,7 +580,9 @@ describe('Pages and Components', () => {
   });
 
   it('test sub returns infomation', async () => {
-    jest.spyOn(Fetch, 'getFetch').mockImplementation(async () => '');
+    jest
+      .spyOn(Fetch, 'getFetch')
+      .mockImplementation(async () => ({ data: '' }));
     const msg = await sub.default('1');
     expect(msg).toBeDefined();
   });
@@ -637,7 +639,9 @@ describe('Pages and Components', () => {
   });
 
   it('test changeNotices returns infomation', async () => {
-    jest.spyOn(Fetch, 'patchFetch').mockImplementation(async () => '1');
+    jest
+      .spyOn(Fetch, 'patchFetch')
+      .mockImplementation(async () => ({ data: '1' }));
     const msg = await notice.changeNotices('');
     expect(msg).toBeDefined();
   });
@@ -651,7 +655,9 @@ describe('Pages and Components', () => {
   });
 
   it('test deleteNotices returns infomation', async () => {
-    jest.spyOn(Fetch, 'deleteFetch').mockImplementation(async () => '1');
+    jest
+      .spyOn(Fetch, 'deleteFetch')
+      .mockImplementation(async () => ({ data: '1' }));
     const msg = await notice.deleteNotices('');
     expect(msg).toBeDefined();
   });

@@ -40,10 +40,14 @@ export default function QuickSubtitleRequest() {
 
   useEffect(() => {
     const getLangs = async () => {
-      const { requestLangs } = await getLang();
-      if (requestLangs && requestLangs.length > 0) {
-        setRequestLang(requestLangs[0]);
-        setLang(requestLangs[0]);
+      try {
+        const { requestLangs } = await getLang();
+        if (requestLangs && requestLangs.length > 0) {
+          setRequestLang(requestLangs[0]);
+          setLang(requestLangs[0]);
+        }
+      } catch (error: unknown) {
+        if (error instanceof Error) toast(ToastType.ERROR, 'server error');
       }
     };
     getLangs();

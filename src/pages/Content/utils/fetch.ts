@@ -6,7 +6,7 @@ async function getFetch(url: string) {
     tag: MESSAGETAG.GETAPI,
     url,
   });
-  return res.data;
+  return res;
 }
 
 async function postFetch(url: string, body: object) {
@@ -15,7 +15,7 @@ async function postFetch(url: string, body: object) {
     url,
     body,
   });
-  return res.data;
+  return res;
 }
 
 async function deleteFetch(url: string, body: object) {
@@ -24,7 +24,7 @@ async function deleteFetch(url: string, body: object) {
     url,
     body,
   });
-  return res.data;
+  return res;
 }
 
 async function patchFetch(url: string, body: object) {
@@ -33,7 +33,7 @@ async function patchFetch(url: string, body: object) {
     url,
     body,
   });
-  return res.data;
+  return res;
 }
 
 export { getFetch, postFetch, deleteFetch, patchFetch };

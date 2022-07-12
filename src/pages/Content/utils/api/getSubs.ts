@@ -2,7 +2,7 @@ import { Status } from '../../../../../utils/type';
 import { getFetch } from '../fetch';
 
 async function getSubs(videoId: string, serviceId: string) {
-  const subs = await getFetch(
+  const { data: subs } = await getFetch(
     `public/search/sub?videoId=${videoId}&serviceId=${serviceId}`
   );
   const subArray = [];

@@ -1,13 +1,15 @@
 import { MESSAGETAG } from '../../../utils/type';
+import { APIError, Warning } from '../../../utils/error';
 import { ToastType } from '../Content/utils/toast';
 
 async function getTab() {
   const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  return tab;
+  return new Response(JSON.stringify(tab), { status: 200 });
 }
 
 async function createTab(url: string) {
-  chrome.tabs.create({ url });
+  const tab = await chrome.tabs.create({ url });
+  return new Response(JSON.stringify(tab), { status: 200 });
 }
 
 async function getAPI(url: string) {
@@ -19,8 +21,7 @@ async function getAPI(url: string) {
     credentials: 'same-origin',
     mode: 'no-cors',
   });
-  const data = await res.json();
-  return data;
+  return res;
 }
 
 async function postAPI(url: string, body: object) {
@@ -32,8 +33,7 @@ async function postAPI(url: string, body: object) {
     credentials: 'same-origin',
     body: JSON.stringify(body),
   });
-  const data = await res.json();
-  return data;
+  return res;
 }
 
 async function deleteAPI(url: string, body: object) {
@@ -45,8 +45,7 @@ async function deleteAPI(url: string, body: object) {
     credentials: 'same-origin',
     body: JSON.stringify(body),
   });
-  const data = await res.json();
-  return data;
+  return res;
 }
 
 async function patchAPI(url: string, body: object) {
@@ -58,13 +57,13 @@ async function patchAPI(url: string, body: object) {
     credentials: 'same-origin',
     body: JSON.stringify(body),
   });
-  const data = await res.json();
-  return data;
+  return res;
 }
 
 async function getFile(sendResponse: (res: object) => void, fileId: string) {
   try {
-    const fileObject = await getAPI(`user/file?id=${fileId}`);
+    const fileRes = await getAPI(`user/file?id=${fileId}`);
+    const fileObject = await fileRes.json();
     const rawFile = await fetch(fileObject.url);
     const blobFile = await rawFile.blob();
     const file = new File([blobFile], fileObject.title, {
@@ -76,8 +75,13 @@ async function getFile(sendResponse: (res: object) => void, fileId: string) {
       sendResponse({ data: String(reader.result), type: 'success' });
     };
   } catch (error: unknown) {
-    if (error instanceof Error)
+    if (error instanceof APIError) {
+      sendResponse({ error: error.message, type: 'apierror' });
+    } else if (error instanceof Warning) {
+      sendResponse({ error: error.message, type: 'warning' });
+    } else if (error instanceof Error) {
       sendResponse({ error: error.message, type: 'error' });
+    }
   }
 }
 
@@ -92,7 +96,8 @@ async function uploadFile(
     const file = new File([fileText], fileName);
     const formData = new FormData();
     formData.append('file', file);
-    const videoData = await postAPI('user/video', { url });
+    const videoRes = await postAPI('user/video', { url });
+    const videoData = await videoRes.json();
     const fileResponse = await fetch(`${API_URL}/api/user/file/upload`, {
       method: 'POST',
       body: formData,
@@ -106,7 +111,11 @@ async function uploadFile(
     });
     sendResponse({ data, type: 'success' });
   } catch (error: unknown) {
-    if (error instanceof Error) {
+    if (error instanceof APIError) {
+      sendResponse({ error: error.message, type: 'apierror' });
+    } else if (error instanceof Warning) {
+      sendResponse({ error: error.message, type: 'warning' });
+    } else if (error instanceof Error) {
       sendResponse({ error: error.message, type: 'error' });
     }
   }
@@ -126,22 +135,45 @@ async function sendToast(
   }
 }
 
-async function sendReview(tabId: number, subId: string, time: number) {
+async function sendReview(
+  sendResponse: (res: object) => void,
+  tabId: number,
+  subId: string,
+  time: number
+) {
   setTimeout(() => {
-    chrome.tabs.sendMessage(tabId, { tag: MESSAGETAG.REVIEW, subId });
+    try {
+      chrome.tabs.sendMessage(tabId, { tag: MESSAGETAG.REVIEW, subId });
+    } catch (error: unknown) {
+      if (error instanceof Error)
+        sendResponse({ error: error.message, type: 'error' });
+    }
   }, time * 1000);
 }
 
 async function sendMessage(
   sendResponse: (res: object) => void,
-  func: () => Promise<unknown>
+  func: () => Promise<Response>
 ) {
   try {
-    const data = await func();
+    const res = await func();
+    if (!res.ok) {
+      if (res.status === 409) {
+        const data = await res.json();
+        sendResponse({ data, type: 'warning' });
+      }
+      throw new APIError(
+        `Request failed status code: ${res.status} (request API)`
+      );
+    }
+    const data = await res.json();
     sendResponse({ data, type: 'success' });
   } catch (error: unknown) {
-    if (error instanceof Error)
+    if (error instanceof APIError) {
+      sendResponse({ error: error.message, type: 'apierror' });
+    } else if (error instanceof Error) {
       sendResponse({ error: error.message, type: 'error' });
+    }
   }
 }
 
@@ -196,9 +228,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       sendToast(sendResponse, message.tabId, message.toastType, message.msg);
       return true;
     case MESSAGETAG.REVIEW:
-      sendMessage(sendResponse, () =>
-        sendReview(message.tabId, message.subId, message.time)
-      );
+      sendReview(sendResponse, message.tabId, message.subId, message.time);
       return true;
     default:
       throw new Error('');

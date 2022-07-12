@@ -7,7 +7,6 @@ import getSubs from '../utils/api/getSubs';
 import { getNotices } from '../utils/api/notice';
 import video from '../utils/api/video';
 import getTab from '../utils/getTab';
-import toast, { ToastType } from '../utils/toast';
 import { SubcloudIcon } from './icons';
 
 export default function BottomButton() {
@@ -48,7 +47,7 @@ export default function BottomButton() {
           if (result.onOff !== undefined) setOnOff(result.onOff);
         });
       } catch (error: unknown) {
-        if (error instanceof Error) toast(ToastType.ERROR, error.message);
+        if (error instanceof Error) console.log('server error');
       }
     };
     init();
