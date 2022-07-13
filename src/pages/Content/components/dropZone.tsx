@@ -74,27 +74,11 @@ export default function DropZone({
         totalFiles.push(e.dataTransfer.files[i]);
       }
     }
-    /*
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0].id !== undefined) {
-        if (checkValidFiles(tabs[0].id, totalFiles)) setFiles(totalFiles);
-      }
-    });
-    */
     setFiles(totalFiles);
     uploadCallback();
   };
 
   const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    /*
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0].id !== undefined) {
-        if (e.target.files !== null) {
-          if (checkValidFiles(tabs[0].id, e.target.files)) setFiles([e.target.files[0]]);
-        }
-      }
-    });
-    */
     if (e.target.files !== null) {
       setFiles([e.target.files[0]]);
       uploadCallback();
