@@ -25,6 +25,7 @@ import SelectLang from './selectLang';
 export default function QuickSubtitleRequest() {
   const [requestLang, setRequestLang] = useState<string>();
   const [lang, setLang] = useState<string | undefined>();
+  const t = chrome.i18n.getMessage;
 
   const sendRequest = async () => {
     try {
@@ -59,7 +60,7 @@ export default function QuickSubtitleRequest() {
           h="30px"
           onClick={sendRequest}
         >
-          Request Subtitle
+          {t('QuickSubtitleRequest_requestMsg')}
         </Button>
       ) : (
         <Popover placement="bottom">

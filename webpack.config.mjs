@@ -192,6 +192,15 @@ const options = {
         },
       ],
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: '_locales',
+          to: join(dirname, 'build/_locales'),
+          force: true,
+        },
+      ],
+    }),
     new HtmlWebpackPlugin({
       template: join(dirname, 'src', 'pages', 'Newtab', 'index.html'),
       filename: 'newtab.html',
