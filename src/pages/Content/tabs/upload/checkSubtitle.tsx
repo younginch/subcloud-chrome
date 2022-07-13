@@ -19,6 +19,7 @@ import getTab from '../../utils/getTab';
 import uploadFile from '../../utils/api/uploadFile';
 import SelectLang from '../../components/selectLang';
 import { VideoCreateSchema } from '../../../../commons/schema';
+import { Warning } from '../../../../../utils/error';
 
 type Props = {
   files: File[] | undefined;
@@ -46,9 +47,9 @@ export default function CheckSubtitle({
   const preview = async () => {
     try {
       if (sub) chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
-      await toast(ToastType.SUCCESS, 'preview started');
+      await toast(ToastType.SUCCESS, 'Preview started');
     } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, `Error at preview`);
     }
   };
 
@@ -60,15 +61,17 @@ export default function CheckSubtitle({
       reader.readAsText(files[0]);
       reader.onload = () => {
         try {
-          if (!lang) throw new Error('language not selected');
+          if (!lang) throw new Error('Language not selected');
           uploadFile(String(reader.result), files[0].name, tab.url, lang);
         } catch (error: unknown) {
           if (error instanceof Error) toast(ToastType.ERROR, error.message);
+          else if (!lang && error instanceof Warning)
+            toast(ToastType.WARNING, error.message);
         }
       };
-      await toast(ToastType.SUCCESS, 'subtitle uploaded');
+      await toast(ToastType.SUCCESS, 'Subtitle uploaded');
     } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, `Error at upload`);
     }
   };
 
@@ -98,7 +101,11 @@ export default function CheckSubtitle({
         }
       };
     } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      if (error instanceof Error)
+        toast(
+          ToastType.ERROR,
+          `Error at checking file format: ${error.message}`
+        );
     }
   }, [files]);
 

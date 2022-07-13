@@ -8,14 +8,13 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import Switch from 'react-switch';
+import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 import getLang from '../utils/api/getLang';
 import getSubs from '../utils/api/getSubs';
 import { getNotices } from '../utils/api/notice';
 import video from '../utils/api/video';
 import getTab from '../utils/getTab';
-import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 import componentLoader, { AttachType } from '../helpers/componentLoader';
-import toast, { ToastType } from '../utils/toast';
 import CSSResetCustom from './cssResetCustom';
 import { SubcloudIcon } from './icons';
 import MainModal from './mainModal';
@@ -125,9 +124,6 @@ export default function BottomButton() {
         await getNoticeCount();
         await getLangs();
         await getHasSub();
-        chrome.storage.local.get(['onOff'], (result) => {
-          if (result.onOff !== undefined) setOnOff(result.onOff);
-        });
       } catch (error: unknown) {
         if (error instanceof Error) console.log('server error');
       }
@@ -136,7 +132,21 @@ export default function BottomButton() {
   }, [baseLang]);
 
   useEffect(() => {
-    chrome.storage.local.set({ onOff });
+    try {
+      chrome.storage.local.get(['onOff'], (result) => {
+        if (result.onOff !== undefined) setOnOff(result.onOff);
+      });
+    } catch (error: unknown) {
+      if (error instanceof Error) console.log('server error');
+    }
+  }, []);
+
+  useEffect(() => {
+    try {
+      chrome.storage.local.set({ onOff });
+    } catch (error: unknown) {
+      if (error instanceof Error) console.log('server error');
+    }
   }, [onOff]);
 
   return (

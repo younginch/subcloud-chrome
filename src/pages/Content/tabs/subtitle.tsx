@@ -46,6 +46,7 @@ export default function Subtitle({ subs, userId }: Props) {
       const sub = await getFile(subId);
       await chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
       await subView(subId);
+      await toast(ToastType.SUCCESS, 'Subtitle selected');
       if (duration && currentTime && userId !== subUserId) {
         await chrome.runtime.sendMessage({
           tag: MESSAGETAG.REVIEW,
@@ -54,10 +55,9 @@ export default function Subtitle({ subs, userId }: Props) {
           time: (duration - currentTime) * 0.7,
         });
       }
-      await toast(ToastType.SUCCESS, 'subtitle selected');
-      closeMainModal();
     } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      if (error instanceof Error)
+        toast(ToastType.ERROR, `Error at selecting subtitle: ${error.message}`); // maybe change to console.log or other ways
     }
   };
 
@@ -101,6 +101,7 @@ export default function Subtitle({ subs, userId }: Props) {
                   onClick={() => {
                     getSubById(sub.id, sub.userId);
                     closeMainModal();
+                    document.getElementById('subcloud-main-modal')?.remove();
                   }}
                 >
                   <Td fontSize="16px">{sub.lang}</Td>

@@ -63,6 +63,7 @@ export default function ReviewComponent({ duration, subId }: Props) {
     ).value;
     await sendRating(subId, rating, message);
     document.getElementById('subcloud-review-placer')?.remove();
+    document.getElementById('subcloud-main-modal')?.remove();
   };
 
   useEffect(() => {

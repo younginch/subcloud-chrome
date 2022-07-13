@@ -1,5 +1,5 @@
 import { SRTFile } from '@younginch/subtitle';
-import { Text, useInterval } from '@chakra-ui/react';
+import { useInterval } from '@chakra-ui/react';
 import { useState } from 'react';
 import { RGBColor } from 'react-color';
 import calculateLayout from '../helpers/calculateLayout';
@@ -89,7 +89,8 @@ export default function SubtitleComponent() {
       }
       if (!isSubtitle) setTextArray([]);
     } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      if (error instanceof Error)
+        toast(ToastType.ERROR, `Error at showing subtitle: ${error.message}`); // maybe change to console.log or other ways
     }
   }, 10);
 

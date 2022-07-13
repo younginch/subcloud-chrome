@@ -83,7 +83,7 @@ export default function Layout() {
         setIsLogin(true);
       }
     } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, 'server error');
+      if (error instanceof Error) toast(ToastType.ERROR, 'Server error');
     }
   }
 
@@ -94,7 +94,7 @@ export default function Layout() {
         const data = await video(tab.url);
         setVideoData(data);
       } catch (error: unknown) {
-        if (error instanceof Error) toast(ToastType.ERROR, 'server error');
+        if (error instanceof Error) toast(ToastType.ERROR, 'Server error'); // maybe change to console.log other ways
       }
     }
 
@@ -106,7 +106,7 @@ export default function Layout() {
           if (data.length !== 0) setTabIndex(1);
         }
       } catch (error: unknown) {
-        if (error instanceof Error) toast(ToastType.ERROR, 'server error');
+        if (error instanceof Error) toast(ToastType.ERROR, 'Server error'); // maybe change to console.log or other ways
       }
     }
 
@@ -149,7 +149,7 @@ export default function Layout() {
         setReadNotifications(read);
         setUnreadNotifications(unread);
       } catch (error: unknown) {
-        if (error instanceof Error) toast(ToastType.ERROR, 'server error');
+        if (error instanceof Error) toast(ToastType.ERROR, 'Server error'); // maybe change to console.log or other ways
       }
     }
 

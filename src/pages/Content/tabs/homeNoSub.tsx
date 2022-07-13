@@ -33,6 +33,7 @@ import SelectLang from '../components/selectLang';
 import { Video, YoutubeVideoInfo } from '../../../../utils/type';
 import getLang from '../utils/api/getLang';
 import changeRequestLang from '../utils/api/changeRequestLang';
+import { APIError, Warning } from '../../../../utils/error';
 
 type PointElement = {
   amount: number;
@@ -103,14 +104,25 @@ export default function HomeNoSub({ videoData }: Props) {
 
   const sendRequest = async () => {
     try {
-      if (!lang) throw new Error('language not selected');
-      if (!videoData) throw new Error('video not loaded');
+      if (!videoData) throw new Error('Video not loaded');
+      if (!lang) throw new Warning('Language not selected');
       await request(videoData.serviceId, videoData.videoId, lang, point);
       const cnt = await requestCount(videoData.serviceId, videoData.videoId);
       setCount(cnt);
-      await toast(ToastType.SUCCESS, 'request sent');
+      await toast(
+        ToastType.SUCCESS,
+        `Request sent in ${ISO6391.getNativeName(lang)}`
+      );
     } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      if (error instanceof APIError) toast(ToastType.ERROR, 'Server error');
+      else if (lang && error instanceof Warning)
+        toast(
+          ToastType.WARNING,
+          `Request already sent in ${ISO6391.getNativeName(lang)}`
+        );
+      else if (!lang && error instanceof Warning)
+        toast(ToastType.WARNING, error.message);
+      else if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   };
 
@@ -125,7 +137,11 @@ export default function HomeNoSub({ videoData }: Props) {
           setCount(cnt);
         }
       } catch (error: unknown) {
-        if (error instanceof Error) toast(ToastType.ERROR, error.message);
+        if (error instanceof Error)
+          toast(
+            ToastType.ERROR,
+            `Error at showing request count: ${error.message}`
+          ); // // maybe change to console.log or other ways
       }
     };
 
@@ -153,13 +169,22 @@ export default function HomeNoSub({ videoData }: Props) {
           setIsLoaded(true);
         }
       } catch (error: unknown) {
-        if (error instanceof Error) toast(ToastType.ERROR, error.message);
+        if (error instanceof Error)
+          toast(
+            ToastType.ERROR,
+            `Error at getting videoInfo: ${error.message}`
+          ); // maybe change to console.log or other ways
       }
     };
 
     const getLangs = async () => {
-      const { requestLangs } = await getLang();
-      if (requestLangs && requestLangs.length > 0) setLang(requestLangs[0]);
+      try {
+        const { requestLangs } = await getLang();
+        if (requestLangs && requestLangs.length > 0) setLang(requestLangs[0]);
+      } catch (error: unknown) {
+        if (error instanceof Error)
+          toast(ToastType.ERROR, `Error at getting langs: ${error.message}`); // maybe change to console.log or other ways
+      }
     };
 
     const init = async () => {
@@ -171,8 +196,16 @@ export default function HomeNoSub({ videoData }: Props) {
   }, [videoData]);
 
   const changeLang = async () => {
-    if (lang && !check) await changeRequestLang(lang);
-    setCheck(!check);
+    try {
+      if (lang && !check) await changeRequestLang(lang);
+      setCheck(!check);
+    } catch (error: unknown) {
+      if (error instanceof Error)
+        toast(
+          ToastType.ERROR,
+          `Error at changing request lang: ${error.message}`
+        ); // maybe change to console.log or other ways
+    }
   };
 
   return (

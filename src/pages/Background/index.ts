@@ -129,6 +129,7 @@ async function sendToast(
 ) {
   try {
     chrome.tabs.sendMessage(tabId, { tag: MESSAGETAG.TOAST, toastType, msg });
+    sendResponse({ data: {}, type: 'success' });
   } catch (error: unknown) {
     if (error instanceof Error)
       sendResponse({ error: error.message, type: 'error' });
@@ -144,6 +145,7 @@ async function sendReview(
   setTimeout(() => {
     try {
       chrome.tabs.sendMessage(tabId, { tag: MESSAGETAG.REVIEW, subId });
+      sendResponse({ data: {}, type: 'success' });
     } catch (error: unknown) {
       if (error instanceof Error)
         sendResponse({ error: error.message, type: 'error' });
@@ -161,13 +163,15 @@ async function sendMessage(
       if (res.status === 409) {
         const data = await res.json();
         sendResponse({ data, type: 'warning' });
+      } else {
+        throw new APIError(
+          `Request failed status code: ${res.status} (request API)`
+        );
       }
-      throw new APIError(
-        `Request failed status code: ${res.status} (request API)`
-      );
+    } else {
+      const data = await res.json();
+      sendResponse({ data, type: 'success' });
     }
-    const data = await res.json();
-    sendResponse({ data, type: 'success' });
   } catch (error: unknown) {
     if (error instanceof APIError) {
       sendResponse({ error: error.message, type: 'apierror' });
@@ -188,6 +192,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
       if (lastError) {
         chrome.tabs.reload(tabId);
       }
+      return true;
     });
   }
 });
