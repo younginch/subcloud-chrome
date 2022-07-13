@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import {
   Tabs,
   TabList,
@@ -70,7 +71,7 @@ export default function Layout() {
 
   async function getUserInfo() {
     try {
-      const data = await getFetch('auth/session');
+      const { data } = await getFetch('auth/session');
       if (data && data.user) {
         setUser({
           id: data.user.id,
@@ -82,7 +83,7 @@ export default function Layout() {
         setIsLogin(true);
       }
     } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      if (error instanceof Error) toast(ToastType.ERROR, 'server error');
     }
   }
 
@@ -93,7 +94,7 @@ export default function Layout() {
         const data = await video(tab.url);
         setVideoData(data);
       } catch (error: unknown) {
-        if (error instanceof Error) toast(ToastType.ERROR, error.message);
+        if (error instanceof Error) toast(ToastType.ERROR, 'server error');
       }
     }
 
@@ -105,7 +106,7 @@ export default function Layout() {
           if (data.length !== 0) setTabIndex(1);
         }
       } catch (error: unknown) {
-        if (error instanceof Error) toast(ToastType.ERROR, error.message);
+        if (error instanceof Error) toast(ToastType.ERROR, 'server error');
       }
     }
 
@@ -148,7 +149,7 @@ export default function Layout() {
         setReadNotifications(read);
         setUnreadNotifications(unread);
       } catch (error: unknown) {
-        if (error instanceof Error) toast(ToastType.ERROR, error.message);
+        if (error instanceof Error) toast(ToastType.ERROR, 'server error');
       }
     }
 
@@ -186,8 +187,8 @@ export default function Layout() {
         <Heading
           fontSize="3xl"
           ml="15px !important"
-          onClick={() => {
-            createTab(`${API_URL}`);
+          onClick={async () => {
+            await createTab(`${API_URL}`);
           }}
           cursor="pointer"
         >

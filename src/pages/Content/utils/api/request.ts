@@ -1,3 +1,4 @@
+import { Warning } from '../../../../../utils/error';
 import { postFetch } from '../fetch';
 
 async function request(
@@ -6,12 +7,13 @@ async function request(
   lang: string,
   point: number
 ) {
-  const requestData = await postFetch('user/request', {
+  const { type } = await postFetch('user/request', {
     serviceId,
     videoId,
     lang,
     point,
   });
+  if (type === 'warning') throw new Warning('warning');
 }
 
 export default request;

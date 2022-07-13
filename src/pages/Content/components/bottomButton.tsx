@@ -8,14 +8,17 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import Switch from 'react-switch';
+import getLang from '../utils/api/getLang';
+import getSubs from '../utils/api/getSubs';
+import { getNotices } from '../utils/api/notice';
+import video from '../utils/api/video';
+import getTab from '../utils/getTab';
 import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 import componentLoader, { AttachType } from '../helpers/componentLoader';
-import { getNotices } from '../utils/api/notice';
 import toast, { ToastType } from '../utils/toast';
 import CSSResetCustom from './cssResetCustom';
 import { SubcloudIcon } from './icons';
 import MainModal from './mainModal';
-import getTab from '../utils/getTab';
 
 const theme = extendTheme({
   initialColorMode: 'dark',
@@ -94,24 +97,43 @@ export default function BottomButton() {
   const [hasSub, setHasSub] = useState<boolean>(false);
   const [baseLang, setBaseLang] = useState<string>('한국어');
 
-  const getNoticeCount = async () => {
-    const notices = await getNotices();
-    setNotifyCount(notices.filter((notice: any) => !notice.checked).length);
-  };
-
   useEffect(() => {
+    const getNoticeCount = async () => {
+      const notices = await getNotices();
+      setNotifyCount(notices.filter((notice: any) => !notice.checked).length);
+    };
+
+    const getLangs = async () => {
+      const { baseLangs } = await getLang();
+      if (baseLangs && baseLangs.length > 0) setBaseLang(baseLangs[0]);
+    };
+
+    const getHasSub = async () => {
+      const tab = await getTab();
+      const videoData = await video(tab.url);
+      const subs = await getSubs(videoData?.videoId, videoData?.serviceId);
+      setHasSub(
+        subs.reduce(
+          (prev: boolean, curr) => prev || curr.lang === baseLang,
+          false
+        )
+      );
+    };
+
     const init = async () => {
       try {
         await getNoticeCount();
+        await getLangs();
+        await getHasSub();
         chrome.storage.local.get(['onOff'], (result) => {
           if (result.onOff !== undefined) setOnOff(result.onOff);
         });
       } catch (error: unknown) {
-        if (error instanceof Error) toast(ToastType.ERROR, error.message);
+        if (error instanceof Error) console.log('server error');
       }
     };
     init();
-  }, []);
+  }, [baseLang]);
 
   useEffect(() => {
     chrome.storage.local.set({ onOff });

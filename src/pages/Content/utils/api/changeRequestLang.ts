@@ -1,7 +1,7 @@
 import { patchFetch } from '../fetch';
 
 async function changeRequestLang(requestLang: string) {
-  const data = patchFetch('user/lang', { requestLang });
+  const { data } = await patchFetch('user/lang', { requestLang });
   return data;
 }
 

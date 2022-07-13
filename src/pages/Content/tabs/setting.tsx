@@ -59,33 +59,36 @@ export default function Setting({ user }: Props) {
   };
 
   useEffect(() => {
-    try {
-      chrome.storage.local.get(
-        [
-          'isBorder',
-          'isBackGround',
-          'sliderValue',
-          'fontColor',
-          'fontBorderColor',
-          'fontBgColor',
-        ],
-        (result) => {
-          if (result.isBorder !== undefined) setIsBorder(result.isBorder);
-          if (result.isBackGround !== undefined)
-            setIsBackGround(result.isBackGround);
-          if (result.sliderValue !== undefined)
-            setSliderValue(result.sliderValue);
-          if (result.fontColor !== undefined) setFontColor(result.fontColor);
-          if (result.fontBorderColor !== undefined)
-            setFontBorderColor(result.fontBorderColor);
-          if (result.fontBgColor !== undefined)
-            setFontBgColor(result.fontBgColor);
-        }
-      );
-      getLangs();
-    } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
-    }
+    const init = async () => {
+      try {
+        chrome.storage.local.get(
+          [
+            'isBorder',
+            'isBackGround',
+            'sliderValue',
+            'fontColor',
+            'fontBorderColor',
+            'fontBgColor',
+          ],
+          (result) => {
+            if (result.isBorder !== undefined) setIsBorder(result.isBorder);
+            if (result.isBackGround !== undefined)
+              setIsBackGround(result.isBackGround);
+            if (result.sliderValue !== undefined)
+              setSliderValue(result.sliderValue);
+            if (result.fontColor !== undefined) setFontColor(result.fontColor);
+            if (result.fontBorderColor !== undefined)
+              setFontBorderColor(result.fontBorderColor);
+            if (result.fontBgColor !== undefined)
+              setFontBgColor(result.fontBgColor);
+          }
+        );
+        await getLangs();
+      } catch (error: unknown) {
+        if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      }
+    };
+    init();
   }, []);
 
   useEffect(() => {
