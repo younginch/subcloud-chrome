@@ -85,7 +85,8 @@ export default function Setting({ user }: Props) {
         );
         await getLangs();
       } catch (error: unknown) {
-        if (error instanceof Error) toast(ToastType.ERROR, error.message);
+        if (error instanceof Error)
+          toast(ToastType.ERROR, `Error at getting settings: ${error.message}`); // maybe change to console.log or other ways
       }
     };
     init();
@@ -102,7 +103,8 @@ export default function Setting({ user }: Props) {
         fontBgColor,
       });
     } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      if (error instanceof Error)
+        toast(ToastType.ERROR, `Error at changing settings: ${error.message}`);
     }
   }, [
     isBorder,
@@ -117,7 +119,11 @@ export default function Setting({ user }: Props) {
     try {
       if (requestLang) changeRequestLang(requestLang);
     } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      if (error instanceof Error)
+        toast(
+          ToastType.ERROR,
+          `Error at changing request lang: ${error.message}`
+        );
     }
   }, [requestLang]);
 
@@ -125,7 +131,11 @@ export default function Setting({ user }: Props) {
     try {
       if (baseLang) changeBaseLang(baseLang);
     } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      if (error instanceof Error)
+        toast(
+          ToastType.ERROR,
+          `Error at changing base lang: ${error.message} `
+        );
     }
   }, [baseLang]);
 

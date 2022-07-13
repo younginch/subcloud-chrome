@@ -14,7 +14,9 @@ import {
   Stack,
   useColorModeValue,
 } from '@chakra-ui/react';
+import ISO6391 from 'iso-639-1';
 import { useEffect, useState } from 'react';
+import { APIError, Warning } from '../../../../utils/error';
 import getLang from '../utils/api/getLang';
 import request from '../utils/api/request';
 import video from '../utils/api/video';
@@ -29,13 +31,24 @@ export default function QuickSubtitleRequest() {
 
   const sendRequest = async () => {
     try {
-      if (!lang) throw new Error('language not selected');
+      if (!lang) throw new Warning('Language not selected');
       const tab = await getTab();
       const videoData = await video(tab.url);
       await request(videoData.serviceId, videoData.videoId, lang, 0);
-      await toast(ToastType.SUCCESS, 'request sent');
+      await toast(
+        ToastType.SUCCESS,
+        `Request sent in ${ISO6391.getNativeName(lang)}`
+      );
     } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      if (error instanceof APIError) toast(ToastType.ERROR, 'Server error');
+      else if (lang && error instanceof Warning)
+        toast(
+          ToastType.WARNING,
+          `Request already sent in ${ISO6391.getNativeName(lang)}`
+        );
+      else if (!lang && error instanceof Warning)
+        toast(ToastType.WARNING, error.message);
+      else if (error instanceof Error) toast(ToastType.ERROR, error.message);
     }
   };
 
@@ -48,7 +61,7 @@ export default function QuickSubtitleRequest() {
           setLang(requestLangs[0]);
         }
       } catch (error: unknown) {
-        if (error instanceof Error) toast(ToastType.ERROR, 'server error');
+        if (error instanceof Error) console.log('Server error');
       }
     };
     getLangs();

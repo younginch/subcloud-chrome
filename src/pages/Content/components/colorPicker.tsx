@@ -3,14 +3,13 @@
 import {
   Box,
   Text,
-  Flex,
   useDisclosure,
   PopoverTrigger,
   PopoverContent,
   Popover,
   HStack,
 } from '@chakra-ui/react';
-import { ColorResult, RGBColor, SketchPicker } from 'react-color';
+import { ColorResult, RGBColor } from 'react-color';
 import Swatches from 'react-color/lib/components/swatches/Swatches';
 import { rgbToString } from '../utils/colors';
 
