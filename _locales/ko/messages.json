@@ -202,6 +202,27 @@
     "Settings_quickRequest_tooltip2": {
         "message": "자막을 요청할 수 있습니다"
     },
+    "Notify_unchecked_title": {
+        "message": "읽지 않은 알림들"
+    },
+    "Notify_detail": {
+        "message": "클릭하여 자세히 보기"
+    },
+    "Notify_checked_title": {
+        "message": "읽은 알림들"
+    },
+    "BottomButton_switch_tooltip": {
+        "message": "Subcloud On/Off"
+    },
+    "BottomButton_button_defaultTooltip": {
+        "message": "Subcloud"
+    },
+    "BottomButton_button_subtitleTooltip1": {
+        "message": "영상에"
+    },
+    "BottomButton_button_subtitleTooltip2": {
+        "message": "자막이 있습니다"
+    },
     "SelectLang_default" : {
         "message" : "언어 선택"
     }

@@ -91,6 +91,7 @@ const onClickBtn = async () => {
 };
 
 export default function BottomButton() {
+  const t = chrome.i18n.getMessage;
   const [onOff, setOnOff] = useState<boolean>(false);
   const [notifyCount, setNotifyCount] = useState<number>(0);
   const [hasSub, setHasSub] = useState<boolean>(false);
@@ -152,7 +153,7 @@ export default function BottomButton() {
   return (
     <Flex flexDir="row" alignItems="center !important" h="100%" ml="-8px">
       <Tooltip
-        label={<span>Subcloud 자막 On/Off</span>}
+        label={<span>{t('BottomButton_switch_tooltip')}</span>}
         placement="top"
         bg="rgba(0,0,0,0.5)"
         color="white"
@@ -180,12 +181,15 @@ export default function BottomButton() {
         label={
           <>
             <span>
-              <b>SubCloud</b>
+              <b>{t('BottomButton_button_defaultTooltip')}</b>
             </span>
             {hasSub && (
               <>
                 <br />
-                <span>영상에 {baseLang} 자막이 있습니다</span>
+                <span>
+                  {t('BottomButton_button_subtitleTooltip1')} {baseLang}{' '}
+                  {t('BottomButton_button_subtitleTooltip2')}
+                </span>
               </>
             )}
           </>

@@ -202,6 +202,27 @@
     "Settings_quickRequest_tooltip2": {
         "message": "at the top right of the comment box"
     },
+    "Notify_unchecked_title": {
+        "message": "Unchecked notifications"
+    },
+    "Notify_detail": {
+        "message": "Click to see details"
+    },
+    "Notify_checked_title": {
+        "message": "Checked notifications"
+    },
+    "BottomButton_switch_tooltip": {
+        "message": "SubCloud On/Off"
+    },
+    "BottomButton_button_defaultTooltip": {
+        "message": "Subcloud"
+    },
+    "BottomButton_button_subtitleTooltip1": {
+        "message": "Video has"
+    },
+    "BottomButton_button_subtitleTooltip2": {
+        "message": "subtitle(s)"
+    },
     "SelectLang_default" : {
         "message" : "Select language"
     }
