@@ -10,6 +10,18 @@
     "QuickSubtitleRequest_requestMsg" : {
         "message": "자막 요청"
     },
+    "HomeLoginFirst_title": {
+        "message": "SubCloud에 로그인해 주세요"
+    },
+    "HomeLoginFirst_message": {
+        "message": "간편하게 로그인하고 전 세계 유저들이 올린 자막을 무료로 사용하세요"
+    },
+    "HomeLoginFirst_loginBtn": {
+        "message": "로그인하러 가기"
+    },
+    "HomeLoginFirst_webpageUrl": {
+        "message": "웹페이지 방문"
+    },
     "HomeNoSub_title": {
         "message": "영상에 자막이 없습니다. 무료로 요청해 보세요."
     },
@@ -225,5 +237,35 @@
     },
     "SelectLang_default" : {
         "message" : "언어 선택"
+    },
+    "LoginFirst_message" : {
+        "message" : "로그인하고 전 세계 유저들이 올린 자막을 무료로 만나보세요"
+    },
+    "LoginFirst_loginBtn" : {
+        "message" : "로그인하러 가기"
+    },
+    "LoginFirst_visitWebpage" : {
+        "message" : "웹페이지 방문"
+    },
+    "LoginStatus_loginStatus" : {
+        "message" : "로그인 상태:"
+    },
+    "LoginStatus_logoutBtn" : {
+        "message" : "로그아웃"
+    },
+    "LoginStatus_point" : {
+        "message" : "보유 포인트:"
+    },
+    "LoginStatus_buyBtn" : {
+        "message" : "포인트 충전"
+    },
+    "LoginStatus_publicProfile" : {
+        "message" : "공개 프로필"
+    },
+    "LoginStatus_privateProfile" : {
+        "message" : "개인 프로필"
+    },
+    "LoginStatus_visitWebpage" : {
+        "message" : "웹페이지 방문"
     }
 }

@@ -56,6 +56,7 @@ import subView from '../pages/Content/utils/api/subView';
 import LoginFirst from '../pages/Popup/components/loginFirst';
 import ReviewComponent from '../pages/Content/components/reviewComponent';
 import createTab from '../pages/Content/utils/createTab';
+import LoginStatus from '../pages/Popup/components/loginStatus';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -485,6 +486,15 @@ describe('Pages and Components', () => {
     render(
       <ChakraProvider>
         <LoginFirst />
+      </ChakraProvider>
+    );
+  });
+
+  it('render LoginStatus', async () => {
+    jest.spyOn(chrome.tabs, 'create').mockImplementation(jest.fn());
+    render(
+      <ChakraProvider>
+        <LoginStatus user={undefined} />
       </ChakraProvider>
     );
   });
