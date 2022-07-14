@@ -60,13 +60,6 @@ import createTab from '../pages/Content/utils/createTab';
 describe('Pages and Components', () => {
   beforeAll(() => {
     jest.spyOn(sendMessage, 'default').mockResolvedValue({ data: 1 });
-    global.chrome = {
-      ...global.chrome,
-      i18n: {
-        ...global.chrome.i18n,
-        getMessage: jest.fn(),
-      },
-    };
   });
 
   it('renders QuickSubtitleRequest', async () => {

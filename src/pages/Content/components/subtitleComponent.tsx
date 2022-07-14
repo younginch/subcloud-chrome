@@ -114,6 +114,7 @@ export default function SubtitleComponent() {
                       ? `0.8px ${rgbToString(fontBorderColor)}`
                       : 'rgba(0,0,0,0)'
                   }`,
+                  padding: '0px 4px 0px 4px',
                 }}
                 // eslint-disable-next-line react/no-array-index-key
                 key={index}
