@@ -8,16 +8,28 @@ type Props = {
   name: string;
   children?: React.ReactNode;
   tooltip?: string | React.ReactNode;
+  disabled?: boolean;
 };
-export default function SettingRow({ name, children, tooltip }: Props) {
+export default function SettingRow({
+  name,
+  children,
+  tooltip,
+  disabled,
+}: Props) {
   return (
     <HStack mt="10px !important" mb="10px !important">
-      <Text fontSize="15px" textAlign="right" w="240px" mr="10px">
+      <Text
+        fontSize="15px"
+        textAlign="right"
+        w="240px"
+        mr="10px"
+        color={disabled ? 'gray.400' : 'white'}
+      >
         {name}
       </Text>
       {children}
-      {tooltip && (
-        <Tooltip label={tooltip} bg="gray.300" fontSize="12px">
+      {tooltip && !disabled && (
+        <Tooltip label={tooltip} bg="gray.300" fontSize="14px">
           <Box>
             <AiOutlineInfoCircle size="20px" fill="#aaa" />
           </Box>
@@ -30,4 +42,5 @@ export default function SettingRow({ name, children, tooltip }: Props) {
 SettingRow.defaultProps = {
   tooltip: undefined,
   children: undefined,
+  disabled: false,
 };
