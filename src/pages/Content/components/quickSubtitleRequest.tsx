@@ -27,6 +27,7 @@ import SelectLang from './selectLang';
 export default function QuickSubtitleRequest() {
   const [requestLang, setRequestLang] = useState<string>();
   const [lang, setLang] = useState<string | undefined>();
+  const [isQuickRequest, setIsQuickRequest] = useState<boolean>(false);
   const t = chrome.i18n.getMessage;
 
   const sendRequest = async () => {
@@ -53,21 +54,27 @@ export default function QuickSubtitleRequest() {
   };
 
   useEffect(() => {
-    const getLangs = async () => {
-      try {
+    const init = async () => {
+      const getLangs = async () => {
         const { requestLangs } = await getLang();
         if (requestLangs && requestLangs.length > 0) {
           setRequestLang(requestLangs[0]);
           setLang(requestLangs[0]);
         }
+      };
+      try {
+        await getLangs();
+        chrome.storage.local.get(['isQuickRequest'], (result) => {
+          if (result.isQuickRequest) setIsQuickRequest(result.isQuickRequest);
+        });
       } catch (error: unknown) {
         if (error instanceof Error) console.log('Server error');
       }
     };
-    getLangs();
+    init();
   }, []);
 
-  return (
+  return isQuickRequest ? (
     <Stack>
       {requestLang ? (
         <Button
@@ -147,6 +154,7 @@ export default function QuickSubtitleRequest() {
       )}
       <Text
         fontSize="12px"
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         color={useColorModeValue('gray.700', 'gray.400')}
         mt="0px !important"
         textAlign="center"
@@ -154,5 +162,7 @@ export default function QuickSubtitleRequest() {
         Powered by SubCloud
       </Text>
     </Stack>
+  ) : (
+    <> </>
   );
 }
