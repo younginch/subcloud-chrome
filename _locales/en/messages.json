@@ -9,5 +9,44 @@
     },
     "QuickSubtitleRequest_requestMsg" : {
         "message": "Request Subtitle"
+    },
+    "HomeNoSub_title": {
+        "message": "There are no subtitles in the video. Request it for free."
+    },
+    "HomeNoSub_subscriber_begin": {
+        "message": ""
+    },
+    "HomeNoSub_subscriber_end": {
+        "message": " subscribers"
+    },
+    "HomeNoSub_selectLang_label": {
+        "message": "Select request language"
+    },
+    "HomeNoSub_selectLang_default": {
+        "message": "As default"
+    },
+    "HomeNoSub_point_label": {
+        "message": "Point"
+    },
+    "HomeNoSub_button_first": {
+        "message": "Request free "
+    },
+    "HomeNoSub_button_second": {
+        "message": "Use "
+    },
+    "HomeNoSub_button_third": {
+        "message": "P for requesting"
+    },
+    "HomeNoSub_button_end": {
+        "message": " subtitle"
+    },
+    "HomeNoSub_request_selectLang": {
+        "message": "Select request language first"
+    },
+    "HomeNoSub_requesters": {
+        "message": " people requested subtitles for the video"
+    },
+    "SelectLang_default" : {
+        "message" : "Select language"
     }
 }

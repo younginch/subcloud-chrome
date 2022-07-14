@@ -88,7 +88,7 @@ export default function QuickSubtitleRequest() {
               fontSize="14px"
               h="30px"
             >
-              Request Subtitle
+              {t('QuickSubtitleRequest_requestMsg')}
             </Button>
           </PopoverTrigger>
           <PopoverContent

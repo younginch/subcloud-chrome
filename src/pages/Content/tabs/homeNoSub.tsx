@@ -46,6 +46,7 @@ type Props = {
 };
 
 export default function HomeNoSub({ videoData }: Props) {
+  const t = chrome.i18n.getMessage;
   const points: Array<PointElement> = [
     {
       amount: 10,
@@ -212,7 +213,7 @@ export default function HomeNoSub({ videoData }: Props) {
     <Stack p="10px 20px 10px 20px">
       <Skeleton isLoaded={isLoaded} h="30px" mt="10px" mb="10px" w="620px">
         <Text fontWeight="bold" fontSize="22px">
-          영상에 자막이 없습니다. 무료로 요청해 보세요.
+          {t('HomeNoSub_title')}
         </Text>
       </Skeleton>
       <HStack>
@@ -257,7 +258,9 @@ export default function HomeNoSub({ videoData }: Props) {
                   fontWeight="normal"
                   color="gray.300"
                 >
-                  구독자 {youtubeVideoInfo?.channel.subscriberCount}명
+                  {t('HomeNoSub_subscriber_begin')}
+                  {youtubeVideoInfo?.channel.subscriberCount}
+                  {t('HomeNoSub_subscriber_end')}
                 </Heading>
               </Skeleton>
             </Stack>
@@ -277,7 +280,7 @@ export default function HomeNoSub({ videoData }: Props) {
           p="10px 10px 10px 20px"
         >
           <Text fontWeight="bold" fontSize="19px">
-            요청할 언어 선택
+            {t('HomeNoSub_selectLang_label')}
           </Text>
           <Center mt="20px !important">
             <SelectLang
@@ -291,7 +294,7 @@ export default function HomeNoSub({ videoData }: Props) {
           </Center>
           <Box className="default-language" mt="20px !important">
             <Checkbox mt={5} defaultChecked={check} onChange={changeLang}>
-              기본 요청 언어로 저장
+              {t('HomeNoSub_selectLang_default')}
             </Checkbox>
           </Box>
         </Stack>
@@ -306,7 +309,7 @@ export default function HomeNoSub({ videoData }: Props) {
         >
           <HStack justifyContent="space-between" w="250px">
             <Text fontWeight="bold" fontSize="19px">
-              포인트
+              {t('HomeNoSub_point_label')}
             </Text>
             <NumberInput
               defaultValue={0}
@@ -375,12 +378,19 @@ export default function HomeNoSub({ videoData }: Props) {
         >
           {lang
             ? `${
-                point === 0 ? '무료로 ' : `${point}포인트를 사용하여`
-              } ${ISO6391.getNativeName(lang)} 자막 요청하기`
-            : '요청 언어를 골라주세요'}
+                point === 0
+                  ? t('HomeNoSub_button_first')
+                  : `${t('HomeNoSub_button_second')}${point}${t(
+                      'HomeNoSub_button_third'
+                    )}`
+              } ${ISO6391.getNativeName(lang)}${t('HomeNoSub_button_end')}`
+            : t('HomeNoSub_request_selectLang')}
         </Button>
         {count && (
-          <Text fontSize="15px">{count}명이 자막을 기다리고 있어요</Text>
+          <Text fontSize="15px">
+            {count}
+            {t('HomeNoSub_requesters')}
+          </Text>
         )}
       </Stack>
     </Stack>
