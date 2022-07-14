@@ -2,7 +2,6 @@ import { fireEvent, render } from '@testing-library/react';
 import { Box, ChakraProvider, extendTheme, Table } from '@chakra-ui/react';
 import { StepsStyleConfig as Steps } from 'chakra-ui-steps';
 import React from 'react';
-import Newtab from '../pages/Newtab/Newtab';
 import Options from '../pages/Options/Options';
 import Panel from '../pages/Panel/Panel';
 import Popup from '../pages/Popup/Popup';
@@ -72,10 +71,6 @@ describe('Pages and Components', () => {
 
   it('renders QuickSubtitleRequest', async () => {
     render(<QuickSubtitleRequest />);
-  });
-
-  it('renders Newtab', async () => {
-    render(<Newtab />);
   });
 
   it('renders Options', async () => {

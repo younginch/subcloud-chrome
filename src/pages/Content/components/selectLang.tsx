@@ -23,6 +23,7 @@ export default function SelectLang({
   lang,
   clickEvent,
 }: Props) {
+  const t = chrome.i18n.getMessage;
   const codeList: LanguageCode[] = [
     'en',
     'fr',
@@ -48,7 +49,7 @@ export default function SelectLang({
         mt={marginTop}
         ml={marginLeft}
       >
-        {lang ? ISO6391.getNativeName(lang) : '언어 선택'}
+        {lang ? ISO6391.getNativeName(lang) : t('SelectLang_default')}
       </MenuButton>
       <MenuList
         maxH="300px"

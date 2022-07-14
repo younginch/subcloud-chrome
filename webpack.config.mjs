@@ -28,16 +28,14 @@ const fileExtensions = [
 const options = {
   mode: process.env.NODE_ENV || 'development',
   entry: {
-    newtab: join(dirname, 'src', 'pages', 'Newtab', 'index.tsx'),
     options: join(dirname, 'src', 'pages', 'Options', 'index.tsx'),
     popup: join(dirname, 'src', 'pages', 'Popup', 'index.tsx'),
     background: join(dirname, 'src', 'pages', 'Background', 'index.ts'),
     contentScript: join(dirname, 'src', 'pages', 'Content', 'index.tsx'),
-    devtools: join(dirname, 'src', 'pages', 'Devtools', 'index.js'),
     panel: join(dirname, 'src', 'pages', 'Panel', 'index.tsx'),
   },
   chromeExtensionBoilerplate: {
-    notHotReload: ['background', 'contentScript', 'devtools'],
+    notHotReload: ['background', 'contentScript'],
   },
   output: {
     filename: '[name].bundle.js',
@@ -202,12 +200,6 @@ const options = {
       ],
     }),
     new HtmlWebpackPlugin({
-      template: join(dirname, 'src', 'pages', 'Newtab', 'index.html'),
-      filename: 'newtab.html',
-      chunks: ['newtab'],
-      cache: false,
-    }),
-    new HtmlWebpackPlugin({
       template: join(dirname, 'src', 'pages', 'Options', 'index.html'),
       filename: 'options.html',
       chunks: ['options'],
@@ -217,12 +209,6 @@ const options = {
       template: join(dirname, 'src', 'pages', 'Popup', 'index.html'),
       filename: 'popup.html',
       chunks: ['popup'],
-      cache: false,
-    }),
-    new HtmlWebpackPlugin({
-      template: join(dirname, 'src', 'pages', 'Devtools', 'index.html'),
-      filename: 'devtools.html',
-      chunks: ['devtools'],
       cache: false,
     }),
     new HtmlWebpackPlugin({
