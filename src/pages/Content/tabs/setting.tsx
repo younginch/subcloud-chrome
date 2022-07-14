@@ -27,6 +27,7 @@ type Props = {
 };
 
 export default function Setting({ user }: Props) {
+  const t = chrome.i18n.getMessage;
   const [isBorder, setIsBorder] = useState<boolean>(false);
   const [isBackGround, setIsBackGround] = useState<boolean>(true);
   const [sliderValue, setSliderValue] = useState<number>(60);
@@ -146,30 +147,34 @@ export default function Setting({ user }: Props) {
       overflowX="hidden"
       overflowY="scroll"
     >
-      <SettingRow name="로그인 상태:">
+      <SettingRow name={t('Settings_loginStatus')}>
         <Text fontSize="18px">{user?.name ?? 'unknown'}</Text>
         <Button
           onClick={() => {
             window.location.href = `${API_URL}/api/auth/signout`;
           }}
+          fontSize="13px"
+          ml="15px !important"
         >
-          로그아웃
+          {t('Settings_logoutBtn')}
         </Button>
       </SettingRow>
-      <SettingRow name="포인트:">
+      <SettingRow name={t('Settings_point')}>
         <Text fontSize="18px">{user?.point ?? 0}</Text>
         <Button
           onClick={() => {
             createTab(`${API_URL}/buy`);
           }}
+          fontSize="13px"
+          ml="15px !important"
         >
-          충전하기
+          {t('Settings_buyBtn')}
         </Button>
       </SettingRow>
 
       <Divider m="10px !important" w="640px" />
 
-      <SettingRow name="자막 크기:">
+      <SettingRow name={t('Settings_fontSize')}>
         <Slider
           aria-label="slider-ex-4"
           value={sliderValue}
@@ -189,16 +194,16 @@ export default function Setting({ user }: Props) {
         <Text fontSize="18px">{sliderValue}</Text>
       </SettingRow>
 
-      <SettingRow name="자막 색상:">
+      <SettingRow name={t('Settings_fontColor')}>
         <ColorPicker
-          label="색상 선택"
+          label={t('Settings_selectColor')}
           color={fontColor}
           changeFunction={(c: RGBColor) => setFontColor(c)}
           marginLeft="176.7px"
           activate
         />
       </SettingRow>
-      <SettingRow name="자막 배경 색 사용:">
+      <SettingRow name={t('Settings_fontBackground')}>
         <Switch
           colorScheme="teal"
           size="lg"
@@ -206,13 +211,16 @@ export default function Setting({ user }: Props) {
           onChange={() => setIsBackGround(!isBackGround)}
         />
         <ColorPicker
-          label="색상 선택"
+          label={t('Settings_selectColor')}
           color={fontBgColor}
           changeFunction={(c: RGBColor) => setFontBgColor(c)}
           activate={isBackGround}
         />
       </SettingRow>
-      <SettingRow name="자막 테두리 사용:" tooltip="자막의 글자 테두리 색상">
+      <SettingRow
+        name={t('Settings_fontBorder')}
+        tooltip={t('Settings_fontBorder_tooltip')}
+      >
         <Switch
           colorScheme="teal"
           size="lg"
@@ -220,30 +228,31 @@ export default function Setting({ user }: Props) {
           onChange={() => setIsBorder(!isBorder)}
         />
         <ColorPicker
-          label="색상 선택"
+          label={t('Settings_selectColor')}
           color={fontBorderColor}
           changeFunction={(c: RGBColor) => setFontBorderColor(c)}
           activate={isBorder}
         />
       </SettingRow>
       <SettingRow
-        name="자막 양식을 우선시:"
+        name={t('Settings_stylePriority')}
         tooltip={
           <>
-            <span>사용자 지정 스타일과 자막파일의 스타일 중</span>
+            <span>{t('Settings_stylePriority_tooltip1')}</span>
             <br />
-            <span>무엇을 우선할지 결정합니다</span>
+            <span>{t('Settings_stylePriority_tooltip2')}</span>
           </>
         }
+        disabled
       >
-        <Switch colorScheme="teal" size="lg" />
+        <Switch colorScheme="teal" size="lg" disabled />
       </SettingRow>
 
       <Divider m="10px !important" w="640px" />
 
       <SettingRow
-        name="기본 요청 언어:"
-        tooltip="자막을 요청할 때 기본으로 요청되는 언어"
+        name={t('Settings_defaultRequestLang')}
+        tooltip={t('Settings_defaultRequestLang_tooltip')}
       >
         <SelectLang
           width="140px"
@@ -257,8 +266,8 @@ export default function Setting({ user }: Props) {
       </SettingRow>
 
       <SettingRow
-        name="친숙한 언어:"
-        tooltip="자막 검색에 기본적으로 사용되는 언어"
+        name={t('Settings_familiarLang')}
+        tooltip={t('Settings_familiarLang_tooltip')}
       >
         <SelectLang
           width="140px"
@@ -274,40 +283,45 @@ export default function Setting({ user }: Props) {
       <Divider m="10px !important" w="640px" />
 
       <SettingRow
-        name="자막 발견시 5초간 알림 띄우기:"
+        name={t('Settings_subtitleAlert')}
         tooltip={
           <>
             <span>
-              <b>&apos;친숙한 언어&apos;</b>로 설정한 자막이 있다면
+              {t('Settings_subtitleAlert_tooltip0')}
+              <b>{t('Settings_subtitleAlert_tooltip1')}</b>
+              {t('Settings_subtitleAlert_tooltip2')}
             </span>
             <br />
-            <span>영상 시작 시 알림을 보여줍니다</span>
+            <span>{t('Settings_subtitleAlert_tooltip3')}</span>
+          </>
+        }
+        disabled
+      >
+        <Switch colorScheme="teal" size="lg" disabled />
+      </SettingRow>
+      <SettingRow
+        name={t('Settings_autoSelect')}
+        tooltip={
+          <>
+            <span>
+              {t('Settings_subtitleAlert_tooltip0')}
+              <b>{t('Settings_subtitleAlert_tooltip1')}</b>
+              {t('Settings_subtitleAlert_tooltip2')}
+            </span>
+            <br />
+            <span>{t('Settings_autoSelect_tooltip')}</span>
           </>
         }
       >
         <Switch colorScheme="teal" size="lg" />
       </SettingRow>
       <SettingRow
-        name="자막 발견시 자동으로 사용하기:"
+        name={t('Settings_quickRequest')}
         tooltip={
           <>
-            <span>
-              <b>&apos;친숙한 언어&apos;</b>로 설정한 자막이 있다면
-            </span>
+            <span>{t('Settings_quickRequest_tooltip1')}</span>
             <br />
-            <span>영상 시청 시 자동으로 선택합니다</span>
-          </>
-        }
-      >
-        <Switch colorScheme="teal" size="lg" />
-      </SettingRow>
-      <SettingRow
-        name="댓글창 자막 요청 버튼 사용:"
-        tooltip={
-          <>
-            <span>댓글창의 오른쪽 위의 요청 버튼을 통해</span>
-            <br />
-            <span>자막을 요청할 수 있습니다</span>
+            <span>{t('Settings_quickRequest_tooltip2')}</span>
           </>
         }
       >

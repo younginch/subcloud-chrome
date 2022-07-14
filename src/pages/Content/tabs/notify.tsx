@@ -19,6 +19,7 @@ export default function Notify({
   setReadNotifications,
   setUnreadNotifications,
 }: Props) {
+  const t = chrome.i18n.getMessage;
   const readItem = (index: number) => {
     setReadNotifications((bef: NotificationType[]) => [
       ...bef,
@@ -49,11 +50,11 @@ export default function Notify({
       <HStack w="100%" pl="30px" pr="33px">
         <BellIcon w="30px" h="30px" color="red.200" />
         <Text fontWeight="bold" fontSize="23px">
-          읽지 않은 알림들 ({unreadNotifications.length})
+          {t('Notify_unchecked_title')} ({unreadNotifications.length})
         </Text>
         <Spacer />
         <Text fontSize="16px" textAlign="center" color="gray.300">
-          클릭하여 자세히 보기
+          {t('Notify_detail')}
         </Text>
       </HStack>
       <Stack w="100%" spacing="20px" alignItems="center" mt="30px !important">
@@ -80,7 +81,7 @@ export default function Notify({
       <HStack w="100%" pl="30px" pr="33px">
         <BellIcon w="30px" h="30px" />
         <Text fontWeight="bold" fontSize="23px">
-          읽은 알림들({readNotifications.length})
+          {t('Notify_checked_title')} ({readNotifications.length})
         </Text>
       </HStack>
       <Stack w="100%" spacing="20px" alignItems="center" mt="30px !important">

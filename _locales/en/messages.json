@@ -121,6 +121,108 @@
     "UploadFinish_thanks": {
         "message": "Thank you for your contribution."
     },
+    "Settings_loginStatus": {
+        "message": "Login status:"
+    },
+    "Settings_logoutBtn": {
+        "message": "Log out"
+    },
+    "Settings_point": {
+        "message": "Points:"
+    },
+    "Settings_buyBtn": {
+        "message": "Buy Points"
+    },
+    "Settings_fontSize": {
+        "message": "Font size:"
+    },
+    "Settings_fontColor": {
+        "message": "Font color:"
+    },
+    "Settings_selectColor": {
+        "message": "Choose Color"
+    },
+    "Settings_fontBackground": {
+        "message": "Use font background:"
+    },
+    "Settings_fontBorder": {
+        "message": "Use font border:"
+    },
+    "Settings_fontBorder_tooltip": {
+        "message": "Text border color for subtitles"
+    },
+    "Settings_stylePriority": {
+        "message": "Prioritize subtitle format:"
+    },
+    "Settings_stylePriority_tooltip1": {
+        "message": "Decide whether to use the custom style"
+    },
+    "Settings_stylePriority_tooltip2": {
+        "message": "or the style of the subtitle file"
+    },
+    "Settings_defaultRequestLang": {
+        "message": "Default request language:"
+    },
+    "Settings_defaultRequestLang_tooltip": {
+        "message": "Use default language when requesting subtitles"
+    },
+    "Settings_familiarLang": {
+        "message": "Familiar language:"
+    },
+    "Settings_familiarLang_tooltip": {
+        "message": "The default language to searching"
+    },
+    "Settings_subtitleAlert": {
+        "message": "Notification when find subtitle:"
+    },
+    "Settings_subtitleAlert_tooltip0": {
+        "message": "If there are "
+    },
+    "Settings_subtitleAlert_tooltip1": {
+        "message": "Familiar Language"
+    },
+    "Settings_subtitleAlert_tooltip2": {
+        "message": " subtitles,"
+    },
+    "Settings_subtitleAlert_tooltip3": {
+        "message": "show notifications 5 seconds"
+    },
+    "Settings_autoSelect": {
+        "message": "Automatically use subtitles:"
+    },
+    "Settings_autoSelect_tooltip": {
+        "message": "automatically select when video start"
+    },
+    "Settings_quickRequest": {
+        "message": "Use quick request:"
+    },
+    "Settings_quickRequest_tooltip1": {
+        "message": "You can request subtitles"
+    },
+    "Settings_quickRequest_tooltip2": {
+        "message": "at the top right of the comment box"
+    },
+    "Notify_unchecked_title": {
+        "message": "Unchecked notifications"
+    },
+    "Notify_detail": {
+        "message": "Click to see details"
+    },
+    "Notify_checked_title": {
+        "message": "Checked notifications"
+    },
+    "BottomButton_switch_tooltip": {
+        "message": "SubCloud On/Off"
+    },
+    "BottomButton_button_defaultTooltip": {
+        "message": "Subcloud"
+    },
+    "BottomButton_button_subtitleTooltip1": {
+        "message": "Video has"
+    },
+    "BottomButton_button_subtitleTooltip2": {
+        "message": "subtitle(s)"
+    },
     "SelectLang_default" : {
         "message" : "Select language"
     }
