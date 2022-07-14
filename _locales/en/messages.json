@@ -11,7 +11,7 @@
         "message": "Request Subtitle"
     },
     "HomeNoSub_title": {
-        "message": "There are no subtitles in the video. Request it for free."
+        "message": "No subtitles found. Request it for free."
     },
     "HomeNoSub_subscriber_begin": {
         "message": ""
@@ -45,6 +45,27 @@
     },
     "HomeNoSub_requesters": {
         "message": " people requested subtitles for the video"
+    },
+    "Subtitle_title": {
+        "message": " subtitle found"
+    },
+    "Subtitle_title_many": {
+        "message": " subtitles found"
+    },
+    "Subtitle_table_lang": {
+        "message": "lang"
+    },
+    "Subtitle_table_rating": {
+        "message": "rating"
+    },
+    "Subtitle_table_views": {
+        "message": "views"
+    },
+    "Subtitle_table_uploader": {
+        "message": "uploader"
+    },
+    "Subtitle_table_date": {
+        "message": "date"
     },
     "SelectLang_default" : {
         "message" : "Select language"

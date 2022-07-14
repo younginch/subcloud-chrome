@@ -37,6 +37,7 @@ type Props = {
 };
 
 export default function Subtitle({ subs, userId }: Props) {
+  const t = chrome.i18n.getMessage;
   const [lang, setLang] = useState<string | undefined>();
   const getSubById = async (subId: string, subUserId: string) => {
     try {
@@ -61,10 +62,13 @@ export default function Subtitle({ subs, userId }: Props) {
     }
   };
 
+  console.log(subs);
+
   return (
     <Stack p="10px 20px 10px 20px">
       <Text fontWeight="bold" fontSize="22px" mt="10px" mb="10px">
-        {subs.length}개의 자막이 검색되었습니다
+        {subs.length}
+        {subs.length <= 1 ? t('Subtitle_title') : t('Subtitle_title_many')}
       </Text>
       <SelectLang
         width="140px"
@@ -73,19 +77,20 @@ export default function Subtitle({ subs, userId }: Props) {
         subFont="11px"
         lang={lang}
         clickEvent={setLang}
+        marginTop="10px !important"
       />
-      <TableContainer mt="7px" maxH="440px" overflowY="scroll">
+      <TableContainer mt="10px !important" maxH="440px" overflowY="auto">
         <Table variant="striped">
           <TableCaption fontSize="12px">Powered by SubCloud</TableCaption>
           <Thead>
             <Tr>
-              <Th fontSize="16px">언어</Th>
-              <Th fontSize="16px">평점</Th>
+              <Th fontSize="16px">{t('Subtitle_table_lang')}</Th>
+              <Th fontSize="16px">{t('Subtitle_table_rating')}</Th>
               <Th fontSize="16px" isNumeric>
-                사용 횟수
+                {t('Subtitle_table_views')}
               </Th>
-              <Th fontSize="16px">제작자</Th>
-              <Th fontSize="16px">제작일</Th>
+              <Th fontSize="16px">{t('Subtitle_table_uploader')}</Th>
+              <Th fontSize="16px">{t('Subtitle_table_date')}</Th>
             </Tr>
           </Thead>
           <Tbody h="50px">
@@ -107,7 +112,7 @@ export default function Subtitle({ subs, userId }: Props) {
                   <Td fontSize="16px">{sub.lang}</Td>
                   <Td fontSize="16px">
                     <HStack>
-                      <Text w="30px">{sub.rating}</Text>
+                      <Text w="10px">{sub.rating}</Text>
                       <RateComponent rating={sub.rating} size="15px" />
                     </HStack>
                   </Td>
@@ -115,7 +120,9 @@ export default function Subtitle({ subs, userId }: Props) {
                     {sub.views}
                   </Td>
                   <Td fontSize="16px">{sub.userName}</Td>
-                  <Td fontSize="16px">{sub.uploadDate.toString()}</Td>
+                  <Td fontSize="16px">
+                    {new Date(sub.uploadDate).toLocaleDateString()}
+                  </Td>
                 </Tr>
               ))}
           </Tbody>

@@ -46,6 +46,27 @@
     "HomeNoSub_requesters": {
         "message": "명이 자막을 기다리고 있어요"
     },
+    "Subtitle_title": {
+        "message": "개의 자막이 검색되었습니다"
+    },
+    "Subtitle_title_many": {
+        "message": "개의 자막이 검색되었습니다"
+    },
+    "Subtitle_table_lang": {
+        "message": "언어"
+    },
+    "Subtitle_table_rating": {
+        "message": "평점"
+    },
+    "Subtitle_table_views": {
+        "message": "사용 횟수"
+    },
+    "Subtitle_table_uploader": {
+        "message": "제작자"
+    },
+    "Subtitle_table_date": {
+        "message": "제작일"
+    },
     "SelectLang_default" : {
         "message" : "언어 선택"
     }
