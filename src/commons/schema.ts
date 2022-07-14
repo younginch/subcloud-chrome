@@ -1,4 +1,5 @@
 import joi from 'joi';
+
 // eslint-disable-next-line import/prefer-default-export
 export const VideoCreateSchema = joi.object({
   lang: joi

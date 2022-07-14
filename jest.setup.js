@@ -12,4 +12,7 @@ global.chrome = {
   },
   runtime: { getURL: jest.fn(), sendMessage: jest.fn() },
   tabs: { create: jest.fn() },
+  i18n: {
+    getMessage: () => 'hello',
+  },
 };
