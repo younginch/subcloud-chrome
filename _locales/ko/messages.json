@@ -67,6 +67,60 @@
     "Subtitle_table_date": {
         "message": "제작일"
     },
+    "Upload_step1_title": {
+        "message": "자막 업로드"
+    },
+    "Upload_step2_title": {
+        "message": "확인 및 전송"
+    },
+    "Upload_step3_title": {
+        "message": "검수 후 게재"
+    },
+    "UploadSubtitle_title": {
+        "message": "컴퓨터에서 자막 파일 선택"
+    },
+    "UploadSubtitle_dropZone_top": {
+        "message": "드래그 앤 드랍 또는 클릭하여 업로드"
+    },
+    "UploadSubtitle_dropZone_bottom": {
+        "message": "SRT파일 포맷만 지원합니다."
+    },
+    "CheckSubtitle_title": {
+        "message": "자막을 검토하고 업로드하세요"
+    },
+    "CheckSubtitle_details_first": {
+        "message": "파일 미리보기 (자막 수 "
+    },
+    "CheckSubtitle_details_end": {
+        "message": "개)"
+    },
+    "CheckSubtitle_reupload": {
+        "message": "다시 업로드"
+    },
+    "CheckSubtitle_preview": {
+        "message": "프리뷰"
+    },
+    "CheckSubtitle_send": {
+        "message": "전송"
+    },
+    "CheckSubtitle_langRequired": {
+        "message": "자막 언어를 선택해 주세요"
+    },
+    "UploadFinish_title": {
+        "message": "자막이 업로드되었습니다."
+    },
+    "UploadFinish_status_first": {
+        "message": ""
+    },
+    "UploadFinish_status_middle": {
+        "message": "여기서"
+    },
+    "UploadFinish_status_end": {
+        "message": "검토 진행상황을 확인하실 수 있습니다."
+    },
+    "UploadFinish_thanks": {
+        "message": "언어 장벽 극복에 기여해주셔서 감사합니다."
+    },
     "SelectLang_default" : {
         "message" : "언어 선택"
     }

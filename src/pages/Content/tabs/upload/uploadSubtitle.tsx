@@ -11,19 +11,20 @@ export type Props = {
 };
 
 export default function UploadSubtitle({ setFiles, uploadCallback }: Props) {
+  const t = chrome.i18n.getMessage;
   return (
     <>
       <Text fontWeight="bold" fontSize="22px" m="10px">
-        컴퓨터에서 자막 파일 선택
+        {t('UploadSubtitle_title')}
       </Text>
       <Box w="600px" h="320px" mt="10px !important">
         <DropZone setFiles={setFiles} uploadCallback={uploadCallback}>
           <FaFileUpload size={100} />
           <Text fontWeight="bold" fontSize="18px" mt="20px !important">
-            드래그 앤 드랍 또는 클릭하여 업로드
+            {t('UploadSubtitle_dropZone_top')}
           </Text>
           <Text fontSize="15px" mt="4px !important">
-            SRT파일 포맷만 지원합니다.
+            {t('UploadSubtitle_dropZone_bottom')}
           </Text>
         </DropZone>
       </Box>

@@ -36,6 +36,7 @@ export default function CheckSubtitle({
   setFiles,
   sendCallback,
 }: Props) {
+  const t = chrome.i18n.getMessage;
   const [sub, setSub] = useState<SRTFile | undefined>();
   const {
     handleSubmit,
@@ -112,11 +113,13 @@ export default function CheckSubtitle({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Text fontWeight="bold" fontSize="22px" mt="10px" textAlign="center">
-        자막을 검토하고 업로드하세요
+        {t('CheckSubtitle_title')}
       </Text>
       <HStack w="550px" mt="15px !important">
         <Text fontSize="13px">
-          파일 미리보기 (자막 수 {sub?.array.length}개)
+          {t('CheckSubtitle_details_first')}
+          {sub?.array.length}
+          {t('CheckSubtitle_details_end')}
         </Text>
         <Spacer />
         <Button
@@ -124,7 +127,7 @@ export default function CheckSubtitle({
           fontSize="12px"
           onClick={() => document.getElementById('subtitleFileInput')?.click()}
         >
-          다시 업로드
+          {t('CheckSubtitle_reupload')}
         </Button>
         <input
           type="file"
@@ -183,7 +186,7 @@ export default function CheckSubtitle({
             onClick={preview}
             ml="80px !important"
           >
-            <Text fontSize="18px">프리뷰</Text>
+            <Text fontSize="18px">{t('CheckSubtitle_preview')}</Text>
           </Button>
           <Button
             leftIcon={<IoMdCloudUpload size="20px" />}
@@ -192,9 +195,8 @@ export default function CheckSubtitle({
             colorScheme="green"
             ml="30px !important"
             type="submit"
-            disabled={watch().lang === undefined}
           >
-            <Text fontSize="18px">{watch().lang ? '전송' : '언어 선택'}</Text>
+            <Text fontSize="18px">{t('CheckSubtitle_send')}</Text>
           </Button>
         </HStack>
       </FormControl>

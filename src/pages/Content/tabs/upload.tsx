@@ -1,19 +1,19 @@
 import { Box, Divider, Stack } from '@chakra-ui/react';
 import { useState } from 'react';
 import { Step, Steps, useSteps } from 'chakra-ui-steps';
-import { SRTFile } from '@younginch/subtitle';
 import UploadSubtitle from './upload/uploadSubtitle';
 import CheckSubtitle from './upload/checkSubtitle';
 import UploadFinish from './upload/uploadFinish';
 
 export default function Upload() {
+  const t = chrome.i18n.getMessage;
   const steps = [
-    { label: 'Step 1', description: '자막 업로드' },
-    { label: 'Step 2', description: '확인 및 전송' },
-    { label: 'Step 3', description: '검수 완료 후 게재' },
+    { label: 'Step 1', description: t('Upload_step1_title') },
+    { label: 'Step 2', description: t('Upload_step2_title') },
+    { label: 'Step 3', description: t('Upload_step3_title') },
   ];
 
-  const { nextStep, prevStep, reset, activeStep } = useSteps({
+  const { nextStep, activeStep } = useSteps({
     initialStep: 0,
   });
 

@@ -67,6 +67,60 @@
     "Subtitle_table_date": {
         "message": "date"
     },
+    "Upload_step1_title": {
+        "message": "Upload file"
+    },
+    "Upload_step2_title": {
+        "message": "Check and submit"
+    },
+    "Upload_step3_title": {
+        "message": "Posted after review"
+    },
+    "UploadSubtitle_title": {
+        "message": "Select subtitle file from computer"
+    },
+    "UploadSubtitle_dropZone_top": {
+        "message": "Drag n drop or click to upload"
+    },
+    "UploadSubtitle_dropZone_bottom": {
+        "message": "only SRT file supported"
+    },
+    "CheckSubtitle_title": {
+        "message": "Check your subtitle and upload it"
+    },
+    "CheckSubtitle_details_first": {
+        "message": "File preview ("
+    },
+    "CheckSubtitle_details_end": {
+        "message": " subtitles)"
+    },
+    "CheckSubtitle_reupload": {
+        "message": "re-upload"
+    },
+    "CheckSubtitle_preview": {
+        "message": "Preview"
+    },
+    "CheckSubtitle_send": {
+        "message": "Send"
+    },
+    "CheckSubtitle_langRequired": {
+        "message": "Please select subtitle language"
+    },
+    "UploadFinish_title": {
+        "message": "You have successfully uploaded subtitles."
+    },
+    "UploadFinish_status_first": {
+        "message": "You can check the review status in"
+    },
+    "UploadFinish_status_middle": {
+        "message": "here"
+    },
+    "UploadFinish_status_end": {
+        "message": ""
+    },
+    "UploadFinish_thanks": {
+        "message": "Thank you for your contribution."
+    },
     "SelectLang_default" : {
         "message" : "Select language"
     }
