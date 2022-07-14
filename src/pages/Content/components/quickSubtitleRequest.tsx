@@ -25,10 +25,10 @@ import toast, { ToastType } from '../utils/toast';
 import SelectLang from './selectLang';
 
 export default function QuickSubtitleRequest() {
+  const t = chrome.i18n.getMessage;
   const [requestLang, setRequestLang] = useState<string>();
   const [lang, setLang] = useState<string | undefined>();
   const [isQuickRequest, setIsQuickRequest] = useState<boolean>(false);
-  const t = chrome.i18n.getMessage;
 
   const sendRequest = async () => {
     try {
@@ -103,16 +103,18 @@ export default function QuickSubtitleRequest() {
             bg="blue.800"
             borderColor="blue.800"
             w="300px"
-            h="205px"
+            h="fit-content"
           >
-            <PopoverHeader pt={4} fontWeight="bold" border="0" fontSize="17px">
-              무료 자막 요청
+            <PopoverHeader pt={4} fontWeight="bold" border="0" fontSize="18px">
+              {t('QuickSubtitleRequest_title')}
             </PopoverHeader>
             <PopoverArrow />
             <PopoverCloseButton />
             <PopoverBody>
               <Stack alignItems="center">
-                <Text fontSize="16px">자막을 요청할 언어를 선택하세요.</Text>
+                <Text fontSize="16px">
+                  {t('QuickSubtitleRequest_selectLang')}
+                </Text>
                 <SelectLang
                   width="140px"
                   height="30px"
@@ -122,9 +124,8 @@ export default function QuickSubtitleRequest() {
                   marginTop="10px !important"
                   lang={lang}
                 />
-                <Text fontSize="14px" color="gray.300">
-                  기본 요청 언어를 선택하면 앞으로 클릭 한번으로 요청할 수
-                  있습니다.
+                <Text fontSize="17px" color="gray.300">
+                  {t('QuickSubtitleRequest_comment')}
                 </Text>
               </Stack>
             </PopoverBody>
@@ -134,10 +135,11 @@ export default function QuickSubtitleRequest() {
               alignItems="center"
               justifyContent="space-between"
               pb={4}
-              mt="4px !important"
             >
               <Box className="default-language-small">
-                <Checkbox defaultChecked>기본 요청 언어로 저장</Checkbox>
+                <Checkbox defaultChecked>
+                  {t('QuickSubtitleRequest_defaultLang')}
+                </Checkbox>
               </Box>
               <Button
                 colorScheme="blue"
@@ -146,7 +148,7 @@ export default function QuickSubtitleRequest() {
                 h="30px"
                 onClick={sendRequest}
               >
-                요청 전송
+                {t('QuickSubtitleRequest_sendRequest')}
               </Button>
             </PopoverFooter>
           </PopoverContent>
