@@ -250,6 +250,12 @@
     "QuickSubtitleRequest_sendRequest": {
         "message": "요청 전송"
     },
+    "ReviewComponent_title": {
+        "message": "자막을 평가해주세요"
+    },
+    "ReviewComponent_sendBtn": {
+        "message": "리뷰 전송"
+    },
     "SelectLang_default" : {
         "message" : "언어 선택"
     },

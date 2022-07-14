@@ -250,6 +250,12 @@
     "QuickSubtitleRequest_sendRequest": {
         "message": "Send"
     },
+    "ReviewComponent_title": {
+        "message": "Review the subtitle"
+    },
+    "ReviewComponent_sendBtn": {
+        "message": "Send Review"
+    },
     "SelectLang_default" : {
         "message" : "Select language"
     },
