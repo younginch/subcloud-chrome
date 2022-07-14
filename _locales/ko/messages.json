@@ -7,8 +7,17 @@
         "message": "유튜브 영상들에 대해 자막을 요청하거나 제작하세요",
         "description": "The description of the extension, displayed in the web store."
     },
-    "QuickSubtitleRequest_requestMsg" : {
-        "message": "자막 요청"
+    "HomeLoginFirst_title": {
+        "message": "SubCloud에 로그인해 주세요"
+    },
+    "HomeLoginFirst_message": {
+        "message": "간편하게 로그인하고 전 세계 유저들이 올린 자막을 무료로 사용하세요"
+    },
+    "HomeLoginFirst_loginBtn": {
+        "message": "로그인하러 가기"
+    },
+    "HomeLoginFirst_webpageUrl": {
+        "message": "웹페이지 방문"
     },
     "HomeNoSub_title": {
         "message": "영상에 자막이 없습니다. 무료로 요청해 보세요."
@@ -223,7 +232,61 @@
     "BottomButton_button_subtitleTooltip2": {
         "message": "자막이 있습니다"
     },
+    "QuickSubtitleRequest_requestMsg" : {
+        "message": "자막 요청"
+    },
+    "QuickSubtitleRequest_title": {
+        "message": "무료 자막 요청"
+    },
+    "QuickSubtitleRequest_selectLang": {
+        "message": "자막을 요청할 언어를 선택하세요"
+    },
+    "QuickSubtitleRequest_comment": {
+        "message": "기본 요청 언어를 선택하면 앞으로 클릭 한번으로 요청할 수 있습니다."
+    },
+    "QuickSubtitleRequest_defaultLang": {
+        "message": "기본 요청 언어로 저장"
+    },
+    "QuickSubtitleRequest_sendRequest": {
+        "message": "요청 전송"
+    },
+    "ReviewComponent_title": {
+        "message": "자막을 평가해주세요"
+    },
+    "ReviewComponent_sendBtn": {
+        "message": "리뷰 전송"
+    },
     "SelectLang_default" : {
         "message" : "언어 선택"
+    },
+    "LoginFirst_message" : {
+        "message" : "로그인하고 전 세계 유저들이 올린 자막을 무료로 만나보세요"
+    },
+    "LoginFirst_loginBtn" : {
+        "message" : "로그인하러 가기"
+    },
+    "LoginFirst_visitWebpage" : {
+        "message" : "웹페이지 방문"
+    },
+    "LoginStatus_loginStatus" : {
+        "message" : "로그인 상태:"
+    },
+    "LoginStatus_logoutBtn" : {
+        "message" : "로그아웃"
+    },
+    "LoginStatus_point" : {
+        "message" : "보유 포인트:"
+    },
+    "LoginStatus_buyBtn" : {
+        "message" : "포인트 충전"
+    },
+    "LoginStatus_publicProfile" : {
+        "message" : "공개 프로필"
+    },
+    "LoginStatus_privateProfile" : {
+        "message" : "개인 프로필"
+    },
+    "LoginStatus_visitWebpage" : {
+        "message" : "웹페이지 방문"
     }
 }

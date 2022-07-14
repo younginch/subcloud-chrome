@@ -17,6 +17,7 @@ type Props = {
 };
 
 export default function ReviewComponent({ duration, subId }: Props) {
+  const t = chrome.i18n.getMessage;
   const clockRef = useRef<any>();
   const [rating, setRating] = useState<number>(3);
 
@@ -110,7 +111,7 @@ export default function ReviewComponent({ duration, subId }: Props) {
           }}
         >
           <h4 style={{ color: 'black', fontSize: '18px', fontWeight: 600 }}>
-            자막을 평가해주세요
+            {t('ReviewComponent_title')}
           </h4>
           <div
             id="review-close-button"
@@ -142,7 +143,7 @@ export default function ReviewComponent({ duration, subId }: Props) {
             }}
             onClick={handleSubmit}
           >
-            리뷰 전송
+            {t('ReviewComponent_sendBtn')}
           </button>
         </div>
         <div className="collapse" id="collapseExample">

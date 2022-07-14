@@ -10,6 +10,18 @@
     "QuickSubtitleRequest_requestMsg" : {
         "message": "Request Subtitle"
     },
+    "HomeLoginFirst_title": {
+        "message": "Please log in to SubCloud"
+    },
+    "HomeLoginFirst_message": {
+        "message": "Log in easily and use subtitles uploaded by users around the world for free"
+    },
+    "HomeLoginFirst_loginBtn": {
+        "message": "Log me in"
+    },
+    "HomeLoginFirst_webpageUrl": {
+        "message": "Visit webpage"
+    },
     "HomeNoSub_title": {
         "message": "No subtitles found. Request it for free."
     },
@@ -223,7 +235,58 @@
     "BottomButton_button_subtitleTooltip2": {
         "message": "subtitle(s)"
     },
+    "QuickSubtitleRequest_title": {
+        "message": "Free request"
+    },
+    "QuickSubtitleRequest_selectLang": {
+        "message": "Choose the language you want"
+    },
+    "QuickSubtitleRequest_comment": {
+        "message": "Select your default request language for one-click requests."
+    },
+    "QuickSubtitleRequest_defaultLang": {
+        "message": "Set as default"
+    },
+    "QuickSubtitleRequest_sendRequest": {
+        "message": "Send"
+    },
+    "ReviewComponent_title": {
+        "message": "Review the subtitle"
+    },
+    "ReviewComponent_sendBtn": {
+        "message": "Send Review"
+    },
     "SelectLang_default" : {
         "message" : "Select language"
+    },
+    "LoginFirst_message" : {
+        "message" : "Log in easily and use subtitles uploaded by users around the world for free"
+    },
+    "LoginFirst_loginBtn" : {
+        "message" : "Log me in"
+    },
+    "LoginFirst_visitWebpage" : {
+        "message" : "Visit webpage"
+    },
+    "LoginStatus_loginStatus" : {
+        "message" : "Login status:"
+    },
+    "LoginStatus_logoutBtn" : {
+        "message" : "Logout"
+    },
+    "LoginStatus_point" : {
+        "message" : "Points:"
+    },
+    "LoginStatus_buyBtn" : {
+        "message" : "Buy points"
+    },
+    "LoginStatus_publicProfile" : {
+        "message" : "Public profile"
+    },
+    "LoginStatus_privateProfile" : {
+        "message" : "Private profile"
+    },
+    "LoginStatus_visitWebpage" : {
+        "message" : "Visit webpage"
     }
 }
