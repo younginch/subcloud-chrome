@@ -235,6 +235,21 @@
     "BottomButton_button_subtitleTooltip2": {
         "message": "subtitle(s)"
     },
+    "QuickSubtitleRequest_title": {
+        "message": "Free request"
+    },
+    "QuickSubtitleRequest_selectLang": {
+        "message": "Choose the language you want"
+    },
+    "QuickSubtitleRequest_comment": {
+        "message": "Select your default request language for one-click requests."
+    },
+    "QuickSubtitleRequest_defaultLang": {
+        "message": "Set as default"
+    },
+    "QuickSubtitleRequest_sendRequest": {
+        "message": "Send"
+    },
     "SelectLang_default" : {
         "message" : "Select language"
     },
