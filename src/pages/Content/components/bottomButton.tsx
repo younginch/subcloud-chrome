@@ -18,6 +18,7 @@ import componentLoader, { AttachType } from '../helpers/componentLoader';
 import CSSResetCustom from './cssResetCustom';
 import { SubcloudIcon } from './icons';
 import MainModal from './mainModal';
+import getFile from '../utils/api/getFile';
 
 const theme = extendTheme({
   initialColorMode: 'dark',
@@ -90,11 +91,21 @@ const onClickBtn = async () => {
   }, 400);
 };
 
+type Sub = {
+  id: string;
+  lang: string;
+  rating: number;
+  views: number;
+  userName: string;
+  userId: string;
+  uploadDate: Date;
+};
+
 export default function BottomButton() {
   const t = chrome.i18n.getMessage;
   const [onOff, setOnOff] = useState<boolean>(false);
   const [notifyCount, setNotifyCount] = useState<number>(0);
-  const [hasSub, setHasSub] = useState<boolean>(false);
+  const [baseLangSub, setBaseLangSub] = useState<Sub | undefined>();
   const [baseLang, setBaseLang] = useState<string>('한국어');
 
   useEffect(() => {
@@ -112,12 +123,18 @@ export default function BottomButton() {
       const tab = await getTab();
       const videoData = await video(tab.url);
       const subs = await getSubs(videoData?.videoId, videoData?.serviceId);
-      setHasSub(
-        subs.reduce(
-          (prev: boolean, curr) => prev || curr.lang === baseLang,
-          false
-        )
-      );
+      let sub;
+      for (let i = 0; i < subs.length; i += 1) {
+        if (subs[i].lang === baseLang && (!sub || sub.views < subs[i].views)) {
+          sub = subs[i];
+        }
+      }
+      setBaseLangSub(sub);
+      const result = await chrome.storage.local.get(['isQuickSub']);
+      if (sub?.id && result.isQuickSub) {
+        const file = await getFile(sub?.id);
+        await chrome.storage.local.set({ subtitle: JSON.stringify(file) });
+      }
     };
 
     const init = async () => {
@@ -183,7 +200,7 @@ export default function BottomButton() {
             <span>
               <b>{t('BottomButton_button_defaultTooltip')}</b>
             </span>
-            {hasSub && (
+            {baseLangSub && (
               <>
                 <br />
                 <span>
@@ -213,7 +230,7 @@ export default function BottomButton() {
           onClick={() => onClickBtn()}
         >
           <SubcloudIcon size="30px" fill="white" />
-          {(hasSub || notifyCount > 0) && (
+          {(baseLangSub || notifyCount > 0) && (
             <Text
               bg="red"
               fontSize="12px"
@@ -221,10 +238,10 @@ export default function BottomButton() {
               position="absolute"
               pl="5px"
               pr="4px"
-              ml={hasSub ? '16px' : '13px'}
+              ml={baseLangSub ? '16px' : '13px'}
               mt="-32px"
             >
-              {hasSub ? '!' : notifyCount}
+              {baseLangSub ? '!' : notifyCount}
             </Text>
           )}
         </Box>

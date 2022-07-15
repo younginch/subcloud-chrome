@@ -51,6 +51,8 @@ export default function Setting({ user }: Props) {
   });
   const [requestLang, setRequestLang] = useState<string | undefined>();
   const [baseLang, setBaseLang] = useState<string | undefined>();
+  const [isQuickSub, setIsQuickSub] = useState<boolean>(false);
+  const [isQuickRequest, setIsQuickRequest] = useState<boolean>(false);
 
   const getLangs = async () => {
     const { requestLangs, baseLangs } = await getLang();
@@ -70,6 +72,8 @@ export default function Setting({ user }: Props) {
             'fontColor',
             'fontBorderColor',
             'fontBgColor',
+            'isQuickRequest',
+            'isQuickSub',
           ],
           (result) => {
             if (result.isBorder !== undefined) setIsBorder(result.isBorder);
@@ -82,6 +86,10 @@ export default function Setting({ user }: Props) {
               setFontBorderColor(result.fontBorderColor);
             if (result.fontBgColor !== undefined)
               setFontBgColor(result.fontBgColor);
+            if (result.isQuickRequest !== undefined)
+              setIsQuickRequest(result.isQuickRequest);
+            if (result.isQuickSub !== undefined)
+              setIsQuickSub(result.isQuickSub);
           }
         );
         await getLangs();
@@ -102,6 +110,8 @@ export default function Setting({ user }: Props) {
         fontColor,
         fontBorderColor,
         fontBgColor,
+        isQuickRequest,
+        isQuickSub,
       });
     } catch (error: unknown) {
       if (error instanceof Error)
@@ -114,6 +124,8 @@ export default function Setting({ user }: Props) {
     fontColor,
     fontBorderColor,
     fontBgColor,
+    isQuickRequest,
+    isQuickSub,
   ]);
 
   useEffect(() => {
@@ -313,7 +325,12 @@ export default function Setting({ user }: Props) {
           </>
         }
       >
-        <Switch colorScheme="teal" size="lg" />
+        <Switch
+          colorScheme="teal"
+          size="lg"
+          isChecked={isQuickSub}
+          onChange={() => setIsQuickSub(!isQuickSub)}
+        />
       </SettingRow>
       <SettingRow
         name={t('Settings_quickRequest')}
@@ -325,7 +342,12 @@ export default function Setting({ user }: Props) {
           </>
         }
       >
-        <Switch colorScheme="teal" size="lg" />
+        <Switch
+          colorScheme="teal"
+          size="lg"
+          isChecked={isQuickRequest}
+          onChange={() => setIsQuickRequest(!isQuickRequest)}
+        />
       </SettingRow>
     </Stack>
   );
