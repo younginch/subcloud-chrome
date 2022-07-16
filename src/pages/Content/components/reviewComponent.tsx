@@ -10,6 +10,7 @@ import Rating from 'react-rating';
 import Countdown, { CountdownRenderProps } from 'react-countdown';
 import { useEffect, useRef, useState } from 'react';
 import sendRating from '../utils/api/sendRating';
+import toast, { ToastType } from '../utils/toast';
 
 type Props = {
   duration: number;
@@ -62,7 +63,12 @@ export default function ReviewComponent({ duration, subId }: Props) {
     const message = (
       document.getElementById('floatingTextarea') as HTMLTextAreaElement
     ).value;
-    await sendRating(subId, rating, message);
+    try {
+      await sendRating(subId, rating, message);
+    } catch (error: unknown) {
+      if (error instanceof Error)
+        toast(ToastType.ERROR, `Error at sending review: ${error.message}`); // maybe change to console.log or other ways
+    }
     document.getElementById('subcloud-review-placer')?.remove();
     document.getElementById('subcloud-main-modal')?.remove();
   };
