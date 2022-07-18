@@ -34,7 +34,7 @@ import RatingComponent from '../pages/Content/components/rateComponent';
 import SelectLang from '../pages/Content/components/selectLang';
 import ColorPicker from '../pages/Content/components/colorPicker';
 import TableRow from '../pages/Content/components/tableRow';
-import { Status } from '../../utils/type';
+import { MESSAGETAG, Status } from '../../utils/type';
 import getSubs from '../pages/Content/utils/api/getSubs';
 import Subtitle from '../pages/Content/tabs/subtitle';
 import ToastComponent from '../pages/Content/components/toastComponent';
@@ -107,6 +107,12 @@ describe('Pages and Components', () => {
         checked: true,
       },
     ]);
+    jest
+      .spyOn(chrome.runtime.onMessage, 'addListener')
+      .mockImplementationOnce((f) => f(MESSAGETAG.LOGOUT, {}, (res) => res));
+    jest
+      .spyOn(chrome.runtime.onMessage, 'removeListener')
+      .mockImplementationOnce((f) => f(MESSAGETAG.LOGOUT, {}, (res) => res));
     jest.spyOn(React, 'useEffect').mockImplementationOnce((f) => f());
     render(
       <ChakraProvider>

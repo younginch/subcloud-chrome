@@ -16,7 +16,7 @@ import {
   AvatarBadge,
   Stack,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
   AiFillHome,
   AiFillSetting,
@@ -33,7 +33,7 @@ import Upload from '../tabs/upload';
 import Setting from '../tabs/setting';
 import HomeNoSub from '../tabs/homeNoSub';
 import toast, { ToastType } from '../utils/toast';
-import { User, Video } from '../../../../utils/type';
+import { MESSAGETAG, User, Video } from '../../../../utils/type';
 import { closeMainModal } from '../helpers/modalControl';
 import getSubs from '../utils/api/getSubs';
 import Notify from '../tabs/notify';
@@ -61,6 +61,7 @@ export default function Layout() {
   const [readNotifications, setReadNotifications] = useState<
     NotificationType[]
   >([]);
+  const [url, setUrl] = useState<string>();
 
   const tabs: Array<TabType> = [
     { icon: <AiFillHome size={20} />, name: 'Home' },
@@ -69,30 +70,36 @@ export default function Layout() {
     { icon: <AiFillSetting size={20} />, name: 'Setting' },
   ];
 
-  async function getUserInfo() {
-    try {
-      const { data } = await getFetch('auth/session');
-      if (data && data.user) {
-        setUser({
-          id: data.user.id,
-          name: data.user.name,
-          email: data.user.email,
-          image: data.user.image,
-          point: data.user.point,
-        });
-        setIsLogin(true);
-      }
-    } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, 'Server error');
-    }
+  async function getUrl() {
+    const tab = await getTab();
+    setUrl(tab.url);
   }
 
-  useEffect(() => {
+  const getInfo = useCallback(async () => {
+    async function getUserInfo() {
+      try {
+        const { data } = await getFetch('auth/session');
+        if (data && data.user) {
+          setUser({
+            id: data.user.id,
+            name: data.user.name,
+            email: data.user.email,
+            image: data.user.image,
+            point: data.user.point,
+          });
+          setIsLogin(true);
+        }
+      } catch (error: unknown) {
+        if (error instanceof Error) toast(ToastType.ERROR, 'Server error');
+      }
+    }
+
     async function getVideoInfo() {
       try {
-        const tab = await getTab();
-        const data = await video(tab.url);
-        setVideoData(data);
+        if (url) {
+          const data = await video(url);
+          setVideoData(data);
+        }
       } catch (error: unknown) {
         if (error instanceof Error) toast(ToastType.ERROR, 'Server error'); // maybe change to console.log other ways
       }
@@ -153,18 +160,49 @@ export default function Layout() {
       }
     }
 
+    await getUserInfo();
+    await getVideoInfo();
+    await getSubInfo();
+    await getNoticeInfo();
+  }, [videoData?.serviceId, videoData?.videoId, url]);
+
+  useEffect(() => {
     const init = async () => {
-      await getUserInfo();
-      await getVideoInfo();
-      await getSubInfo();
-      await getNoticeInfo();
+      await getUrl();
+      await getInfo();
     };
     init();
-  }, [videoData?.serviceId, videoData?.videoId]);
+  }, [getInfo]);
 
   const handleTabsChange = (index: number) => {
     setTabIndex(index);
   };
+
+  useEffect(() => {
+    const createListener = (message: any, sender: any, sendResponse: any) => {
+      switch (message.tag) {
+        case MESSAGETAG.LOGOUT:
+          setIsLogin(false);
+          setTabIndex(0);
+          sendResponse({ data: 'load-done' });
+          return true;
+        case MESSAGETAG.LOGIN:
+          if (!isLogin) {
+            getInfo();
+          }
+          sendResponse({ data: 'load-done' });
+          return true;
+        default:
+          sendResponse({ data: 'load-done' });
+          return true;
+      }
+    };
+    chrome.runtime.onMessage.addListener(createListener);
+
+    return () => {
+      chrome.runtime.onMessage.removeListener(createListener);
+    };
+  }, [getInfo, isLogin]);
 
   return (
     <VStack

@@ -10,6 +10,8 @@ enum MESSAGETAG {
   INIT,
   TOAST,
   REVIEW,
+  LOGIN,
+  LOGOUT,
 }
 
 enum Status {

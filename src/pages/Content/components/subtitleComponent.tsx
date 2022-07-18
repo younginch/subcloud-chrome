@@ -96,7 +96,11 @@ export default function SubtitleComponent() {
 
   return (
     <div className="subcloud-placer" style={{ marginTop: `${subtitleMt}px` }}>
-      <div className="subcloud-background" style={{ textAlign: 'center' }}>
+      <div
+        className="subcloud-background"
+        style={{ textAlign: 'center', touchAction: 'none' }}
+        draggable
+      >
         {textArray && onOff
           ? textArray.map((text, index) => (
               <div

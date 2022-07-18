@@ -5,6 +5,7 @@ import { Dispatch, SetStateAction } from 'react';
 import NotifyCard from '../components/notifyCard';
 import { changeNotices, deleteNotices } from '../utils/api/notice';
 import { NotificationType } from '../utils/notify';
+import toast, { ToastType } from '../utils/toast';
 
 type Props = {
   readNotifications: NotificationType[];
@@ -29,7 +30,11 @@ export default function Notify({
       ...unreadNotifications.slice(0, index),
       ...unreadNotifications.slice(index + 1, unreadNotifications.length),
     ]);
-    changeNotices(unreadNotifications[index].id);
+    try {
+      changeNotices(unreadNotifications[index].id);
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(ToastType.ERROR, 'Server error'); // maybe change to console.log other ways
+    }
   };
 
   const removeItem = (index: number) => {
@@ -37,7 +42,11 @@ export default function Notify({
       ...readNotifications.slice(0, index),
       ...readNotifications.slice(index + 1, readNotifications.length),
     ]);
-    deleteNotices(readNotifications[index].id);
+    try {
+      deleteNotices(readNotifications[index].id);
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(ToastType.ERROR, 'Server error'); // maybe change to console.log other ways
+    }
   };
 
   return (

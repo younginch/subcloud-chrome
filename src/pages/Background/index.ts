@@ -181,7 +181,40 @@ async function sendMessage(
   }
 }
 
-chrome.cookies.get({ url: API_URL, name: '__Secure-next-auth.session-token' });
+const cookieName = 'next-auth.session-token'; // __Secure-
+
+const getCookie = async () => {
+  const result = await chrome.cookies.get({ url: API_URL, name: cookieName });
+  console.log(result);
+};
+
+getCookie();
+
+chrome.cookies.onChanged.addListener((changeInfo) => {
+  if (changeInfo.cookie.name === cookieName) {
+    chrome.windows.getAll(
+      {
+        populate: true,
+      },
+      (windows) => {
+        for (let i = 0; i < windows.length; i += 1) {
+          const currentWindow = windows[i];
+          const t = currentWindow.tabs;
+          if (t)
+            for (let j = 0; j < t.length; j += 1) {
+              const { id, url } = t[j];
+              if (id && url?.includes('https://www.youtube.com/')) {
+                if (changeInfo.cause === 'expired_overwrite')
+                  chrome.tabs.sendMessage(id, { tag: MESSAGETAG.LOGOUT });
+                if (changeInfo.cause === 'overwrite')
+                  chrome.tabs.sendMessage(id, { tag: MESSAGETAG.LOGIN });
+              }
+            }
+        }
+      }
+    );
+  }
+});
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
   const { url } = changeInfo;
