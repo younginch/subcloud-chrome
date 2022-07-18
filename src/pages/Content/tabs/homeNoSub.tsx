@@ -192,6 +192,7 @@ export default function HomeNoSub({ videoData }: Props) {
       await getVideoInfo();
       await getRequestCount();
       await getLangs();
+      console.log(videoData);
     };
     init();
   }, [videoData]);

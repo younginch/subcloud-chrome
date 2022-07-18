@@ -8,6 +8,7 @@ import CSSResetCustom from './components/cssResetCustom';
 import componentLoader, { AttachType } from './helpers/componentLoader';
 import { ToastType } from './utils/toast';
 import ReviewComponent from './components/reviewComponent';
+import { closeMainModal } from './helpers/modalControl';
 
 declare let bootstrap: any;
 
@@ -147,6 +148,7 @@ window.onload = load;
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.tag) {
     case MESSAGETAG.INIT:
+      closeMainModal();
       load();
       sendResponse({ data: 'load-done' });
       return true;

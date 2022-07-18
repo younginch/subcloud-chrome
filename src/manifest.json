@@ -13,7 +13,8 @@
   "permissions": ["cookies", "tabs", "storage"],
   "host_permissions": [
     "https://subcloud.app/*",
-    "http://localhost:3000/*"
+    "http://localhost:3000/*",
+    "<all_urls>"
   ],
   "icons": {
     "128": "icon-128.png"
