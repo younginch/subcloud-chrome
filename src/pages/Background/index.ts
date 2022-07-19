@@ -181,11 +181,10 @@ async function sendMessage(
   }
 }
 
-const cookieName = 'next-auth.session-token'; // __Secure-
+const cookieName = '__Secure-next-auth.session-token';
 
 const getCookie = async () => {
-  const result = await chrome.cookies.get({ url: API_URL, name: cookieName });
-  console.log(result);
+  await chrome.cookies.get({ url: API_URL, name: cookieName });
 };
 
 getCookie();

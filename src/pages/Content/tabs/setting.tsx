@@ -163,7 +163,7 @@ export default function Setting({ user }: Props) {
         <Text fontSize="18px">{user?.name ?? 'unknown'}</Text>
         <Button
           onClick={() => {
-            window.location.href = `${API_URL}/api/auth/signout`;
+            createTab(`${API_URL}/api/auth/signout`);
           }}
           fontSize="13px"
           ml="15px !important"

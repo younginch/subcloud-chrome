@@ -39,7 +39,6 @@ import getSubs from '../utils/api/getSubs';
 import Notify from '../tabs/notify';
 import HomeLoginFirst from '../tabs/homeLoginFirst';
 import video from '../utils/api/video';
-import getTab from '../utils/getTab';
 import { getNotices } from '../utils/api/notice';
 import { NotificationType, NotifyType } from '../utils/notify';
 import createTab from '../utils/createTab';
@@ -50,9 +49,9 @@ type TabType = {
 };
 
 export default function Layout() {
-  const [user, setUser] = useState<User | undefined>();
+  const [user, setUser] = useState<User>();
   const [tabIndex, setTabIndex] = useState<number>(0);
-  const [videoData, setVideoData] = useState<Video | undefined>();
+  const [videoData, setVideoData] = useState<Video>();
   const [subs, setSubs] = useState<SubtitleType[]>([]);
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const [unreadNotifications, setUnreadNotifications] = useState<
@@ -71,29 +70,28 @@ export default function Layout() {
   ];
 
   async function getUrl() {
-    const tab = await getTab();
-    setUrl(tab.url);
+    setUrl(window.location.href);
+  }
+
+  async function getUserInfo() {
+    try {
+      const { data } = await getFetch('auth/session');
+      if (data && data.user) {
+        setUser({
+          id: data.user.id,
+          name: data.user.name,
+          email: data.user.email,
+          image: data.user.image,
+          point: data.user.point,
+        });
+        setIsLogin(true);
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) toast(ToastType.ERROR, 'Server error');
+    }
   }
 
   const getInfo = useCallback(async () => {
-    async function getUserInfo() {
-      try {
-        const { data } = await getFetch('auth/session');
-        if (data && data.user) {
-          setUser({
-            id: data.user.id,
-            name: data.user.name,
-            email: data.user.email,
-            image: data.user.image,
-            point: data.user.point,
-          });
-          setIsLogin(true);
-        }
-      } catch (error: unknown) {
-        if (error instanceof Error) toast(ToastType.ERROR, 'Server error');
-      }
-    }
-
     async function getVideoInfo() {
       try {
         if (url) {
@@ -159,16 +157,17 @@ export default function Layout() {
         if (error instanceof Error) toast(ToastType.ERROR, 'Server error'); // maybe change to console.log or other ways
       }
     }
-
-    await getUserInfo();
-    await getVideoInfo();
-    await getSubInfo();
-    await getNoticeInfo();
-  }, [videoData?.serviceId, videoData?.videoId, url]);
+    if (isLogin) {
+      await getVideoInfo();
+      await getSubInfo();
+      await getNoticeInfo();
+    }
+  }, [videoData?.serviceId, videoData?.videoId, url, isLogin]);
 
   useEffect(() => {
     const init = async () => {
       await getUrl();
+      await getUserInfo();
       await getInfo();
     };
     init();
@@ -179,7 +178,11 @@ export default function Layout() {
   };
 
   useEffect(() => {
-    const createListener = (message: any, sender: any, sendResponse: any) => {
+    const createListener = async (
+      message: any,
+      sender: any,
+      sendResponse: any
+    ) => {
       switch (message.tag) {
         case MESSAGETAG.LOGOUT:
           setIsLogin(false);
@@ -188,7 +191,8 @@ export default function Layout() {
           return true;
         case MESSAGETAG.LOGIN:
           if (!isLogin) {
-            getInfo();
+            await getUserInfo();
+            await getInfo();
           }
           sendResponse({ data: 'load-done' });
           return true;

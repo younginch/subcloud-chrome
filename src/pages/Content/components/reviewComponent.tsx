@@ -65,6 +65,7 @@ export default function ReviewComponent({ duration, subId }: Props) {
     ).value;
     try {
       await sendRating(subId, rating, message);
+      toast(ToastType.SUCCESS, `Review sent`);
     } catch (error: unknown) {
       if (error instanceof Error)
         toast(ToastType.ERROR, `Error at sending review: ${error.message}`); // maybe change to console.log or other ways
