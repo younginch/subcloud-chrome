@@ -148,10 +148,9 @@ export default function HomeNoSub({ videoData }: Props) {
 
     const getVideoInfo = async () => {
       try {
-        const tab = await getTab();
         if (videoData) {
           const { youtubeVideo } = videoData;
-          let replaceUrl = tab.url.replace('https://youtu.be/', '');
+          let replaceUrl = videoData.url.replace('https://youtu.be/', '');
           replaceUrl = replaceUrl.replace('https://www.youtube.com/embed/', '');
           replaceUrl = replaceUrl.replace(
             'https://www.youtube.com/watch?v=',
@@ -192,7 +191,6 @@ export default function HomeNoSub({ videoData }: Props) {
       await getVideoInfo();
       await getRequestCount();
       await getLangs();
-      console.log(videoData);
     };
     init();
   }, [videoData]);

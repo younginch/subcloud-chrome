@@ -1,6 +1,7 @@
 import { ExternalLinkIcon } from '@chakra-ui/icons';
 import { Button, Link, Stack, Text } from '@chakra-ui/react';
 import { LoginFirstIcon } from '../components/icons';
+import createTab from '../utils/createTab';
 
 export default function HomeLoginFirst() {
   const t = chrome.i18n.getMessage;
@@ -19,7 +20,9 @@ export default function HomeLoginFirst() {
         h="40px"
         mt="40px !important"
         onClick={() => {
-          window.location.href = `${API_URL}/auth/signin?callbackUrl=${window.location.href}`;
+          createTab(
+            `${API_URL}/auth/signin?callbackUrl=${window.location.href}`
+          );
         }}
       >
         <Text fontSize="18px">{t('HomeLoginFirst_loginBtn')}</Text>
