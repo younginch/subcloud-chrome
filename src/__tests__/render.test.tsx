@@ -110,10 +110,76 @@ describe('Pages and Components', () => {
     ]);
     jest
       .spyOn(chrome.runtime.onMessage, 'addListener')
-      .mockImplementationOnce((f) => f(MESSAGETAG.LOGOUT, {}, (res) => res));
+      .mockImplementationOnce((f) =>
+        f({ tag: MESSAGETAG.LOGOUT }, {}, (res) => res)
+      );
     jest
       .spyOn(chrome.runtime.onMessage, 'removeListener')
-      .mockImplementationOnce((f) => f(MESSAGETAG.LOGOUT, {}, (res) => res));
+      .mockImplementationOnce((f) =>
+        f({ tag: MESSAGETAG.LOGOUT }, {}, (res) => res)
+      );
+    jest.spyOn(React, 'useEffect').mockImplementationOnce((f) => f());
+    render(
+      <ChakraProvider>
+        <Layout />
+      </ChakraProvider>
+    );
+  });
+
+  it('render Layout', async () => {
+    jest.spyOn(notice, 'getNotices').mockImplementationOnce(async () => [
+      {
+        notice: {
+          type: NotifyType.ANNOUNCE,
+          message: '',
+          url: '',
+          createdAt: Date(),
+        },
+        id: '',
+        checked: true,
+      },
+    ]);
+    jest
+      .spyOn(chrome.runtime.onMessage, 'addListener')
+      .mockImplementationOnce((f) =>
+        f({ tag: MESSAGETAG.LOGIN }, {}, (res) => res)
+      );
+    jest
+      .spyOn(chrome.runtime.onMessage, 'removeListener')
+      .mockImplementationOnce((f) =>
+        f({ tag: MESSAGETAG.LOGIN }, {}, (res) => res)
+      );
+    jest.spyOn(React, 'useEffect').mockImplementationOnce((f) => f());
+    render(
+      <ChakraProvider>
+        <Layout />
+      </ChakraProvider>
+    );
+  });
+
+  it('render Layout', async () => {
+    jest.spyOn(notice, 'getNotices').mockImplementationOnce(async () => [
+      {
+        notice: {
+          type: NotifyType.ANNOUNCE,
+          message: '',
+          url: '',
+          createdAt: Date(),
+        },
+        id: '',
+        checked: true,
+      },
+    ]);
+    jest
+      .spyOn(chrome.runtime.onMessage, 'addListener')
+      .mockImplementationOnce((f) =>
+        f({ tag: MESSAGETAG.INIT }, {}, (res) => res)
+      );
+    jest
+      .spyOn(chrome.runtime.onMessage, 'removeListener')
+      .mockImplementationOnce((f) =>
+        f({ tag: MESSAGETAG.INIT }, {}, (res) => res)
+      );
     jest.spyOn(React, 'useEffect').mockImplementationOnce((f) => f());
     render(
       <ChakraProvider>

@@ -39,7 +39,6 @@ import getSubs from '../utils/api/getSubs';
 import Notify from '../tabs/notify';
 import HomeLoginFirst from '../tabs/homeLoginFirst';
 import video from '../utils/api/video';
-import getTab from '../utils/getTab';
 import { getNotices } from '../utils/api/notice';
 import { NotificationType, NotifyType } from '../utils/notify';
 import createTab from '../utils/createTab';
