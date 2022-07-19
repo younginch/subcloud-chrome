@@ -3,7 +3,9 @@ import { Box, Button, Text } from '@chakra-ui/react';
 import { Dispatch, SetStateAction } from 'react';
 import { FaFileUpload } from 'react-icons/fa';
 import DropZone from '../../components/dropZone';
+import getYoutubeId from '../../helpers/getYoutube';
 import createTab from '../../utils/createTab';
+import getTab from '../../utils/getTab';
 
 export type Props = {
   setFiles: Dispatch<SetStateAction<File[] | undefined>>;
@@ -12,6 +14,7 @@ export type Props = {
 
 export default function UploadSubtitle({ setFiles, uploadCallback }: Props) {
   const t = chrome.i18n.getMessage;
+
   return (
     <>
       <Text fontWeight="bold" fontSize="22px" m="10px">
@@ -35,8 +38,10 @@ export default function UploadSubtitle({ setFiles, uploadCallback }: Props) {
         w="150px"
         h="35px"
         mt="10px !important"
-        onClick={() => {
-          createTab(`${API_URL}/editor`);
+        onClick={async () => {
+          const tab = await getTab();
+          const videoId = getYoutubeId(new URL(tab.url));
+          await createTab(`${API_URL}/editor?youtubeId=${videoId}`);
         }}
       >
         <Text fontSize="14px">Edit on SubCloud</Text>

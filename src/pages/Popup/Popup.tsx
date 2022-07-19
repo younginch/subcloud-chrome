@@ -34,8 +34,6 @@ export default function Popup() {
     getUserInfo();
   }, []);
 
-  console.log(user);
-
   return (
     <Stack alignItems="center" spacing="20px" p="15px">
       <HStack>
