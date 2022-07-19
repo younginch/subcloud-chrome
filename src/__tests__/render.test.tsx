@@ -57,6 +57,7 @@ import LoginFirst from '../pages/Popup/components/loginFirst';
 import ReviewComponent from '../pages/Content/components/reviewComponent';
 import createTab from '../pages/Content/utils/createTab';
 import LoginStatus from '../pages/Popup/components/loginStatus';
+import getYoutubeId from '../pages/Content/helpers/getYoutube';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -503,6 +504,23 @@ describe('Pages and Components', () => {
         <LoginStatus user={undefined} />
       </ChakraProvider>
     );
+  });
+
+  it('test getYoutubeId return successfully', () => {
+    const videoId = getYoutubeId(
+      new URL('https://www.youtube.com/watch?v=i7muqI90138')
+    );
+    expect(videoId).toStrictEqual('i7muqI90138');
+  });
+
+  it('test getYoutubeId with youtu.be link', () => {
+    const videoId = getYoutubeId(new URL('https://youtu.be/i7muqI90138'));
+    expect(videoId).toStrictEqual('i7muqI90138');
+  });
+
+  it('test getYoutubeId return undefined', () => {
+    const videoId = getYoutubeId(new URL('https://www.youtube.com/watch'));
+    expect(videoId).toBeNull();
   });
 
   it('test closeMainModal success', () => {
