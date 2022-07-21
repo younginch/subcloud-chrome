@@ -1,5 +1,6 @@
-import { HStack, Text, Link } from '@chakra-ui/react';
+import { HStack, Text } from '@chakra-ui/react';
 import { AppreciationIcon } from '../../components/icons';
+import createTab from '../../utils/createTab';
 
 export default function UploadFinish() {
   const t = chrome.i18n.getMessage;
@@ -10,9 +11,17 @@ export default function UploadFinish() {
       </Text>
       <HStack fontWeight="bold" fontSize="18px" m="10px !important">
         <Text>{t('UploadFinish_status_first')}</Text>
-        <Link href={`${API_URL}/user/my/sub`} color="#8888ff">
+        <Text
+          color="#8888ff"
+          onClick={() => {
+            createTab(`${API_URL}/user/my/sub`);
+          }}
+          _hover={{
+            textDecoration: 'underline',
+          }}
+        >
           {t('UploadFinish_status_middle')}
-        </Link>
+        </Text>
         <Text>{t('UploadFinish_status_end')}</Text>
       </HStack>
       <AppreciationIcon size={300} />
