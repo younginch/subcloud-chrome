@@ -25,7 +25,6 @@ import { BiRocket } from 'react-icons/bi';
 import { BsLightningCharge } from 'react-icons/bs';
 import { HiOutlineFire } from 'react-icons/hi';
 import { ChangeEvent, useEffect, useState } from 'react';
-import getTab from '../utils/getTab';
 import request from '../utils/api/request';
 import requestCount from '../utils/api/requestCount';
 import toast, { ToastType } from '../utils/toast';
