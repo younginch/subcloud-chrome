@@ -123,10 +123,14 @@ export default function Subtitle({ subs, userId }: Props) {
                     {ISO6391.getNativeName(sub.lang)}
                   </Td>
                   <Td fontSize="16px" p={tdPadding}>
-                    <HStack>
-                      <Text w="10px">{sub.rating}</Text>
-                      <RateComponent rating={sub.rating} size="15px" />
-                    </HStack>
+                    {sub.rating === 0 ? (
+                      <Text>{t('Subtitle_table_noRating')}</Text>
+                    ) : (
+                      <HStack>
+                        <Text w="10px">{sub.rating}</Text>
+                        <RateComponent rating={sub.rating} size="15px" />
+                      </HStack>
+                    )}
                   </Td>
                   <Td fontSize="16px" p={tdPadding} isNumeric>
                     {sub.views}

@@ -82,6 +82,9 @@
     "Subtitle_table_date": {
         "message": "date"
     },
+    "Subtitle_table_noRating": {
+        "message": "unrated"
+    },
     "Upload_step1_title": {
         "message": "Upload file"
     },
