@@ -25,6 +25,9 @@
     "HomeNoSub_title": {
         "message": "No subtitles found. Request it for free."
     },
+    "HomeNoSub_title_hasSub": {
+        "message": "Request subtitle for free."
+    },
     "HomeNoSub_subscriber_begin": {
         "message": ""
     },

@@ -22,6 +22,9 @@
     "HomeNoSub_title": {
         "message": "영상에 자막이 없습니다. 무료로 요청해 보세요."
     },
+    "HomeNoSub_title_hasSub": {
+        "message": "원하는 자막을 무료로 요청해 보세요."
+    },
     "HomeNoSub_subscriber_begin": {
         "message": "구독자 "
     },

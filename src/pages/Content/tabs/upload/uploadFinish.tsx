@@ -10,7 +10,7 @@ export default function UploadFinish() {
       </Text>
       <HStack fontWeight="bold" fontSize="18px" m="10px !important">
         <Text>{t('UploadFinish_status_first')}</Text>
-        <Link href={API_URL} color="#8888ff">
+        <Link href={`${API_URL}/user/my/sub`} color="#8888ff">
           {t('UploadFinish_status_middle')}
         </Link>
         <Text>{t('UploadFinish_status_end')}</Text>
