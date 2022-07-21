@@ -277,6 +277,7 @@ describe('Pages and Components', () => {
             videoId: '',
             youtubeVideoId: '',
           }}
+          hasSub={false}
         />
       </ChakraProvider>
     );

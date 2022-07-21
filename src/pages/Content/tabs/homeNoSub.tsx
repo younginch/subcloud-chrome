@@ -42,9 +42,10 @@ type PointElement = {
 
 type Props = {
   videoData?: Video;
+  hasSub: boolean;
 };
 
-export default function HomeNoSub({ videoData }: Props) {
+export default function HomeNoSub({ videoData, hasSub }: Props) {
   const t = chrome.i18n.getMessage;
   const points: Array<PointElement> = [
     {
@@ -211,7 +212,7 @@ export default function HomeNoSub({ videoData }: Props) {
     <Stack p="10px 20px 10px 20px">
       <Skeleton isLoaded={isLoaded} h="30px" mt="10px" mb="10px" w="620px">
         <Text fontWeight="bold" fontSize="22px">
-          {t('HomeNoSub_title')}
+          {hasSub ? t('HomeNoSub_title_hasSub') : t('HomeNoSub_title')}
         </Text>
       </Skeleton>
       <HStack>

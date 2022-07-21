@@ -12,6 +12,7 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import ISO6391 from 'iso-639-1';
 import SelectLang from '../components/selectLang';
 import RateComponent from '../components/rateComponent';
 import getFile from '../utils/api/getFile';
@@ -62,6 +63,9 @@ export default function Subtitle({ subs, userId }: Props) {
     }
   };
 
+  const thPadding = '15px 10px';
+  const tdPadding = '7.5px 15px';
+
   return (
     <Stack p="10px 20px 10px 20px">
       <Text fontWeight="bold" fontSize="22px" mt="10px" mb="10px">
@@ -82,13 +86,21 @@ export default function Subtitle({ subs, userId }: Props) {
           <TableCaption fontSize="12px">Powered by SubCloud</TableCaption>
           <Thead>
             <Tr>
-              <Th fontSize="16px">{t('Subtitle_table_lang')}</Th>
-              <Th fontSize="16px">{t('Subtitle_table_rating')}</Th>
-              <Th fontSize="16px" isNumeric>
+              <Th fontSize="16px" p={thPadding}>
+                {t('Subtitle_table_lang')}
+              </Th>
+              <Th fontSize="16px" p={thPadding}>
+                {t('Subtitle_table_rating')}
+              </Th>
+              <Th fontSize="16px" p={thPadding} isNumeric>
                 {t('Subtitle_table_views')}
               </Th>
-              <Th fontSize="16px">{t('Subtitle_table_uploader')}</Th>
-              <Th fontSize="16px">{t('Subtitle_table_date')}</Th>
+              <Th fontSize="16px" p={thPadding}>
+                {t('Subtitle_table_uploader')}
+              </Th>
+              <Th fontSize="16px" p={thPadding}>
+                {t('Subtitle_table_date')}
+              </Th>
             </Tr>
           </Thead>
           <Tbody h="50px">
@@ -107,18 +119,29 @@ export default function Subtitle({ subs, userId }: Props) {
                     document.getElementById('subcloud-main-modal')?.remove();
                   }}
                 >
-                  <Td fontSize="16px">{sub.lang}</Td>
-                  <Td fontSize="16px">
+                  <Td fontSize="16px" p={tdPadding}>
+                    {ISO6391.getNativeName(sub.lang)}
+                  </Td>
+                  <Td fontSize="16px" p={tdPadding}>
                     <HStack>
                       <Text w="10px">{sub.rating}</Text>
                       <RateComponent rating={sub.rating} size="15px" />
                     </HStack>
                   </Td>
-                  <Td fontSize="16px" isNumeric>
+                  <Td fontSize="16px" p={tdPadding} isNumeric>
                     {sub.views}
                   </Td>
-                  <Td fontSize="16px">{sub.userName}</Td>
-                  <Td fontSize="16px">
+                  <Td
+                    fontSize="16px"
+                    maxW="200px"
+                    whiteSpace="nowrap"
+                    textOverflow="ellipsis"
+                    overflow="hidden"
+                    p={tdPadding}
+                  >
+                    {sub.userName}
+                  </Td>
+                  <Td fontSize="16px" p={tdPadding}>
                     {new Date(sub.uploadDate).toLocaleDateString()}
                   </Td>
                 </Tr>

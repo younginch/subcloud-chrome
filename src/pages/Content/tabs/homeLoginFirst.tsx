@@ -27,15 +27,20 @@ export default function HomeLoginFirst() {
       >
         <Text fontSize="18px">{t('HomeLoginFirst_loginBtn')}</Text>
       </Button>
-      <Link
-        href={API_URL}
+      <Text
         color="gray.400"
         fontSize="15px"
         mt="10px !important"
+        onClick={() => {
+          createTab(API_URL);
+        }}
+        _hover={{
+          textDecoration: 'underline',
+        }}
       >
         {t('HomeLoginFirst_webpageUrl')}
         <ExternalLinkIcon mx="2px" />
-      </Link>
+      </Text>
     </Stack>
   );
 }
