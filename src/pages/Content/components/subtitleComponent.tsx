@@ -59,8 +59,10 @@ export default function SubtitleComponent() {
           chrome.tabs.reload();
           return;
         }
-        if (result.subtitle)
-          setSub(Object.assign(new SRTFile(), JSON.parse(result.subtitle)));
+        if (result.subtitle && result.subtitle.url === window.location.href)
+          setSub(
+            Object.assign(new SRTFile(), JSON.parse(result.subtitle.data))
+          );
         if (result.onOff !== undefined) setOnOff(result.onOff);
         if (result.isBorder !== undefined) setIsBorder(result.isBorder);
         if (result.isBackGround !== undefined)

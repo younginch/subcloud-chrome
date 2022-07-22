@@ -46,9 +46,11 @@ export default function Subtitle({ subs, userId }: Props) {
       const currentTime = document.querySelector('video')?.currentTime;
       const duration = document.querySelector('video')?.duration;
       const sub = await getFile(subId);
-      await chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
-      await subView(subId);
+      await chrome.storage.local.set({
+        subtitle: { data: JSON.stringify(sub), url: tab.url },
+      });
       await toast(ToastType.SUCCESS, 'Subtitle selected');
+      await subView(subId);
       if (duration && currentTime && userId !== subUserId) {
         await chrome.runtime.sendMessage({
           tag: MESSAGETAG.REVIEW,
