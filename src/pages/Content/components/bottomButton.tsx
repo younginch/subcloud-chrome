@@ -134,7 +134,9 @@ export default function BottomButton() {
       const result = await chrome.storage.local.get(['isQuickSub']);
       if (sub?.id && result.isQuickSub) {
         const file = await getFile(sub?.id);
-        await chrome.storage.local.set({ subtitle: JSON.stringify(file) });
+        await chrome.storage.local.set({
+          subtitle: { data: JSON.stringify(file), url: tab.url },
+        });
         await subView(sub.id);
       }
     };
