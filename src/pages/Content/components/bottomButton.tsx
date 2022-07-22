@@ -19,6 +19,7 @@ import CSSResetCustom from './cssResetCustom';
 import { SubcloudIcon } from './icons';
 import MainModal from './mainModal';
 import getFile from '../utils/api/getFile';
+import subView from '../utils/api/subView';
 
 const theme = extendTheme({
   initialColorMode: 'dark',
@@ -134,6 +135,7 @@ export default function BottomButton() {
       if (sub?.id && result.isQuickSub) {
         const file = await getFile(sub?.id);
         await chrome.storage.local.set({ subtitle: JSON.stringify(file) });
+        await subView(sub.id);
       }
     };
 

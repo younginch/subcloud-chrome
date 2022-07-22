@@ -34,12 +34,6 @@
     "HomeNoSub_title_hasSub": {
         "message": "원하는 자막을 무료로 요청해 보세요."
     },
-    "HomeNoSub_subscriber_begin": {
-        "message": "구독자 "
-    },
-    "HomeNoSub_subscriber_end": {
-        "message": "명"
-    },
     "HomeNoSub_selectLang_label": {
         "message": "요청할 언어 선택"
     },

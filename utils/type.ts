@@ -36,7 +36,7 @@ type YoutubeVideoInfo = {
   title: string;
   channel: {
     title: string;
-    subscriberCount: number;
+    subscriberCount: string;
     thumbnailUrl: string;
   };
 };

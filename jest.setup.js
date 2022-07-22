@@ -19,4 +19,7 @@ global.chrome = {
   i18n: {
     getMessage: () => 'hello',
   },
+  cookies: {
+    get: jest.fn(),
+  },
 };

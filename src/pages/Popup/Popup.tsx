@@ -10,11 +10,11 @@ import LoginStatus from './components/loginStatus';
 export default function Popup() {
   const { colorMode, toggleColorMode } = useColorMode();
   const [isLogin, setIsLogin] = useState(false);
-  const [user, setUser] = useState<User | undefined>();
+  const [user, setUser] = useState<User>();
 
   async function getUserInfo() {
     try {
-      const data = await getFetch('auth/session');
+      const { data } = await getFetch('auth/session');
       if (data && data.user) {
         setUser({
           id: data.user.id,
@@ -31,7 +31,12 @@ export default function Popup() {
   }
 
   useEffect(() => {
-    getUserInfo();
+    const init = async () => {
+      const cookieName = '__Secure-next-auth.session-token';
+      await chrome.cookies.get({ url: API_URL, name: cookieName });
+      await getUserInfo();
+    };
+    init();
   }, []);
 
   return (

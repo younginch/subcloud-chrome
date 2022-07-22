@@ -119,6 +119,17 @@ describe('Pages and Components', () => {
         f({ tag: MESSAGETAG.LOGOUT }, {}, (res) => res)
       );
     jest.spyOn(React, 'useEffect').mockImplementationOnce((f) => f());
+    jest.spyOn(Fetch, 'getFetch').mockResolvedValueOnce({
+      data: {
+        user: {
+          id: '',
+          name: '',
+          email: '',
+          image: '',
+          point: 0,
+        },
+      },
+    });
     render(
       <ChakraProvider>
         <Layout />
@@ -548,6 +559,7 @@ describe('Pages and Components', () => {
 
   it('render Popup', async () => {
     jest.spyOn(chrome.tabs, 'create').mockImplementation(jest.fn());
+    jest.spyOn(chrome.cookies, 'get').mockImplementation(jest.fn());
     render(
       <ChakraProvider>
         <Popup />

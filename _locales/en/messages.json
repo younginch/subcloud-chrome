@@ -37,12 +37,6 @@
     "HomeNoSub_title_hasSub": {
         "message": "Request subtitle for free."
     },
-    "HomeNoSub_subscriber_begin": {
-        "message": ""
-    },
-    "HomeNoSub_subscriber_end": {
-        "message": " subscribers"
-    },
     "HomeNoSub_selectLang_label": {
         "message": "Select request language"
     },
