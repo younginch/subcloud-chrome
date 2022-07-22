@@ -49,6 +49,7 @@ type TabType = {
 };
 
 export default function Layout() {
+  const t = chrome.i18n.getMessage;
   const [user, setUser] = useState<User>();
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [videoData, setVideoData] = useState<Video>();
@@ -126,13 +127,13 @@ export default function Layout() {
           let title = '';
           switch (notification.notice.type) {
             case NotifyType.ANNOUNCE:
-              title = '공지사항';
+              title = t('Layout_notifyType_announce');
               break;
             case NotifyType.NEW_SUBTITLE:
-              title = '자막 업로드 알림';
+              title = t('Layout_notifyType_newSubtitle');
               break;
             case NotifyType.REVIEW:
-              title = '리뷰 알림';
+              title = t('Layout_notifyType_review');
               break;
             default:
               title = '';
@@ -162,7 +163,7 @@ export default function Layout() {
       await getSubInfo();
       await getNoticeInfo();
     }
-  }, [videoData?.serviceId, videoData?.videoId, url, isLogin]);
+  }, [isLogin, url, videoData?.videoId, videoData?.serviceId, t]);
 
   useEffect(() => {
     const init = async () => {

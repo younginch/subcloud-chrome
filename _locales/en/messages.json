@@ -7,6 +7,15 @@
         "message": "Request or Make Subtitles for Youtube",
         "description": "The description of the extension, displayed in the web store."
     },
+    "Layout_notifyType_announce" : {
+        "message" : "Announce"
+    },
+    "Layout_notifyType_newSubtitle" : {
+        "message" : "New subtitle added"
+    },
+    "Layout_notifyType_review" : {
+        "message" : "New review have arrived"
+    },
     "QuickSubtitleRequest_requestMsg" : {
         "message": "Request Subtitle"
     },
