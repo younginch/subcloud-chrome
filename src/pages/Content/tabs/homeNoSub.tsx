@@ -148,26 +148,38 @@ export default function HomeNoSub({ videoData, hasSub }: Props) {
 
     const getVideoInfo = async () => {
       try {
-        if (videoData) {
-          const { youtubeVideo } = videoData;
-          let replaceUrl = videoData.url.replace('https://youtu.be/', '');
-          replaceUrl = replaceUrl.replace('https://www.youtube.com/embed/', '');
-          replaceUrl = replaceUrl.replace(
-            'https://www.youtube.com/watch?v=',
-            ''
-          );
-          const finUrl = replaceUrl.split('&')[0];
-          setYoutubeVideoInfo({
-            thumbnailUrl: `http://img.youtube.com/vi/${finUrl}/0.jpg`,
-            title: youtubeVideo?.title ?? '',
-            channel: {
-              title: youtubeVideo?.channel.title ?? '',
-              subscriberCount: youtubeVideo?.channel.subscriberCount ?? 0,
-              thumbnailUrl: youtubeVideo?.channel.thumbnailUrl ?? '',
-            },
-          });
-          setIsLoaded(true);
-        }
+        let replaceUrl = window.location.href.replace('https://youtu.be/', '');
+        replaceUrl = replaceUrl.replace('https://www.youtube.com/embed/', '');
+        replaceUrl = replaceUrl.replace('https://www.youtube.com/watch?v=', '');
+        const finUrl = replaceUrl.split('&')[0];
+        const title = document.querySelector(
+          'div#container h1.title yt-formatted-string.style-scope'
+        )?.textContent;
+        const channelTitle = document.querySelector(
+          'yt-formatted-string#text a.yt-simple-endpoint'
+        )?.textContent;
+        const channelSubscriberCount = document.querySelector(
+          'yt-formatted-string#owner-sub-count'
+        )?.textContent;
+        const channelThumbnailUrl = document
+          .querySelector('div#top-row img#img')
+          ?.getAttribute('src');
+        console.log(
+          title,
+          channelTitle,
+          channelSubscriberCount,
+          channelThumbnailUrl
+        );
+        setYoutubeVideoInfo({
+          thumbnailUrl: `http://img.youtube.com/vi/${finUrl}/0.jpg`,
+          title: title ?? '',
+          channel: {
+            title: channelTitle ?? '',
+            subscriberCount: channelSubscriberCount ?? '',
+            thumbnailUrl: channelThumbnailUrl ?? '',
+          },
+        });
+        setIsLoaded(true);
       } catch (error: unknown) {
         if (error instanceof Error)
           toast(
@@ -257,9 +269,7 @@ export default function HomeNoSub({ videoData, hasSub }: Props) {
                   fontWeight="normal"
                   color="gray.300"
                 >
-                  {t('HomeNoSub_subscriber_begin')}
                   {youtubeVideoInfo?.channel.subscriberCount}
-                  {t('HomeNoSub_subscriber_end')}
                 </Heading>
               </Skeleton>
             </Stack>
