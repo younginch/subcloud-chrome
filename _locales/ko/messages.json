@@ -79,6 +79,9 @@
     "Subtitle_table_date": {
         "message": "제작일"
     },
+    "Subtitle_table_noRating": {
+        "message": "평점 없음"
+    },
     "Upload_step1_title": {
         "message": "자막 업로드"
     },
