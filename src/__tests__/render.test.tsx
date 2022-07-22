@@ -559,6 +559,7 @@ describe('Pages and Components', () => {
 
   it('render Popup', async () => {
     jest.spyOn(chrome.tabs, 'create').mockImplementation(jest.fn());
+    jest.spyOn(chrome.cookies, 'get').mockImplementation(jest.fn());
     render(
       <ChakraProvider>
         <Popup />
