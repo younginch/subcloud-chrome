@@ -7,6 +7,15 @@
         "message": "유튜브 영상들에 대해 자막을 요청하거나 제작하세요",
         "description": "The description of the extension, displayed in the web store."
     },
+    "Layout_notifyType_announce" : {
+        "message" : "공지사항"
+    },
+    "Layout_notifyType_newSubtitle" : {
+        "message" : "자막 업로드 알림"
+    },
+    "Layout_notifyType_review" : {
+        "message" : "새 리뷰 알림"
+    },
     "HomeLoginFirst_title": {
         "message": "SubCloud에 로그인해 주세요"
     },
