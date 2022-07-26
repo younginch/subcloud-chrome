@@ -10,7 +10,6 @@ import {
   Box,
   Switch,
 } from '@chakra-ui/react';
-import ISO6391 from 'iso-639-1';
 import { useEffect, useState } from 'react';
 import { RGBColor } from 'react-color';
 import { User } from '../../../../utils/type';
