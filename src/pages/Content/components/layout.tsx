@@ -332,7 +332,11 @@ export default function Layout() {
             <TabPanels>
               <TabPanel p={0}>
                 {isLogin ? (
-                  <HomeNoSub videoData={videoData} hasSub={subs.length > 0} />
+                  <HomeNoSub
+                    videoData={videoData}
+                    hasSub={subs.length > 0}
+                    userPoint={user?.point}
+                  />
                 ) : (
                   <HomeLoginFirst />
                 )}

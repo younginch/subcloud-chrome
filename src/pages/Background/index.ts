@@ -295,7 +295,7 @@ chrome.runtime.onInstalled.addListener(() => {
 chrome.runtime.onInstalled.addListener((e) => {
   if (e.reason === chrome.runtime.OnInstalledReason.INSTALL) {
     chrome.tabs.create({
-      url: `${API_URL}/auth/signin`,
+      url: `${API_URL}/auth/signin?callbackUrl=${API_URL}`,
     });
   }
 });

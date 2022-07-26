@@ -52,13 +52,22 @@ export default function Setting({ user }: Props) {
   const [requestLang, setRequestLang] = useState<string | undefined>();
   const [baseLang, setBaseLang] = useState<string | undefined>();
   const [isQuickSub, setIsQuickSub] = useState<boolean>(false);
-  const [isQuickRequest, setIsQuickRequest] = useState<boolean>(false);
+  const [isQuickRequest, setIsQuickRequest] = useState<boolean>(true);
 
   const getLangs = async () => {
     const { requestLangs, baseLangs } = await getLang();
+    const browserLang = String(window.navigator.language.split('-')[0]);
     if (requestLangs && requestLangs.length > 0)
       setRequestLang(requestLangs[0]);
+    else {
+      setRequestLang(browserLang);
+      changeRequestLang(browserLang);
+    }
     if (baseLangs && baseLangs.length > 0) setBaseLang(baseLangs[0]);
+    else {
+      setBaseLang(browserLang);
+      changeBaseLang(browserLang);
+    }
   };
 
   useEffect(() => {
