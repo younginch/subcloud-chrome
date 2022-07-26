@@ -28,7 +28,7 @@ async function getSubs(videoId: string, serviceId: string) {
       }
     }
   }
-  return subArray;
+  return subArray.sort((a, b) => b.rating - a.rating);
 }
 
 export default getSubs;

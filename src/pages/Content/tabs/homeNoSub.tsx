@@ -43,9 +43,10 @@ type PointElement = {
 type Props = {
   videoData?: Video;
   hasSub: boolean;
+  userPoint?: number;
 };
 
-export default function HomeNoSub({ videoData, hasSub }: Props) {
+export default function HomeNoSub({ videoData, hasSub, userPoint }: Props) {
   const t = chrome.i18n.getMessage;
   const points: Array<PointElement> = [
     {
@@ -107,6 +108,8 @@ export default function HomeNoSub({ videoData, hasSub }: Props) {
     try {
       if (!videoData) throw new Error('Video not loaded');
       if (!lang) throw new Warning('Language not selected');
+      if (userPoint !== undefined && userPoint < point)
+        throw new Warning('Insufficient points');
       await request(videoData.serviceId, videoData.videoId, lang, point);
       const cnt = await requestCount(videoData.serviceId, videoData.videoId);
       setCount(cnt);
@@ -164,12 +167,6 @@ export default function HomeNoSub({ videoData, hasSub }: Props) {
         const channelThumbnailUrl = document
           .querySelector('div#top-row img#img')
           ?.getAttribute('src');
-        console.log(
-          title,
-          channelTitle,
-          channelSubscriberCount,
-          channelThumbnailUrl
-        );
         setYoutubeVideoInfo({
           thumbnailUrl: `http://img.youtube.com/vi/${finUrl}/0.jpg`,
           title: title ?? '',
@@ -408,4 +405,5 @@ export default function HomeNoSub({ videoData, hasSub }: Props) {
 
 HomeNoSub.defaultProps = {
   videoData: undefined,
+  userPoint: 0,
 };
