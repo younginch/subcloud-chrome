@@ -1,0 +1,301 @@
+{
+    "appName": {
+        "message": "SubCloud",
+        "description": "The description of the extension, displayed in the web store."
+    },
+    "appDesc": {
+        "message": "Solicitar o Hacer Subtítulos para Youtube",
+        "description": "The description of the extension, displayed in the web store."
+    },
+    "Layout_notifyType_announce" : {
+        "message" : "Anunciar"
+    },
+    "Layout_notifyType_newSubtitle" : {
+        "message" : "Nuevo subtítulo añadido"
+    },
+    "Layout_notifyType_review" : {
+        "message" : "Llegó nueva reseña"
+    },
+    "QuickSubtitleRequest_requestMsg" : {
+        "message": "Solicitar subtítulo"
+    },
+    "HomeLoginFirst_title": {
+        "message": "Inicie sesión en SubCloud"
+    },
+    "HomeLoginFirst_message": {
+        "message": "Inicie sesión fácilmente y use subtítulos subidos por usuarios de todo el mundo de forma gratuita"
+    },
+    "HomeLoginFirst_loginBtn": {
+        "message": "Iniciar sesión"
+    },
+    "HomeLoginFirst_webpageUrl": {
+        "message": "Visita la página web"
+    },
+    "HomeNoSub_title": {
+        "message": "No se encontraron subtítulos. Solicítalo gratis."
+    },
+    "HomeNoSub_title_hasSub": {
+        "message": "Solicitar subtítulos gratis."
+    },
+    "HomeNoSub_selectLang_label": {
+        "message": "Seleccione el idioma de la solicitud"
+    },
+    "HomeNoSub_selectLang_default": {
+        "message": "Por defecto"
+    },
+    "HomeNoSub_point_label": {
+        "message": "Punto"
+    },
+    "HomeNoSub_button_first": {
+        "message": "Solicitar gratis "
+    },
+    "HomeNoSub_button_second": {
+        "message": "Usar "
+    },
+    "HomeNoSub_button_third": {
+        "message": "P por pedir"
+    },
+    "HomeNoSub_button_end": {
+        "message": " subtitular"
+    },
+    "HomeNoSub_request_selectLang": {
+        "message": "Seleccione el idioma de la solicitud primero"
+    },
+    "HomeNoSub_requesters": {
+        "message": " la gente solicitó subtítulos para el video"
+    },
+    "Subtitle_title": {
+        "message": " subtítulo encontrado"
+    },
+    "Subtitle_title_many": {
+        "message": " subtítulos encontrados"
+    },
+    "Subtitle_table_lang": {
+        "message": "idioma"
+    },
+    "Subtitle_table_rating": {
+        "message": "clasificación"
+    },
+    "Subtitle_table_views": {
+        "message": "vista"
+    },
+    "Subtitle_table_uploader": {
+        "message": "cargador"
+    },
+    "Subtitle_table_date": {
+        "message": "fecha"
+    },
+    "Subtitle_table_noRating": {
+        "message": "sin calificar"
+    },
+    "Upload_step1_title": {
+        "message": "Subir archivo"
+    },
+    "Upload_step2_title": {
+        "message": "Comprobar y enviar"
+    },
+    "Upload_step3_title": {
+        "message": "Publicado después de la revisión"
+    },
+    "UploadSubtitle_title": {
+        "message": "Seleccione el archivo de subtítulos de la computadora"
+    },
+    "UploadSubtitle_dropZone_top": {
+        "message": "Arrastre y suelte o haga clic para cargar"
+    },
+    "UploadSubtitle_dropZone_bottom": {
+        "message": "solo se admite el archivo SRT"
+    },
+    "CheckSubtitle_title": {
+        "message": "Revisa tu subtítulo y súbelo"
+    },
+    "CheckSubtitle_details_first": {
+        "message": "Vista previa del documento ("
+    },
+    "CheckSubtitle_details_end": {
+        "message": " subtítulos)"
+    },
+    "CheckSubtitle_reupload": {
+        "message": "volver a subir"
+    },
+    "CheckSubtitle_preview": {
+        "message": "Avance"
+    },
+    "CheckSubtitle_send": {
+        "message": "Enviar"
+    },
+    "CheckSubtitle_langRequired": {
+        "message": "Seleccione el idioma de los subtítulos"
+    },
+    "UploadFinish_title": {
+        "message": "Has subido correctamente los subtítulos."
+    },
+    "UploadFinish_status_first": {
+        "message": "Puede consultar el estado de la revisión en"
+    },
+    "UploadFinish_status_middle": {
+        "message": "aquí"
+    },
+    "UploadFinish_status_end": {
+        "message": ""
+    },
+    "UploadFinish_thanks": {
+        "message": "Gracias por tu contribución."
+    },
+    "Settings_loginStatus": {
+        "message": "Estado de inicio de sesión:"
+    },
+    "Settings_logoutBtn": {
+        "message": "Cerrar sesión"
+    },
+    "Settings_point": {
+        "message": "Puntos:"
+    },
+    "Settings_buyBtn": {
+        "message": "Buy Puntos"
+    },
+    "Settings_fontSize": {
+        "message": "Tamaño de fuente:"
+    },
+    "Settings_fontColor": {
+        "message": "Color de fuente:"
+    },
+    "Settings_selectColor": {
+        "message": "Elige Color"
+    },
+    "Settings_fontBackground": {
+        "message": "Usar fondo de fuente:"
+    },
+    "Settings_fontBorder": {
+        "message": "Usar borde de fuente:"
+    },
+    "Settings_fontBorder_tooltip": {
+        "message": "Color del borde del texto de los subtítulos"
+    },
+    "Settings_stylePriority": {
+        "message": "Prioriza el formato de los subtítulos:"
+    },
+    "Settings_stylePriority_tooltip1": {
+        "message": "Decidir si usar el estilo personalizado"
+    },
+    "Settings_stylePriority_tooltip2": {
+        "message": "o el estilo del archivo de subtítulos"
+    },
+    "Settings_defaultRequestLang": {
+        "message": "Idioma de solicitud predeterminado:"
+    },
+    "Settings_defaultRequestLang_tooltip": {
+        "message": "Use el idioma predeterminado cuando solicite subtítulos"
+    },
+    "Settings_familiarLang": {
+        "message": "Lengua familiar:"
+    },
+    "Settings_familiarLang_tooltip": {
+        "message": "El idioma predeterminado para buscar"
+    },
+    "Settings_subtitleAlert": {
+        "message": "Notificación cuando encuentre subtítulo:"
+    },
+    "Settings_subtitleAlert_tooltip0": {
+        "message": "Si hay "
+    },
+    "Settings_subtitleAlert_tooltip1": {
+        "message": "Lenguaje familiar"
+    },
+    "Settings_subtitleAlert_tooltip2": {
+        "message": " subtitulos,"
+    },
+    "Settings_subtitleAlert_tooltip3": {
+        "message": "mostrar notificaciones 5 segundos"
+    },
+    "Settings_autoSelect": {
+        "message": "Usar subtítulos automáticamente:"
+    },
+    "Settings_autoSelect_tooltip": {
+        "message": "selecciona automáticamente cuando comienza el video"
+    },
+    "Settings_quickRequest": {
+        "message": "Usar solicitud rápida:"
+    },
+    "Settings_quickRequest_tooltip1": {
+        "message": "Puedes solicitar subtítulos"
+    },
+    "Settings_quickRequest_tooltip2": {
+        "message": "en la parte superior derecha del cuadro de comentarios"
+    },
+    "Notify_unchecked_title": {
+        "message": "Notificaciones no verificadas"
+    },
+    "Notify_detail": {
+        "message": "Click para ver detalles"
+    },
+    "Notify_checked_title": {
+        "message": "Notificaciones comprobadas"
+    },
+    "BottomButton_switch_tooltip": {
+        "message": "SubCloud activada/desactivada"
+    },
+    "BottomButton_button_defaultTooltip": {
+        "message": "Subcloud"
+    },
+    "BottomButton_button_subtitleTooltip1": {
+        "message": "El video tiene"
+    },
+    "BottomButton_button_subtitleTooltip2": {
+        "message": "subtítulo(s)"
+    },
+    "QuickSubtitleRequest_title": {
+        "message": "Solicitud gratuita"
+    },
+    "QuickSubtitleRequest_selectLang": {
+        "message": "Elige el idioma que quieras"
+    },
+    "QuickSubtitleRequest_comment": {
+        "message": "Seleccione su idioma de solicitud predeterminado para las solicitudes con un solo clic."
+    },
+    "QuickSubtitleRequest_defaultLang": {
+        "message": "Establecer por defecto"
+    },
+    "QuickSubtitleRequest_sendRequest": {
+        "message": "Enviar"
+    },
+    "ReviewComponent_title": {
+        "message": "Revisa el subtitulo"
+    },
+    "ReviewComponent_sendBtn": {
+        "message": "Enviar revisión"
+    },
+    "SelectLang_default" : {
+        "message" : "Seleccione el idioma"
+    },
+    "LoginFirst_message" : {
+        "message" : "Inicie sesión fácilmente y use subtítulos subidos por usuarios de todo el mundo de forma gratuita"
+    },
+    "LoginFirst_loginBtn" : {
+        "message" : "Iniciar sesión"
+    },
+    "LoginFirst_visitWebpage" : {
+        "message" : "Visita la página web"
+    },
+    "LoginStatus_loginStatus" : {
+        "message" : "Estado de inicio de sesión:"
+    },
+    "LoginStatus_logoutBtn" : {
+        "message" : "Cerrar sesión"
+    },
+    "LoginStatus_point" : {
+        "message" : "Puntos:"
+    },
+    "LoginStatus_buyBtn" : {
+        "message" : "comprar puntos"
+    },
+    "LoginStatus_publicProfile" : {
+        "message" : "Perfil público"
+    },
+    "LoginStatus_privateProfile" : {
+        "message" : "Perfil privado"
+    },
+    "LoginStatus_visitWebpage" : {
+        "message" : "Visita la página web"
+    }
+}
