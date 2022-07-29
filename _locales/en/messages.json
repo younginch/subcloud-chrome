@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "SubCloud",
+        "message": "SubCloud - subtitles community",
         "description": "The description of the extension, displayed in the web store."
     },
     "appDesc": {
@@ -41,7 +41,7 @@
         "message": "Select request language"
     },
     "HomeNoSub_selectLang_default": {
-        "message": "As default"
+        "message": "Set as default"
     },
     "HomeNoSub_point_label": {
         "message": "Point"
