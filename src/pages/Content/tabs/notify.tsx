@@ -14,6 +14,19 @@ type Props = {
   setUnreadNotifications: Dispatch<SetStateAction<NotificationType[]>>;
 };
 
+const decreaseCount = () => {
+  const textElement = document.querySelector(
+    'p.chakra-text.subcloud-notify-count'
+  );
+  if (!textElement || !textElement.innerHTML) return;
+  const num = Number(textElement.innerHTML);
+  if (num > 1) {
+    textElement.innerHTML = String(num - 1);
+  } else {
+    textElement.remove();
+  }
+};
+
 export default function Notify({
   readNotifications,
   unreadNotifications,
@@ -35,6 +48,7 @@ export default function Notify({
     } catch (error: unknown) {
       if (error instanceof Error) toast(ToastType.ERROR, 'Server error'); // maybe change to console.log other ways
     }
+    decreaseCount();
   };
 
   const removeItem = (index: number) => {

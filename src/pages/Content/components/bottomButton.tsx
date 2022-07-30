@@ -244,6 +244,9 @@ export default function BottomButton() {
               pr="4px"
               ml={baseLangSub ? '16px' : '13px'}
               mt="-32px"
+              className={
+                baseLangSub ? 'subcloud-base-lang' : 'subcloud-notify-count'
+              }
             >
               {baseLangSub ? '!' : notifyCount}
             </Text>
