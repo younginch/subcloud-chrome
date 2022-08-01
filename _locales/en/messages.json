@@ -16,6 +16,9 @@
     "Layout_notifyType_review" : {
         "message" : "New review have arrived"
     },
+    "Layout_notifyType_statusChange" : {
+        "message" : "Review completed"
+    },
     "QuickSubtitleRequest_requestMsg" : {
         "message": "Request Subtitle"
     },

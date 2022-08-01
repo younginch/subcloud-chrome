@@ -4,6 +4,7 @@ import { HiOutlineSpeakerphone } from 'react-icons/hi';
 import { MdOutlineRateReview } from 'react-icons/md';
 import { CloseIcon } from '@chakra-ui/icons';
 import { motion, useAnimation } from 'framer-motion';
+import { BsPen } from 'react-icons/bs';
 import { NotifyType } from '../utils/notify';
 import createTab from '../utils/createTab';
 
@@ -46,6 +47,11 @@ export default function NotifyCard({
       labelColor = 'purple.600';
       timeColor = 'purple.300';
       notifyIcon = <MdOutlineRateReview size="30px" stroke="#bbbbbb" />;
+      break;
+    case NotifyType.STATUSCHANGE:
+      labelColor = 'green.600';
+      timeColor = 'green.300';
+      notifyIcon = <BsPen size="30px" stroke="#bbbbbb" />;
       break;
     default:
       labelColor = 'white';

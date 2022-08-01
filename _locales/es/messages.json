@@ -16,6 +16,9 @@
     "Layout_notifyType_review" : {
         "message" : "Llegó nueva reseña"
     },
+    "Layout_notifyType_statusChange" : {
+        "message" : "Revisión completada"
+    },
     "QuickSubtitleRequest_requestMsg" : {
         "message": "Solicitar subtítulo"
     },
