@@ -135,6 +135,9 @@ export default function Layout() {
             case NotifyType.REVIEW:
               title = t('Layout_notifyType_review');
               break;
+            case NotifyType.STATUSCHANGE:
+              title = t('Layout_notifyType_review');
+              break;
             default:
               title = '';
           }

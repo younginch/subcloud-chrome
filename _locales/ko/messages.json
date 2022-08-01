@@ -16,6 +16,9 @@
     "Layout_notifyType_review" : {
         "message" : "새 리뷰 알림"
     },
+    "Layout_notifyType_statusChange" : {
+        "message" : "검토 완료"
+    },
     "HomeLoginFirst_title": {
         "message": "SubCloud에 로그인해 주세요"
     },

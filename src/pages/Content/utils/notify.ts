@@ -3,6 +3,7 @@ export const enum NotifyType {
   NEW_SUBTITLE = 'Upload',
   REVIEW = 'Review',
   ANNOUNCE = 'Announce',
+  STATUSCHANGE = 'StatusChange',
 }
 
 export type NotificationType = {

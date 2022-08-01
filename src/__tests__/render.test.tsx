@@ -541,6 +541,22 @@ describe('Pages and Components', () => {
     );
   });
 
+  it('render NotifyCard StatusChange', async () => {
+    render(
+      <ChakraProvider>
+        <NotifyCard
+          notifyType={NotifyType.STATUSCHANGE}
+          title="hello"
+          time="world"
+          content="content"
+          href="google.com"
+          onRemove={jest.fn()}
+          id="hello"
+        />
+      </ChakraProvider>
+    );
+  });
+
   it('render NotifyCard DEFAULT', async () => {
     render(
       <ChakraProvider>
