@@ -1,0 +1,304 @@
+{
+    "appName": {
+        "message": "SubCloud - 免费社区字幕",
+        "description": "The description of the extension, displayed in the web store."
+    },
+    "appDesc": {
+        "message": "要请或制造Youtube视频的字幕",
+        "description": "The description of the extension, displayed in the web store."
+    },
+    "Layout_notifyType_announce" : {
+        "message" : "注意"
+    },
+    "Layout_notifyType_newSubtitle" : {
+        "message" : "上载字幕通知"
+    },
+    "Layout_notifyType_review" : {
+        "message" : "新复查通知"
+    },
+    "Layout_notifyType_statusChange" : {
+        "message" : "复查完成"
+    },
+    "HomeLoginFirst_title": {
+        "message": "注册SubCloud"
+    },
+    "HomeLoginFirst_message": {
+        "message": "便利注册，使用全世界制造者们上载的免费字幕"
+    },
+    "HomeLoginFirst_loginBtn": {
+        "message": "去注册"
+    },
+    "HomeLoginFirst_webpageUrl": {
+        "message": "访问网页"
+    },
+    "HomeNoSub_title": {
+        "message": "没有字幕。要请一下免费字幕。"
+    },
+    "HomeNoSub_title_hasSub": {
+        "message": "求一下想要的免费字幕。"
+    },
+    "HomeNoSub_selectLang_label": {
+        "message": "选择字幕的语言"
+    },
+    "HomeNoSub_selectLang_default": {
+        "message": "保存为基本语言"
+    },
+    "HomeNoSub_point_label": {
+        "message": "点数"
+    },
+    "HomeNoSub_button_first": {
+        "message": "要请免费"
+    },
+    "HomeNoSub_button_second": {
+        "message": ""
+    },
+    "HomeNoSub_button_third": {
+        "message": "用点数"
+    },
+    "HomeNoSub_button_end": {
+        "message": "字幕"
+    },
+    "HomeNoSub_request_selectLang": {
+        "message": "选择字幕的语言"
+    },
+    "HomeNoSub_requesters": {
+        "message": "个人在等着字幕"
+    },
+    "Subtitle_title": {
+        "message": "个字幕被发现"
+    },
+    "Subtitle_title_many": {
+        "message": "个字幕被发现"
+    },
+    "Subtitle_table_lang": {
+        "message": "语言"
+    },
+    "Subtitle_table_rating": {
+        "message": "评价"
+    },
+    "Subtitle_table_views": {
+        "message": "引用数"
+    },
+    "Subtitle_table_uploader": {
+        "message": "制造者"
+    },
+    "Subtitle_table_date": {
+        "message": "制造日期"
+    },
+    "Subtitle_table_noRating": {
+        "message": "没有评价"
+    },
+    "Upload_step1_title": {
+        "message": "上载字幕"
+    },
+    "Upload_step2_title": {
+        "message": "确认及发送"
+    },
+    "Upload_step3_title": {
+        "message": "复查后公开字幕"
+    },
+    "UploadSubtitle_title": {
+        "message": "选择字幕的电子文件"
+    },
+    "UploadSubtitle_dropZone_top": {
+        "message": "拖动或点击上载"
+    },
+    "UploadSubtitle_dropZone_bottom": {
+        "message": "只能使用SRT形式的文件"
+    },
+    "CheckSubtitle_title": {
+        "message": "复查后上载字幕"
+    },
+    "CheckSubtitle_details_first": {
+        "message": "预览电子文件 (字幕数 "
+    },
+    "CheckSubtitle_details_end": {
+        "message": "个)"
+    },
+    "CheckSubtitle_reupload": {
+        "message": "重新上载"
+    },
+    "CheckSubtitle_preview": {
+        "message": "预览"
+    },
+    "CheckSubtitle_send": {
+        "message": "发送"
+    },
+    "CheckSubtitle_langRequired": {
+        "message": "选择字幕的语言"
+    },
+    "UploadFinish_title": {
+        "message": "字幕上载好了"
+    },
+    "UploadFinish_status_first": {
+        "message": ""
+    },
+    "UploadFinish_status_middle": {
+        "message": "这里"
+    },
+    "UploadFinish_status_end": {
+        "message": "可以确认复查情况"
+    },
+    "UploadFinish_thanks": {
+        "message": "感谢为您的贡献"
+    },
+    "Settings_loginStatus": {
+        "message": "注册状态:"
+    },
+    "Settings_logoutBtn": {
+        "message": "退出"
+    },
+    "Settings_point": {
+        "message": "点数:"
+    },
+    "Settings_buyBtn": {
+        "message": "充电"
+    },
+    "Settings_fontSize": {
+        "message": "字体大小:"
+    },
+    "Settings_fontColor": {
+        "message": "字体颜色:"
+    },
+    "Settings_selectColor": {
+        "message": "选择颜色"
+    },
+    "Settings_fontBackground": {
+        "message": "背景颜色:"
+    },
+    "Settings_fontBorder": {
+        "message": "开字幕框:"
+    },
+    "Settings_fontBorder_tooltip": {
+        "message": "字幕框的颜色"
+    },
+    "Settings_stylePriority": {
+        "message": "자막 양식을 우선시:"
+    },
+    "Settings_stylePriority_tooltip1": {
+        "message": "用户个人的风格和字幕电子文件的风格中"
+    },
+    "Settings_stylePriority_tooltip2": {
+        "message": "决定什么是首要的"
+    },
+    "Settings_defaultRequestLang": {
+        "message": "基本语言:"
+    },
+    "Settings_defaultRequestLang_tooltip": {
+        "message": "字幕要请时需要的语言"
+    },
+    "Settings_familiarLang": {
+        "message": "母语:"
+    },
+    "Settings_familiarLang_tooltip": {
+        "message": "字幕搜索时需要的语言"
+    },
+    "Settings_subtitleAlert": {
+        "message": "发现字幕时显示5秒提醒:"
+    },
+    "Settings_subtitleAlert_tooltip0": {
+        "message": ""
+    },
+    "Settings_subtitleAlert_tooltip1": {
+        "message": "如果有"
+    },
+    "Settings_subtitleAlert_tooltip2": {
+        "message": "母语"
+    },
+    "Settings_subtitleAlert_tooltip3": {
+        "message": "开始视频时提示提醒"
+    },
+    "Settings_autoSelect": {
+        "message": "发现字幕时自动激活:"
+    },
+    "Settings_autoSelect_tooltip": {
+        "message": "自动选择"
+    },
+    "Settings_quickRequest": {
+        "message": "聊天里要请字幕按钮激活:"
+    },
+    "Settings_quickRequest_tooltip1": {
+        "message": "通过聊天里右边上要请字幕按钮"
+    },
+    "Settings_quickRequest_tooltip2": {
+        "message": "可以要请字幕"
+    },
+    "Notify_unchecked_title": {
+        "message": "没读"
+    },
+    "Notify_detail": {
+        "message": "点击后详细看看"
+    },
+    "Notify_checked_title": {
+        "message": "读完"
+    },
+    "BottomButton_switch_tooltip": {
+        "message": "Subcloud On/Off"
+    },
+    "BottomButton_button_defaultTooltip": {
+        "message": "Subcloud"
+    },
+    "BottomButton_button_subtitleTooltip1": {
+        "message": "视频里"
+    },
+    "BottomButton_button_subtitleTooltip2": {
+        "message": "有字幕"
+    },
+    "QuickSubtitleRequest_requestMsg" : {
+        "message": "要请字幕"
+    },
+    "QuickSubtitleRequest_title": {
+        "message": "要请免费字幕"
+    },
+    "QuickSubtitleRequest_selectLang": {
+        "message": "选择基本语言"
+    },
+    "QuickSubtitleRequest_comment": {
+        "message": "选择基本语言的话，往后一次点击就可以要请字幕。"
+    },
+    "QuickSubtitleRequest_defaultLang": {
+        "message": "保存为基本语言"
+    },
+    "QuickSubtitleRequest_sendRequest": {
+        "message": "专送要请"
+    },
+    "ReviewComponent_title": {
+        "message": "评价一下字幕"
+    },
+    "ReviewComponent_sendBtn": {
+        "message": "专送复查"
+    },
+    "SelectLang_default" : {
+        "message" : "选择语言"
+    },
+    "LoginFirst_message" : {
+        "message" : "便利注册，使用全世界制造者们上载的免费字幕"
+    },
+    "LoginFirst_loginBtn" : {
+        "message" : "去注册"
+    },
+    "LoginFirst_visitWebpage" : {
+        "message" : "访问网页"
+    },
+    "LoginStatus_loginStatus" : {
+        "message" : "注册状态:"
+    },
+    "LoginStatus_logoutBtn" : {
+        "message" : "退出"
+    },
+    "LoginStatus_point" : {
+        "message" : "拥有点数:"
+    },
+    "LoginStatus_buyBtn" : {
+        "message" : "充电点数"
+    },
+    "LoginStatus_publicProfile" : {
+        "message" : "公开简介"
+    },
+    "LoginStatus_privateProfile" : {
+        "message" : "个人简介"
+    },
+    "LoginStatus_visitWebpage" : {
+        "message" : "访问网页"
+    }
+}
