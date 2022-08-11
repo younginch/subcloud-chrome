@@ -23,3 +23,9 @@ global.chrome = {
     get: jest.fn(),
   },
 };
+
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: () => Promise.resolve({ data: { attributes: { body: undefined } } }),
+  })
+);

@@ -12,7 +12,8 @@
   "permissions": ["cookies", "tabs", "storage"],
   "host_permissions": [
     "https://subcloud.app/*",
-    "http://localhost:3000/*"
+    "http://localhost:3000/*",
+    "https://strapi.subcloud.app/*"
   ],
   "icons": {
     "128": "icon-128.png"

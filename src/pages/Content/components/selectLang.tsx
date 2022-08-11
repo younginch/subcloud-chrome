@@ -1,6 +1,7 @@
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import ISO6391, { LanguageCode } from 'iso-639-1';
+import { useEffect, useState } from 'react';
 
 type Props = {
   width: number | string;
@@ -24,18 +25,12 @@ export default function SelectLang({
   clickEvent,
 }: Props) {
   const t = chrome.i18n.getMessage;
-  const codeList: LanguageCode[] = [
-    'en',
-    'fr',
-    'de',
-    'it',
-    'es',
-    'pt',
-    'ru',
-    'ja',
-    'zh',
-    'ko',
-  ];
+  const [codeList, setCodeList] = useState<LanguageCode[]>();
+  useEffect(() => {
+    fetch('https://strapi.subcloud.app/api/supported-language')
+      .then((res) => res.json())
+      .then((data) => setCodeList(data.data.attributes.body));
+  }, []);
 
   return (
     <Menu>
@@ -51,26 +46,28 @@ export default function SelectLang({
       >
         {lang ? ISO6391.getNativeName(lang) : t('SelectLang_default')}
       </MenuButton>
-      <MenuList
-        maxH="300px"
-        overflow="scroll"
-        w={width}
-        border="none"
-        overflowX="hidden"
-        className="select-lang-list"
-      >
-        {codeList.map((code) => (
-          <MenuItem
-            key={code}
-            fontSize={subFont}
-            h={height}
-            w={width}
-            onClick={() => clickEvent(code)}
-          >
-            {`${ISO6391.getName(code)} (${ISO6391.getNativeName(code)})`}
-          </MenuItem>
-        ))}
-      </MenuList>
+      {codeList && (
+        <MenuList
+          maxH="300px"
+          overflow="scroll"
+          w={width}
+          border="none"
+          overflowX="hidden"
+          className="select-lang-list"
+        >
+          {codeList.map((code) => (
+            <MenuItem
+              key={code}
+              fontSize={subFont}
+              h={height}
+              w={width}
+              onClick={() => clickEvent(code)}
+            >
+              {`${ISO6391.getName(code)} (${ISO6391.getNativeName(code)})`}
+            </MenuItem>
+          ))}
+        </MenuList>
+      )}
     </Menu>
   );
 }
