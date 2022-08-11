@@ -9,6 +9,7 @@ import componentLoader, { AttachType } from './helpers/componentLoader';
 import { ToastType } from './utils/toast';
 import ReviewComponent from './components/reviewComponent';
 import { closeMainModal } from './helpers/modalControl';
+import RequestGauge from './components/RequestGauge';
 
 declare let bootstrap: any;
 
@@ -77,7 +78,7 @@ const loadReview = (subId: string) => {
 };
 
 const load = () => {
-  // Load Comment-title panel
+  // Load Toast component
   const loadToast = setInterval(() => {
     if (
       componentLoader({
@@ -140,6 +141,25 @@ const load = () => {
       })
     )
       clearInterval(loadSubtitleComponent);
+  }, 100);
+
+  // load Gauge component
+  const loadRequestGauge = setInterval(() => {
+    if (
+      componentLoader({
+        parentQuery: 'div.ytd-watch-metadata#title',
+        targetId: 'subcloud-gauge-component',
+        children: (
+          <chakra-scope>
+            <ChakraProvider theme={theme} resetCSS={false}>
+              <CSSResetCustom />
+              <RequestGauge point={300} goal={1500} />
+            </ChakraProvider>
+          </chakra-scope>
+        ),
+      })
+    )
+      clearInterval(loadRequestGauge);
   }, 100);
 };
 

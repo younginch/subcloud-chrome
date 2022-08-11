@@ -58,6 +58,7 @@ import ReviewComponent from '../pages/Content/components/reviewComponent';
 import createTab from '../pages/Content/utils/createTab';
 import LoginStatus from '../pages/Popup/components/loginStatus';
 import getYoutubeId from '../pages/Content/helpers/getYoutube';
+import RequestGauge from '../pages/Content/components/RequestGauge';
 
 describe('Pages and Components', () => {
   beforeAll(() => {
@@ -597,6 +598,14 @@ describe('Pages and Components', () => {
     render(
       <ChakraProvider>
         <LoginStatus user={undefined} />
+      </ChakraProvider>
+    );
+  });
+
+  it('render RequestGauge', async () => {
+    render(
+      <ChakraProvider>
+        <RequestGauge point={10} goal={1500} />
       </ChakraProvider>
     );
   });
