@@ -17,11 +17,7 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { useCallback, useEffect, useState } from 'react';
-import {
-  AiFillHome,
-  AiFillSetting,
-  AiOutlineCloseCircle,
-} from 'react-icons/ai';
+import { AiFillSetting, AiOutlineCloseCircle } from 'react-icons/ai';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { MdSubtitles } from 'react-icons/md';
@@ -31,7 +27,6 @@ import { getFetch } from '../utils/fetch';
 import Subtitle, { SubtitleType } from '../tabs/subtitle';
 import Upload from '../tabs/upload';
 import Setting from '../tabs/setting';
-import HomeNoSub from '../tabs/homeNoSub';
 import toast, { ToastType } from '../utils/toast';
 import { MESSAGETAG, User, Video } from '../../../../utils/type';
 import { closeMainModal } from '../helpers/modalControl';
@@ -64,7 +59,6 @@ export default function Layout() {
   const [url, setUrl] = useState<string>();
 
   const tabs: Array<TabType> = [
-    { icon: <AiFillHome size={20} />, name: 'Home' },
     { icon: <MdSubtitles size={20} />, name: 'Subtitle' },
     { icon: <IoMdCloudUpload size={20} />, name: 'Upload' },
     { icon: <AiFillSetting size={20} />, name: 'Setting' },
@@ -335,17 +329,10 @@ export default function Layout() {
             <TabPanels>
               <TabPanel p={0}>
                 {isLogin ? (
-                  <HomeNoSub
-                    videoData={videoData}
-                    hasSub={subs.length > 0}
-                    userPoint={user?.point}
-                  />
+                  <Subtitle subs={subs} userId={user?.id} />
                 ) : (
                   <HomeLoginFirst />
                 )}
-              </TabPanel>
-              <TabPanel p={0}>
-                <Subtitle subs={subs} userId={user?.id} />
               </TabPanel>
               <TabPanel p={0}>
                 <Upload />
