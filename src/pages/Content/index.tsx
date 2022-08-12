@@ -9,6 +9,7 @@ import componentLoader, { AttachType } from './helpers/componentLoader';
 import { ToastType } from './utils/toast';
 import ReviewComponent from './components/reviewComponent';
 import { closeMainModal } from './helpers/modalControl';
+import RequestGauge from './components/requestGauge';
 
 declare let bootstrap: any;
 
@@ -77,7 +78,7 @@ const loadReview = (subId: string) => {
 };
 
 const load = () => {
-  // Load Comment-title panel
+  // Load Toast component
   const loadToast = setInterval(() => {
     if (
       componentLoader({
@@ -141,6 +142,25 @@ const load = () => {
     )
       clearInterval(loadSubtitleComponent);
   }, 100);
+
+  // load Gauge component
+  const loadRequestGauge = setInterval(() => {
+    if (
+      componentLoader({
+        parentQuery: 'div.ytd-watch-metadata#title',
+        targetId: 'subcloud-gauge-component',
+        children: (
+          <chakra-scope>
+            <ChakraProvider theme={theme} resetCSS={false}>
+              <CSSResetCustom />
+              <RequestGauge point={300} goal={1500} />
+            </ChakraProvider>
+          </chakra-scope>
+        ),
+      })
+    )
+      clearInterval(loadRequestGauge);
+  }, 100);
 };
 
 window.onload = load;
@@ -153,7 +173,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       sendResponse({ data: 'load-done' });
       return true;
     case MESSAGETAG.TOAST:
-      toast(message.toastType, message.msg);
+      toast(message.toastType, message.msg, message.delay);
       sendResponse({ data: 'toast' });
       return true;
     case MESSAGETAG.REVIEW:

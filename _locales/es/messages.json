@@ -262,6 +262,15 @@
     "QuickSubtitleRequest_sendRequest": {
         "message": "Enviar"
     },
+    "RequestGauge_hideToast": {
+        "message": "You can open the menu again by clicking the SubCloud icon in the extensions toolbar"
+    },
+    "RequestGauge_gauge": {
+        "message": "Subtitle gauge"
+    },
+    "RequestGauge_request": {
+        "message": "Funding"
+    },
     "ReviewComponent_title": {
         "message": "Revisa el subtitulo"
     },
@@ -291,6 +300,9 @@
     },
     "LoginStatus_buyBtn" : {
         "message" : "comprar puntos"
+    },
+    "LoginStatus_showMenu" : {
+        "message" : "Show the menu bar"
     },
     "LoginStatus_publicProfile" : {
         "message" : "Perfil público"

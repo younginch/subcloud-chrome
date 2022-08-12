@@ -4,6 +4,7 @@ import {
   Text,
   useColorModeValue,
   Link,
+  Switch,
 } from '@chakra-ui/react';
 import { User } from '../../../../utils/type';
 
@@ -41,6 +42,10 @@ export default function LoginStatus({ user }: Props) {
         >
           {t('LoginStatus_buyBtn')}
         </Button>
+      </HStack>
+      <HStack>
+        <Text fontSize="15px">{t('LoginStatus_showMenu')}</Text>
+        <Switch colorScheme="teal" size="md" />
       </HStack>
       <HStack>
         <Button
