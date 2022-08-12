@@ -147,13 +147,13 @@ const load = () => {
   const loadRequestGauge = setInterval(() => {
     if (
       componentLoader({
-        parentQuery: 'div.ytd-watch-metadata#title',
+        parentQuery: 'div.ytd-video-primary-info-renderer#container',
         targetId: 'subcloud-gauge-component',
         children: (
           <chakra-scope>
             <ChakraProvider theme={theme} resetCSS={false}>
               <CSSResetCustom />
-              <RequestGauge point={300} goal={1500} />
+              <RequestGauge />
             </ChakraProvider>
           </chakra-scope>
         ),

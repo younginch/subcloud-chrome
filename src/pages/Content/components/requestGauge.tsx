@@ -8,22 +8,65 @@ import {
   Text,
   Tooltip,
 } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import requestPoint from '../utils/api/requestPoint';
+import video from '../utils/api/video';
+import getTab from '../utils/getTab';
+import PointGoal from '../utils/pointGoal';
 import toast, { ToastType } from '../utils/toast';
 import SelectLang from './selectLang';
 
-type Props = {
-  point: number;
-  goal: number;
+type YoutubeVideo = {
+  id: string;
+  channelId: string;
+  publishedAt: Date;
+  title: string;
+  description: string;
+  duration: number;
+  viewCount: number;
+  likeCount: number;
 };
 
-export default function RequestGauge({ point, goal }: Props) {
+type Video = {
+  url: string;
+  serviceId: string;
+  videoId: string;
+  youtubeVideoId: string;
+  youtubeVideo?: YoutubeVideo;
+};
+
+export default function RequestGauge() {
   const t = chrome.i18n.getMessage;
+  const [point, setPoint] = useState<number>(0);
+  const [goal, setGoal] = useState<number>(100000);
+  const [lang, setLang] = useState<string | undefined>();
+  const [videoInfo, setVideoInfo] = useState<Video>();
+  const [goalExpr, setGoalExpr] = useState();
+
+  useEffect(() => {
+    fetch('https://strapi.subcloud.app/api/goal-function')
+      .then((res) => res.json())
+      .then((data) => setGoalExpr(data.data.attributes.body));
+  }, []);
+
+  useEffect(() => {
+    setGoal(PointGoal(videoInfo?.youtubeVideo?.duration, goalExpr) ?? 100000);
+  }, [goalExpr, videoInfo]);
+
+  useEffect(() => {
+    const init = async () => {
+      const tab = await getTab();
+      const vInfo = await video(tab.url);
+      setVideoInfo(vInfo);
+      const rpoint = await requestPoint(vInfo.serviceId, vInfo.videoId, lang);
+      setPoint(rpoint);
+    };
+    init();
+  }, [goalExpr, lang]);
 
   let color = 'blue';
   if (point >= goal / 2) color = 'purple';
   if (point >= goal) color = 'red';
-  const [lang, setLang] = useState<string | undefined>();
 
   const handleHide = () => {
     toast(ToastType.INFO, t('RequestGauge_hideToast'), 4000);
@@ -49,7 +92,11 @@ export default function RequestGauge({ point, goal }: Props) {
         </Box>
       </Tooltip>
       <Link
-        href={`${API_URL}/video/youtube/-pEYLhQ4v1U/request/create`}
+        href={
+          videoInfo
+            ? `${API_URL}/video/${videoInfo.serviceId}/${videoInfo.videoId}/request/create?lang=${lang}`
+            : ''
+        }
         isExternal
       >
         <Button
@@ -59,7 +106,7 @@ export default function RequestGauge({ point, goal }: Props) {
           leftIcon={<SmallAddIcon />}
           borderRadius="7px"
         >
-          {t('RequestGauge_request')}
+          {t('RequestGauge_gauge')}
         </Button>
       </Link>
       <SelectLang
