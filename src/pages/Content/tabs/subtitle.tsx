@@ -75,8 +75,8 @@ export default function Subtitle({ subs, userId }: Props) {
         {subs.length <= 1 ? t('Subtitle_title') : t('Subtitle_title_many')}
       </Text>
       <SelectLang
-        width="140px"
-        height="30px"
+        width={140}
+        height={30}
         mainFont="13px"
         subFont="11px"
         lang={lang}

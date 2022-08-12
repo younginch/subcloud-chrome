@@ -116,8 +116,8 @@ export default function QuickSubtitleRequest() {
                   {t('QuickSubtitleRequest_selectLang')}
                 </Text>
                 <SelectLang
-                  width="140px"
-                  height="30px"
+                  width={140}
+                  height={30}
                   mainFont="13px"
                   subFont="11px"
                   clickEvent={setLang}

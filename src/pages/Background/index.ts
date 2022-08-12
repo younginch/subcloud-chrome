@@ -125,10 +125,16 @@ async function sendToast(
   sendResponse: (res: object) => void,
   tabId: number,
   toastType: ToastType,
-  msg: string
+  msg: string,
+  delay?: number
 ) {
   try {
-    chrome.tabs.sendMessage(tabId, { tag: MESSAGETAG.TOAST, toastType, msg });
+    chrome.tabs.sendMessage(tabId, {
+      tag: MESSAGETAG.TOAST,
+      toastType,
+      msg,
+      delay,
+    });
     sendResponse({ data: {}, type: 'success' });
   } catch (error: unknown) {
     if (error instanceof Error)
@@ -262,7 +268,13 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       );
       return true;
     case MESSAGETAG.TOAST:
-      sendToast(sendResponse, message.tabId, message.toastType, message.msg);
+      sendToast(
+        sendResponse,
+        message.tabId,
+        message.toastType,
+        message.msg,
+        message.delay
+      );
       return true;
     case MESSAGETAG.REVIEW:
       sendReview(sendResponse, message.tabId, message.subId, message.time);

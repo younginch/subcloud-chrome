@@ -162,8 +162,8 @@ export default function CheckSubtitle({
         <HStack mt="30px !important" alignItems="flex-start">
           <Stack>
             <SelectLang
-              width="180px"
-              height="40px"
+              width={180}
+              height={40}
               mainFont="15px"
               subFont="13px"
               marginTop="4px"

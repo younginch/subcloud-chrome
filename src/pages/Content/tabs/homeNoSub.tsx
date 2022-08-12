@@ -290,8 +290,8 @@ export default function HomeNoSub({ videoData, hasSub, userPoint }: Props) {
           </Text>
           <Center mt="20px !important">
             <SelectLang
-              width="180px"
-              height="40px"
+              width={180}
+              height={40}
               mainFont="15px"
               subFont="13px"
               lang={lang}

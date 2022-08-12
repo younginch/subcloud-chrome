@@ -9,7 +9,7 @@ import componentLoader, { AttachType } from './helpers/componentLoader';
 import { ToastType } from './utils/toast';
 import ReviewComponent from './components/reviewComponent';
 import { closeMainModal } from './helpers/modalControl';
-import RequestGauge from './components/RequestGauge';
+import RequestGauge from './components/requestGauge';
 
 declare let bootstrap: any;
 
@@ -173,7 +173,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       sendResponse({ data: 'load-done' });
       return true;
     case MESSAGETAG.TOAST:
-      toast(message.toastType, message.msg);
+      toast(message.toastType, message.msg, message.delay);
       sendResponse({ data: 'toast' });
       return true;
     case MESSAGETAG.REVIEW:

@@ -276,8 +276,8 @@ export default function Setting({ user }: Props) {
         tooltip={t('Settings_defaultRequestLang_tooltip')}
       >
         <SelectLang
-          width="140px"
-          height="30px"
+          width={140}
+          height={30}
           mainFont="13px"
           subFont="11px"
           marginLeft="20px !important"
@@ -291,8 +291,8 @@ export default function Setting({ user }: Props) {
         tooltip={t('Settings_familiarLang_tooltip')}
       >
         <SelectLang
-          width="140px"
-          height="30px"
+          width={140}
+          height={30}
           mainFont="13px"
           subFont="11px"
           marginLeft="20px !important"
