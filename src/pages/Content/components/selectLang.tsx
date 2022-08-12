@@ -48,8 +48,9 @@ export default function SelectLang({
         rightIcon={<ChevronDownIcon />}
         fontSize={mainFont}
         w={`${width}px`}
+        minW="fit-content"
         h={`${height}px`}
-        borderRadius="10px"
+        borderRadius="9px"
         mt={marginTop}
         ml={marginLeft}
         bg={bg}
@@ -71,7 +72,7 @@ export default function SelectLang({
             <MenuItem
               key={code}
               fontSize={subFont}
-              h={height}
+              h={`${height}px`}
               w={`${width + delta}px`}
               onClick={() => clickEvent(code)}
               color="white"

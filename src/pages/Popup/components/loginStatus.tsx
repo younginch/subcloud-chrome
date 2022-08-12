@@ -44,7 +44,7 @@ export default function LoginStatus({ user }: Props) {
         </Button>
       </HStack>
       <HStack>
-        <Text fontSize="15px">영상 하단 Toolbar 켜기</Text>
+        <Text fontSize="15px">{t('LoginStatus_showMenu')}</Text>
         <Switch colorScheme="teal" size="md" />
       </HStack>
       <HStack>

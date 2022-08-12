@@ -262,6 +262,15 @@
     "QuickSubtitleRequest_sendRequest": {
         "message": "요청 전송"
     },
+    "RequestGauge_hideToast": {
+        "message": "메뉴는 오른쪽 위의 확장 프로그램에서 다시 켤 수 있습니다"
+    },
+    "RequestGauge_gauge": {
+        "message": "자막 게이지"
+    },
+    "RequestGauge_request": {
+        "message": "펀딩"
+    },
     "ReviewComponent_title": {
         "message": "자막을 평가해주세요"
     },
@@ -291,6 +300,9 @@
     },
     "LoginStatus_buyBtn" : {
         "message" : "포인트 충전"
+    },
+    "LoginStatus_showMenu" : {
+        "message" : "영상 하단 메뉴바 켜기"
     },
     "LoginStatus_publicProfile" : {
         "message" : "공개 프로필"

@@ -1,4 +1,4 @@
-import { AddIcon, CloseIcon } from '@chakra-ui/icons';
+import { CloseIcon, SmallAddIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -18,17 +18,15 @@ type Props = {
 };
 
 export default function RequestGauge({ point, goal }: Props) {
+  const t = chrome.i18n.getMessage;
+
   let color = 'blue';
   if (point >= goal / 2) color = 'purple';
   if (point >= goal) color = 'red';
   const [lang, setLang] = useState<string | undefined>();
 
   const handleHide = () => {
-    toast(
-      ToastType.INFO,
-      '숨긴 Toolbar는 오른쪽 위의 확장 프로그램에서 다시 켤 수 있습니다.',
-      4000
-    );
+    toast(ToastType.INFO, t('RequestGauge_hideToast'), 4000);
   };
 
   return (
@@ -36,7 +34,10 @@ export default function RequestGauge({ point, goal }: Props) {
       <Text color="#00d9d9" fontWeight="bold" fontSize="17px">
         SubCloud
       </Text>
-      <Tooltip label={`자막 게이지: ${point}/${goal}`} fontSize="15px">
+      <Tooltip
+        label={`${t('RequestGauge_hideToast')}: ${point}/${goal}`}
+        fontSize="15px"
+      >
         <Box w="full" ml="7px !important" mr="7px !important">
           <Progress
             hasStripe
@@ -55,15 +56,15 @@ export default function RequestGauge({ point, goal }: Props) {
           colorScheme="green"
           h="25px"
           fontSize="13px"
-          leftIcon={<AddIcon />}
+          leftIcon={<SmallAddIcon />}
           borderRadius="7px"
         >
-          요청
+          {t('RequestGauge_request')}
         </Button>
       </Link>
       <SelectLang
         width={140}
-        height={30}
+        height={28}
         delta={20}
         mainFont="13px"
         subFont="13px"
