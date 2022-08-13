@@ -266,10 +266,10 @@
         "message": "You can open the menu again by clicking the SubCloud icon in the extensions toolbar"
     },
     "RequestGauge_gauge": {
-        "message": "Subtitle Achievement"
+        "message": "Subtitle Gauge"
     },
     "RequestGauge_request": {
-        "message": "Funding"
+        "message": "Fill"
     },
     "ReviewComponent_title": {
         "message": "评价一下字幕"
