@@ -266,10 +266,10 @@
         "message": "메뉴는 오른쪽 위의 확장 프로그램에서 다시 켤 수 있습니다"
     },
     "RequestGauge_gauge": {
-        "message": "자막 달성도"
+        "message": "자막 게이지"
     },
     "RequestGauge_request": {
-        "message": "펀딩"
+        "message": "채우기"
     },
     "ReviewComponent_title": {
         "message": "자막을 평가해주세요"
