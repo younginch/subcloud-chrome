@@ -1,15 +1,14 @@
 import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import { MESSAGETAG } from '../../../utils/type';
 import BottomButton from './components/bottomButton';
-import QuickSubtitleRequest from './components/quickSubtitleRequest';
 import SubtitleComponent from './components/subtitleComponent';
 import ToastComponent from './components/toastComponent';
 import CSSResetCustom from './components/cssResetCustom';
-import componentLoader, { AttachType } from './helpers/componentLoader';
 import { ToastType } from './utils/toast';
 import ReviewComponent from './components/reviewComponent';
 import { closeMainModal } from './helpers/modalControl';
 import RequestGauge from './components/requestGauge';
+import componentLoader, { AttachType } from './helpers/componentLoader';
 
 declare let bootstrap: any;
 
@@ -68,7 +67,7 @@ const loadReview = (subId: string) => {
   const loadReviewComponent = setInterval(() => {
     if (
       componentLoader({
-        parentQuery: '#movie_player',
+        parentQueries: ['#movie_player'],
         targetId: 'subcloud-review-component',
         children: <ReviewComponent duration={6000} subId={subId} />,
       })
@@ -81,7 +80,10 @@ const loadGauge = () => {
   const loadRequestGauge = setInterval(() => {
     if (
       componentLoader({
-        parentQuery: 'div.ytd-video-primary-info-renderer#container',
+        parentQueries: [
+          'div.ytd-watch-metadata#title',
+          'div.ytd-video-primary-info-renderer#container',
+        ],
         targetId: 'subcloud-gauge-component',
         children: (
           <chakra-scope>
@@ -102,7 +104,7 @@ const load = () => {
   const loadToast = setInterval(() => {
     if (
       componentLoader({
-        parentQuery: 'body',
+        parentQueries: ['body'],
         targetId: 'subcloud-toast',
         className: 'bootstrap',
         children: <ToastComponent />,
@@ -110,32 +112,13 @@ const load = () => {
     )
       clearInterval(loadToast);
   }, 100);
-
-  // Load Comment-title panel
-  const loadCommentModal = setInterval(() => {
-    if (
-      componentLoader({
-        parentQuery: 'ytd-comments#comments div#header div#title',
-        targetId: 'subcloud-comment-title',
-        children: (
-          <chakra-scope>
-            <ChakraProvider theme={theme} resetCSS={false}>
-              <CSSResetCustom />
-              <QuickSubtitleRequest />
-            </ChakraProvider>
-          </chakra-scope>
-        ),
-      })
-    )
-      clearInterval(loadCommentModal);
-  }, 2000);
-
   // load Video Bottom Button
   const loadVideoBottomButton = setInterval(() => {
     if (
       componentLoader({
-        parentQuery:
+        parentQueries: [
           'div#container div.ytp-chrome-controls div.ytp-left-controls .ytp-volume-area',
+        ],
         targetId: 'subcloud-bottom-button',
         children: (
           <chakra-scope>
@@ -155,7 +138,7 @@ const load = () => {
   const loadSubtitleComponent = setInterval(() => {
     if (
       componentLoader({
-        parentQuery: '#movie_player',
+        parentQueries: ['#movie_player'],
         targetId: 'subcloud-sub-component',
         children: <SubtitleComponent />,
       })

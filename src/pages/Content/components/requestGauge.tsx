@@ -110,7 +110,7 @@ export default function RequestGauge() {
         SubCloud
       </Text>
       <Tooltip
-        label={`${t('RequestGauge_hideToast')}: ${point}/${goal}`}
+        label={`${t('RequestGauge_gauge')}: ${point}/${goal}`}
         fontSize="15px"
       >
         <Box w="full" ml="7px !important" mr="7px !important">
@@ -138,7 +138,7 @@ export default function RequestGauge() {
           leftIcon={<SmallAddIcon />}
           borderRadius="7px"
         >
-          {t('RequestGauge_gauge')}
+          {t('RequestGauge_request')}
         </Button>
       </Link>
       <SelectLang
