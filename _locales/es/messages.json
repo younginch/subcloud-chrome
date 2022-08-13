@@ -217,14 +217,14 @@
     "Settings_autoSelect_tooltip": {
         "message": "selecciona automáticamente cuando comienza el video"
     },
-    "Settings_quickRequest": {
-        "message": "Usar solicitud rápida:"
+    "Settings_showMenu": {
+        "message": "Mostrar barra de menú:"
     },
-    "Settings_quickRequest_tooltip1": {
-        "message": "Puedes solicitar subtítulos"
+    "Settings_showMenu_tooltip1": {
+        "message": "Puede verificar el logro de los subtítulos a través"
     },
-    "Settings_quickRequest_tooltip2": {
-        "message": "en la parte superior derecha del cuadro de comentarios"
+    "Settings_showMenu_tooltip2": {
+        "message": "de la barra de menú en la parte inferior del video."
     },
     "Notify_unchecked_title": {
         "message": "Notificaciones no verificadas"
@@ -266,7 +266,7 @@
         "message": "You can open the menu again by clicking the SubCloud icon in the extensions toolbar"
     },
     "RequestGauge_gauge": {
-        "message": "Subtitle gauge"
+        "message": "Subtitle Achievement"
     },
     "RequestGauge_request": {
         "message": "Funding"

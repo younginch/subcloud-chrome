@@ -7,7 +7,7 @@ export const enum AttachType {
 }
 
 type Props = {
-  parentQuery: string;
+  parentQueries: string[];
   targetId: string;
   className?: string;
   children: React.ReactNode;
@@ -16,20 +16,20 @@ type Props = {
 
 /**
  * Render provided component and return result
- * @param {string} parentQuery Selector query of parent element to insert component
+ * @param {string[]} parentQueries Selector querys of parent element to insert component. Try in order from top to bottom
  * @param {string} targetId Identifier id to render the component
  * @param {React.ReactNode} children component to render
  * @param {AttachType} attachType Attachment method
  * @returns {boolean} Returns true if successfully loaded
  */
 export default function componentLoader({
-  parentQuery,
+  parentQueries,
   targetId,
   className,
   children,
   attachType = AttachType.APPEND,
 }: Props): boolean {
-  const parentElement = document.querySelector(parentQuery);
+  // eslint-disable-next-line no-unreachable-loop
   let targetElement = document.getElementById(targetId);
 
   if (targetElement) {
@@ -43,28 +43,34 @@ export default function componentLoader({
     }
   }
 
-  if (parentElement) {
-    targetElement = document.createElement('div');
-    targetElement.id = targetId;
+  for (let index = 0; index < parentQueries.length; index += 1) {
+    const parentQuery = parentQueries[index];
 
-    if (className) {
-      targetElement.classList.add(className);
-    }
-    targetElement.classList.add(`SubCloud_${Date.now()}`);
+    const parentElement = document.querySelector(parentQuery);
 
-    switch (attachType) {
-      case AttachType.APPEND:
-        parentElement.append(targetElement);
-        break;
-      case AttachType.PREPEND:
-        parentElement.prepend(targetElement);
-        break;
-      default:
-        parentElement.append(targetElement);
-        break;
+    if (parentElement) {
+      targetElement = document.createElement('div');
+      targetElement.id = targetId;
+
+      if (className) {
+        targetElement.classList.add(className);
+      }
+      targetElement.classList.add(`SubCloud_${Date.now()}`);
+
+      switch (attachType) {
+        case AttachType.APPEND:
+          parentElement.append(targetElement);
+          break;
+        case AttachType.PREPEND:
+          parentElement.prepend(targetElement);
+          break;
+        default:
+          parentElement.append(targetElement);
+          break;
+      }
+      createRoot(targetElement!).render(children);
+      return true;
     }
-    createRoot(targetElement!).render(children);
-    return true;
   }
   return false;
 }

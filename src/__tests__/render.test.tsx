@@ -600,7 +600,7 @@ describe('Pages and Components', () => {
   it('render RequestGauge', async () => {
     render(
       <ChakraProvider>
-        <RequestGauge point={10} goal={1500} />
+        <RequestGauge />
       </ChakraProvider>
     );
   });

@@ -57,7 +57,7 @@ const onClickBtn = async () => {
   const loadMainModal = setInterval(() => {
     if (
       componentLoader({
-        parentQuery: 'body',
+        parentQueries: ['body'],
         targetId: 'subcloud-main-modal-placer',
         children: (
           <chakra-scope>
