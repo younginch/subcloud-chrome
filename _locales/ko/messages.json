@@ -214,14 +214,14 @@
     "Settings_autoSelect_tooltip": {
         "message": "자동으로 선택합니다"
     },
-    "Settings_quickRequest": {
-        "message": "댓글창 자막 요청 버튼 사용:"
+    "Settings_showMenu": {
+        "message": "영상 하단 메뉴바 보이기:"
     },
-    "Settings_quickRequest_tooltip1": {
-        "message": "댓글창의 오른쪽 위의 요청 버튼을 통해"
+    "Settings_showMenu_tooltip1": {
+        "message": "영상 하단의 메뉴바를 통해"
     },
-    "Settings_quickRequest_tooltip2": {
-        "message": "자막을 요청할 수 있습니다"
+    "Settings_showMenu_tooltip2": {
+        "message": "자막 달성도를 확인할 수 있습니다"
     },
     "Notify_unchecked_title": {
         "message": "읽지 않은 알림들"
@@ -266,7 +266,7 @@
         "message": "메뉴는 오른쪽 위의 확장 프로그램에서 다시 켤 수 있습니다"
     },
     "RequestGauge_gauge": {
-        "message": "자막 게이지"
+        "message": "자막 달성도"
     },
     "RequestGauge_request": {
         "message": "펀딩"

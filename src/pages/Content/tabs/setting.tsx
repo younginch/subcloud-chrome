@@ -342,12 +342,12 @@ export default function Setting({ user }: Props) {
         />
       </SettingRow>
       <SettingRow
-        name={t('Settings_quickRequest')}
+        name={t('Settings_showMenu')}
         tooltip={
           <>
-            <span>{t('Settings_quickRequest_tooltip1')}</span>
+            <span>{t('Settings_showMenu_tooltip1')}</span>
             <br />
-            <span>{t('Settings_quickRequest_tooltip2')}</span>
+            <span>{t('Settings_showmenu_tooltip2')}</span>
           </>
         }
       >

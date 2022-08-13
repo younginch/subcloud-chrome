@@ -214,14 +214,14 @@
     "Settings_autoSelect_tooltip": {
         "message": "自动选择"
     },
-    "Settings_quickRequest": {
-        "message": "聊天里请求字幕按钮激活:"
+    "Settings_showMenu": {
+        "message": "Show the menu bar:"
     },
-    "Settings_quickRequest_tooltip1": {
-        "message": "通过聊天里右边上请求字幕按钮"
+    "Settings_showMenu_tooltip1": {
+        "message": "You can check the subtitles achievement"
     },
-    "Settings_quickRequest_tooltip2": {
-        "message": "可以请求字幕"
+    "Settings_showMenu_tooltip2": {
+        "message": "through the menu bar at the bottom of the video"
     },
     "Notify_unchecked_title": {
         "message": "没读"
@@ -266,7 +266,7 @@
         "message": "You can open the menu again by clicking the SubCloud icon in the extensions toolbar"
     },
     "RequestGauge_gauge": {
-        "message": "Subtitle gauge"
+        "message": "Subtitle Achievement"
     },
     "RequestGauge_request": {
         "message": "Funding"
