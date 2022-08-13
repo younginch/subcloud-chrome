@@ -26,7 +26,7 @@ export default function Popup() {
         setIsLogin(true);
       }
     } catch (error: unknown) {
-      if (error instanceof Error) toast(ToastType.ERROR, error.message);
+      if (error instanceof Error) console.log('server error');
     }
   }
 

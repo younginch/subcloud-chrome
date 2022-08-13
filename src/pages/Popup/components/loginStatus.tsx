@@ -6,6 +6,7 @@ import {
   Link,
   Switch,
 } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { User } from '../../../../utils/type';
 
 type Props = {
@@ -15,6 +16,18 @@ type Props = {
 export default function LoginStatus({ user }: Props) {
   const t = chrome.i18n.getMessage;
   const linkColor = useColorModeValue('blue', 'blue.400');
+  const [barShow, setBarShow] = useState<boolean>(false);
+
+  useEffect(() => {
+    chrome.storage.local.get(['barShow'], (result) => {
+      if (result.barShow !== undefined) setBarShow(result.barShow);
+    });
+  }, []);
+
+  useEffect(() => {
+    chrome.storage.local.set({ barShow });
+  }, [barShow]);
+
   return (
     <>
       <HStack fontSize="15px">
@@ -45,7 +58,12 @@ export default function LoginStatus({ user }: Props) {
       </HStack>
       <HStack>
         <Text fontSize="15px">{t('LoginStatus_showMenu')}</Text>
-        <Switch colorScheme="teal" size="md" />
+        <Switch
+          colorScheme="teal"
+          size="md"
+          onChange={() => setBarShow(!barShow)}
+          isChecked={barShow}
+        />
       </HStack>
       <HStack>
         <Button

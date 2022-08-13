@@ -77,6 +77,26 @@ const loadReview = (subId: string) => {
   }, 100);
 };
 
+const loadGauge = () => {
+  const loadRequestGauge = setInterval(() => {
+    if (
+      componentLoader({
+        parentQuery: 'div.ytd-video-primary-info-renderer#container',
+        targetId: 'subcloud-gauge-component',
+        children: (
+          <chakra-scope>
+            <ChakraProvider theme={theme} resetCSS={false}>
+              <CSSResetCustom />
+              <RequestGauge />
+            </ChakraProvider>
+          </chakra-scope>
+        ),
+      })
+    )
+      clearInterval(loadRequestGauge);
+  }, 100);
+};
+
 const load = () => {
   // Load Toast component
   const loadToast = setInterval(() => {
@@ -142,34 +162,31 @@ const load = () => {
     )
       clearInterval(loadSubtitleComponent);
   }, 100);
-
-  // load Gauge component
-  const loadRequestGauge = setInterval(() => {
-    if (
-      componentLoader({
-        parentQuery: 'div.ytd-video-primary-info-renderer#container',
-        targetId: 'subcloud-gauge-component',
-        children: (
-          <chakra-scope>
-            <ChakraProvider theme={theme} resetCSS={false}>
-              <CSSResetCustom />
-              <RequestGauge />
-            </ChakraProvider>
-          </chakra-scope>
-        ),
-      })
-    )
-      clearInterval(loadRequestGauge);
-  }, 100);
 };
 
 window.onload = load;
+
+chrome.storage.local.get(['barShow'], (result) => {
+  if (result.barShow === true) loadGauge();
+});
+
+chrome.storage.onChanged.addListener((onChanged) => {
+  if (onChanged.barShow !== undefined) {
+    if (onChanged.barShow.newValue === false) {
+      const menuModal = document.getElementById('subcloud-gauge-component');
+      if (menuModal) menuModal.remove();
+    } else loadGauge();
+  }
+});
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   switch (message.tag) {
     case MESSAGETAG.INIT:
       closeMainModal();
       load();
+      chrome.storage.local.get(['barShow'], (result) => {
+        if (result.barShow === true) loadGauge();
+      });
       sendResponse({ data: 'load-done' });
       return true;
     case MESSAGETAG.TOAST:
