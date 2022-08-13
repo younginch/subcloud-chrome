@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from 'react';
 import requestPoint from '../utils/api/requestPoint';
 import video from '../utils/api/video';
+import { getFetch } from '../utils/fetch';
 import getTab from '../utils/getTab';
 import PointGoal from '../utils/pointGoal';
 import toast, { ToastType } from '../utils/toast';
@@ -42,11 +43,15 @@ export default function RequestGauge() {
   const [lang, setLang] = useState<string | undefined>();
   const [videoInfo, setVideoInfo] = useState<Video>();
   const [goalExpr, setGoalExpr] = useState();
+  const [isLogin, setIsLogin] = useState<boolean>(false);
 
   useEffect(() => {
-    fetch('https://strapi.subcloud.app/api/goal-function')
-      .then((res) => res.json())
-      .then((data) => setGoalExpr(data.data.attributes.body));
+    async function getExpr() {
+      fetch('https://strapi.subcloud.app/api/goal-function')
+        .then((res) => res.json())
+        .then((data) => setGoalExpr(data.data.attributes.body));
+    }
+    getExpr();
   }, []);
 
   useEffect(() => {
@@ -54,25 +59,52 @@ export default function RequestGauge() {
   }, [goalExpr, videoInfo]);
 
   useEffect(() => {
+    async function getUserInfo() {
+      try {
+        const { data } = await getFetch('auth/session');
+        if (data && data.user) {
+          setIsLogin(true);
+        }
+      } catch (error: unknown) {
+        if (error instanceof Error) console.log('server error');
+      }
+    }
+
+    async function getPoint() {
+      try {
+        if (isLogin) {
+          const tab = await getTab();
+          const vInfo = await video(tab.url);
+          setVideoInfo(vInfo);
+          const rpoint = await requestPoint(
+            vInfo.serviceId,
+            vInfo.videoId,
+            lang
+          );
+          setPoint(rpoint);
+        }
+      } catch (error: unknown) {
+        if (error instanceof Error) console.log('server error');
+      }
+    }
+
     const init = async () => {
-      const tab = await getTab();
-      const vInfo = await video(tab.url);
-      setVideoInfo(vInfo);
-      const rpoint = await requestPoint(vInfo.serviceId, vInfo.videoId, lang);
-      setPoint(rpoint);
+      await getUserInfo();
+      await getPoint();
     };
     init();
-  }, [goalExpr, lang]);
+  }, [goalExpr, lang, isLogin]);
 
   let color = 'blue';
   if (point >= goal / 2) color = 'purple';
   if (point >= goal) color = 'red';
 
   const handleHide = () => {
+    chrome.storage.local.set({ barShow: false });
     toast(ToastType.INFO, t('RequestGauge_hideToast'), 4000);
   };
 
-  return (
+  return isLogin ? (
     <HStack w="100%">
       <Text color="#00d9d9" fontWeight="bold" fontSize="17px">
         SubCloud
@@ -130,5 +162,7 @@ export default function RequestGauge() {
         <CloseIcon />
       </Button>
     </HStack>
+  ) : (
+    <> </>
   );
 }
