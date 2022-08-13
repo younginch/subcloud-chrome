@@ -44,7 +44,7 @@
         "message": "保存为基本语言"
     },
     "HomeNoSub_point_label": {
-        "message": "点数"
+        "message": "积分"
     },
     "HomeNoSub_button_first": {
         "message": "免费请求"
@@ -53,7 +53,7 @@
         "message": ""
     },
     "HomeNoSub_button_third": {
-        "message": "用点数"
+        "message": "用积分"
     },
     "HomeNoSub_button_end": {
         "message": "字幕"
@@ -149,7 +149,7 @@
         "message": "登录退出"
     },
     "Settings_point": {
-        "message": "点数:"
+        "message": "积分:"
     },
     "Settings_buyBtn": {
         "message": "充电"
@@ -215,13 +215,13 @@
         "message": "自动选择"
     },
     "Settings_showMenu": {
-        "message": "Show the menu bar:"
+        "message": "开下端菜单栏:"
     },
     "Settings_showMenu_tooltip1": {
-        "message": "You can check the subtitles achievement"
+        "message": "通过下端的菜单栏，"
     },
     "Settings_showMenu_tooltip2": {
-        "message": "through the menu bar at the bottom of the video"
+        "message": "可以确认字幕测量度"
     },
     "Notify_unchecked_title": {
         "message": "没读"
@@ -263,13 +263,13 @@
         "message": "专送请求"
     },
     "RequestGauge_hideToast": {
-        "message": "You can open the menu again by clicking the SubCloud icon in the extensions toolbar"
+        "message": "您在右上边的扩展程序可以再打开菜单栏"
     },
     "RequestGauge_gauge": {
-        "message": "Subtitle Gauge"
+        "message": "字幕测量度"
     },
     "RequestGauge_request": {
-        "message": "Fill"
+        "message": "填测量度"
     },
     "ReviewComponent_title": {
         "message": "评价一下字幕"
@@ -296,16 +296,16 @@
         "message" : "登录退出"
     },
     "LoginStatus_point" : {
-        "message" : "拥有的点数:"
+        "message" : "拥有的积分:"
     },
     "LoginStatus_buyBtn" : {
-        "message" : "充电点数"
+        "message" : "充电积分"
     },
     "LoginStatus_showMenu" : {
-        "message" : "Show the menu bar"
+        "message" : "开下端菜单栏"
     },
     "LoginStatus_publicProfile" : {
-        "message" : "公开简介"
+        "message" : "公共简介"
     },
     "LoginStatus_privateProfile" : {
         "message" : "个人简介"
