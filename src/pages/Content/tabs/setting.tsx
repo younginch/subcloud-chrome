@@ -52,7 +52,7 @@ export default function Setting({ user }: Props) {
   const [requestLang, setRequestLang] = useState<string | undefined>();
   const [baseLang, setBaseLang] = useState<string | undefined>();
   const [isQuickSub, setIsQuickSub] = useState<boolean>(false);
-  const [isQuickRequest, setIsQuickRequest] = useState<boolean>(true);
+  const [barShow, setBarShow] = useState<boolean>(true);
 
   const getLangs = async () => {
     const { requestLangs, baseLangs } = await getLang();
@@ -81,7 +81,7 @@ export default function Setting({ user }: Props) {
             'fontColor',
             'fontBorderColor',
             'fontBgColor',
-            'isQuickRequest',
+            'barShow',
             'isQuickSub',
           ],
           (result) => {
@@ -95,8 +95,7 @@ export default function Setting({ user }: Props) {
               setFontBorderColor(result.fontBorderColor);
             if (result.fontBgColor !== undefined)
               setFontBgColor(result.fontBgColor);
-            if (result.isQuickRequest !== undefined)
-              setIsQuickRequest(result.isQuickRequest);
+            if (result.barShow !== undefined) setBarShow(result.barShow);
             if (result.isQuickSub !== undefined)
               setIsQuickSub(result.isQuickSub);
           }
@@ -119,7 +118,7 @@ export default function Setting({ user }: Props) {
         fontColor,
         fontBorderColor,
         fontBgColor,
-        isQuickRequest,
+        barShow,
         isQuickSub,
       });
     } catch (error: unknown) {
@@ -133,7 +132,7 @@ export default function Setting({ user }: Props) {
     fontColor,
     fontBorderColor,
     fontBgColor,
-    isQuickRequest,
+    barShow,
     isQuickSub,
   ]);
 
@@ -355,8 +354,8 @@ export default function Setting({ user }: Props) {
         <Switch
           colorScheme="teal"
           size="lg"
-          isChecked={isQuickRequest}
-          onChange={() => setIsQuickRequest(!isQuickRequest)}
+          isChecked={barShow}
+          onChange={() => setBarShow(!barShow)}
         />
       </SettingRow>
     </Stack>
