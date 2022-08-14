@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "SubCloud - Free community subtitles",
+        "message": "SubCloud - Crowdfunding subtitles",
         "description": "The description of the extension, displayed in the web store."
     },
     "appDesc": {
@@ -270,6 +270,9 @@
     },
     "RequestGauge_request": {
         "message": "Fill"
+    },
+    "RequestGauge_loginBtn": {
+        "message": "Login"
     },
     "ReviewComponent_title": {
         "message": "Review the subtitle"

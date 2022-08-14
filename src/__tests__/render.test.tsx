@@ -598,6 +598,15 @@ describe('Pages and Components', () => {
   });
 
   it('render RequestGauge', async () => {
+    jest.spyOn(chrome.storage.local, 'get').mockImplementationOnce((key, cb) =>
+      cb({
+        barLang: {
+          lang: 'en',
+          url: '',
+        },
+      })
+    );
+
     render(
       <ChakraProvider>
         <RequestGauge />

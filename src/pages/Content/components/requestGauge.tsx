@@ -13,7 +13,6 @@ import DefaultLang from '../utils/api/defaultLang';
 import requestPoint from '../utils/api/requestPoint';
 import video from '../utils/api/video';
 import { getFetch } from '../utils/fetch';
-import getTab from '../utils/getTab';
 import PointGoal from '../utils/pointGoal';
 import toast, { ToastType } from '../utils/toast';
 import SelectLang from './selectLang';
@@ -52,22 +51,6 @@ export default function RequestGauge() {
         .then((res) => res.json())
         .then((data) => setGoalExpr(data.data.attributes.body));
     }
-    async function getLang() {
-      const tab = await getTab();
-      const vInfo = await video(tab.url);
-      setVideoInfo(vInfo);
-      const defaultLang = await DefaultLang(vInfo?.serviceId, vInfo?.videoId);
-      setLang(defaultLang);
-    }
-    getExpr();
-    getLang();
-  }, []);
-
-  useEffect(() => {
-    setGoal(PointGoal(videoInfo?.youtubeVideo?.duration, goalExpr) ?? 100000);
-  }, [goalExpr, videoInfo]);
-
-  useEffect(() => {
     async function getUserInfo() {
       try {
         const { data } = await getFetch('auth/session');
@@ -78,28 +61,49 @@ export default function RequestGauge() {
         if (error instanceof Error) console.log('server error');
       }
     }
+    async function getLang() {
+      const vInfo = await video(window.location.href);
+      setVideoInfo(vInfo);
+      const result = await chrome.storage.local.get(['barLang']);
+      const barLang = result ? result.barLang : undefined;
+      if (barLang && barLang.language && barLang.url === window.location.href) {
+        setLang(barLang.language);
+      } else {
+        const defaultLang = await DefaultLang(vInfo?.serviceId, vInfo?.videoId);
+        setLang(defaultLang);
+      }
+    }
+    const init = async () => {
+      getExpr();
+      await getUserInfo();
+      await getLang();
+    };
+    init();
+  }, []);
 
+  useEffect(() => {
+    setGoal(PointGoal(videoInfo?.youtubeVideo?.duration, goalExpr) ?? 100000);
+  }, [goalExpr, videoInfo]);
+
+  useEffect(() => {
     async function getPoint() {
       try {
-        if (isLogin) {
-          const rpoint = await requestPoint(
-            videoInfo?.serviceId,
-            videoInfo?.videoId,
-            lang
-          );
-          setPoint(rpoint);
-        }
+        if (lang)
+          await chrome.storage.local.set({
+            barLang: { language: lang, url: window.location.href },
+          });
+        const rpoint = await requestPoint(
+          videoInfo?.serviceId,
+          videoInfo?.videoId,
+          lang
+        );
+        setPoint(rpoint);
       } catch (error: unknown) {
         if (error instanceof Error) console.log('server error');
       }
     }
-
-    const init = async () => {
-      await getUserInfo();
-      await getPoint();
-    };
-    init();
-  }, [goalExpr, lang, isLogin, videoInfo]);
+    getPoint();
+  }, [isLogin, lang, videoInfo, goalExpr]);
 
   let color = 'blue';
   if (point >= goal / 2) color = 'purple';
@@ -169,6 +173,18 @@ export default function RequestGauge() {
       </Button>
     </HStack>
   ) : (
-    <> </>
+    <HStack w="100%">
+      <Text color="#00d9d9" fontWeight="bold" fontSize="17px">
+        SubCloud
+      </Text>
+      <Link
+        href={`${API_URL}/auth/signin?callbackUrl=${window.location.href}`}
+        isExternal
+      >
+        <Button colorScheme="green" h="25px" fontSize="13px" borderRadius="7px">
+          {t('RequestGauge_loginBtn')}
+        </Button>
+      </Link>
+    </HStack>
   );
 }

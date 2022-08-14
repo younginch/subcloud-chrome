@@ -103,7 +103,6 @@ export default function Layout() {
         if (videoData?.videoId && videoData?.serviceId) {
           const data = await getSubs(videoData?.videoId, videoData?.serviceId);
           setSubs(data);
-          if (data.length !== 0) setTabIndex(1);
         }
       } catch (error: unknown) {
         if (error instanceof Error) toast(ToastType.ERROR, 'Server error'); // maybe change to console.log or other ways
@@ -292,8 +291,8 @@ export default function Layout() {
                 h="40px"
                 position="relative"
                 cursor="pointer"
-                onClick={() => setTabIndex(4)}
-                color={tabIndex === 4 ? 'blue.500' : 'white'}
+                onClick={() => setTabIndex(3)}
+                color={tabIndex === 3 ? 'blue.500' : 'white'}
               >
                 <BellIcon w="40px" h="40px" color="inherit" />
                 {unreadNotifications.length > 0 && (

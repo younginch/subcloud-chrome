@@ -1,6 +1,6 @@
 {
     "appName": {
-        "message": "SubCloud - 免费社区字幕",
+        "message": "SubCloud - 字幕群众募资",
         "description": "The description of the extension, displayed in the web store."
     },
     "appDesc": {
@@ -270,6 +270,9 @@
     },
     "RequestGauge_request": {
         "message": "填测量度"
+    },
+    "RequestGauge_loginBtn": {
+        "message": "去登录"
     },
     "ReviewComponent_title": {
         "message": "评价一下字幕"
