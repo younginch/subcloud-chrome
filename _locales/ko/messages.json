@@ -1,10 +1,10 @@
 {
     "appName": {
-        "message": "SubCloud - 무료 커뮤니티 자막",
+        "message": "SubCloud - 자막 크라우드펀딩",
         "description": "The description of the extension, displayed in the web store."
     },
     "appDesc": {
-        "message": "유튜브 영상들에 대해 자막을 요청하거나 제작하세요",
+        "message": "유튜브 영상들에 대해 자막을 요청하거나 제작하세요.",
         "description": "The description of the extension, displayed in the web store."
     },
     "Layout_notifyType_announce" : {
@@ -270,6 +270,9 @@
     },
     "RequestGauge_request": {
         "message": "채우기"
+    },
+    "RequestGauge_loginBtn": {
+        "message": "로그인"
     },
     "ReviewComponent_title": {
         "message": "자막을 평가해주세요"

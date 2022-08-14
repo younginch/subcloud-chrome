@@ -233,6 +233,32 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
       return true;
     });
   }
+  if (url && url.includes('https://subcloud.app/video/create?next=request')) {
+    chrome.windows.getAll(
+      {
+        populate: true,
+      },
+      (windows) => {
+        for (let i = 0; i < windows.length; i += 1) {
+          const currentWindow = windows[i];
+          const t = currentWindow.tabs;
+          if (t)
+            for (let j = 0; j < t.length; j += 1) {
+              const { id, url: tabUrl } = t[j];
+              if (id && tabUrl?.includes('https://www.youtube.com/')) {
+                chrome.tabs.sendMessage(id, { tag: MESSAGETAG.INIT }, () => {
+                  const { lastError } = chrome.runtime;
+                  if (lastError) {
+                    chrome.tabs.reload(id);
+                  }
+                  return true;
+                });
+              }
+            }
+        }
+      }
+    );
+  }
 });
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {

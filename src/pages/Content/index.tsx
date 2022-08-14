@@ -77,26 +77,30 @@ const loadReview = (subId: string) => {
 };
 
 const loadGauge = () => {
-  const loadRequestGauge = setInterval(() => {
-    if (
-      componentLoader({
-        parentQueries: [
-          'div.ytd-watch-metadata#title',
-          'div.ytd-video-primary-info-renderer#container',
-        ],
-        targetId: 'subcloud-gauge-component',
-        children: (
-          <chakra-scope>
-            <ChakraProvider theme={theme} resetCSS={false}>
-              <CSSResetCustom />
-              <RequestGauge />
-            </ChakraProvider>
-          </chakra-scope>
-        ),
-      })
-    )
-      clearInterval(loadRequestGauge);
-  }, 100);
+  fetch('https://strapi.subcloud.app/api/extension-config')
+    .then((res) => res.json())
+    .then((data) => {
+      const loadRequestGauge = setInterval(() => {
+        if (
+          componentLoader({
+            parentQueries: data?.data?.attributes?.body?.RequestGauge ?? [
+              'div.ytd-watch-metadata#title',
+              'div.ytd-video-primary-info-renderer#container',
+            ],
+            targetId: 'subcloud-gauge-component',
+            children: (
+              <chakra-scope>
+                <ChakraProvider theme={theme} resetCSS={false}>
+                  <CSSResetCustom />
+                  <RequestGauge />
+                </ChakraProvider>
+              </chakra-scope>
+            ),
+          })
+        )
+          clearInterval(loadRequestGauge);
+      }, 100);
+    });
 };
 
 const load = () => {
@@ -179,6 +183,12 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     case MESSAGETAG.REVIEW:
       loadReview(message.subId);
       sendResponse({ data: 'review' });
+      return true;
+    case MESSAGETAG.LOGIN:
+    case MESSAGETAG.LOGOUT:
+      chrome.storage.local.get(['barShow'], (result) => {
+        if (result.barShow === true) loadGauge();
+      });
       return true;
     default:
       sendResponse({ data: 'load-done' });
