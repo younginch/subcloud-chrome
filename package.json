@@ -1,6 +1,6 @@
 {
   "name": "SubCloud",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "영상에 대해 자막을 요청하거나 제작하세요",
   "license": "MIT",
   "repository": {
