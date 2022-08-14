@@ -64,8 +64,8 @@ export default function RequestGauge() {
     async function getLang() {
       const vInfo = await video(window.location.href);
       setVideoInfo(vInfo);
-      const { barLang } = await chrome.storage.local.get(['barLang']);
-      console.log(barLang);
+      const result = await chrome.storage.local.get(['barLang']);
+      const barLang = result ? result.barLang : undefined;
       if (barLang && barLang.language && barLang.url === window.location.href) {
         setLang(barLang.language);
       } else {
