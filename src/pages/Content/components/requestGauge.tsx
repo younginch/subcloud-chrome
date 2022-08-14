@@ -9,6 +9,7 @@ import {
   Tooltip,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+import DefaultLang from '../utils/api/defaultLang';
 import requestPoint from '../utils/api/requestPoint';
 import video from '../utils/api/video';
 import { getFetch } from '../utils/fetch';
@@ -51,7 +52,15 @@ export default function RequestGauge() {
         .then((res) => res.json())
         .then((data) => setGoalExpr(data.data.attributes.body));
     }
+    async function getLang() {
+      const tab = await getTab();
+      const vInfo = await video(tab.url);
+      setVideoInfo(vInfo);
+      const defaultLang = await DefaultLang(vInfo?.serviceId, vInfo?.videoId);
+      setLang(defaultLang);
+    }
     getExpr();
+    getLang();
   }, []);
 
   useEffect(() => {
@@ -73,12 +82,9 @@ export default function RequestGauge() {
     async function getPoint() {
       try {
         if (isLogin) {
-          const tab = await getTab();
-          const vInfo = await video(tab.url);
-          setVideoInfo(vInfo);
           const rpoint = await requestPoint(
-            vInfo.serviceId,
-            vInfo.videoId,
+            videoInfo?.serviceId,
+            videoInfo?.videoId,
             lang
           );
           setPoint(rpoint);
@@ -93,7 +99,7 @@ export default function RequestGauge() {
       await getPoint();
     };
     init();
-  }, [goalExpr, lang, isLogin]);
+  }, [goalExpr, lang, isLogin, videoInfo]);
 
   let color = 'blue';
   if (point >= goal / 2) color = 'purple';
