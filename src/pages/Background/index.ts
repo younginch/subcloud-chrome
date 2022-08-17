@@ -311,6 +311,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 });
 
 chrome.runtime.onInstalled.addListener(() => {
+  chrome.storage.local.set({ barShow: true });
   chrome.windows.getAll(
     {
       populate: true,
