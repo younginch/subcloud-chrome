@@ -62,15 +62,26 @@ export default function RequestGauge() {
       }
     }
     async function getLang() {
-      const vInfo = await video(window.location.href);
-      setVideoInfo(vInfo);
-      const result = await chrome.storage.local.get(['barLang']);
-      const barLang = result ? result.barLang : undefined;
-      if (barLang && barLang.language && barLang.url === window.location.href) {
-        setLang(barLang.language);
-      } else {
-        const defaultLang = await DefaultLang(vInfo?.serviceId, vInfo?.videoId);
-        setLang(defaultLang);
+      try {
+        const vInfo = await video(window.location.href);
+        setVideoInfo(vInfo);
+        const result = await chrome.storage.local.get(['barLang']);
+        const barLang = result ? result.barLang : undefined;
+        if (
+          barLang &&
+          barLang.language &&
+          barLang.url === window.location.href
+        ) {
+          setLang(barLang.language);
+        } else {
+          const defaultLang = await DefaultLang(
+            vInfo?.serviceId,
+            vInfo?.videoId
+          );
+          setLang(defaultLang);
+        }
+      } catch (error: unknown) {
+        if (error instanceof Error) console.log('server error');
       }
     }
     const init = async () => {
