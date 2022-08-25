@@ -268,7 +268,7 @@ export default function Setting({ user }: Props) {
       >
         <Switch colorScheme="teal" size="lg" disabled />
       </SettingRow>
-      */}
+    */}
       <Divider m="10px !important" w="640px" />
 
       <SettingRow
