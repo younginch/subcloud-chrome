@@ -47,7 +47,10 @@ export default function CheckSubtitle({
 
   const preview = async () => {
     try {
-      if (sub) chrome.storage.local.set({ subtitle: JSON.stringify(sub) });
+      if (sub)
+        chrome.storage.local.set({
+          subtitle: { data: JSON.stringify(sub), url: window.location.href },
+        });
       await toast(ToastType.SUCCESS, 'Preview started');
     } catch (error: unknown) {
       if (error instanceof Error) toast(ToastType.ERROR, `Error at preview`);

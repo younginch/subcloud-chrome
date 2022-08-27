@@ -116,8 +116,7 @@ const load = () => {
     )
       clearInterval(loadToast);
   }, 100);
-  // load Video Bottom Button
-  /*
+
   const loadVideoBottomButton = setInterval(() => {
     if (
       componentLoader({
@@ -138,7 +137,6 @@ const load = () => {
     )
       clearInterval(loadVideoBottomButton);
   }, 100);
-  */
 
   // load subtitle component
   const loadSubtitleComponent = setInterval(() => {
