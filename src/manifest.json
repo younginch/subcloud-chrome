@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
   "name": "__MSG_appName__",
+  "key": "fkmkkggkdibonlkgdnjboagmfgdoagaa",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
   "options_page": "options.html",
