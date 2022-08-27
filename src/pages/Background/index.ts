@@ -233,7 +233,7 @@ chrome.tabs.onUpdated.addListener(async (tabId, changeInfo) => {
       return true;
     });
   }
-  if (url && url.includes('https://subcloud.app/video/create?next=request')) {
+  if (url && url.includes(`${API_URL}/video/create?next=request`)) {
     chrome.windows.getAll(
       {
         populate: true,
