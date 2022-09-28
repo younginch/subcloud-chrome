@@ -39,7 +39,7 @@
     "iso-639-1": "^2.1.15",
     "joi": "^17.6.0",
     "jquery": "^3.6.0",
-    "node-sass": "^7.0.1",
+    "node-sass": "^7.0.3",
     "react": "^18.2.0",
     "react-color": "^2.19.3",
     "react-countdown": "^2.3.2",
